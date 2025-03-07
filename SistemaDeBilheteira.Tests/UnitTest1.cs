@@ -1,8 +1,9 @@
 ﻿namespace SistemaDeBilheteira.Tests;
 
+
 public class UnitTest1
 {
-    [Fact]
+    [Fact(DisplayName = "Cadastrar Nova Bilheteira")]
     public void Test1()
     {
 
