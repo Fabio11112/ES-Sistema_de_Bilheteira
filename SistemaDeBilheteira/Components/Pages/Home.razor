@@ -1,7 +1,27 @@
 ﻿@page "/"
+@using SistemaDeBilheteira.Services.Movies;
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
+<h1>@title</h1>
+<img src="@backdropLink" alt="image"/>
 Welcome to your new app.
+
+@code{
+    string title;
+    string backdropLink = "https://image.tmdb.org/t/p/original";
+    string APIlink = "https://api.themoviedb.org/3/movie/popular";
+    MovieResponse response;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new MovieDeserializer();
+        response = await Task.Run(() =>deserializer.FetchPopularMovies(APIlink));
+        Console.WriteLine(response.Results[0].BackdropPath);
+        backdropLink += response.Results[0].BackdropPath;
+        title = response.Results[0].Title;
+    }
+
+
+
+}
