@@ -1,0 +1,84 @@
+@startuml
+class User {
+  + name: String
+  + id: Integer {unique, readOnly}
+  + email: String {unique, readOnly}
+  - password: String
+}
+
+interface IPurchase {
+  + method(type): type
+}
+
+class Purchase {
+  + id: Integer {unique, readOnly}
+}
+
+abstract class Product {
+  + name: String
+  + id: Integer {unique, readOnly}
+  + price: Decimal
+}
+
+class CinemaTicket {
+  + method(type): type
+}
+class DVD{
+  + shippingAddress : String
+}
+class BluRay {
+  + shippingAddress : String
+}
+class Rental{
+ + rentalPeriod : Integer
+ + expirationDate : Date
+}
+
+class Function {
+  + id: Integer {unique, readOnly}
+  + horario: Date
+  + price: Double
+}
+
+class Movie {
+  + title: String
+  + genre : String
+  + duration: Integer
+}
+
+class Auditory {
+  + id: Integer {unique, readOnly}
+  + number: Integer
+  + numSeats: Integer
+}
+
+class Seat {
+  + column: Integer
+  + row: String
+  + state: Enum
+}
+
+class ShoppingCart{
+ +id : Integer {unique, readOnly}
+ +addProduct(product : Product) : void
+ +removeProduct(product : Product) : void
+ +getTotalPrice() : Decimal
+}
+
+User "1" -- "*" Purchase : makes >
+Purchase "1" -- "*" Product : contains >
+Purchase ..|> IPurchase : implements >
+Movie "1" -- "1..*" Function : contains >
+Function "*" -- "1" Auditory : books >
+Function "1..*" -- "1..*" Seat : books >
+
+CinemaTicket "1" -- "1" Movie : extends >
+
+CinemaTicket --|> Product : extends >
+BluRay --|>  Product: extends  >
+DVD --|>  Product: extends  >
+Rental --|>  Product: extends  >
+
+ShoppingCart "1" -- "*" Product : contains >
+ShoppingCart "1" -- "1" Purchase : makes >
+@enduml
