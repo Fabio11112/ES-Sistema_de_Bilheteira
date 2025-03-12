@@ -3,25 +3,106 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>@title</h1>
-<img src="@backdropLink" alt="image"/>
-Welcome to your new app.
+<h1 class="title">Popular Movies</h1>
 
-@code{
-    string title;
-    string backdropLink = "https://image.tmdb.org/t/p/original";
-    string APIlink = "https://api.themoviedb.org/3/movie/popular";
-    MovieResponse response;
+<div class="movies-container">
+    @if (movies != null && movies.Any())
+    {
+        @foreach (var movie in movies)
+        {
+            <div class="movie-card">
+                <img src="@($"https://image.tmdb.org/t/p/w500{movie.BackdropPath}")" alt="@movie.Title" />
+                <div class="movie-info">
+                    <h2>@movie.Title</h2>
+                    <p class="overview">@movie.Overview</p>
+                    <p class="rating"><strong>⭐ @movie.VoteAverage/10</strong></p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="loading">Loading movies...</p>
+    }
+</div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #121212;
+        color: #fff;
+        margin: 0;
+        padding: 20px;
+    }
+    .title {
+    text-align: center;
+    font-size: 4rem; /* Large font size for emphasis */
+    font-family: 'Montserrat', sans-serif; /* Modern and bold font */
+    font-weight: 700; /* Bold font weight */
+    background: linear-gradient(to right, #00b3b3, #ff0066); /* Neon-like gradient effect */
+    -webkit-background-clip: text;
+    color: transparent; /* Make text color transparent to show gradient */
+    text-transform: uppercase; /* Uppercase for a bold look */
+    letter-spacing: 4px; /* Wider letter spacing for a modern feel */
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 102, 0.8); /* Neon glow effect */
+    margin-bottom: 40px; /* Bottom margin for spacing */
+    padding: 15px 0; /* Top and bottom padding for spacing */
+}
     
+
+    .movies-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+    .movie-card {
+        background-color: #1e1e1e;
+        width: 250px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+    .movie-card:hover {
+        transform: scale(1.05);
+    }
+    .movie-card img {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+    }
+    .movie-info {
+        padding: 15px;
+        text-align: center;
+    }
+    .overview {
+        font-size: 0.9rem;
+        color: #b0b0b0;
+        margin: 10px 0;
+    }
+    .rating {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #f5c518;
+    }
+    .loading {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+</style>
+
+@code {
+    List<Movie> movies = new();
+    string APIlink = "https://api.themoviedb.org/3/movie/popular";
+
     protected override async Task OnInitializedAsync()
     {
         var deserializer = new MovieDeserializer();
-        response = await Task.Run(() =>deserializer.FetchPopularMovies(APIlink));
-        Console.WriteLine(response.Results[0].BackdropPath);
-        backdropLink += response.Results[0].BackdropPath;
-        title = response.Results[0].Title;
+        var response = await Task.Run(() => deserializer.FetchPopularMovies(APIlink));
+        if (response?.Results != null)
+        {
+            movies = response.Results;
+        }
     }
-
-
-
 }
