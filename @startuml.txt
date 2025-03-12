@@ -20,15 +20,22 @@ abstract class Product {
   + price: Decimal
 }
 
+abstract class PhysicalMedia extends Product {
+  + format: String
+  + shippingAddress: String
+}
+
 class CinemaTicket {
   + method(type): type
 }
-class DVD{
-  + shippingAddress : String
+class DVD extends PhysicalMedia {
+  + regionCode: String
 }
-class BluRay {
-  + shippingAddress : String
+
+class BluRay extends PhysicalMedia {
+  + resolution: String
 }
+
 class Rental{
  + rentalPeriod : Integer
  + expirationDate : Date
@@ -75,10 +82,9 @@ Function "1..*" -- "1..*" Seat : books >
 CinemaTicket "1" -- "1" Movie : extends >
 
 CinemaTicket --|> Product : extends >
-BluRay --|>  Product: extends  >
-DVD --|>  Product: extends  >
 Rental --|>  Product: extends  >
 
 ShoppingCart "1" -- "*" Product : contains >
 ShoppingCart "1" -- "1" Purchase : makes >
+User "1" -- "1" ShoppingCart : owns >
 @enduml
