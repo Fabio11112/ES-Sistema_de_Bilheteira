@@ -3,7 +3,7 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1 class="title">Popular Movies</h1>
+<h1 class="title"></h1>
 
 <div class="movies-container">
     @if (movies != null && movies.Any())
@@ -11,7 +11,7 @@
         @foreach (var movie in movies)
         {
             <div class="movie-card">
-                <img src="@($"https://image.tmdb.org/t/p/w500{movie.BackdropPath}")" alt="@movie.Title" />
+                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" />
                 <div class="movie-info">
                     <h2>@movie.Title</h2>
                     <p class="overview">@movie.Overview</p>
@@ -34,31 +34,31 @@
         margin: 0;
         padding: 20px;
     }
+
     .title {
-    text-align: center;
-    font-size: 4rem; /* Large font size for emphasis */
-    font-family: 'Montserrat', sans-serif; /* Modern and bold font */
-    font-weight: 700; /* Bold font weight */
-    background: linear-gradient(to right, #00b3b3, #ff0066); /* Neon-like gradient effect */
-    -webkit-background-clip: text;
-    color: transparent; /* Make text color transparent to show gradient */
-    text-transform: uppercase; /* Uppercase for a bold look */
-    letter-spacing: 4px; /* Wider letter spacing for a modern feel */
-    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 30px rgba(255, 0, 102, 0.8); /* Neon glow effect */
-    margin-bottom: 40px; /* Bottom margin for spacing */
-    padding: 15px 0; /* Top and bottom padding for spacing */
-}
+        text-align: center;
+        font-size: 4rem; /* Large font size for emphasis */
+        font-family: 'Montserrat', sans-serif; /* Modern and bold font */
+        font-weight: 700; /* Bold font weight */
+        background: linear-gradient(to right, #f5c518, orange); /* Neon-like gradient effect */
+        -webkit-background-clip: text;
+        color: transparent; /* Make text color transparent to show gradient */
+        text-transform: uppercase; /* Uppercase for a bold look */
+        letter-spacing: 4px; /* Wider letter spacing for a modern feel */
+        margin-bottom: 40px; /* Bottom margin for spacing */
+        padding: 15px 0; /* Top and bottom padding for spacing */
+    }
     
 
     .movies-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 30px;
         justify-content: center;
     }
     .movie-card {
         background-color: #1e1e1e;
-        width: 250px;
+        width: 400px;
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
@@ -69,7 +69,7 @@
     }
     .movie-card img {
         width: 100%;
-        height: 350px;
+        height: 550px;
         object-fit: cover;
     }
     .movie-info {

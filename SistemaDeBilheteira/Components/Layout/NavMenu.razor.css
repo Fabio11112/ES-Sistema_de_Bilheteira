@@ -89,6 +89,82 @@
     display: block;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+  }
+
+  body {
+    background-color: #0b1120;
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #0b1120;
+  }
+
+  .logo {
+    font-size: 40px;
+    font-weight: 600;
+    color: #f5c518;
+    
+  }
+
+  .logo:hover {
+    box-shadow: #fff;
+    
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    font-size: 40px;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #d1d1e9;
+    font-weight: 300;
+    transition: 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #f5c518;
+    text-size-adjust: 0.5s ease;
+  }
+
+  .search-bar {
+    background-color: #08314a;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search-bar input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    width: 250px;
+    height: 30px;
+  }
+
+  .search-bar input::placeholder {
+    color: #a3b1c6;
+  }
+
+  .search-bar i {
+    color: #a3b1c6;
+  }
+
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
@@ -100,3 +176,5 @@
         overflow-y: auto;
     }
 }
+
+
