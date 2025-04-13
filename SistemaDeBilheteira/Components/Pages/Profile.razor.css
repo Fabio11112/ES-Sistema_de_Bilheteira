@@ -1,0 +1,53 @@
+.background {
+    flex-shrink: 0;
+    background-color: #1A1A1D;
+    box-sizing: border-box;
+}
+
+.profile-background{
+    background-color: #333334;
+    border: 1px solid #000;
+    padding: 100px;
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.profile-picture {
+    flex-shrink: 0;
+    width: 25.5%;
+}
+
+.welcome-message
+{
+    padding-left: 140px;
+    padding-top: 40px;
+    width: 100%;
+}
+
+
+.welcome-title{
+    color: #FFF;
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: block;
+}
+
+.greetings{
+    font-size: 96px;
+}
+
+.welcome{
+    font-size: 128px;
+}
+
+.logout-button
+{
+    padding-top: 10%;
+    position: fixed;
+    width: 6.85%;
+    right: 4.5%;
+    top: 10%;
+}
