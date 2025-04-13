@@ -1,4 +1,3 @@
-
 body {
     font-family: 'Arial', sans-serif;
     background-color: #121212;
@@ -7,59 +6,111 @@ body {
     padding: 20px;
 }
 
-.title {
-    text-align: center;
-    font-size: 4rem; /* Large font size for emphasis */
-    font-family: 'Montserrat', sans-serif; /* Modern and bold font */
-    font-weight: 700; /* Bold font weight */
-    background: linear-gradient(to right, #f5c518, orange); /* Neon-like gradient effect */
-    -webkit-background-clip: text;
-    color: transparent; /* Make text color transparent to show gradient */
-    text-transform: uppercase; /* Uppercase for a bold look */
-    letter-spacing: 4px; /* Wider letter spacing for a modern feel */
-    margin-bottom: 40px; /* Bottom margin for spacing */
-    padding: 15px 0; /* Top and bottom padding for spacing */
+.main-content {
+    padding: 20px;
+    background-color: #111;
+    color: white;
 }
 
+.banner {
+    width: 100%;
+    height: 420px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+}
 
-.movies-container {
+.banner-background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
+    align-items: center;
     justify-content: center;
 }
-.movie-card {
-    background-color: #1e1e1e;
-    width: 400px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease-in-out;
-}
-.movie-card:hover {
-    transform: scale(1.05);
-}
-.movie-card img {
-    width: 100%;
-    height: 550px;
-    object-fit: cover;
-}
-.movie-info {
-    padding: 15px;
-    text-align: center;
-}
-.overview {
-    font-size: 0.9rem;
-    color: #b0b0b0;
-    margin: 10px 0;
-}
-.rating {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #f5c518;
-}
-.loading {
-    text-align: center;
-    font-size: 1.2rem;
+
+.banner-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.3));
+    z-index: 1;
 }
 
+.banner-content {
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.banner-title {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+
+
+.section-title {
+    font-size: 1.5em;
+    color: gold;
+    margin: 20px 0 10px 0;
+}
+
+.movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.movie-carousel.no-scrollbar {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.movie-poster {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover {
+    transform: scale(1.05);
+}
+
+.category-filter {
+    background-color: #1f1f1f;
+    border: 1px solid #666;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 30px 0;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-buttons button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-buttons button:hover {
+    background-color: gold;
+    color: black;
+}

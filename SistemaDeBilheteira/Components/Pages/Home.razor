@@ -2,29 +2,87 @@
 @using SistemaDeBilheteira.Services.Movies;
 
 <PageTitle>Home</PageTitle>
-
-
-<div class="movies-container">
+<main class="main-content">
+  <!-- Principal Banner -->
+  <section class="banner">
     @if (movies != null && movies.Any())
     {
-        @foreach (var movie in movies)
-        {
-            <div class="movie-card">
-                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" />
-                <div class="movie-info">
-                    <h2>@movie.Title</h2>
-                    <p class="overview">@movie.Overview</p>
-                    <p class="rating"><strong>⭐ @movie.VoteAverage/10</strong></p>
-                </div>
-            </div>
-        }
+        var movie = movies.First();
+        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="banner-image" />
+        <h2 class="banner-title">@movie.Title</h2>
     }
     else
     {
-        <p class="loading">Loading movies...</p>
+        <p class="loading">Loading banner...</p>
     }
-</div>
+  </section>
 
+  <!-- Movie Categories -->
+  <section class="movie-section">
+    <h2 class="section-title">Fantasy</h2>
+    <div class="movie-carousel no-scrollbar">
+      @if (movies != null && movies.Any())
+      {
+          @foreach (var movie in movies)
+          {
+              <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+          }
+      }
+      else
+      {
+          <p class="loading">Loading Fantasy movies...</p>
+      }
+    </div>
+  </section>
+    <section class="category-filter"></section>
+    <h2>Category</h2>
+    <div class="category-buttons">
+      <button>Action</button>
+      <button>Sci-fi</button>
+      <button>Suspense</button>
+      <button>Romantic</button>
+      <button>Comedy</button>
+      <button>Fantasy</button>
+      <button>Adventure</button>
+      <button>Thriller</button>
+      <button>Biography</button>
+    </div>
+  </section>
+
+  <section class="movie-section">
+    <h2 class="section-title">Horror</h2>
+    <div class="movie-carousel no-scrollbar">
+      @if (movies != null && movies.Any())
+      {
+          @foreach (var movie in movies)
+          {
+              <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+          }
+      }
+      else
+      {
+          <p class="loading">Loading Horror movies...</p>
+      }
+    </div>
+  </section>
+
+  <section class="movie-section">
+    <h2 class="section-title">Sci-fi</h2>
+    <div class="movie-carousel no-scrollbar">
+      @if (movies != null && movies.Any())
+      {
+          @foreach (var movie in movies)
+          {
+              <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+          }
+      }
+      else
+      {
+          <p class="loading">Loading Sci-fi movies...</p>
+      }
+    </div>
+  </section>
+</main>
 
 @code {
     List<Movie> movies = new();
