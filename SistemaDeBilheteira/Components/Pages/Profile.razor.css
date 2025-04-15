@@ -9,6 +9,7 @@
     border: 1px solid #000;
     padding: 100px;
     display:flex;
+    flex-wrap: wrap;
     flex-direction: row;
     width: 100%;
 }
@@ -22,7 +23,7 @@
 {
     padding-left: 140px;
     padding-top: 40px;
-    width: 100%;
+    width: 50%;
 }
 
 
@@ -45,9 +46,15 @@
 
 .logout-button
 {
-    padding-top: 10%;
-    position: fixed;
+    padding-top: 3%;
+    position: absolute;
     width: 6.85%;
     right: 4.5%;
     top: 10%;
+    cursor: pointer;
+}
+
+.options
+{
+    display: flex;
 }

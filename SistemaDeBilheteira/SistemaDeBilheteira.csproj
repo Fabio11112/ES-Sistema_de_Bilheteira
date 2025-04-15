@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="Toolbelt.AspNetCore.CssLiveReloader" Version="1.1.4" />
     </ItemGroup>
 
     <ItemGroup>

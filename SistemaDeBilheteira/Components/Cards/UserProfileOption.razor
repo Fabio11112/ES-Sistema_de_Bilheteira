@@ -1,0 +1,13 @@
+﻿
+<div onclick="@Method" class="profile-option">
+    <img class="logo" src="@ImageSource" alt=""/>
+    <h1 class="title text">@Title</h1>
+    <h3 class="description text">@Description</h3>
+</div>
+
+@code {
+    [Parameter] public string ImageSource { get; set; } = string.Empty;
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Description { get; set; } = string.Empty;
+    [Parameter] public EventCallback Method { get; set; }
+}
