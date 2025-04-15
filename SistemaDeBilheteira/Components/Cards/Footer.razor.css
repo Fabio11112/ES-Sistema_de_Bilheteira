@@ -21,7 +21,10 @@
 }
 
 .language-block{
-    display:flex;
+    display:inline-flex;
+    background-color: #1A1A1D;
+    margin-left: 12px;
+    padding: 8px;
 }
 
 .language{

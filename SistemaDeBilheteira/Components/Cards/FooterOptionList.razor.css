@@ -19,6 +19,10 @@
     margin: 10px;
 }
 
+.items-list li {
+    margin-bottom: 10px;
+}
+
 .lists {
     margin-left: 5%;
     flex-wrap: wrap;
