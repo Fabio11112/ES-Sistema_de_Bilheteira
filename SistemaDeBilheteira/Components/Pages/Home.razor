@@ -7,18 +7,16 @@
 <img src="@backdropLink" alt="image"/>
 Welcome to your new app.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4KIOLMv2ItI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 @code{
     string title;
     string backdropLink = "https://image.tmdb.org/t/p/original";
-    string APIlink = "https://api.themoviedb.org/3/movie/popular";
-    MovieResponse response;
+    MovieResponse? response;
     
     protected override async Task OnInitializedAsync()
     {
         var deserializer = new MovieDeserializer();
-        response = await Task.Run(() =>deserializer.FetchPopularMovies(APIlink));
+        response = await deserializer.FetchPopularMovies();
         Console.WriteLine(response.Results[0].BackdropPath);
         backdropLink += response.Results[0].BackdropPath;
         title = response.Results[0].Title;

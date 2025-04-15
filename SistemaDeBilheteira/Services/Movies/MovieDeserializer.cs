@@ -1,17 +1,32 @@
-﻿namespace SistemaDeBilheteira.Services.Movies;
+﻿using RestSharp;
+
+namespace SistemaDeBilheteira.Services.Movies;
+using SistemaDeBilheteira.Services.Enviroment;
 
 using Newtonsoft.Json;
 
 public class MovieDeserializer
 {
-    public MovieResponse FetchPopularMovies(string link)
+    private HttpClient Client { get; } = new HttpClient();
+    
+    public async Task<MovieResponse?> FetchPopularMovies()
     {
-        using (var client = new HttpClient())
-        {
-            var endpoint = new Uri(link + "?api_key=" + "88c2011578e30a692349e50d3119755c");
-            var response = client.GetAsync(endpoint).Result;
-            string jsonString = response.Content.ReadAsStringAsync().Result;
-            return JsonConvert.DeserializeObject<MovieResponse>(jsonString);
-        }
+        var options = new RestClientOptions($"{Enviroment.MoviesLink}/popular");
+        var client = new RestClient(options);
+        var request = new RestRequest("");
+        request.AddHeader("accept", "application/json");
+        request.AddHeader("Authorization", $"Bearer {Enviroment.TmdbApiKey}");
+        Console.WriteLine(Enviroment.TmdbApiKey);
+        var response = await client.GetAsync(request);
+
+        
+        var jsonString = response.Content;
+        return jsonString != null ? JsonConvert.DeserializeObject<MovieResponse>(jsonString) : null;
     }
+
+    // public Movie? FetchMovie(int id)
+    // {
+    //     using var client = new HttpClient();
+    //     var endpoint = new Uri();
+    // }
 }
