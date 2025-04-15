@@ -1,0 +1,51 @@
+.footer-background{
+    border-radius: 24px;
+    background-color: #0D0D0D;
+    margin: 15px;
+    padding: 50px;
+}
+.footer-content{
+    display: flex;
+}
+
+.footer-text{
+    font-style: normal;
+    line-height: normal;
+}
+
+.page-name{
+    color: #FFC700;
+    font-family: "Konkhmer Sleokchher", "serif";
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.language-block{
+    display:flex;
+}
+
+.language{
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.lists{
+    margin-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.copyright{
+    margin-top: 3%;
+    bottom: 30px;
+    text-align: center;
+    color: #585858;
+    font-family: Montserrat, serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
