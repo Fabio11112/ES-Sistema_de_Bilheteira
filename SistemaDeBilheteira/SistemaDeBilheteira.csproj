@@ -17,4 +17,8 @@
       <Folder Include="wwwroot\images\profile_pictures\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Cards\Cart\CartElement.razor" />
+    </ItemGroup>
+
 </Project>

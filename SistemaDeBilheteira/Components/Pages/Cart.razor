@@ -1,5 +1,7 @@
 ﻿@page "/Cart"
-@using SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Components.Cards.Cart
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
 
 <div class="background">
     <div class="logo">
@@ -7,12 +9,16 @@
         <div class="title">MY CART</div>
     </div>
     
-    <div class="products">
-        <CartElement></CartElement>
-    </div>
-    
-    <div class="payment">
+    <div class="flex">
+        <div class="products">
+            <CartItemElement></CartItemElement>
+            <CartItemElement></CartItemElement>
+            <CartItemElement></CartItemElement>
+        </div>
         
+        <div class="payment">
+            <PromoCode></PromoCode>
+        </div>
     </div>
 </div>
 

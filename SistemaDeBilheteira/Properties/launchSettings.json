@@ -7,7 +7,10 @@
         "launchBrowser": true,
         "applicationUrl": "http://localhost:5248",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "TMDB_API_KEY": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTcwMTUzMjMwYTg1MTdjNDJmNjIwYzdiYzNiZWYwMCIsIm5iZiI6MTc0MzAwNzIyNi4wMDQ5OTk5LCJzdWIiOiI2N2U0MmRmOWVjOThiZjBhMGQ3NjFkYWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.PbOoXIOv1DhHXPun6PnxgwfgjEbx4Bg5ilWjh7ABw_s",
+          "BACKDROP_LINK": "https://image.tmdb.org/t/p/original",
+          "MOVIES_LINK":"https://api.themoviedb.org/3/movie"
         }
       },
       "https": {
@@ -16,7 +19,10 @@
         "launchBrowser": true,
         "applicationUrl": "https://localhost:7185;http://localhost:5248",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "TMDB_API_KEY": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTcwMTUzMjMwYTg1MTdjNDJmNjIwYzdiYzNiZWYwMCIsIm5iZiI6MTc0MzAwNzIyNi4wMDQ5OTk5LCJzdWIiOiI2N2U0MmRmOWVjOThiZjBhMGQ3NjFkYWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.PbOoXIOv1DhHXPun6PnxgwfgjEbx4Bg5ilWjh7ABw_s",
+          "BACKDROP_LINK": "https://image.tmdb.org/t/p/original",
+          "MOVIES_LINK": "https://api.themoviedb.org/3/movie"
         }
       }
     }

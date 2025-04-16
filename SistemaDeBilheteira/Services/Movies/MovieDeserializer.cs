@@ -11,22 +11,38 @@ public class MovieDeserializer
     
     public async Task<MovieResponse?> FetchPopularMovies()
     {
-        var options = new RestClientOptions($"{Enviroment.MoviesLink}/popular");
+        var response = await GetResponse($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular");
+        if (response == null || string.IsNullOrEmpty(response.Content))
+            return null;
+        return DeserializeMovieResponse(response.Content);
+    }
+
+    public async Task<Movie?> FetchMovie(int id)
+    {
+        var response = await GetResponse($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}");
+        if (response == null || string.IsNullOrEmpty(response.Content))
+            return null;
+        return DeserializeMovie(response.Content);
+    }
+
+    private async Task<RestResponse?> GetResponse(string url)
+    {
+        var options = new RestClientOptions(url);
         var client = new RestClient(options);
         var request = new RestRequest("");
         request.AddHeader("accept", "application/json");
         request.AddHeader("Authorization", $"Bearer {Enviroment.TmdbApiKey}");
-        Console.WriteLine(Enviroment.TmdbApiKey);
-        var response = await client.GetAsync(request);
-
-        
-        var jsonString = response.Content;
-        return jsonString != null ? JsonConvert.DeserializeObject<MovieResponse>(jsonString) : null;
+        return await client.GetAsync(request);
     }
 
-    // public Movie? FetchMovie(int id)
-    // {
-    //     using var client = new HttpClient();
-    //     var endpoint = new Uri();
-    // }
+    private MovieResponse? DeserializeMovieResponse(string? jsonString)
+    {
+        return jsonString != null ? JsonConvert.DeserializeObject<MovieResponse>(jsonString) : null;
+    }
+    
+    private Movie? DeserializeMovie(string? jsonString)
+    {
+        return jsonString != null ? JsonConvert.DeserializeObject<Movie>(jsonString) : null;
+    }
+
 }
