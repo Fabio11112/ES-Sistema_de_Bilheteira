@@ -1,0 +1,128 @@
+@page "/tickets"
+@using SistemaDeBilheteira.Services.Movies;
+
+<PageTitle>Book Your Cinema Experience</PageTitle>
+
+<h1 class="title">Get Your Movie Tickets Now!</h1>
+
+<div class="movies-container">
+    @if (movies != null && movies.Any())
+    {
+        @foreach (var movie in movies)
+        {
+            <div class="movie-card">
+                @* <div class="poster" style="background-image: url('https://image.tmdb.org/t/p/w500@movie.PosterPath');"></div> *@
+                <img class="poster" src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" />
+                <div class="movie-info">
+                    <h2>@movie.Title</h2>
+                    <p class="rating">⭐ @movie.VoteAverage/10</p>
+                    @* <p class="genre">🎬 Genre: @movie.Genre</p> *@
+                    <button class="buy-button" @onclick="() => BuyTicket(movie.Id)">Reserve Seat</button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="loading">Loading the best movies...</p>
+    }
+</div>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #101010;
+        color: #fff;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 3.5rem;
+        color: #f5c518;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+    }
+
+    .movies-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .movie-card {
+        background-color: #1e1e1e;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 15px rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .movie-card:hover {
+        transform: scale(1.05);
+    }
+
+    .poster {
+        height: 450px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .movie-info {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .rating {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #f5c518;
+    }
+
+    .genre {
+        font-size: 0.9rem;
+        color: #aaa;
+    }
+
+    .buy-button {
+        background-color: #e50914;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .buy-button:hover {
+        background-color: #b20710;
+    }
+
+    .loading {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+</style>
+
+@code {
+    List<Movie> movies = new();
+    string APIlink = "https://api.themoviedb.org/3/movie/popular";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new MovieDeserializer();
+        var response = await Task.Run(() => deserializer.FetchPopularMovies(APIlink));
+        if (response?.Results != null)
+        {
+            movies = response.Results;
+        }
+    }
+
+    void BuyTicket(int movieId)
+    {
+        // Process ticket purchase
+        Console.WriteLine($"Ticket reserved for movie ID: {movieId}");
+    }
+}

@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Components\Cards\Cart\CartElement.razor" />
+
     </ItemGroup>
 
 </Project>
