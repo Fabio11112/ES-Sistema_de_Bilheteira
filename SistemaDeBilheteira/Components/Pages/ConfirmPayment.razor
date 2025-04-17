@@ -1,0 +1,31 @@
+﻿@page "/ConfirmPayment"
+@using SistemaDeBilheteira.Components.Cards.Cart
+@using SistemaDeBilheteira.Components.Cards
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
+
+<div class="background">
+    <div class="title">Confirm Payment</div>
+    
+    <div class="flex">
+        
+        <div class="product">
+            <ConfirmPaymentElement></ConfirmPaymentElement>
+        </div>
+
+        <div class="payment">
+            <PromoCode></PromoCode>
+            <PaymentMethodElement></PaymentMethodElement>
+        </div>
+    </div>
+    
+    
+</div>
+
+<Footer></Footer>
+
+
+@code {
+    
+}

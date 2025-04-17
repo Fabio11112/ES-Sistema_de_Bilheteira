@@ -1,0 +1,64 @@
+﻿.element {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+
+
+.content{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text{
+    color: #C4C4C4;
+}
+
+.information{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number{
+    color: #FFF;
+}
+
+.quantity{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image{
+    width: 25%;
+}
+
+.price-details{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.center{
+    margin-top: 8%;
+}
