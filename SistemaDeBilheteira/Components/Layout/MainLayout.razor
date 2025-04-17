@@ -1,4 +1,4 @@
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <div>
     <div>
@@ -6,10 +6,16 @@
     </div>
 
     <main>
+        @using SistemaDeBilheteira.Components.Layout
+        
         <article class="content px-4">
             @Body
         </article>
     </main>
+    
+    <div>
+        <Footer></Footer>
+    </div>
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>

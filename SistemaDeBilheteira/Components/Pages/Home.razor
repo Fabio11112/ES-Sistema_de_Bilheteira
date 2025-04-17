@@ -142,7 +142,7 @@
 
     List<Movie> GetMoviesByGenre(int genreId)
     {
-    return movies?.Where(m => m.GenreIds.Contains(genreId)).ToList() ?? new List<Movie>();
+        return movies?.Where(m => m.GenreIds.Contains(genreId)).ToList() ?? new List<Movie>();
     }
 
   
