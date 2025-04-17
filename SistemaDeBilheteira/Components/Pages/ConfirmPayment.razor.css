@@ -1,0 +1,22 @@
+﻿.background{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+
+.title{
+    text-align: center;
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.flex{
+    display: flex;
+}
+
+.product{
+    margin-right: 20px;
+}

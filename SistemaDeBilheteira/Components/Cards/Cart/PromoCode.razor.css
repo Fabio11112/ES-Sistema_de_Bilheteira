@@ -1,0 +1,63 @@
+﻿.promo{
+    border-radius: 20px;
+    background: #1A1A1D;
+    padding: 20px;
+}
+
+.promo-title{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.promo-input{
+    margin-top: 10px;
+    fill: #333335;
+}
+
+.promo-input {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20%;
+}
+
+.promo-input input {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    background-color: #333;
+    color: white;
+    outline: none;
+}
+
+.promo-input input::placeholder {
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.promo-input button {
+    padding: 15px 25px;
+    background-color: #FFC700;
+    border: none;
+    color: #FEFCFC;
+    font-family: Nunito, serif;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    transition: background-color 0.3s ease;
+}
+
+.promo-input button:hover {
+    background-color: #e6af00;
+}

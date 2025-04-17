@@ -1,0 +1,85 @@
+﻿@page "/Profile"
+@using SistemaDeBilheteira.Components.Cards
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat">
+
+<div class="background">
+    <div class="profile-background">
+        <img  src="images/icons/@_profileImageFile" class="profile-picture" alt="Logo"/>
+        <img @onclick="HandleLogout" src="images/icons/logout.svg" class="logout-button" alt="logout">
+        <div class="welcome-message">
+            <h2 class="welcome-title greetings">Hi, @_userName</h2>
+            <h1 class="welcome-title welcome">Welcome.</h1>
+        </div>
+        
+        <div class="options">
+            <UserProfileOption
+                ImageSource="images/icons/profile/ticket.svg"
+                Title="My Tickets"
+                Description="View, Search and Confirm your tickets"
+                Method="MyTickets">
+
+            </UserProfileOption>
+            
+            <UserProfileOption
+                ImageSource="images/icons/profile/user.svg"
+                Title="Edit Info"
+                Description="Edit your information"
+                Method="EditInfo">
+
+            </UserProfileOption>
+        </div>
+
+        <div class="options">
+            <UserProfileOption
+                ImageSource="images/icons/profile/purchaseHistory.svg"
+                Title="Purchase History"
+                Description="Review your purchase history"
+                Method="PurchaseHistory">
+
+            </UserProfileOption>
+
+            <UserProfileOption
+                ImageSource="images/icons/profile/rentalHistory.svg"
+                Title="Rental History"
+                Description="Info about your rentals"
+                Method="RentalHistory">
+
+            </UserProfileOption>
+        </div>
+        
+    </div>
+    
+    <Footer></Footer>
+</div>
+
+@code {
+    private readonly string _profileImageFile = "profile1.svg";
+    private readonly string _userName = "User";
+
+    private void HandleLogout()
+    {
+        
+    }
+
+    private void MyTickets()
+    {
+        
+    }
+
+    private void EditInfo()
+    {
+        
+    }
+
+    private void PurchaseHistory()
+    {
+        
+    }
+
+    private void RentalHistory()
+    {
+        
+    }
+}

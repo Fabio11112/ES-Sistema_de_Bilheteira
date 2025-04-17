@@ -1,0 +1,28 @@
+﻿.banner{
+    background-color: #FFC700;
+    width: 53.16%;
+    border-radius: 15px;
+    padding: 15%
+}
+
+.projector{
+    width: 40%;
+}
+
+.page-name{
+    color: #1A1A1D;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.description{
+    color: #333335;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
