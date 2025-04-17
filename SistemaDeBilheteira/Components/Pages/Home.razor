@@ -1,5 +1,7 @@
 ﻿@page "/"
 @using SistemaDeBilheteira.Services.Movies;
+@using RestSharp;
+@using Newtonsoft.Json;
 
 <PageTitle>Home</PageTitle>
 <main class="main-content">
@@ -77,7 +79,7 @@
           <button>Biography</button>
         </div>
     </section>
-  
+    
 
   <section class="movie-section">
     <h2 class="section-title">Sci-fi</h2>
@@ -112,21 +114,36 @@
     public const int Biography = 18;
     public const int SciFi = 878;
     public const int Suspense = 9648;
-    string APIlink = "https://api.themoviedb.org/3/movie/popular";
 
     protected override async Task OnInitializedAsync()
+{
+    int totalPagesToLoad = 9; // Number of pages to load to add more movies
+    for (int page = 1; page <= totalPagesToLoad; page++)
     {
-        var deserializer = new MovieDeserializer();
-        var response = await Task.Run(() => deserializer.FetchPopularMovies(APIlink));
-        if (response?.Results != null)
+        string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
+        var options = new RestClientOptions(apiLinkWithPage);
+        var client = new RestClient(options);
+        var request = new RestRequest("");
+        request.AddHeader("accept", "application/json");
+        request.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTcwMTUzMjMwYTg1MTdjNDJmNjIwYzdiYzNiZWYwMCIsIm5iZiI6MTc0MzAwNzIyNi4wMDQ5OTk5LCJzdWIiOiI2N2U0MmRmOWVjOThiZjBhMGQ3NjFkYWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.PbOoXIOv1DhHXPun6PnxgwfgjEbx4Bg5ilWjh7ABw_s");
+        var response = await client.GetAsync(request);
+
+        if (response.IsSuccessful && response.Content != null)
         {
-            movies = response.Results;
+            var movieResponse = JsonConvert.DeserializeObject<MovieResponse>(response.Content);
+            if (movieResponse?.Results != null)
+            {
+                movies.AddRange(movieResponse.Results); // Add movies from the current page
+            }
         }
     }
+}
 
     List<Movie> GetMoviesByGenre(int genreId)
     {
     return movies?.Where(m => m.GenreIds.Contains(genreId)).ToList() ?? new List<Movie>();
     }
 
+  
+    
 }
