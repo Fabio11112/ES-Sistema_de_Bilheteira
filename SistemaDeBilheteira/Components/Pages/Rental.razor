@@ -1,0 +1,128 @@
+@page "/Rental"
+@using SistemaDeBilheteira.Services.Movies;
+
+<PageTitle>Rent Your Favorite Movies</PageTitle>
+
+<h1 class="title">Find Your Next Movie Rental</h1>
+
+<div class="rentals-container">
+    @if (movies != null && movies.Any())
+    {
+        @foreach (var movie in movies)
+        {
+            <div class="rental-card">
+                <img class="poster" src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" />
+                <div class="movie-details">
+                    <h2>@movie.Title</h2>
+                    <p class="description">@movie.Overview</p>
+                    <p class="price">💰 Rent for $3.99</p>
+                    <button class="rent-button" @onclick="() => RentMovie(movie.Id)">Rent Now</button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="loading">Loading the best rentals...</p>
+    }
+</div>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #181818;
+        color: #fff;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 3.5rem;
+        color: #f39c12;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+    }
+
+    .rentals-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .rental-card {
+        background-color: #1e1e1e;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 15px rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .rental-card:hover {
+        transform: scale(1.05);
+    }
+
+    .poster {
+        height: 450px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .movie-details {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .description {
+        font-size: 0.9rem;
+        color: #ccc;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        font-size: 1rem;
+        color: #f39c12;
+        margin-bottom: 15px;
+    }
+
+    .rent-button {
+        background-color: #e67e22;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .rent-button:hover {
+        background-color: #d35400;
+    }
+
+    .loading {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+</style>
+
+@code {
+    List<Movie> movies = new();
+    string APIlink = "https://api.themoviedb.org/3/movie/now_playing";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new MovieDeserializer();
+        var response = await Task.Run(() => deserializer.FetchPopularMovies(APIlink));
+        if (response?.Results != null)
+        {
+            movies = response.Results;
+        }
+    }
+
+    void RentMovie(int movieId)
+    {
+        // Handle movie rental logic
+        Console.WriteLine($"Movie rented with ID: {movieId}");
+    }
+}

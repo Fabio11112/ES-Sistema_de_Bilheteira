@@ -1,0 +1,139 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+.main-content {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+}
+
+.banner {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.banner-wrapper {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.banner-title-overlay {
+    position: absolute;
+    bottom: 30px;
+    left: 20%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.banner-title {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+* {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+.section-title {
+    font-size: 1.5em;
+    color: gold;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.movie-carousel.no-scrollbar {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.movie-poster {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover {
+    transform: scale(1.05);
+}
+
+
+
+
+.category-filter {
+    background-color: #1f1f1f;
+    border: 1px solid gold;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 30px 0;
+    color: gold;
+}
+
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-buttons button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-buttons button:hover {
+    background-color: gold;
+    color: black;
+}
