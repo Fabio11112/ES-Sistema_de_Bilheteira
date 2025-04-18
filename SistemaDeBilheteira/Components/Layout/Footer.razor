@@ -1,0 +1,49 @@
+﻿@using SistemaDeBilheteira.Components.Cards
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Konkhmer+Sleokchher|Montserrat">
+
+
+<div class="footer-background">
+    
+    <div class="footer-content">
+        <div class="first-column">
+            <div class="page-name footer-text">UMAMovies</div>
+            <div class="language-block">
+                <img class="earth" src="images/icons/footer/earthIcon.svg" alt="earth">
+                <div class="language footer-text">@Language</div>
+                <img class="arrow" src="images/icons/footer/arrow.svg" alt="options"/>
+            </div>
+        </div>
+
+        <div class="lists">
+            @for (int i = 0; i < Titles.Count; i++)
+            {
+                <FooterOptionList
+                    TitleList=@Titles[i]
+                    List=@Items[i]></FooterOptionList>
+            }
+        </div>
+    </div>
+
+    <div class="copyright">
+        @@2025 copyright: UMAMovies.com
+    </div>
+
+</div>
+    
+
+
+
+@code {
+    private string Language { get; set; } = "ENGLISH";
+
+    private List<string> Titles { get; set; } = ["Connect Us", "Manage", "Information"];
+
+    private List<List<string>> Items { get; set; } =
+    [
+        ["About", "Contact Us", "Help Center", "Career"],
+        ["Account", "Manage Account", "Buy Gift Card", "Redeem Gift Card"],
+        ["Privacy", "Terms and Conditions", "Cookies", "FAQ"]
+    ];
+
+}

@@ -1,0 +1,40 @@
+﻿@page "/LogIn"
+@using SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Components.Cards.Authentication
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Konkhmer+Sleokchher|Montserrrat">
+
+<div class="background flex">
+    <Banner></Banner>
+
+    <div class="sign-up">
+        <div class="greetings">Hello Again!</div>
+        <div class="get-started">Welcome Back</div>
+
+
+        <form>
+            <div class="flex input-element">
+                <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
+                <input id="full name" type="email" placeholder="EMAIL ADDRESS"/>
+            </div>
+            <div class="flex input-element">
+                <div class="logo"> <img src="images/icons/authentication/email.svg" alt=""/></div>
+                <input id="email" type="password" placeholder="PASSWORD"/>
+            </div>
+
+            <button class="register">LOG IN</button>
+
+        </form>
+    </div>
+
+
+</div>
+
+@code {
+
+}
+
+@code {
+    
+}

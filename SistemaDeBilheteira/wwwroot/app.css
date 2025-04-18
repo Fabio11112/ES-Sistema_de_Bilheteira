@@ -1,5 +1,8 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    flex-shrink: 0;
+    background-color: #1A1A1D;
+    box-sizing: border-box;
 }
 
 a, .btn-link {

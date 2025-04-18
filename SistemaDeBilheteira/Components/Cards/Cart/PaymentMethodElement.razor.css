@@ -1,0 +1,117 @@
+﻿.flex{
+    display: flex;
+}
+
+.payment{
+    padding: 20px;
+    
+    border-radius: 20px;
+    background: #1A1A1D;
+    margin-top: 20px;
+}
+
+.title
+{
+    margin-top: 15px;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.text{
+    color: #FEFCFC;
+    font-style: normal;
+    line-height: normal;
+    
+}
+
+.type{
+    margin-top:20px;
+    font-family: Nunito, serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.input-label{
+    margin-top: 10px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+}
+
+input{
+    width: 100%;
+    background-color: #333335;
+    border-radius: 6px;
+    padding: 7px 10px 7px 10px;
+    color: #FEFCFC;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    
+}
+
+input::placeholder{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.expiration{
+    margin-right:10px;
+}
+
+.card-form{
+    margin-left:10px;
+}
+
+.payment-details{
+    margin-top: 20px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.payment .value{
+    text-align: right;
+    float: right;
+}
+
+.card-detail{
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.checkout{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 12px;
+    background: #FFC700;
+    padding: 15px;
+}
+
+.checkout div{
+    color: #FEFCFC;
+    font-family: Poppins, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.checkout img{
+    width: 30px;
+}

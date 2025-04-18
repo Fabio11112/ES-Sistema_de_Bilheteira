@@ -1,0 +1,87 @@
+﻿.background{
+    background-color: #333334;
+}
+
+.flex{
+    display: flex;
+}
+
+.greetings{
+    color: #FFC700;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.get-started{
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+.user-logo{
+    width: 18px;
+    height: 19px;
+}
+
+.logo{
+    width: 48px;
+    background-color: #000000;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    border-radius: 6px 0 0 6px;
+}
+
+input{
+    background-color: #000000;
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 0 6px 6px 0;
+}
+
+input::placeholder{
+    color: #C4C4C4;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.input-element{
+    margin-top: 6px;
+}
+
+.sign-up{
+    margin-top: 15%;
+    margin-left: 13%;
+}
+
+.register{
+    width: 100%;
+    margin-top: 10%;
+    border-radius: 12px;
+    background: #FFC700;
+    border: none;
+    padding: 12px;
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

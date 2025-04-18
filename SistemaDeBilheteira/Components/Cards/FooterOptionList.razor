@@ -1,0 +1,17 @@
+﻿<div class="lists">
+    <div class="title"> @TitleList</div>
+    <ul class="items-list">
+        @if (List != null)
+        {
+            foreach (var element in List)
+            {
+                <li> @element </li>
+            }
+        }
+    </ul>
+</div>
+
+@code {
+    [Parameter] public string TitleList { get; set; } = string.Empty;
+    [Parameter] public IEnumerable<string>? List { get; set; }
+}
