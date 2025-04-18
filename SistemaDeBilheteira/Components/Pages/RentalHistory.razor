@@ -1,0 +1,44 @@
+﻿@page "/RentalHistory"
+@using SistemaDeBilheteira.Components.Cards.RentalHistory
+
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat|Poppins">
+
+<div class="background">
+    <div class="flex title-logo">
+        <img src="images/icons/rental/rentalHistory.svg" alt=""/>
+        <div class="title">Rental History</div>
+    </div>
+    
+    <div class="elements">
+        <RentalHistoryElement
+            MovieId="950387"
+            ExpireDate="new DateTime(2025, 7, 26)">
+        </RentalHistoryElement>
+        
+        <RentalHistoryElement
+            MovieId="1197306"
+            ExpireDate="new DateTime(2025, 6, 26)">
+        </RentalHistoryElement>
+        
+        <RentalHistoryElement
+            MovieId="1195506"
+            ExpireDate="new DateTime(2025, 1, 26)">
+        </RentalHistoryElement>
+        
+        <RentalHistoryElement
+            MovieId="822119"
+            ExpireDate="new DateTime(2025, 4, 29)">
+        </RentalHistoryElement>
+        
+        <RentalHistoryElement
+            MovieId="1353117"
+            ExpireDate="new DateTime(2026, 1, 26)">
+        </RentalHistoryElement>
+    </div>
+
+</div>
+
+@code{
+
+}

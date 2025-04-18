@@ -1,0 +1,24 @@
+﻿.background{
+    background-color: #333334;
+    padding: 20px;
+}
+
+.flex{
+    display: flex;
+}
+
+.title-logo{
+    justify-content: center;
+}
+
+.title{
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
