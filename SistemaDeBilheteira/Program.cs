@@ -1,4 +1,5 @@
 using SistemaDeBilheteira.Components;
+using SistemaDeBilheteira.Services.Movies;
 using Toolbelt.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddSingleton<MovieDeserializer>();
+builder.Services.AddHttpClient<GenreService>();
+
+
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

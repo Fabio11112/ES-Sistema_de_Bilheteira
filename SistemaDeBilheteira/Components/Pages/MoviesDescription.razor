@@ -1,0 +1,133 @@
+@page "/MoviesDescription/{id:int}"
+@using SistemaDeBilheteira.Services.Movies
+@inject MovieDeserializer MovieDeserializer
+@inject GenreService GenreService
+
+<PageTitle>Movie Description</PageTitle>
+
+<main class="main-content">
+    @if (movie != null)
+    {
+        <section class="banner">
+            <div class="banner-wrapper">
+                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                </div> 
+            </div>
+            <div class="play-button-container">
+                <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
+            </div>
+        </section>
+
+        <section class="movie-details">
+            <div class="movie-details-wrapper">
+                <p class="movie-release-date">
+                    @movie.ReleaseDate.ToString("yyyy-MM-dd") • @movie.Certification • @FormatRuntime(movie.Runtime)
+                </p>
+
+                <div class="genres-container">
+                    @foreach (var genre in genreNames)
+                    {
+                        <span class="genre-badge">@genre</span>
+                    }
+                </div>
+
+                <p class="movie-overview">@movie.Overview</p>
+                
+                <div class="actions-container">
+                    <div class="imdb-rating">
+                        <p class="movie-rating">@Math.Round(movie.VoteAverage, 1)</p>
+                        <p class="imdb-label">IMDB</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <div class="watch-later-button">
+                            <img src="images/icons/MovieDescription/add.svg" alt="Watch later" class="button-icon"/>
+                            <p class="button-text">Watch Later</p>
+                        </div>
+                        <div class="share-button">
+                            <img src="images/icons/MovieDescription/share.svg" alt="Share" class="button-icon"/>
+                            <p class="button-text">Share</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cast-section">
+                    <h3 class="section-title">CAST</h3>
+                    
+                    <div class="actors-grid">
+                        <div class="actor-card">
+                            <div class="actor-image"></div>
+                            <p class="actor-name">Robert Downey Jr.</p>
+                        </div>
+                        
+                        <div class="actor-card">
+                            <div class="actor-image"></div>
+                            <p class="actor-name">Chris Evans</p>
+                        </div>
+                        
+                        <div class="actor-card">
+                            <div class="actor-image"></div>
+                            <p class="actor-name">Scarlett Johansson</p>
+                        </div>
+                        
+                        <div class="actor-card">
+                            <div class="actor-image"></div>
+                            <p class="actor-name">Chris Hemsworth</p>
+                        </div>
+                        
+                        <div class="actor-card">
+                            <div class="actor-image"></div>
+                            <p class="actor-name">Mark Ruffalo</p>
+                        </div>
+                        
+                        <div class="actor-card">
+                            <div class="actor-image"></div>
+                            <p class="actor-name">Jeremy Renner</p>
+                        </div>
+                    </div>
+                    
+                    <div class="purchase-buttons">
+                        <button class="primary-button">BUY TICKET</button>
+                        <button class="secondary-button">BUY/RENT</button>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+</main>
+
+@code {
+    [Parameter] public int id { get; set; }
+
+    private Movie? movie;
+    private List<string> genreNames = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await MovieDeserializer.FetchMovie(id);
+        var allGenres = await GenreService.GetGenresAsync();
+
+        if (movie != null && movie.GenreIds != null)
+        {
+            genreNames = allGenres
+                .Where(g => movie.GenreIds.Contains(g.Id))
+                .Select(g => g.Name)
+                .ToList();
+        }
+    }
+
+    private string FormatRuntime(int runtime)
+    {
+        var hours = runtime / 60;
+        var minutes = runtime % 60;
+        return $"{hours}h {minutes}m";
+    }
+}

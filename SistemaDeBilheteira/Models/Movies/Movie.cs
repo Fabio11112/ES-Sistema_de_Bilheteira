@@ -18,4 +18,11 @@ namespace SistemaDeBilheteira.Models.Movies
         public string Name { get; set; }
         public string ProfilePath { get; set; }
     }
+
+    public class Genre
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+    }
 }

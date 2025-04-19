@@ -3,7 +3,7 @@
 // public class MovieService
 
 // {
-    
+
 //     private readonly HttpClient _httpClient;
 //     private string APIlink = "https://api.themoviedb.org/3/movie/";
 
@@ -18,3 +18,13 @@
 //         return response;
 //     }
 // }
+
+using SistemaDeBilheteira.Models.Movies;
+
+public class MovieWithGenres
+{
+    public Movie Movie { get; set; }
+    public List<string> GenreNames { get; set; }
+}
+
+

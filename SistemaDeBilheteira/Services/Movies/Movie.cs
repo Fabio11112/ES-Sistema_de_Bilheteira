@@ -36,7 +36,7 @@ public class Movie
     public DateTime ReleaseDate { get; set; }
 
     [JsonProperty("title")]
-    public string? Title { get; set; }
+    public string? Title { get; set; } = String.Empty;
 
     [JsonProperty("video")]
     public bool Video { get; set; }
@@ -46,5 +46,12 @@ public class Movie
 
     [JsonProperty("vote_count")]
     public int VoteCount { get; set; }
+
+    [JsonProperty("Runtime")]
+    public int Runtime { get; set; }  // Duración en minutos
+
+    [JsonProperty("Certification")]
+    public string? Certification { get; set; }  // PG-13, R, etc.
+
  
 }

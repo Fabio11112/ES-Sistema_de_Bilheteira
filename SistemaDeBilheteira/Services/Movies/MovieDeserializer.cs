@@ -4,6 +4,8 @@ namespace SistemaDeBilheteira.Services.Movies;
 using SistemaDeBilheteira.Services.Enviroment;
 
 using Newtonsoft.Json;
+using SistemaDeBilheteira.Models.Movies;
+
 
 public class MovieDeserializer
 {
@@ -45,4 +47,26 @@ public class MovieDeserializer
         return jsonString != null ? JsonConvert.DeserializeObject<Movie>(jsonString) : null;
     }
 
+    public static async Task<MovieResponse?> GetPopularMoviesAsync()
+    {
+        string apiUrl = "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+        var options = new RestClientOptions(apiUrl);
+        var client = new RestClient(options);
+        var request = new RestRequest("");
+        request.AddHeader("accept", "application/json");
+        request.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTcwMTUzMjMwYTg1MTdjNDJmNjIwYzdiYzNiZWYwMCIsIm5iZiI6MTc0MzAwNzIyNi4wMDQ5OTk5LCJzdWIiOiI2N2U0MmRmOWVjOThiZjBhMGQ3NjFkYWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.PbOoXIOv1DhHXPun6PnxgwfgjEbx4Bg5ilWjh7ABw_s");
+
+        var response = await client.GetAsync(request);
+
+        if (response.IsSuccessful && response.Content != null)
+        {
+            return JsonConvert.DeserializeObject<MovieResponse>(response.Content);
+        }
+
+        return null;
+    }
+
+
 }
+
+
