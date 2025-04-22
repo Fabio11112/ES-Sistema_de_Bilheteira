@@ -89,8 +89,13 @@
                     </div>
                     
                     <div class="purchase-buttons">
-                        <button class="primary-button">BUY TICKET</button>
-                        <button class="secondary-button">BUY/RENT</button>
+                        <a href="@($"SelectSession/{movie.Id}")" class="poster-wrapper">
+                            <button class="primary-button">BUY TICKET</button>
+                        </a>
+
+                        <a href="@($"SelectSession/{movie.Id}")" class="poster-wrapper">
+                            <button class="secondary-button">BUY/RENT</button>
+                        </a>
                     </div>
                 </div>
                 

@@ -1,0 +1,145 @@
+@page "/SeatSelect/{id:int}"
+@using SistemaDeBilheteira.Services.Movies
+@inject MovieDeserializer MovieDeserializer
+@inject NavigationManager NavigationManager
+@inject GenreService GenreService
+
+<div class="session-selection-container">
+    @if (movie != null)
+    {
+        <section class="banner">
+            <div class="banner-wrapper">
+                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                </div> 
+                <p class="movie-overview">@movie.Overview</p>
+            </div>
+            <div class="play-button-container">
+                <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
+            </div>
+        </section>
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+</div>
+
+
+<div class="seats-container">
+    <div class="seat-selection">
+        <h3 class="seat-selection-title">BUY TICKET</h3>
+        <h3 class="seat-selection-title2">Select a seat</h3>
+            <div class="select-seat-container">     
+                <div class="screen-container">
+                    <img src="images/icons/Seat/Screen.svg" alt="screen" class="screen-icon" />
+                </div>
+                <div class="screen-title">
+                    <h3 class="screen-title">Screen</h3>
+                </div>
+                <div class="seat-map">
+                    @foreach (var row in SeatRows)
+                    {
+                        <div class="seat-row">
+                            @foreach (var seat in row)
+                            {
+                                <button class="seat-button"
+                                        disabled="@seat.IsReserved"
+                                        @onclick="() => ToggleSeatSelection(seat)">
+                                    <img src="@GetSeatImage(seat)" alt="@seat.Label" class="seat-icon" />
+                                </button>
+
+                            }
+                        </div>
+                    }
+                </div>
+                <div class="legend">
+                    <span class="legend-item available">Available</span>
+                    <span class="legend-item reserved">Reserved</span>
+                    <span class="legend-item selected">Selected</span>
+                </div>
+            </div>
+    </div>
+</div>
+        
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Movie? movie;
+    private List<string> genreNames = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await MovieDeserializer.FetchMovie(id);
+        var allGenres = await GenreService.GetGenresAsync();
+
+        if (movie != null && movie.GenreIds != null)
+        {
+            genreNames = allGenres
+                .Where(g => movie.GenreIds.Contains(g.Id))
+                .Select(g => g.Name)
+                .ToList();
+        }
+
+        await base.OnInitializedAsync();
+        await LoadSeats(); // Populate the seat map 
+    }
+
+    private class Seat
+{
+    public string Label { get; set; } = string.Empty;
+    public bool IsReserved { get; set; }
+    public bool IsSelected { get; set; }
+}
+
+private List<List<Seat>> SeatRows = new();
+
+
+private async Task LoadSeats()
+{
+    // Dummy example - replace with API call if needed
+    string[] rowLabels = { "A", "B", "C", "D", "E", "F"  };
+    int seatCount = 9;
+
+    SeatRows.Clear();
+
+    foreach (var rowLabel in rowLabels)
+    {
+        var row = new List<Seat>();
+        for (int i = 1; i <= seatCount; i++)
+        {
+            row.Add(new Seat
+            {
+                Label = $"{rowLabel}{i}",
+                IsReserved = (rowLabel == "A" && i <= 3) || (rowLabel == "C" && i == 6) // Mocked logic
+            });
+        }
+        SeatRows.Add(row);
+    }
+}
+
+private void ToggleSeatSelection(Seat seat)
+{
+    foreach (var row in SeatRows)
+    {
+        foreach (var s in row)
+        {
+            s.IsSelected = false;
+        }
+    }
+
+    seat.IsSelected = true;
+}
+
+private string GetSeatImage(Seat seat)
+{
+    if (seat.IsReserved)
+        return "images/icons/Seat/RedSeat.svg";
+    if (seat.IsSelected)
+        return "images/icons/Seat/WhiteSeat.svg"; // Add this image if you'd like selected state visible
+    return "images/icons/Seat/BlueSeat.svg";
+}
+
+
+}
