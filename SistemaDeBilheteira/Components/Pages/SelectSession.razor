@@ -33,8 +33,7 @@
     <div class="cinema-selector">
         @foreach (var cinema in cinemas)
         {
-            <button class="cinema-option @(selectedCinema == cinema ? "active" : "")" 
-                    @onclick="() => SelectCinema(cinema)">
+            <button class="cinema-option">
                 @cinema
             </button>
         }
@@ -59,12 +58,19 @@
         }
     </div>
 
-    <div class="action-buttons">
-        <button class="primary-button" disabled="@(selectedSession == null)" 
-                @onclick="ProceedToCheckout">
-            CONFIRM SELECTION
-        </button>
-    </div>
+    @if (movie != null)
+    {
+        <div class="action-buttons">
+            <a class="primary-button" href="@($"SeatSelect/{movie.Id}")">
+                CONFIRM SELECTION
+            </a>
+        </div>
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+
 </div>
 
 @code {
@@ -116,7 +122,7 @@
         public string Time { get; set; } = string.Empty;
     }
 
-    private void SelectCinema(string cinema)
+    /*private void SelectCinema(string cinema)
     {
         selectedCinema = cinema;
     }
@@ -151,5 +157,5 @@
                 $"/{selectedSession.DateKey}" +
                 $"/{selectedSession.Time}");
         }
-    }
+    }*/
 }

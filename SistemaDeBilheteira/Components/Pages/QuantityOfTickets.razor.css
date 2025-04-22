@@ -1,0 +1,128 @@
+.movie-info {
+    display: flex;
+    width: 100%;
+    height: 696px;
+    background-color: rgba(88, 88, 88, 0.40);
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.movie-details {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.people-going {
+    width: 870px;
+    height: 578px;
+    border-radius: 0px 15px 0px 0px;
+    background: #1B1717;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.continue-container {
+    width: 100%;
+    height: 118px;
+    background: #2B2F38;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 40px;
+}
+
+.primary-button {
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.primary-button:hover {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+}
+
+.movie-title {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.date, .time {
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher";
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.cinema, .location, .room {
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher";
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.people-going-text {
+    color: #FFF;
+    font-family: "Montserrat";
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.counter-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.counter-box {
+    width: 200px;
+    height: 200px;
+    background-color: #888;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30%;
+}
+
+.number-display {
+    font-size: 100px;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.counter-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.arrow-button {
+    background-color: #E8DCDC;
+    border: none;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.arrow-button:hover {
+    background-color: #cfcfcf;
+}
+
