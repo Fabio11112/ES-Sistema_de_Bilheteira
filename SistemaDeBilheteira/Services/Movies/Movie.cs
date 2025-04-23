@@ -50,8 +50,8 @@ public class Movie
     [JsonProperty("Runtime")]
     public int Runtime { get; set; }  // Duración en minutos
 
-    [JsonProperty("Certification")]
-    public string? Certification { get; set; }  // PG-13, R, etc.
+    [JsonProperty("certification")]
+    public string? certification { get; set; }  // PG-13, R, etc.
 
  
 }
