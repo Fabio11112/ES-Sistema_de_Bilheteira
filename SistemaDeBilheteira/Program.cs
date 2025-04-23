@@ -1,5 +1,6 @@
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.Database.Context;
+using SistemaDeBilheteira.Services.Database.Repositories;
 using Toolbelt.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
+builder.Services.AddSingleton<IRepositoryFactory, RepositoryFactory>();
 
 var app = builder.Build();
 

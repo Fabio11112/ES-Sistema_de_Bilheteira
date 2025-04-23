@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Context;
 
-namespace SistemaDeBilheteira.Services.Database.Entities.Repositories;
+namespace SistemaDeBilheteira.Services.Database.Repositories;
 
 public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IRepository<TEntity> where TEntity : DbItem
 {
