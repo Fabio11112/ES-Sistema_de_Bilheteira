@@ -1,5 +1,21 @@
-﻿<h3>TicketHistory</h3>
+﻿@page "/TicketHistory"
+@using SistemaDeBilheteira.Components.Cards;
 
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat">
+<PageTitle>Ticket History</PageTitle>
+<div class="background">
+    <div class="logo">
+        <img class="ticket-image" src="images/icons/profile/ticket.svg" alt="cart"/>
+        <div class="title">TICKET HISTORY</div>
+    </div>
+
+    <div class="products">
+        <TicketHistoryItem></TicketHistoryItem>
+        <TicketHistoryItem></TicketHistoryItem>
+        <TicketHistoryItem></TicketHistoryItem>
+    </div>
+</div>
 @code {
     
 }

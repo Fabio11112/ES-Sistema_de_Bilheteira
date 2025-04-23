@@ -1,5 +1,121 @@
-﻿<h3>UserInfoItem</h3>
+﻿@using SistemaDeBilheteira.Services.Movies
+
+<div class="title">User Info</div>
+<p class="subtitle">Here you can modify your data</p>
+<div class="input-container">
+    <img src="images/icons/email.svg" alt="email" class="input-icon" />
+    <div class="input-content">
+        <label for="email" class="input-label">EMAIL ADDRESS</label>
+        <input type="email" id="email" class="input-fields" placeholder="Enter your email" />
+    </div>
+</div>
+<div class="input-container">
+    <img src="images/icons/lock.svg" alt="email" class="input-icon" />
+    <div class="input-content">
+        <label for="oldPass" class="input-label">OLD PASSWORD</label>
+        <input type="oldPass" id="oldPass" class="input-fields" placeholder="Enter your old password" />
+    </div>
+    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
+</div>
+
+<div class="input-container">
+    <img src="images/icons/lock.svg" alt="lock" class="input-icon" />
+    <div class="input-content">
+        <label for="newPass" class="input-label">NEW PASSWORD</label>
+        <input type="newPass" id="password" class="input-fields" placeholder="Enter your password" />
+        @*<input @bind="Password" id="password" class="input-field" placeholder="Enter your password" type="@PasswordInputType" />*@
+    </div>
+    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
+</div>
+
+<div class="input-container">
+    <img src="images/icons/lock.svg" alt="email" class="input-icon" />
+    <div class="input-content">
+        <label for="conPass" class="input-label">CONFIRM NEW PASSWORD</label>
+        <input type="conPass" id="conPass" class="input-fields" placeholder="Confirm new password" />
+    </div>
+    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
+</div>
+
+<EditForm Model="CardModel" OnValidSubmit="HandleSubmit">
+    <div class="form-container">
+        <h2 class="title">Card Info</h2>
+        <p class="subtitle">Here you can add another Card</p>
+
+        <input class="input-field" placeholder="NAME ON CARD" @bind="CardModel.NameOnCard" />
+        <input class="input-field" placeholder="CARD NUMBER" @bind="CardModel.CardNumber" />
+
+        <div class="row">
+            <input class="input-field half" placeholder="CVV" @bind="CardModel.CVV" />
+            <input class="input-field half" placeholder="EXP. DATE" @bind="CardModel.ExpDate" />
+        </div>
+
+        <button class="submit-button" type="submit">Add Card</button>
+    </div>
+</EditForm>
+
+
+
+@*<div class="input-container">
+    <img src="images/icons/lock.svg" alt="lock" class="input-icon" />
+    <div class="input-content">
+        <label class="input-label">@Label</label>
+        <input
+            class="input-field"
+            type="@PasswordType"
+            @bind="@Value"
+            placeholder="@Placeholder" />
+    </div>
+    <img src="@EyeIcon" alt="toggle" class="toggle-password" @onclick="ToggleVisibility" />
+</div>*@
+
+
+
 
 @code {
     
+    private CardInfo CardModel = new();
+
+    private void HandleSubmit()
+    {
+        // Aquí puedes guardar los datos o hacer validaciones adicionales
+    }
+
+    public class CardInfo
+    {
+        public string NameOnCard { get; set; } = string.Empty;
+        public string CardNumber { get; set; } = string.Empty;
+        public string CVV { get; set; } = string.Empty;
+        public string ExpDate { get; set; } = string.Empty;
+    }
+    @*
+    [Parameter] public string Label { get; set; } = "Password";
+    [Parameter] public string Placeholder { get; set; } = "";
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    private bool IsVisible { get; set; } = false;
+
+    private string PasswordType => IsVisible ? "text" : "password";
+    private string EyeIcon => IsVisible ? "images/icons/eye-closed.svg" : "images/icons/eye-icon.svg";
+
+    private async Task ToggleVisibility()
+    {
+        IsVisible = !IsVisible;
+        await ValueChanged.InvokeAsync(Value);
+    }
+    
+    
+    private string Password { get; set; } = string.Empty;
+
+    private bool ShowPassword { get; set; } = false;
+
+    private string PasswordInputType => ShowPassword ? "text" : "password";
+
+    private string EyeIcon => ShowPassword ? "images/icons/eye-closed.svg" : "images/icons/eye-icon.svg";
+
+    private void TogglePasswordVisibility()
+    {
+        ShowPassword = !ShowPassword;
+    }*@
 }

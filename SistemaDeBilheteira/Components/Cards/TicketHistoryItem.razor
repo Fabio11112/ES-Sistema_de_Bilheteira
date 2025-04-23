@@ -1,5 +1,52 @@
-﻿<h3>TicketHistoryItem</h3>
+﻿@using SistemaDeBilheteira.Services.Movies
+<div class="element">
+    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
+    <div>
+        <div class="content">
+            <div class="movie-information">
+                <div class="movie-name">@Movie?.Title</div>
+                <div class="text information">Type @Type</div>
+                <div class="text information">@Stock</div>
+            </div>
+            <div class="price-details">
+                <div class="detail">
+                    <div class="text information">Each</div>
+                    <div class="number information">@Currency@Price</div>
+                </div>
+                <div class="detail">
+                    <div class="text information">Quantity</div>
+                    <div class="number information quantity">@Quantity</div>
+                </div>
+                <div class="detail">
+                    <div class="text information">Total</div>
+                    <div class="number information">@Currency@Price</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <div class="button">Edit</div>
+            <div class="button">Remove</div>
+            <div class="button">Move to Wishlist</div>
+        </div>
+    </div>
+</div>
 
 @code {
+    private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
+    
+    private string Type { get; set; } = "Rental";
+    private double Price { get; set; } = 10.25;
+    private string Currency { get; set; } = "€";
+    private string Stock { get; set; } = "In Stock";
+    private Movie? Movie { get; set; }
+    private int Quantity { get; set; } = 2;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new MovieDeserializer();
+        Movie = await deserializer.FetchMovie(324544);
+        PosterPath += Movie?.PosterPath;
+    }
     
 }

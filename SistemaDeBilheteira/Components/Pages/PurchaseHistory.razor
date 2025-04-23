@@ -1,69 +1,25 @@
 ﻿@page "/PurchaseHistory"
-@using SistemaDeBilheteira.Services.Movies;
 @using SistemaDeBilheteira.Components.Cards;
-<NavBar />
 
-<Card Title=""></Card>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat">
 <PageTitle>Purchase History</PageTitle>
-<h1>@MovieTitle</h1>
-<h1>@typeof(PurchaseHistoryItem)</h1>
-<h1>@foreach ( var item in purchaseHistory)
-    {
-        <div>
-            <h2>@item.MovieTitle</h2>
-            <p>Price: @item.Price</p>
-            <p>Quantity: @item.Quantity</p>
-            <p>Total Price: @item.TotalPrice</p>
-            <p>Purchase Date: @item.PurchaseDate.ToShortDateString()</p>
-        </div>
-    }</h1>
-@*<img src="@backdropLink" alt="image"/>*@
-
-
+<div class="background">
+    <div class="logo">
+        <img class="purchase-image" src="images/icons/purchase/purchase.svg" alt="cart"/>
+        <div class="title">PURCHASE HISTORY</div>
+    </div>
+    
+    <div class="products">
+        <PurchaseHistoryItem></PurchaseHistoryItem>
+        <PurchaseHistoryItem></PurchaseHistoryItem>
+        <PurchaseHistoryItem></PurchaseHistoryItem>
+    </div>
+</div>
+    
 
 @code {
     
-    string MovieTitle;
-    @*string backdropLink = "https://image.tmdb.org/t/p/original";*@
-    string APIlink = "https://api.themoviedb.org/3/movie/popular";
-    MovieResponse response;
     
-    protected override async Task OnInitializedAsync()
-    {
-        var deserializer = new MovieDeserializer();
-        response = await Task.Run(() => deserializer.FetchPopularMovies(APIlink));
-        Console.WriteLine(response.Results[0].BackdropPath);
-        //backdropLink += response.Results[0].BackdropPath;
-        //title = response.Results[0].Title;
-    }
-    // Simulate fetching purchase history
-    public List<PurchaseHistoryItem> purchaseHistory = new List<PurchaseHistoryItem>
-    {
-        new PurchaseHistoryItem
-        {
-            MovieTitle = "Movie 1",
-            Price = 10.00m,
-            Quantity = 2,
-            TotalPrice = 20.00m,
-            PurchaseDate = DateTime.Now.AddDays(-1)
-        },
-        new PurchaseHistoryItem
-        {
-            MovieTitle = "Movie 2",
-            Price = 15.00m,
-            Quantity = 1,
-            TotalPrice = 15.00m,
-            PurchaseDate = DateTime.Now.AddDays(-2)
-        }
-    };
-
-    public class PurchaseHistoryItem
-    {
-        public string MovieTitle { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public decimal TotalPrice { get; set; }
-        public DateTime PurchaseDate { get; set; }
-    }
 
 }
