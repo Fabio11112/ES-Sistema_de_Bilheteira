@@ -188,8 +188,8 @@
 /* Estilos para la sección de reparto */
 .cast-section {
     margin-top: 50px;
-    padding: 0 20px;
-    height: 400px;
+    padding: 20px;
+    height: auto;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -239,7 +239,7 @@
 .purchase-buttons {
     display: flex;
     gap: 20px;
-    margin-top: 30px;
+    margin-top: 40px;
     justify-content: center;
 }
 
@@ -288,3 +288,4 @@
     overflow: hidden;
 
 }
+

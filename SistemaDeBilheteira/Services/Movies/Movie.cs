@@ -73,3 +73,21 @@ public class MovieCredits
         [JsonProperty("cast")]
         public List<Actor> Cast { get; set; } = new();
     }
+
+public class MovieVideosResponse
+{
+    [JsonProperty("results")]
+    public List<Video>? Results { get; set; }  
+}
+
+public class Video
+{
+    [JsonProperty("key")]
+    public string? Key { get; set; }
+
+    [JsonProperty("site")]
+    public string? Site { get; set; }
+
+    [JsonProperty("type")]
+    public string? Type { get; set; }
+}

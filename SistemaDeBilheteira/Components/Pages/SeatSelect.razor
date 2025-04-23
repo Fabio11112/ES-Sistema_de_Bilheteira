@@ -69,18 +69,19 @@
                 </div>
             </div>
         </div>
+        
+    </div>
+    <div class="prim-buttons">
         @if (movie != null)
-        {
-            <div class="action-buttons">
-                <a class="primary-button" href="@($"QuantityOfTickets/{movie.Id}")">
-                    CONFIRM SELECTION
+            {
+                <a class="" href="@($"QuantityOfTickets/{movie.Id}")">
+                    <button class="primary-button">CONFIRM SELECTION</button>
                 </a>
-            </div>
-        }
-        else
-        {
-            <p class="loading">Loading movie details...</p>
-        }
+            }
+            else
+            {
+                <p class="loading">Loading movie details...</p>
+            }
     </div>
 </div>
 

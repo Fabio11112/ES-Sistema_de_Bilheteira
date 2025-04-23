@@ -77,6 +77,31 @@ public class MovieDeserializer
         return credits?.Cast;
     }
 
+public async Task<string?> FetchMovieTrailerKey(int movieId)
+    {
+        var client = new RestClient($"https://api.themoviedb.org/3/movie/{movieId}/videos");
+        var request = new RestRequest();
+        request.AddHeader("accept", "application/json");
+        request.AddHeader("Authorization", $"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTcwMTUzMjMwYTg1MTdjNDJmNjIwYzdiYzNiZWYwMCIsIm5iZiI6MTc0MzAwNzIyNi4wMDQ5OTk5LCJzdWIiOiI2N2U0MmRmOWVjOThiZjBhMGQ3NjFkYWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.PbOoXIOv1DhHXPun6PnxgwfgjEbx4Bg5ilWjh7ABw_s");
+
+        var response = await client.GetAsync(request);
+
+        if (response != null && response.IsSuccessful && !string.IsNullOrEmpty(response.Content))
+        {
+            var videos = JsonConvert.DeserializeObject<MovieVideosResponse>(response.Content);
+            var trailer = videos?.Results?.FirstOrDefault(v =>
+                v.Type == "Trailer" &&
+                v.Site == "YouTube" &&
+                !string.IsNullOrEmpty(v.Key));
+
+            return trailer?.Key;
+        }
+
+        return null;
+    }
+
+    
+
 
 
 }
