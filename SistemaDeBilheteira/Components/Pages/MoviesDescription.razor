@@ -57,35 +57,30 @@
                     <h3 class="section-title">CAST</h3>
                     
                     <div class="actors-grid">
-                        <div class="actor-card">
-                            <div class="actor-image"></div>
-                            <p class="actor-name">Robert Downey Jr.</p>
-                        </div>
-                        
-                        <div class="actor-card">
-                            <div class="actor-image"></div>
-                            <p class="actor-name">Chris Evans</p>
-                        </div>
-                        
-                        <div class="actor-card">
-                            <div class="actor-image"></div>
-                            <p class="actor-name">Scarlett Johansson</p>
-                        </div>
-                        
-                        <div class="actor-card">
-                            <div class="actor-image"></div>
-                            <p class="actor-name">Chris Hemsworth</p>
-                        </div>
-                        
-                        <div class="actor-card">
-                            <div class="actor-image"></div>
-                            <p class="actor-name">Mark Ruffalo</p>
-                        </div>
-                        
-                        <div class="actor-card">
-                            <div class="actor-image"></div>
-                            <p class="actor-name">Jeremy Renner</p>
-                        </div>
+                        @if (actors != null && actors.Count > 0)
+                        {
+                            @foreach (var actor in actors.Take(6))
+                            {
+                                <div class="actor-card">
+                                    <div class="actor-image">
+                                        @if (!string.IsNullOrEmpty(actor.ProfilePath))
+                                        {
+                                            <img src="@($"https://image.tmdb.org/t/p/w185{actor.ProfilePath}")" alt="@actor.Name" class="actor"/>
+                                        }
+                                        else
+                                        {
+                                            <img src="images/placeholder-actor.png" alt="No image available" />
+                                        }
+                                    </div>
+                                    <p class="actor-name">@actor.Name</p>
+                                    <p class="actor-character">@actor.Character</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No cast available.</p>
+                        }
                     </div>
                     
                     <div class="purchase-buttons">
@@ -93,13 +88,11 @@
                             <button class="primary-button">BUY TICKET</button>
                         </a>
 
-                        <a href="@($"SelectSession/{movie.Id}")" class="poster-wrapper">
+                        <a href="@($"SelectType/{movie.Id}")" class="poster-wrapper">
                             <button class="secondary-button">BUY/RENT</button>
                         </a>
                     </div>
-                </div>
-                
-                
+                </div>  
             </div>
         </section>
     }
@@ -114,11 +107,13 @@
 
     private Movie? movie;
     private List<string> genreNames = new();
+    private List<Actor>? actors;
 
     protected override async Task OnInitializedAsync()
     {
         movie = await MovieDeserializer.FetchMovie(id);
         var allGenres = await GenreService.GetGenresAsync();
+        actors = await MovieDeserializer.FetchMovieActors(id);
 
         if (movie != null && movie.GenreIds != null)
         {

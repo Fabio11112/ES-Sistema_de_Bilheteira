@@ -2,7 +2,7 @@
 
 namespace SistemaDeBilheteira.Services.Movies;
 using SistemaDeBilheteira.Services.Enviroment;
-
+    
 using Newtonsoft.Json;
 using SistemaDeBilheteira.Models.Movies;
 
@@ -65,6 +65,18 @@ public class MovieDeserializer
 
         return null;
     }
+
+    public async Task<List<Actor>?> FetchMovieActors(int movieId)
+    {
+        var response = await GetResponse($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{movieId}/credits");
+        
+        if (response == null || string.IsNullOrEmpty(response.Content))
+            return null;
+
+        var credits = JsonConvert.DeserializeObject<MovieCredits>(response.Content);
+        return credits?.Cast;
+    }
+
 
 
 }

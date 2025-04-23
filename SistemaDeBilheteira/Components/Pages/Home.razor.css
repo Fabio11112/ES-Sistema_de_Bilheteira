@@ -17,6 +17,8 @@ body {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    transition: transform 0.5s;
+
 }
 
 .banner-wrapper {
@@ -26,6 +28,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
 }
 
 .banner-image {
@@ -69,8 +72,6 @@ body {
 }
 
 
-
-
 .section-title {
     font-size: 1.5em;
     color: gold;
@@ -104,6 +105,9 @@ body {
     transform: scale(1.05);
 }
 
+.banner:hover {
+    transform: scale(1.05);
+}
 
 
 

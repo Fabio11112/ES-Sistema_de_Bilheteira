@@ -12,8 +12,9 @@
                 <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
                 <div class="banner-title-overlay">
                     <h2 class="banner-title">@movie.Title</h2>
+                    <p class="movie-overview">@movie.Overview</p>
                 </div> 
-                <p class="movie-overview">@movie.Overview</p>
+                
             </div>
             <div class="play-button-container">
                 <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>

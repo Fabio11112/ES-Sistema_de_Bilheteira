@@ -12,7 +12,10 @@
           var movie = movies.First();
 
           <div class="banner-wrapper">
-              <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+              <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+              </a>
+              
               <div class="banner-title-overlay">
                   <h2 class="banner-title">@movie.Title</h2>
               </div>
