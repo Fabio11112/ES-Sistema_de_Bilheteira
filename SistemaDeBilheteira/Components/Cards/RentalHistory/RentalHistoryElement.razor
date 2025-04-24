@@ -1,4 +1,5 @@
 ﻿@using System.Runtime.InteropServices.JavaScript
+@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
 <div class="element">
     <div class="flex">
@@ -41,8 +42,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var deserializer = new MovieDeserializer();
-        Movie = await deserializer.FetchMovie(MovieId);
+        string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");
+        var deserializer = new Deserializer<Movie>();
+        Movie = await deserializer.Fetch($"{url}/{1197306}")!;
         PosterPath += Movie?.PosterPath;
         IsExpiredCss = DateTime.Now < ExpireDate ? "" : "expired";
     }

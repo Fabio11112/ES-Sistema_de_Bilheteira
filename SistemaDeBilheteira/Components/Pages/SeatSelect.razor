@@ -1,8 +1,8 @@
 @page "/SeatSelect/{id:int}"
+@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
-@inject MovieDeserializer MovieDeserializer
+
 @inject NavigationManager NavigationManager
-@inject GenreService GenreService
 
 <div class="session-selection-container">
     @if (movie != null)
@@ -14,7 +14,7 @@
                     <h2 class="banner-title">@movie.Title</h2>
                     <p class="movie-overview">@movie.Overview</p>
 
-                </div> 
+                </div>
             </div>
             <div class="play-button-container">
                 <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
@@ -31,7 +31,7 @@
     <div class="seat-selection">
         <h3 class="seat-selection-title">BUY TICKET</h3>
         <h3 class="seat-selection-title2">Select a seat</h3>
-        <div class="select-seat-container">     
+        <div class="select-seat-container">
             <div class="screen-container">
                 <img src="images/icons/Seat/Screen.svg" alt="screen" class="screen-icon" />
             </div>
@@ -69,7 +69,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <div class="prim-buttons">
         @if (movie != null)
@@ -92,16 +92,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        movie = await MovieDeserializer.FetchMovie(id);
-        var allGenres = await GenreService.GetGenresAsync();
+        var movieDeserializer = new Deserializer<Movie>();
+        string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");
+        movie = await movieDeserializer.Fetch($"{url}/{id}");
+        
 
-        if (movie != null && movie.GenreIds != null)
-        {
-            genreNames = allGenres
-                .Where(g => movie.GenreIds.Contains(g.Id))
-                .Select(g => g.Name)
-                .ToList();
-        }
 
         await LoadSeats();
     }
@@ -140,7 +135,7 @@
     private void ToggleSeatSelection(Seat seat)
     {
         if (seat.IsReserved) return;
-        
+
         // Clear previous selection
         foreach (var row in SeatRows)
         {

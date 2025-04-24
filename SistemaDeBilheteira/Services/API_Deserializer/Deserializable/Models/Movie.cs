@@ -1,4 +1,6 @@
-﻿namespace SistemaDeBilheteira.Services.Movies;
+﻿using SistemaDeBilheteira.Services.API_Deserializer;
+
+namespace SistemaDeBilheteira.Services.Movies;
 
 using Newtonsoft.Json;
 
@@ -56,38 +58,5 @@ public class Movie
  
 }
 
-public class Actor
-{
-    [JsonProperty("name")]
-    public string Name { get; set; }
 
-    [JsonProperty("character")]
-    public string Character { get; set; }
 
-    [JsonProperty("profile_path")]
-    public string ProfilePath { get; set; }
-}
-
-public class MovieCredits
-    {
-        [JsonProperty("cast")]
-        public List<Actor> Cast { get; set; } = new();
-    }
-
-public class MovieVideosResponse
-{
-    [JsonProperty("results")]
-    public List<Video>? Results { get; set; }  
-}
-
-public class Video
-{
-    [JsonProperty("key")]
-    public string? Key { get; set; }
-
-    [JsonProperty("site")]
-    public string? Site { get; set; }
-
-    [JsonProperty("type")]
-    public string? Type { get; set; }
-}

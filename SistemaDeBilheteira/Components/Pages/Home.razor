@@ -2,75 +2,76 @@
   @using SistemaDeBilheteira.Services.Movies;
   @using RestSharp;
   @using Newtonsoft.Json;
+@using SistemaDeBilheteira.Services.API_Deserializer
 
   <PageTitle>Home</PageTitle>
-  <main class="main-content">
+<main class="main-content">
     <!-- Principal Banner -->
     <section class="banner">
-      @if (movies != null && movies.Any())
-      {
-          var movie = movies.First();
+        @if (Movies != null && Movies.Any())
+        {
+            var movie = Movies.First();
 
-          <div class="banner-wrapper">
-              <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
-              </a>
+            <div class="banner-wrapper">
+                <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                    <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                </a>
               
-              <div class="banner-title-overlay">
-                  <h2 class="banner-title">@movie.Title</h2>
-              </div>
-          </div>
-      }
-      else
-      {
-          <p class="loading">Loading banner...</p>
-      }
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p class="loading">Loading banner...</p>
+        }
     </section>
 
 
     <!-- Movie Categories -->
     <section class="movie-section">
-      <h2 class="section-title">Fantasy</h2>
-      <div class="movie-carousel no-scrollbar">
-        @if (movies != null && movies.Any())
-        {
-            @foreach (var movie in GetMoviesByGenre(Fantasy))
+        <h2 class="section-title">Fantasy</h2>
+        <div class="movie-carousel no-scrollbar">
+            @if (Movies != null && Movies.Any())
             {
-              <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
-              </a>
+                @foreach (var movie in GetMoviesByGenre("Fantasy"))
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
 
+                }
             }
-        }
-        else
-        {
-            <p class="loading">Loading Fantasy movies...</p>
-        }
-      </div>
+            else
+            {
+                <p class="loading">Loading Fantasy movies...</p>
+            }
+        </div>
     </section>
 
     <section class="movie-section">
-      <h2 class="section-title">Horror</h2>
-      <div class="movie-carousel no-scrollbar">
-        @if (movies != null && movies.Any())
-        {
-            @foreach (var movie in GetMoviesByGenre(Horror))
+        <h2 class="section-title">Horror</h2>
+        <div class="movie-carousel no-scrollbar">
+            @if (Movies != null && Movies.Any())
             {
-                <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
-              </a>
+                @foreach (var movie in GetMoviesByGenre("Horror"))
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
+                }
             }
-        }
-        else
-        {
-            <p class="loading">Loading Horror movies...</p>
-        }
-      </div>
+            else
+            {
+                <p class="loading">Loading Horror movies...</p>
+            }
+        </div>
     </section>
 
-      <section class="category-filter">
+    <section class="category-filter">
         <h2 class="Category-title">Category</h2>
-          <div class="category-buttons">
+        <div class="category-buttons">
             <button>Action</button>
             <button>Sci-fi</button>
             <button>Suspense</button>
@@ -80,72 +81,82 @@
             <button>Adventure</button>
             <button>Thriller</button>
             <button>Biography</button>
-          </div>
-      </section>
+        </div>
+    </section>
       
 
     <section class="movie-section">
-      <h2 class="section-title">Sci-fi</h2>
+        <h2 class="section-title">Sci-fi</h2>
         <div class="movie-carousel no-scrollbar">
-          @if (movies != null && movies.Any())
-          {
-              @foreach (var movie in GetMoviesByGenre(SciFi))
+            @if (Movies != null && Movies.Any())
+            {
+                @foreach (var movie in GetMoviesByGenre("Science Fiction"))
               
-              {
-                  <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                  <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
-                </a>
-              }
-          }
-          else
-          {
-              <p class="loading">Loading Sci-fi movies...</p>
-          }
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
+                }
+            }
+            else
+            {
+                <p class="loading">Loading Sci-fi movies...</p>
+            }
         </div>
     </section>
-  </main>
+</main>
 
-  @code {
-      List<Movie> movies = new();
-      public const int Fantasy = 14;
-      public const int Horror = 27;
-      public const int Action = 28;
-      public const int Comedy = 35;
-      public const int Romance = 10749;
-      public const int Thriller = 53;
-      public const int Adventure = 12;
-      public const int Biography = 18;
-      public const int SciFi = 878;
-      public const int Suspense = 9648;
+
+
+@code {
+
+
+    List<Movie>? Movies { get; set; } = new List<Movie>();
+    Response<Genre>? Genres { get; set; }
+
+    public const int TOTAL_PAGES = 9;
+    //List<Movie> movies = new();
+      // public const int Fantasy = 14;
+      // public const int Horror = 27;
+      // public const int Action = 28;
+      // public const int Comedy = 35;
+      // public const int Romance = 10749;
+      // public const int Thriller = 53;
+      // public const int Adventure = 12;
+      // public const int Biography = 18;
+      // public const int SciFi = 878;
+      // public const int Suspense = 9648;
 
       protected override async Task OnInitializedAsync()
   {
-      int totalPagesToLoad = 9; // Number of pages to load to add more movies
-      for (int page = 1; page <= totalPagesToLoad; page++)
+      var movieDeserializer = new Deserializer<Response<Movie>>();
+      var genreDeserializer = new Deserializer<Response<Genre>>();
+
+      //string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular";
+      string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+
+      //Movies = await movieDeserializer.Fetch(movieUrl)!;
+      Genres = await genreDeserializer.Fetch(genreUrl)!;
+
+      //var movieGenres = Genres.Results.Where(item => Movies.Results.GenreIds.Contains(item.Id)).ToList();
+      
+      
+
+      for (int page = 1; page <= TOTAL_PAGES; page++)
       {
-
           string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
-          var options = new RestClientOptions(apiLinkWithPage);
-          var client = new RestClient(options);
-          var request = new RestRequest("");
-          request.AddHeader("accept", "application/json");
-          request.AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTcwMTUzMjMwYTg1MTdjNDJmNjIwYzdiYzNiZWYwMCIsIm5iZiI6MTc0MzAwNzIyNi4wMDQ5OTk5LCJzdWIiOiI2N2U0MmRmOWVjOThiZjBhMGQ3NjFkYWYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.PbOoXIOv1DhHXPun6PnxgwfgjEbx4Bg5ilWjh7ABw_s");
-          var response = await client.GetAsync(request);
 
-          if (response.IsSuccessful && response.Content != null)
-          {
-              var movieResponse = JsonConvert.DeserializeObject<MovieResponse>(response.Content);
-              if (movieResponse?.Results != null)
-              {
-                  movies.AddRange(movieResponse.Results); // Add movies from the current page
-              }
-          }
+          var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
+          if(movies != null)
+            Movies?.AddRange(movies.Results);
       }
   }
 
-      List<Movie> GetMoviesByGenre(int genreId)
+      List<Movie> GetMoviesByGenre(string genre)
       {
-          return movies?.Where(m => m.GenreIds.Contains(genreId)).ToList() ?? new List<Movie>();
+          var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+          
+          return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
       }
 
   }

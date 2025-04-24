@@ -2,6 +2,7 @@
 @using SistemaDeBilheteira.Services.Movies;
 @using RestSharp;
 @using Newtonsoft.Json;
+@using SistemaDeBilheteira.Services.API_Deserializer
 
 <PageTitle>Kids</PageTitle>
 
@@ -45,7 +46,7 @@
 
             if (response.IsSuccessful && response.Content != null)
             {
-                var movieResponse = JsonConvert.DeserializeObject<MovieResponse>(response.Content);
+                var movieResponse = JsonConvert.DeserializeObject<Response<Movie>>(response.Content);
                 if (movieResponse?.Results != null)
                 {
                     movies.AddRange(movieResponse.Results); // Add movies from the current page

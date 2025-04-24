@@ -1,21 +1,20 @@
 @page "/MoviesDescription/{id:int}"
+@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
-@inject MovieDeserializer MovieDeserializer
-@inject GenreService GenreService
 
 <PageTitle>Movie Description</PageTitle>
 
 <main class="main-content">
-    @if (movie != null)
+    @if (Movie != null)
     {
         <section class="banner">
             <div class="banner-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <img src="@($"https://image.tmdb.org/t/p/w1280{Movie.BackdropPath}")" alt="@Movie.Title" class="banner-image" />
                 <div class="banner-title-overlay">
-                    <h2 class="banner-title">@movie.Title</h2>
+                    <h2 class="banner-title">@Movie.Title</h2>
                 </div> 
             </div>
-            <a class="play-button-container" href="https://www.youtube.com/watch?v=@youtubeTrailerKey" target="_blank" rel="noopener noreferrer">
+            <a class="play-button-container" href="https://www.youtube.com/watch?v=@Trailers?.Results[0].Key" target="_blank" rel="noopener noreferrer">
                 <img src="images/icons/MovieDescription/play.svg" alt="Play Trailer" class="play-icon" />
             </a>
 
@@ -24,7 +23,7 @@
         <section class="movie-details">
             <div class="movie-details-wrapper">
                 <p class="movie-release-date">
-                    @movie.ReleaseDate.ToString("yyyy-MM-dd") • @movie.certification • @FormatRuntime(movie.Runtime)
+                    @Movie.ReleaseDate.ToString("yyyy-MM-dd") • @Movie.certification • @FormatRuntime(Movie.Runtime)
                 </p>
 
                 <div class="genres-container">
@@ -34,11 +33,11 @@
                     }
                 </div>
 
-                <p class="movie-overview">@movie.Overview</p>
+                <p class="movie-overview">@Movie.Overview</p>
                 
                 <div class="actions-container">
                     <div class="imdb-rating">
-                        <p class="movie-rating">@Math.Round(movie.VoteAverage, 1)</p>
+                        <p class="movie-rating">@Math.Round(Movie.VoteAverage, 1)</p>
                         <p class="imdb-label">IMDB</p>
                     </div>
                     
@@ -58,9 +57,9 @@
                     <h3 class="section-title">CAST</h3>
                     
                     <div class="actors-grid">
-                        @if (actors != null && actors.Count > 0)
+                        @if (Actors?.Results is { Count: > 0 })
                         {
-                            @foreach (var actor in actors.Take(6))
+                            @foreach (var actor in Actors.Results.Take(6))
                             {
                                 <div class="actor-card">
                                     <div class="actor-image">
@@ -86,11 +85,11 @@
                 </div> 
 
                 <div class="purchase-buttons">
-                    <a href="@($"SelectSession/{movie.Id}")">
+                    <a href="@($"SelectSession/{Movie.Id}")">
                         <button class="primary-button">BUY TICKET</button>
                     </a>
 
-                    <a href="@($"SelectType/{movie.Id}")">
+                    <a href="@($"SelectType/{Movie.Id}")">
                         <button class="secondary-button">BUY/RENT</button>
                     </a>
                 </div> 
@@ -102,69 +101,38 @@
         <p class="loading">Loading movie details...</p>
     }
 
-    @* @if (showTrailerModal && !string.IsNullOrEmpty(youtubeTrailerKey))
-    {
-        <div class="trailer-modal">
-            <div class="modal-overlay" @onclick="CloseTrailer"></div>
-            <div class="modal-content">
-                <button class="close-button" @onclick="CloseTrailer">×</button>
-                <iframe width="100%" height="500px"
-                        src="https://www.youtube.com/embed/@(youtubeTrailerKey)?autoplay=1"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen>
-                </iframe>
-            </div>
-            
-        </div>
-    } *@
+
 </main>
     
 @code {
     [Parameter] public int id { get; set; }
-
-    private Movie? movie;
+    
+    private Movie? Movie;
     private List<string> genreNames = new();
-    private List<Actor>? actors;
-    private string? youtubeTrailerKey;  
+    private Response<Actor>? Actors;
+    private Response<Video>? Trailers;  
     private bool showTrailerModal = false;
 
     protected override async Task OnInitializedAsync()
     {
-        movie = await MovieDeserializer.FetchMovie(id);
-        var allGenres = await GenreService.GetGenresAsync();
-        actors = await MovieDeserializer.FetchMovieActors(id);
-        youtubeTrailerKey = await MovieDeserializer.FetchMovieTrailerKey(id);  
+        var movieDeserializer = new Deserializer<Movie>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
+        var actorDeserializer = new Deserializer<Response<Actor>>();
+        var videoDeserializer = new Deserializer<Response<Video>>();
 
-        Console.WriteLine($"Trailer Key: {youtubeTrailerKey}");
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        string? genresUrl = Environment.GetEnvironmentVariable("GENRES_LINK");
+        
+        Movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
+        Actors = await actorDeserializer.Fetch($"{movieUrl}/{id}/cast")!;
+        
+        var allGenres = await genreDeserializer.Fetch(genresUrl);
 
-
-        if (movie != null && movie.GenreIds != null)
-        {
-            genreNames = allGenres
-                .Where(g => movie.GenreIds.Contains(g.Id))
-                .Select(g => g.Name)
-                .ToList();
-        }
+        
+        Trailers = await videoDeserializer.Fetch($"{movieUrl}/{id}/videos")!;  
+        
     }
-
-    private void PlayTrailer()
-    {
-        if (!string.IsNullOrEmpty(youtubeTrailerKey))
-        {
-            showTrailerModal = true;
-        }
-        else
-        {
-            Console.WriteLine("No trailer available for this movie.");
-        }
-    }
-
-    private void CloseTrailer()
-    {
-        showTrailerModal = false;
-    }
-
+    
     private string FormatRuntime(int runtime)
     {
         var hours = runtime / 60;
