@@ -3,6 +3,7 @@
     display: flex;
 }
 
+
 main {
     flex: 1;
 }
@@ -94,4 +95,15 @@ main {
         position: absolute;
         right: 0.75rem;
         top: 0.5rem;
+    }
+
+    * {
+        opacity: 0;
+        animation: fadeIn 0.8s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
     }
