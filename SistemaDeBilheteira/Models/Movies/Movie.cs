@@ -11,11 +11,20 @@ namespace SistemaDeBilheteira.Models.Movies
         public DateTime? ReleaseDate { get; set; }
         public List<string> Genres { get; set; } = new();
         public List<Actor> Cast { get; set; } = new();
+        public string CertificationDescription { get; set; } // G, PG, PG-13, R, NC-17, Unrated
     }
 
     public class Actor
+{
+    public string Name { get; set; }
+    public string Character { get; set; }
+    public string ProfilePath { get; set; }
+}
+
+    public class Genre
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
-        public string ProfilePath { get; set; }
     }
 }

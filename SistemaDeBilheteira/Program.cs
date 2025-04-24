@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
+using SistemaDeBilheteira.Services.Movies;
 using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
+
 using Toolbelt.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddSingleton<MovieDeserializer>();
+builder.Services.AddHttpClient<GenreService>();
+
+
+
+
+
 
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();

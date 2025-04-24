@@ -1,0 +1,174 @@
+@page "/MoviesDescription/{id:int}"
+@using SistemaDeBilheteira.Services.Movies
+@inject MovieDeserializer MovieDeserializer
+@inject GenreService GenreService
+
+<PageTitle>Movie Description</PageTitle>
+
+<main class="main-content">
+    @if (movie != null)
+    {
+        <section class="banner">
+            <div class="banner-wrapper">
+                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                </div> 
+            </div>
+            <a class="play-button-container" href="https://www.youtube.com/watch?v=@youtubeTrailerKey" target="_blank" rel="noopener noreferrer">
+                <img src="images/icons/MovieDescription/play.svg" alt="Play Trailer" class="play-icon" />
+            </a>
+
+        </section>
+
+        <section class="movie-details">
+            <div class="movie-details-wrapper">
+                <p class="movie-release-date">
+                    @movie.ReleaseDate.ToString("yyyy-MM-dd") • @movie.certification • @FormatRuntime(movie.Runtime)
+                </p>
+
+                <div class="genres-container">
+                    @foreach (var genre in genreNames)
+                    {
+                        <span class="genre-badge">@genre</span>
+                    }
+                </div>
+
+                <p class="movie-overview">@movie.Overview</p>
+                
+                <div class="actions-container">
+                    <div class="imdb-rating">
+                        <p class="movie-rating">@Math.Round(movie.VoteAverage, 1)</p>
+                        <p class="imdb-label">IMDB</p>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <div class="watch-later-button">
+                            <img src="images/icons/MovieDescription/add.svg" alt="Watch later" class="button-icon"/>
+                            <p class="button-text">Watch Later</p>
+                        </div>
+                        <div class="share-button">
+                            <img src="images/icons/MovieDescription/share.svg" alt="Share" class="button-icon"/>
+                            <p class="button-text">Share</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cast-section">
+                    <h3 class="section-title">CAST</h3>
+                    
+                    <div class="actors-grid">
+                        @if (actors != null && actors.Count > 0)
+                        {
+                            @foreach (var actor in actors.Take(6))
+                            {
+                                <div class="actor-card">
+                                    <div class="actor-image">
+                                        @if (!string.IsNullOrEmpty(actor.ProfilePath))
+                                        {
+                                            <img src="@($"https://image.tmdb.org/t/p/w185{actor.ProfilePath}")" alt="@actor.Name" class="actor"/>
+                                        }
+                                        else
+                                        {
+                                            <img src="images/placeholder-actor.png" alt="No image available" />
+                                        }
+                                    </div>
+                                    <p class="actor-name">@actor.Name</p>
+                                    <p class="actor-character">@actor.Character</p>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No cast available.</p>
+                        }
+                    </div>
+                </div> 
+
+                <div class="purchase-buttons">
+                    <a href="@($"SelectSession/{movie.Id}")">
+                        <button class="primary-button">BUY TICKET</button>
+                    </a>
+
+                    <a href="@($"SelectType/{movie.Id}")">
+                        <button class="secondary-button">BUY/RENT</button>
+                    </a>
+                </div> 
+            </div>
+        </section>
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+
+    @* @if (showTrailerModal && !string.IsNullOrEmpty(youtubeTrailerKey))
+    {
+        <div class="trailer-modal">
+            <div class="modal-overlay" @onclick="CloseTrailer"></div>
+            <div class="modal-content">
+                <button class="close-button" @onclick="CloseTrailer">×</button>
+                <iframe width="100%" height="500px"
+                        src="https://www.youtube.com/embed/@(youtubeTrailerKey)?autoplay=1"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media"
+                        allowfullscreen>
+                </iframe>
+            </div>
+            
+        </div>
+    } *@
+</main>
+    
+@code {
+    [Parameter] public int id { get; set; }
+
+    private Movie? movie;
+    private List<string> genreNames = new();
+    private List<Actor>? actors;
+    private string? youtubeTrailerKey;  
+    private bool showTrailerModal = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        movie = await MovieDeserializer.FetchMovie(id);
+        var allGenres = await GenreService.GetGenresAsync();
+        actors = await MovieDeserializer.FetchMovieActors(id);
+        youtubeTrailerKey = await MovieDeserializer.FetchMovieTrailerKey(id);  
+
+        Console.WriteLine($"Trailer Key: {youtubeTrailerKey}");
+
+
+        if (movie != null && movie.GenreIds != null)
+        {
+            genreNames = allGenres
+                .Where(g => movie.GenreIds.Contains(g.Id))
+                .Select(g => g.Name)
+                .ToList();
+        }
+    }
+
+    private void PlayTrailer()
+    {
+        if (!string.IsNullOrEmpty(youtubeTrailerKey))
+        {
+            showTrailerModal = true;
+        }
+        else
+        {
+            Console.WriteLine("No trailer available for this movie.");
+        }
+    }
+
+    private void CloseTrailer()
+    {
+        showTrailerModal = false;
+    }
+
+    private string FormatRuntime(int runtime)
+    {
+        var hours = runtime / 60;
+        var minutes = runtime % 60;
+        return $"{hours}h {minutes}m";
+    }
+}
