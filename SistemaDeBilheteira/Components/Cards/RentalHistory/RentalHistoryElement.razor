@@ -1,0 +1,49 @@
+﻿@using System.Runtime.InteropServices.JavaScript
+@using SistemaDeBilheteira.Services.Movies
+<div class="element">
+    <div class="flex">
+        <img class="image" src="@PosterPath" alt="@Movie?.Title"/>
+        <div>
+            <div class="flex information">
+                <div class="title-type">
+                    <div class="movie-title @IsExpiredCss">@Movie?.Title</div>
+                    <div class="rental">Type Rental</div>
+                </div>
+                
+                <div class="flex">
+                    <div class="total">Total</div>
+                    <div class="price">@Currency @Price</div>
+                </div>
+            </div>
+            <div class="dates flex">
+                <div class="initial date">Initial Date: @InitialDate.ToString("dd/MM/yyyy")</div>
+                <div class="date @IsExpiredCss">Expire Date: @ExpireDate.ToString("dd/MM/yyyy")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    
+    [Parameter] public int MovieId { get; set; }
+    [Parameter] public DateTime ExpireDate { get; set; }
+    
+    private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
+    private Movie? Movie { get; set; }
+
+    private string Currency { get; } = "€";
+    private double Price { get; } = 12.55;
+
+    private DateTime InitialDate { get; } = new DateTime(2024, 5, 24);
+
+    private string? IsExpiredCss { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new MovieDeserializer();
+        Movie = await deserializer.FetchMovie(MovieId);
+        PosterPath += Movie?.PosterPath;
+        IsExpiredCss = DateTime.Now < ExpireDate ? "" : "expired";
+    }
+}

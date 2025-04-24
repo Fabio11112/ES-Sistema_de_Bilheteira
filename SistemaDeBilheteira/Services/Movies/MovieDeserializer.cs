@@ -9,7 +9,6 @@ using SistemaDeBilheteira.Models.Movies;
 
 public class MovieDeserializer
 {
-    private HttpClient Client { get; } = new HttpClient();
     
     public async Task<MovieResponse?> FetchPopularMovies()
     {
