@@ -2,8 +2,7 @@
 @using DotNetEnv
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
-@inject Deserializer<Movie> MovieDeserializer
-@inject GenreService GenreService
+
 
 @if (movie != null)
 {
@@ -56,8 +55,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        string url = Environment.GetEnvironmentVariable("")
-        movie = await MovieDeserializer.FetchMovie(id);
+        var deserializer = new Deserializer<Movie>();
+        string url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
+        movie = await deserializer.Fetch(url)!;
+        
+        
+        
         var allGenres = await GenreService.GetGenresAsync();
 
         if (movie?.GenreIds != null)

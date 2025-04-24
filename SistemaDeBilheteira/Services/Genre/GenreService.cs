@@ -46,12 +46,5 @@ public class GenreResponse
     public List<Genre> Genres { get; set; } = new();
 }
 
-public class Genre
-{
-    [JsonProperty("id")]
-    public int Id { get; set; }
 
-    [JsonProperty("name")]
-    public string Name { get; set; } = string.Empty;
-}
 

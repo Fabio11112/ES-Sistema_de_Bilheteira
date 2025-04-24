@@ -6,7 +6,7 @@ namespace SistemaDeBilheteira.Services.API_Deserializer;
 
 
 
-public abstract class Deserializer<T> : IDeserializer<T> where T : IDeserializable
+public class Deserializer<T> : IDeserializer<T>
 {
     public async Task<T?>? Fetch(string url)
     {
