@@ -1,7 +1,7 @@
 ﻿@page "/PurchaseHistory"
 @using SistemaDeBilheteira.Services.Movies;
 @using SistemaDeBilheteira.Components.Cards;
-<NavBar />
+
 
 <Card Title=""></Card>
 <PageTitle>Purchase History</PageTitle>
@@ -31,7 +31,7 @@
     protected override async Task OnInitializedAsync()
     {
         var deserializer = new MovieDeserializer();
-        response = await Task.Run(() => deserializer.FetchPopularMovies(APIlink));
+        response = await Task.Run(() => deserializer.FetchPopularMovies());
         Console.WriteLine(response.Results[0].BackdropPath);
         //backdropLink += response.Results[0].BackdropPath;
         //title = response.Results[0].Title;
