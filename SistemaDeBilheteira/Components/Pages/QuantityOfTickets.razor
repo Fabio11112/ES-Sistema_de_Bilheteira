@@ -1,7 +1,8 @@
 @page "/QuantityOfTickets/{id:int}"
+@using DotNetEnv
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
-@inject MovieDeserializer MovieDeserializer
+@inject Deserializer<Movie> MovieDeserializer
 @inject GenreService GenreService
 
 @if (movie != null)
@@ -55,6 +56,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        string url = Environment.GetEnvironmentVariable("")
         movie = await MovieDeserializer.FetchMovie(id);
         var allGenres = await GenreService.GetGenresAsync();
 

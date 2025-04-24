@@ -1,8 +1,10 @@
-﻿namespace SistemaDeBilheteira.Services.Movies;
+﻿using SistemaDeBilheteira.Services.API_Deserializer;
+
+namespace SistemaDeBilheteira.Services.Movies;
 
 using Newtonsoft.Json;
 
-public class Movie
+public class Movie : IDeserializable
 {
 
     [JsonProperty("adult")]
