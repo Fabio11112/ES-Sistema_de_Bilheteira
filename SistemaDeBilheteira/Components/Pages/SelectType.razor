@@ -113,7 +113,7 @@
         var movieDeserializer = new Deserializer<Movie>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
         
-        string? movieUrl = Environment.GetEnvironmentVariable("MOVIE_LINK");
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
         
         //

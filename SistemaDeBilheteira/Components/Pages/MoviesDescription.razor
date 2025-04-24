@@ -2,8 +2,6 @@
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
-@using Actor = SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models.Actor
-@using Genre = SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models.Genre
 
 <PageTitle>Movie Description</PageTitle>
 
@@ -131,21 +129,7 @@
         
         Movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
         Actors = await actorDeserializer.Fetch($"{movieUrl}/{id}/credits")!;
-        foreach (var actor in Actors.Cast)
-            {
-                Console.WriteLine($"Actor: {actor.Name}, ProfilePath: {actor.ProfilePath}");
-            }
-        Console.WriteLine($"{movieUrl}/{id}/credits");
-        Console.WriteLine($"Actors count: {Actors?.Cast?.Count}");
-        if (Actors?.Cast != null)
-        {
-            foreach (var actor in Actors.Cast)
-            {
-                Console.WriteLine($"Actor: {actor.Name}, ProfilePath: {actor.ProfilePath}");
-            }
-        }
-
-
+        
         var allGenres = await genreDeserializer.Fetch(genresUrl);
         Trailers = await videoDeserializer.Fetch($"{movieUrl}/{id}/videos")!;  
         

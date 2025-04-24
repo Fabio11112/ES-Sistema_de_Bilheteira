@@ -49,7 +49,7 @@ else
 }
 
 @code {
-    [Parameter] public int IdMovie { get; set; }
+    [Parameter] public int id { get; set; }
     private Movie? Movie { get; set; }
     private Response<Genre>? Genres { get; set; }
 
@@ -60,7 +60,7 @@ else
         var movieDeserializer = new Deserializer<Movie>();
         //var genreDeserializer = new Deserializer<Response<Genre>>();
         
-        string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{IdMovie}";
+        string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
        // string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
         
         Movie = await movieDeserializer.Fetch(movieUrl)!;

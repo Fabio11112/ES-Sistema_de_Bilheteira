@@ -1,6 +1,7 @@
 @page "/SelectSession/{id:int}"
+@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-@inject NavigationManager NavigationManager
+
 
 <div class="session-selection-container">
     @if (movie != null)
@@ -46,12 +47,12 @@
                 <div class="date-cell">@date.Value</div>
                 @foreach (var cinema in cinemas)
                 {
-                    <div class="time-cell @(selectedCinema == cinema ? "active" : "")">
-                        <button class="time-slot" @(IsSelectedSession(cinema, date.Key, "14:30") ? "selected" : ")"
-                                @onclick="() => SelectSessionHandler(cinema, date.Key, "14:30")">
-                            14:30
-                        </button>
-                    </div>
+                     <div class="time-cell @(selectedCinema == cinema ? "active" : "")"> 
+                    @*     <button class="time-slot" @(IsSelectedSession(cinema, date.Key, "14:30") ? "selected" : ")" *@
+                    @*             @onclick="() => SelectSessionHandler(cinema, date.Key, "14:30")"> *@
+                    @*         14:30 *@
+                    @*     </button> *@
+                     </div> 
                 }
             </div>
         }
@@ -79,16 +80,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        movie = await MovieDeserializer.FetchMovie(id);
-        var allGenres = await GenreService.GetGenresAsync();
-
-        if (movie != null && movie.GenreIds != null)
-        {
-            genreNames = allGenres
-                .Where(g => movie.GenreIds.Contains(g.Id))
-                .Select(g => g.Name)
-                .ToList();
-        }
+        var movieDeserializer = new Deserializer<Movie>();
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
     }
 
     private List<string> cinemas = new()

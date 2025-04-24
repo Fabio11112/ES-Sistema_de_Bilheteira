@@ -93,8 +93,8 @@
     protected override async Task OnInitializedAsync()
     {
         var movieDeserializer = new Deserializer<Movie>();
-        string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");
-        movie = await movieDeserializer.Fetch($"{url}/{id}");
+        string? url = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        movie = await movieDeserializer.Fetch($"{url}/{id}")!;
         
 
 
