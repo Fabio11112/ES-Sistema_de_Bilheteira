@@ -1,9 +1,7 @@
 @page "/SelectType/{id:int}"
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
-@inject MovieDeserializer MovieDeserializer
 @inject NavigationManager NavigationManager
-@inject GenreService GenreService
 
 <div class="container">
     @if (movie != null)
@@ -111,16 +109,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        movie = await MovieDeserializer.FetchMovie(id);
-        var allGenres = await GenreService.GetGenresAsync();
-
-        if (movie != null && movie.GenreIds != null)
-        {
-            genreNames = allGenres
-                .Where(g => movie.GenreIds.Contains(g.Id))
-                .Select(g => g.Name)
-                .ToList();
-        }
+        var movieDeserializer = new Deserializer<Movie>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
+        
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIE_LINK");
+        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
+        
+        //
+        // if (movie != null && movie.GenreIds != null)
+        // {
+        //     genreNames = allGenres
+        //         .Where(g => movie.GenreIds.Contains(g.Id))
+        //         .Select(g => g.Name)
+        //         .ToList();
+        // }
     }
 
     private string FormatRuntime(int runtime)

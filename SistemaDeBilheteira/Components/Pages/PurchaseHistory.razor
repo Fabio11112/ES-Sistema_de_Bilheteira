@@ -23,17 +23,16 @@
 
 
 @code {
-    
-    string MovieTitle;
-    @*string backdropLink = "https://image.tmdb.org/t/p/original";*@
-    string APIlink = "https://api.themoviedb.org/3/movie/popular";
-    MovieResponse response;
-    
+
+    string? MovieTitle { get; set; }
+    Response<Movie>? Response { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
-        var deserializer = new MovieDeserializer();
-        response = await Task.Run(() => deserializer.FetchPopularMovies());
-        Console.WriteLine(response.Results[0].BackdropPath);
+        var deserializer = new Deserializer<Response<Movie>>();
+        Response = await deserializer.Fetch($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular")!;
+        //Response = await Task.Run(() => deserializer.FetchPopularMovies());
+        Console.WriteLine(Response?.Results[0].BackdropPath);
         //backdropLink += response.Results[0].BackdropPath;
         //title = response.Results[0].Title;
     }

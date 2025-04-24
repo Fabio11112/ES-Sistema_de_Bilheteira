@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SistemaDeBilheteira.Services.Movies;
 using Actor = SistemaDeBilheteira.Models.Movies.Actor;
+using Genre = SistemaDeBilheteira.Models.Movies.Genre;
 
 namespace SistemaDeBilheteira.Services.API_Deserializer;
 

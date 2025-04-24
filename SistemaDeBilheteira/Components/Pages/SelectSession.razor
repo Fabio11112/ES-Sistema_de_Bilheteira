@@ -1,9 +1,6 @@
 @page "/SelectSession/{id:int}"
-@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.Movies
-@inject MovieDeserializer MovieDeserializer
 @inject NavigationManager NavigationManager
-@inject GenreService GenreService
 
 <div class="session-selection-container">
     @if (movie != null)
@@ -74,7 +71,6 @@
     }
 
 </div>
-    
 
 @code {
     [Parameter] public int id { get; set; }

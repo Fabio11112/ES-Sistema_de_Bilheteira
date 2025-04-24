@@ -16,7 +16,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 //
 // builder.Services.AddSingleton<Deserializer<T>>();
-builder.Services.AddHttpClient<GenreService>();
+
 
 
 
