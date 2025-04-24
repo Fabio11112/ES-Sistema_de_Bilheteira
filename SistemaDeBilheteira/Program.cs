@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
+using SistemaDeBilheteira.Services.API_Deserializer;
 using SistemaDeBilheteira.Services.Movies;
 using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;

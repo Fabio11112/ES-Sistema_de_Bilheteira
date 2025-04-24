@@ -1,11 +1,10 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
+using SistemaDeBilheteira.Services.Movies;
+using Actor = SistemaDeBilheteira.Services.Movies.Actor;
+using Movie = SistemaDeBilheteira.Services.Movies.Movie;
 
-namespace SistemaDeBilheteira.Services.Movies;
-using SistemaDeBilheteira.Services.Enviroment;
-    
-using Newtonsoft.Json;
-using SistemaDeBilheteira.Models.Movies;
-
+namespace SistemaDeBilheteira.Services.API_Deserializer;
 
 public class MovieDeserializer
 {
@@ -32,7 +31,7 @@ public class MovieDeserializer
         var client = new RestClient(options);
         var request = new RestRequest("");
         request.AddHeader("accept", "application/json");
-        request.AddHeader("Authorization", $"Bearer {Enviroment.TmdbApiKey}");
+        request.AddHeader("Authorization", $"Bearer {Enviroment.Enviroment.TmdbApiKey}");
         return await client.GetAsync(request);
     }
 

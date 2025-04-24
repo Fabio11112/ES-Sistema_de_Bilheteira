@@ -1,8 +1,7 @@
-﻿namespace SistemaDeBilheteira.Services.Movies;
+﻿using Newtonsoft.Json;
+using SistemaDeBilheteira.Services.Movies;
 
-
-using Newtonsoft.Json;
-using System.Collections.Generic;
+namespace SistemaDeBilheteira.Services.API_Deserializer;
 
 public class MovieResponse
 {
