@@ -4,11 +4,11 @@
 @using SistemaDeBilheteira.Services.Movies
 
 
-@if (movie != null)
+@if (Movie != null)
 {
     <div class="movie-info">
         <div class="movie-details">
-            <h2 class="movie-title">@movie.Title</h2>
+            <h2 class="movie-title">@Movie.Title</h2>
             <p class="date">Saturday, April 6th</p>
             <p class="time">21:10h</p>
 
@@ -48,28 +48,25 @@ else
 }
 
 @code {
-    [Parameter] public int id { get; set; }
-    private Movie? movie;
-    private List<string> genreNames = new();
+    [Parameter] public int IdMovie { get; set; }
+    private Movie? Movie { get; set; }
+    private Response<Genre>? Genres { get; set; }
+
     private int numberOfPeople = 2;
 
     protected override async Task OnInitializedAsync()
     {
-        var deserializer = new Deserializer<Movie>();
-        string url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
-        movie = await deserializer.Fetch(url)!;
+        var movieDeserializer = new Deserializer<Movie>();
+        //var genreDeserializer = new Deserializer<Response<Genre>>();
         
+        string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{IdMovie}";
+       // string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
         
+        Movie = await movieDeserializer.Fetch(movieUrl)!;
+        //Genres = await genreDeserializer.Fetch(genreUrl)!;
         
-        var allGenres = await GenreService.GetGenresAsync();
-
-        if (movie?.GenreIds != null)
-        {
-            genreNames = allGenres
-                .Where(g => movie.GenreIds.Contains(g.Id))
-                .Select(g => g.Name)
-                .ToList();
-        }
+        //var movieGenres = Genres.Results.Where(item => Movie.GenreIds.Contains(item.Id)).ToList();
+        
     }
 
     private void IncreasePeople() => numberOfPeople++;

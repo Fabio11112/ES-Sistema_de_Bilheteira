@@ -6,6 +6,9 @@ namespace SistemaDeBilheteira.Services.API_Deserializer;
 
 public class Response<T> : IResponse<T>
 {
+    [JsonProperty("genres")]
+    public List<Genre> Genres { get; set; }
+    
     [JsonProperty("cast")]
     public List<Actor> Cast { get; set; }
 

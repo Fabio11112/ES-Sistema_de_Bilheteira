@@ -5,73 +5,73 @@
 @using SistemaDeBilheteira.Services.API_Deserializer
 
   <PageTitle>Home</PageTitle>
-  <main class="main-content">
+<main class="main-content">
     <!-- Principal Banner -->
     <section class="banner">
-      @if (movies != null && movies.Any())
-      {
-          var movie = movies.First();
+        @if (movies != null && movies.Any())
+        {
+            var movie = movies.First();
 
-          <div class="banner-wrapper">
-              <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
-              </a>
+            <div class="banner-wrapper">
+                <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                    <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                </a>
               
-              <div class="banner-title-overlay">
-                  <h2 class="banner-title">@movie.Title</h2>
-              </div>
-          </div>
-      }
-      else
-      {
-          <p class="loading">Loading banner...</p>
-      }
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p class="loading">Loading banner...</p>
+        }
     </section>
 
 
     <!-- Movie Categories -->
     <section class="movie-section">
-      <h2 class="section-title">Fantasy</h2>
-      <div class="movie-carousel no-scrollbar">
-        @if (movies != null && movies.Any())
-        {
-            @foreach (var movie in GetMoviesByGenre(Fantasy))
+        <h2 class="section-title">Fantasy</h2>
+        <div class="movie-carousel no-scrollbar">
+            @if (movies != null && movies.Any())
             {
-              <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
-              </a>
+                @foreach (var movie in GetMoviesByGenre(Fantasy))
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
 
+                }
             }
-        }
-        else
-        {
-            <p class="loading">Loading Fantasy movies...</p>
-        }
-      </div>
+            else
+            {
+                <p class="loading">Loading Fantasy movies...</p>
+            }
+        </div>
     </section>
 
     <section class="movie-section">
-      <h2 class="section-title">Horror</h2>
-      <div class="movie-carousel no-scrollbar">
-        @if (movies != null && movies.Any())
-        {
-            @foreach (var movie in GetMoviesByGenre(Horror))
+        <h2 class="section-title">Horror</h2>
+        <div class="movie-carousel no-scrollbar">
+            @if (movies != null && movies.Any())
             {
-                <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
-              </a>
+                @foreach (var movie in GetMoviesByGenre(Horror))
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
+                }
             }
-        }
-        else
-        {
-            <p class="loading">Loading Horror movies...</p>
-        }
-      </div>
+            else
+            {
+                <p class="loading">Loading Horror movies...</p>
+            }
+        </div>
     </section>
 
-      <section class="category-filter">
+    <section class="category-filter">
         <h2 class="Category-title">Category</h2>
-          <div class="category-buttons">
+        <div class="category-buttons">
             <button>Action</button>
             <button>Sci-fi</button>
             <button>Suspense</button>
@@ -81,32 +81,34 @@
             <button>Adventure</button>
             <button>Thriller</button>
             <button>Biography</button>
-          </div>
-      </section>
+        </div>
+    </section>
       
 
     <section class="movie-section">
-      <h2 class="section-title">Sci-fi</h2>
+        <h2 class="section-title">Sci-fi</h2>
         <div class="movie-carousel no-scrollbar">
-          @if (movies != null && movies.Any())
-          {
-              @foreach (var movie in GetMoviesByGenre(SciFi))
+            @if (movies != null && movies.Any())
+            {
+                @foreach (var movie in GetMoviesByGenre(SciFi))
               
-              {
-                  <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                  <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
-                </a>
-              }
-          }
-          else
-          {
-              <p class="loading">Loading Sci-fi movies...</p>
-          }
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
+                }
+            }
+            else
+            {
+                <p class="loading">Loading Sci-fi movies...</p>
+            }
         </div>
     </section>
-  </main>
+</main>
 
-  @code {
+
+
+@code {
       List<Movie> movies = new();
       public const int Fantasy = 14;
       public const int Horror = 27;
@@ -121,6 +123,18 @@
 
       protected override async Task OnInitializedAsync()
   {
+      var movieDeserializer = new Deserializer<Movie>();
+      var genreDeserializer = new Deserializer<Response<Genre>>();
+
+      string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{IdMovie}";
+      string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+
+      Movie = await movieDeserializer.Fetch(movieUrl)!;
+      Genres = await genreDeserializer.Fetch(genreUrl)!;
+
+      var movieGenres = Genres.Results.Where(item => Movie.GenreIds.Contains(item.Id)).ToList();
+      
+      
       int totalPagesToLoad = 9; // Number of pages to load to add more movies
       for (int page = 1; page <= totalPagesToLoad; page++)
       {

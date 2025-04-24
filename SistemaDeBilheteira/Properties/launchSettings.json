@@ -15,7 +15,8 @@
           "ACTOR_LINK": "https://image.tmdb.org/t/p/w185",
           "POSTER_LINK": "https://image.tmdb.org/t/p/w500",
           "MOVIES_LINK":"https://api.themoviedb.org/3/movie",
-          "YOUTUBE_LINK": "https://www.youtube.com/watch?v="
+          "YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
+          "GENRES_LINK": "https://api.themoviedb.org/3/genre/movie/list"
           
         }
       },
