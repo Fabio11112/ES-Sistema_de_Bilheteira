@@ -1,5 +1,5 @@
-﻿@page "/Cart"
-@using SistemaDeBilheteira.Components.Cards.Cart
+﻿@page "/Wishlist"
+@using SistemaDeBilheteira.Components.Cards.Wishlist
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
@@ -14,22 +14,18 @@
     
     <div class="flex">
         <div class="products">
-            <CartItemElement
+            
+            <WishlistElement
                 MovieId="950387">
-            </CartItemElement>
-            
-            <CartItemElement
+            </WishlistElement>
+
+            <WishlistElement
                 MovieId="1197306">
-            </CartItemElement>
-            
-            <CartItemElement
+            </WishlistElement>
+
+            <WishlistElement
                 MovieId="822119">
-            </CartItemElement>
-        </div>
-        
-        <div class="payment">
-            <PromoCode></PromoCode>
-            <PaymentMethodElement></PaymentMethodElement> 
+            </WishlistElement>
         </div>
     </div>
     
