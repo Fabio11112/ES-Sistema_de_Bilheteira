@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SistemaDeBilheteira.Services.Movies;
+namespace SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models;
 
 public class Video
 {

@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
-using SistemaDeBilheteira.Services.Movies;
-using Actor = SistemaDeBilheteira.Models.Movies.Actor;
-using Genre = SistemaDeBilheteira.Models.Movies.Genre;
+using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models;
 
-namespace SistemaDeBilheteira.Services.API_Deserializer;
+namespace SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response;
 
 public class Response<T> : IResponse<T>
 {

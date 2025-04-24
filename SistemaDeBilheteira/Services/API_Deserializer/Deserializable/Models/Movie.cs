@@ -1,8 +1,6 @@
-﻿using SistemaDeBilheteira.Services.API_Deserializer;
+﻿using Newtonsoft.Json;
 
-namespace SistemaDeBilheteira.Services.Movies;
-
-using Newtonsoft.Json;
+namespace SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models;
 
 public class Movie
 {

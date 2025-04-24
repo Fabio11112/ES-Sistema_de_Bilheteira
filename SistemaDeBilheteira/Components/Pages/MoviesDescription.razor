@@ -1,6 +1,9 @@
 @page "/MoviesDescription/{id:int}"
 @using SistemaDeBilheteira.Services.API_Deserializer
-@using SistemaDeBilheteira.Services.Movies
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@using Actor = SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models.Actor
+@using Genre = SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models.Genre
 
 <PageTitle>Movie Description</PageTitle>
 
@@ -57,15 +60,16 @@
                     <h3 class="section-title">CAST</h3>
                     
                     <div class="actors-grid">
-                        @if (Actors?.Results is { Count: > 0 })
+                        @if (Actors?.Cast is { Count: > 0 })
                         {
-                            @foreach (var actor in Actors.Results.Take(6))
+                            @foreach (var actor in Actors.Cast.Take(6))
                             {
                                 <div class="actor-card">
                                     <div class="actor-image">
                                         @if (!string.IsNullOrEmpty(actor.ProfilePath))
                                         {
                                             <img src="@($"https://image.tmdb.org/t/p/w185{actor.ProfilePath}")" alt="@actor.Name" class="actor"/>
+                                            
                                         }
                                         else
                                         {
@@ -115,20 +119,34 @@
 
     protected override async Task OnInitializedAsync()
     {
+        
         var movieDeserializer = new Deserializer<Movie>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
         var actorDeserializer = new Deserializer<Response<Actor>>();
         var videoDeserializer = new Deserializer<Response<Video>>();
+        
 
         string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         string? genresUrl = Environment.GetEnvironmentVariable("GENRES_LINK");
         
         Movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
-        Actors = await actorDeserializer.Fetch($"{movieUrl}/{id}/cast")!;
-        
-        var allGenres = await genreDeserializer.Fetch(genresUrl);
+        Actors = await actorDeserializer.Fetch($"{movieUrl}/{id}/credits")!;
+        foreach (var actor in Actors.Cast)
+            {
+                Console.WriteLine($"Actor: {actor.Name}, ProfilePath: {actor.ProfilePath}");
+            }
+        Console.WriteLine($"{movieUrl}/{id}/credits");
+        Console.WriteLine($"Actors count: {Actors?.Cast?.Count}");
+        if (Actors?.Cast != null)
+        {
+            foreach (var actor in Actors.Cast)
+            {
+                Console.WriteLine($"Actor: {actor.Name}, ProfilePath: {actor.ProfilePath}");
+            }
+        }
 
-        
+
+        var allGenres = await genreDeserializer.Fetch(genresUrl);
         Trailers = await videoDeserializer.Fetch($"{movieUrl}/{id}/videos")!;  
         
     }

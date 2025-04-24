@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
-using SistemaDeBilheteira.Models.Movies;
+using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models;
 
-namespace SistemaDeBilheteira.Services.API_Deserializer;
+namespace SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response;
 
 public interface IResponse<T>
 {
     [JsonProperty("genres")]
     public List<Genre> Genres { get; set; }
-    
     
     [JsonProperty("cast")]
     public List<Actor> Cast { get; set; } 

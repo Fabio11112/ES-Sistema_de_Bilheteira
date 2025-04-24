@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SistemaDeBilheteira.Services.Movies;
+namespace SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models;
 
 public class Actor
 {
@@ -10,6 +10,8 @@ public class Actor
     [JsonProperty("character")]
     public string Character { get; set; }
 
-    [JsonProperty("profile_path")]
+    [JsonProperty ("profile_path")]
     public string ProfilePath { get; set; }
+
+    
 }
