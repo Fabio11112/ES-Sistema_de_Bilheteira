@@ -111,7 +111,7 @@
 @code {
 
 
-    List<Movie>? Movies { get; set; }
+    List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
     public const int TOTAL_PAGES = 9;
@@ -154,7 +154,7 @@
 
       List<Movie> GetMoviesByGenre(string genre)
       {
-          Genre result = Genres.Results.FirstOrDefault(x => x.Name == genre);
+          var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
           
           return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
       }

@@ -47,8 +47,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var deserializer = new MovieDeserializer();
-        Movie = await deserializer.FetchMovie(MovieId);
+        string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");
+        var deserializer = new Deserializer<Movie>();
+        Movie = await deserializer.Fetch($"{url}/{MovieId}")!;
         PosterPath += Movie?.PosterPath;
     }
 }

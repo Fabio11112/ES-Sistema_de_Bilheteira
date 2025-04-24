@@ -120,7 +120,7 @@
         var actorDeserializer = new Deserializer<Response<Actor>>();
         var videoDeserializer = new Deserializer<Response<Video>>();
 
-        string? movieUrl = Environment.GetEnvironmentVariable("MOVIE_LINK");
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         string? genresUrl = Environment.GetEnvironmentVariable("GENRES_LINK");
         
         Movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
