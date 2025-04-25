@@ -7,7 +7,7 @@ namespace SistemaDeBilheteira.Tests.Database;
 
 public class DatabaseTest
 {
-    private User User;
+    private User User = new User();
     private SistemaDeBilheteiraContext Context;
     private IRepositoryFactory Factory;
     private IUnitOfWork UnitOfWork;
@@ -15,8 +15,9 @@ public class DatabaseTest
 
     public DatabaseTest()
     {
-        User = new User("João", "Roberto", "roberto@gmail.com");
-
+        User.FirstName = "João";
+        User.LastName = "Roberto";
+        User.Email = "roberto@gmail.com";
         Context = new MemorySistemaDeBilheteiraContext();
         Context.Database.EnsureCreated();
         

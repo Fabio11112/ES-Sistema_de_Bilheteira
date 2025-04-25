@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
-using SistemaDeBilheteira.Services.API_Deserializer;
 using SistemaDeBilheteira.Services.Database.Context;
-using SistemaDeBilheteira.Services.Database.Entities;
+using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.Database.Repositories;
-
+using Microsoft.EntityFrameworkCore;
+using SistemaDeBilheteira.Services.AuthenticationService;
+using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using Toolbelt.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,13 +17,10 @@ builder.Services.AddRazorComponents()
 // builder.Services.AddSingleton<Deserializer<T>>();
 
 
-
-
-
-
-
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 var app = builder.Build();
 DotNetEnv.Env.Load();

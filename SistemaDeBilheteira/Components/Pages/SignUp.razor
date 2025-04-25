@@ -1,6 +1,9 @@
 ﻿@page "/SignUp"
-@using SistemaDeBilheteira.Components.Cards
+@rendermode InteractiveServer
 @using SistemaDeBilheteira.Components.Cards.Authentication
+@using SistemaDeBilheteira.Services.AuthenticationService
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@inject IAuthService AuthService
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Konkhmer+Sleokchher|Montserrrat">
@@ -16,22 +19,24 @@
         <form>
             <div class="flex input-element">
                 <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
-                <input @bind="FullName" id="full name" placeholder="FULL NAME"/>
+                <input @bind="User.Name" id="full name" placeholder="FULL NAME"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/email.svg" alt=""/></div>
-                <input @bind="Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
+                <input @bind="User.Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/lock.svg" alt=""/></div>
-                <input @bind="Password" id="password" type="password" placeholder="PASSWORD"/>
+                <input @bind="User.Password" id="password" type="password" placeholder="PASSWORD"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/lock.svg" alt=""/></div>
-                <input @bind="ConfirmPassword" id="confirm-password" type="password" placeholder="CONFIRM PASSWORD"/>
+                <input @bind="User.ConfirmPassword" id="confirm-password" type="password" placeholder="CONFIRM PASSWORD"/>
             </div>
             
             <button type="button" @onclick="Register" class="register">REGISTER</button>
+            
+            <div>@message</div>
 
         </form>
     </div>
@@ -41,18 +46,26 @@
 
 @code {
 
-    private string FullName { get; set; } = String.Empty;
-    private string Email { get; set; } = String.Empty;
-    private string Password { get; set; } = String.Empty;
-    private string ConfirmPassword { get; set; } = String.Empty;
-    
-    private void Register()
+    private UserRegisterModel User { get; set; } = new UserRegisterModel();
+    private String message = string.Empty;
+
+    private async Task Register()
     {
         // Aqui você pode acessar os valores das propriedades
-        Console.WriteLine($"Full Name: {FullName}");
-        Console.WriteLine($"Email: {Email}");
-        Console.WriteLine($"Password: {Password}");
-        Console.WriteLine($"Confirm Password: {ConfirmPassword}");
+        Console.WriteLine($"Full Name: {User.Name}");
+        Console.WriteLine($"Email: {User.Email}");
+        Console.WriteLine($"Password: {User.Password}");
+        Console.WriteLine($"Confirm Password: {User.ConfirmPassword}");
+
+        if (await AuthService.RegisterAsync(User))
+        {
+            message = "Registered!!!!";
+        }
+        else
+        {
+            message = "Not registered";
+        }
+
     }
 
 }
