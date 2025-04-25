@@ -1,12 +1,12 @@
 ﻿@page "/Profile"
 @using SistemaDeBilheteira.Components.Cards
+@inject NavigationManager Navigation
 
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
 <div class="background">
     <div class="profile-background">
-        <img  src="images/icons/@_profileImageFile" class="profile-picture" alt="Logo"/>
+        <img src="images/icons/@_profileImageFile" class="profile-picture" alt="Logo"/>
         <img @onclick="HandleLogout" src="images/icons/logout.svg" class="logout-button" alt="logout">
         <div class="welcome-message">
             <h2 class="welcome-title greetings">Hi, @_userName</h2>
@@ -17,17 +17,15 @@
             <UserProfileOption
                 ImageSource="images/icons/profile/ticket.svg"
                 Title="My Tickets"
-                Description="View, Search and Confirm your tickets"
-                Method="MyTickets">
-
+                Description="View your tickets"
+                OnClick="@(e => Navigation.NavigateTo("/Tickets"))">
             </UserProfileOption>
-            
+
             <UserProfileOption
                 ImageSource="images/icons/profile/user.svg"
                 Title="Edit Info"
                 Description="Edit your information"
-                Method="EditInfo">
-
+                OnClick="@(e => Navigation.NavigateTo("/"))">
             </UserProfileOption>
         </div>
 
@@ -35,22 +33,18 @@
             <UserProfileOption
                 ImageSource="images/icons/profile/purchaseHistory.svg"
                 Title="Purchase History"
-                Description="Review your purchase history"
-                Method="PurchaseHistory">
-
+                Description="Review your purchases"
+                OnClick="@(e => Navigation.NavigateTo("/PurchaseHistory"))">
             </UserProfileOption>
 
             <UserProfileOption
                 ImageSource="images/icons/profile/rentalHistory.svg"
                 Title="Rental History"
-                Description="Info about your rentals"
-                Method="RentalHistory">
-
+                Description="Info about rentals"
+                OnClick="@(e => Navigation.NavigateTo("/RentalHistory"))">
             </UserProfileOption>
         </div>
-        
     </div>
-    
 </div>
 
 @code {
@@ -59,26 +53,6 @@
 
     private void HandleLogout()
     {
-        
-    }
-
-    private void MyTickets()
-    {
-        
-    }
-
-    private void EditInfo()
-    {
-        
-    }
-
-    private void PurchaseHistory()
-    {
-        
-    }
-
-    private void RentalHistory()
-    {
-        
+        Navigation.NavigateTo("/logout");
     }
 }

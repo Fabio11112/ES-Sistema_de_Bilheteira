@@ -71,17 +71,13 @@
     </section>
 
     <section class="category-filter">
-        <h2 class="Category-title">Category</h2>
-        <div class="category-buttons">
-            <button>Action</button>
-            <button>Sci-fi</button>
-            <button>Suspense</button>
-            <button>Romantic</button>
-            <button>Comedy</button>
-            <button>Fantasy</button>
-            <button>Adventure</button>
-            <button>Thriller</button>
-            <button>Biography</button>
+        <a class="Category-title" href="/Categories">Category</a>
+        <div class="category-buttons" >
+            @foreach (var genre in new[] { "Action", "Sci-fi", "Suspense", "Romantic", "Comedy", "Fantasy", "Adventure", "Thriller", "Biography" })
+                {
+                    <a class="category-button" href="@($"/Genre/{genre}")" >@genre</a>
+                }
+
         </div>
     </section>
       
@@ -116,17 +112,6 @@
     Response<Genre>? Genres { get; set; }
 
     public const int TOTAL_PAGES = 9;
-    //List<Movie> movies = new();
-      // public const int Fantasy = 14;
-      // public const int Horror = 27;
-      // public const int Action = 28;
-      // public const int Comedy = 35;
-      // public const int Romance = 10749;
-      // public const int Thriller = 53;
-      // public const int Adventure = 12;
-      // public const int Biography = 18;
-      // public const int SciFi = 878;
-      // public const int Suspense = 9648;
 
       protected override async Task OnInitializedAsync()
   {

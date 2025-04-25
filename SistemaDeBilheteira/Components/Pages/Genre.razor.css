@@ -60,6 +60,17 @@ body {
     color: #fff;
 }
 
+* {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
 
 .section-title {
     font-size: 1.5em;
@@ -116,7 +127,7 @@ body {
     margin-top: 10px;
 }
 
-.category-buttons button{
+.category-buttons button {
     background-color: transparent;
     color: white;
     border: 1px solid gold;
@@ -131,24 +142,21 @@ body {
     color: black;
 }
 
-.category-button {
-    background-color: transparent;
-    color: white;
-    border: 1px solid gold;
-    border-radius: 20px;
-    padding: 5px 12px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    text-decoration: none;
+.movie-carousel {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 20px;
 }
 
-.category-button:hover {
-    background-color: gold;
-    color: black;
+.movie-poster {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
-/* Opcional: estilo para cuando el NavLink está activo */
-.category-button.active {
-    background-color: gold;
-    color: black;
+.poster-wrapper:hover .movie-poster {
+    transform: scale(1.05);
 }
+
