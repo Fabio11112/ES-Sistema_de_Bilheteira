@@ -1,6 +1,6 @@
-﻿  @page "/"
-  @using RestSharp;
-  @using Newtonsoft.Json;
+﻿@page "/"
+@using RestSharp;
+@using Newtonsoft.Json;
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
@@ -72,14 +72,22 @@
 
     <section class="category-filter">
         <a class="Category-title" href="/Categories">Category</a>
-        <div class="category-buttons" >
-            @foreach (var genre in new[] { "Action", "Sci-fi", "Suspense", "Romantic", "Comedy", "Fantasy", "Adventure", "Thriller", "Biography" })
+        <div class="category-buttons">
+            @if (Genres != null && Genres.Genres.Any())
+            {
+                @foreach (var genre in Genres.Genres.Take(8))
                 {
-                    <a class="category-button" href="@($"/Genre/{genre}")" >@genre</a>
+                    var encodedGenre = Uri.EscapeDataString(genre.Name);
+                    <a class="category-button" href="@($"/Genre/{encodedGenre}")">@genre.Name</a>
                 }
-
+            }
+            else
+            {
+                <p class="loading">Loading genres...</p>
+            }
         </div>
     </section>
+
       
 
     <section class="movie-section">
@@ -145,4 +153,8 @@
           return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
       }
 
+      
+
   }
+
+  
