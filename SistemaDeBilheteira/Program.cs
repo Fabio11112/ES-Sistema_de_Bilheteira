@@ -1,11 +1,11 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.Database.Context;
-using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.Database.Repositories;
-using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.AuthenticationService;
-using SistemaDeBilheteira.Services.AuthenticationService.Models;
+using SistemaDeBilheteira.Services.AuthenticationService.Validation;
+using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using Toolbelt.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,12 +13,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-//
-// builder.Services.AddSingleton<Deserializer<T>>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "auth_token";
+        options.LoginPath = "/LogIn";
+        options.Cookie.MaxAge = TimeSpan.FromHours(1);
+        options.AccessDeniedPath = "/AccessDenied";
+    });
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
 
 
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 
@@ -40,6 +50,8 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 

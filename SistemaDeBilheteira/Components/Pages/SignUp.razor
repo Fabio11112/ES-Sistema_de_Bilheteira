@@ -36,7 +36,7 @@
             
             <button type="button" @onclick="Register" class="register">REGISTER</button>
             
-            <div>@message</div>
+            <div>@Message</div>
 
         </form>
     </div>
@@ -46,25 +46,19 @@
 
 @code {
 
-    private UserRegisterModel User { get; set; } = new UserRegisterModel();
-    private String message = string.Empty;
-
+    private UserRegisterModel User { get;} = new UserRegisterModel();
+    private String Message { get; set; } = string.Empty;
+    
     private async Task Register()
     {
-        // Aqui você pode acessar os valores das propriedades
-        Console.WriteLine($"Full Name: {User.Name}");
-        Console.WriteLine($"Email: {User.Email}");
-        Console.WriteLine($"Password: {User.Password}");
-        Console.WriteLine($"Confirm Password: {User.ConfirmPassword}");
+        IAuthResult result = await AuthService.RegisterAsync(User);
 
-        if (await AuthService.RegisterAsync(User))
+        if (!result.Success)
         {
-            message = "Registered!!!!";
+            //do something
         }
-        else
-        {
-            message = "Not registered";
-        }
+
+        Message = result.Message;
 
     }
 
