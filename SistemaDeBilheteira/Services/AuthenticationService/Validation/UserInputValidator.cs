@@ -14,7 +14,7 @@ public class UserInputValidator : IUserInputValidator
 
     public bool IsValidPassword(string password)
     {
-        const string pattern = @"/^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$";
+        const string pattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
         return Regex.IsMatch(password, pattern);
     }
     

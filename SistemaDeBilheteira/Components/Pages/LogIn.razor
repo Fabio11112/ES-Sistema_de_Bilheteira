@@ -1,5 +1,10 @@
 ﻿@page "/LogIn"
+@rendermode InteractiveServer
 @using SistemaDeBilheteira.Components.Cards.Authentication
+@using SistemaDeBilheteira.Services.AuthenticationService
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager;
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Konkhmer+Sleokchher|Montserrrat">
@@ -15,21 +20,36 @@
         <form>
             <div class="flex input-element">
                 <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
-                <input id="full name" type="email" placeholder="EMAIL ADDRESS"/>
+                <input @bind="Model.Email" id="emaol" type="email" placeholder="EMAIL ADDRESS"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/email.svg" alt=""/></div>
-                <input id="email" type="password" placeholder="PASSWORD"/> 
+                <input @bind="Model.Password" id="password" type="password" placeholder="PASSWORD"/> 
             </div>
 
-            <button class="register">LOG IN</button>
+            <button type="button" @onclick="LogInAsync" class="register">LOG IN</button>
 
         </form>
+        <div>@Message</div>
     </div>
 
 
 </div>
 
 @code {
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
+    private UserLoginModel? Model { get; set; } = new UserLoginModel();
+    private string Message { get; set; } = string.Empty;
 
+    private async Task LogInAsync()
+    {
+        IAuthResult result = await AuthService.LoginAsync(Model, HttpContext);
+        if (result.Success)
+        {
+            //do something
+            Message = result.Message;
+            NavigationManager.NavigateTo("/Profile");
+        }
+        Message = result.Message;
+    }
 }
