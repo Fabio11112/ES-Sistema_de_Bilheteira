@@ -5,10 +5,9 @@ using SistemaDeBilheteira.Services.Database.Entities;
 namespace SistemaDeBilheteira.Services.Database.Context;
 
 
-public class SistemaDeBilheteiraContext: IdentityDbContext
+public class SistemaDeBilheteiraContext: IdentityDbContext<AppUser>
 {
     //Each set is a table from the Database
-    //public DbSet<User> Users { get; set; }
     
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)

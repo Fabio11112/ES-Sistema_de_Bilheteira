@@ -16,25 +16,25 @@
         <div class="get-started">Sign Up to Get Started</div>
 
 
-        <EditForm @onsubmit="Register">
+        <EditForm Model="User" OnValidSubmit="Register" FormName="user-login">
             <div class="flex input-element">
                 <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
-                <input @bind="User.Name" id="full name" placeholder="FULL NAME"/>
+                <InputText @bind-Value="User.Name" id="full name" placeholder="FULL NAME"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/email.svg" alt=""/></div>
-                <input @bind="User.Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
+                <InputText @bind-Value="User.Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/lock.svg" alt=""/></div>
-                <input @bind="User.Password" id="password" type="password" placeholder="PASSWORD"/>
+                <InputText @bind-Value="User.Password" id="password" type="password" placeholder="PASSWORD"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/lock.svg" alt=""/></div>
-                <input @bind="User.ConfirmPassword" id="confirm-password" type="password" placeholder="CONFIRM PASSWORD"/>
+                <InputText @bind-Value="User.ConfirmPassword" id="confirm-password" type="password" placeholder="CONFIRM PASSWORD"/>
             </div>
             
-            <button type="button" @onclick="Register" class="register">REGISTER</button>
+            <button type="submit" class="register">REGISTER</button>
             
             <div>@Message</div>
 

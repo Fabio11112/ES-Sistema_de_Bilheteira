@@ -20,7 +20,7 @@ public class AuthService(IUnitOfWork unitOfWork, IUserInputValidator userInputVa
     
     public Task<IAuthResult> RegisterAsync(UserRegisterModel model)
     {
-        var userRepository = UnitOfWork.GetRepository<User>();
+        var userRepository = UnitOfWork.GetRepository<AppUser>();
         IAuthResult result = new AuthResult();
         if (userRepository == null)
         {
@@ -42,14 +42,14 @@ public class AuthService(IUnitOfWork unitOfWork, IUserInputValidator userInputVa
         {
             return Task.FromResult(result);
         }
-
-        User user = new()
+        
+        AppUser user = new()
         {
             Email = model.Email,
             FirstName = model.Name,
-            Role = "User"
         };
-        user.PasswordHashed = new PasswordHasher<User>().HashPassword(user, model.Password);
+        
+        user.PasswordHash = new PasswordHasher<AppUser>().HashPassword(user, model.Password);
         AddUser(user, userRepository);
         result.Success = true;
         result.Message = "The account has been created successfully.";
@@ -58,7 +58,7 @@ public class AuthService(IUnitOfWork unitOfWork, IUserInputValidator userInputVa
 
     public async Task<IAuthResult> LoginAsync(UserLoginModel model, HttpContext httpContext)
     {
-        var userRepository = UnitOfWork.GetRepository<User>();
+        var userRepository = UnitOfWork.GetRepository<AppUser>();
         IAuthResult result = new AuthResult();
         if (userRepository == null)
         {
@@ -69,22 +69,22 @@ public class AuthService(IUnitOfWork unitOfWork, IUserInputValidator userInputVa
         
         var user = userRepository.GetAll().FirstOrDefault(x => x.Email == model.Email);
         
-        if (user is null || new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHashed, model.Password) == PasswordVerificationResult.Failed)
+        if (user is null || new PasswordHasher<AppUser>().VerifyHashedPassword(user, user.PasswordHash, model.Password) == PasswordVerificationResult.Failed)
         {
             result.Success = false;
             result.Message = "Invalid email or password.";
             return result;
         }
 
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Email, model.Email),
-            new Claim(ClaimTypes.Role, user.Role),
-        };
+        // var claims = new List<Claim>
+        // {
+        //     new Claim(ClaimTypes.Email, model.Email),
+        //     new Claim(ClaimTypes.Role, user.Role),
+        // };
         
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var principal = new ClaimsPrincipal(identity);
-        await httpContext.SignInAsync(principal);
+        // var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        // var principal = new ClaimsPrincipal(identity);
+        // await httpContext.SignInAsync(principal);
         
         result.Success = true;
         result.Message = "Logged in successfully";
@@ -96,13 +96,13 @@ public class AuthService(IUnitOfWork unitOfWork, IUserInputValidator userInputVa
         throw new NotImplementedException();
     }
 
-    private bool UserAlreadyExist(List<User> users, UserRegisterModel model)
+    private bool UserAlreadyExist(List<AppUser> users, UserRegisterModel model)
     {
         return users.Any(u => u.Email == model.Email);
     }
     
 
-    private void AddUser(User user, IRepository<User> repository)
+    private void AddUser(AppUser user, IRepository<AppUser> repository)
     {
         UnitOfWork.Begin();
         repository?.Insert(user);

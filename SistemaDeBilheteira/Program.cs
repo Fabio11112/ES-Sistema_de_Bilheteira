@@ -30,7 +30,7 @@ builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
 
-builder.Services.AddDefaultIdentity<User>(options =>
+builder.Services.AddDefaultIdentity<AppUser>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
     })
@@ -72,7 +72,7 @@ app.UseAuthorization();
 app.MapRazorPages(); // Importante para as páginas de Login/Register
 app.MapControllers();
 app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+//app.MapFallbackToPage("/");
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
