@@ -1,6 +1,8 @@
-﻿namespace SistemaDeBilheteira.Services.Database.Entities;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class User() : DbItem
+namespace SistemaDeBilheteira.Services.Database.Entities;
+
+public class User : IdentityUser, IDbItem
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } =string.Empty;
@@ -13,4 +15,7 @@ public class User() : DbItem
     {
         
     }
+
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
 }

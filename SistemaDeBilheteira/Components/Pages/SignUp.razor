@@ -16,7 +16,7 @@
         <div class="get-started">Sign Up to Get Started</div>
 
 
-        <form>
+        <EditForm @onsubmit="Register">
             <div class="flex input-element">
                 <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
                 <input @bind="User.Name" id="full name" placeholder="FULL NAME"/>
@@ -38,7 +38,7 @@
             
             <div>@Message</div>
 
-        </form>
+        </EditForm>
     </div>
     
 

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.Database.Context;
@@ -13,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -30,6 +32,11 @@ builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+//Services configuration
+
+
+
 
 
 var app = builder.Build();
