@@ -6,6 +6,7 @@ using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
+using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using Toolbelt.Extensions.DependencyInjection;
 
@@ -28,6 +29,13 @@ builder.Services.AddCascadingAuthenticationState();
 
 
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
+
+builder.Services.AddDefaultIdentity<User>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+    })
+    .AddEntityFrameworkStores<SistemaDeBilheteiraContext>();
+
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
@@ -35,7 +43,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 //Services configuration
 
-
+builder.Services.AddRazorPages();  //  Identity needs this
+builder.Services.AddAuthorization(); // for [Authorize]
 
 
 
@@ -59,6 +68,12 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapRazorPages(); // Importante para as páginas de Login/Register
+app.MapControllers();
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
