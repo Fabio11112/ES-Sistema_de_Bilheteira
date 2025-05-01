@@ -1,11 +1,17 @@
-﻿  @page "/"
-  @using RestSharp;
-  @using Newtonsoft.Json;
+﻿@page "/"
+@rendermode InteractiveServer
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@using Microsoft.AspNetCore.Components.Authorization
+@using SistemaDeBilheteira.Services.AuthenticationService
 
-  <PageTitle>Home</PageTitle>
+@inject NavigationManager NavigationManager
+@inject IAuthService AuthService
+
+<PageTitle>Home</PageTitle>
+
+
 <main class="main-content">
     <!-- Principal Banner -->
     <section class="banner">
@@ -111,10 +117,21 @@
 
 @code {
 
+    
 
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
+    private async Task Logout()
+    {
+        NavigationManager.NavigateTo("/LogIn", true);
+        var result = await AuthService.LogoutAsync();
+        if (result.Success)
+        {
+            NavigationManager.NavigateTo("/LogIn", true);
+        }
+    }
+    
     public const int TOTAL_PAGES = 9;
     //List<Movie> movies = new();
       // public const int Fantasy = 14;

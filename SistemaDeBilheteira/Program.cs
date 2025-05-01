@@ -16,6 +16,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(7193, listenOptions => listenOptions.UseHttps());
+    serverOptions.ListenAnyIP(5212);
+});
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -30,11 +37,15 @@ builder.Services.AddCascadingAuthenticationState();
 
 builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
 
-builder.Services.AddDefaultIdentity<AppUser>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = false;
-    })
-    .AddEntityFrameworkStores<SistemaDeBilheteiraContext>();
+// builder.Services.AddDefaultIdentity<AppUser>(options =>
+//     {
+//         options.SignIn.RequireConfirmedAccount = false;
+//     })
+//     .AddEntityFrameworkStores<SistemaDeBilheteiraContext>();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<SistemaDeBilheteiraContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -63,16 +74,17 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-app.UseAntiforgery();
+
 
 app.MapStaticAssets();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapRazorPages(); // Importante para as páginas de Login/Register
 app.MapControllers();
 app.MapBlazorHub();
-//app.MapFallbackToPage("/");
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

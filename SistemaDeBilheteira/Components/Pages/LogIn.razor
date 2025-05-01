@@ -17,19 +17,19 @@
         <div class="get-started">Welcome Back</div>
 
 
-        <form>
+        <EditForm Model="Model" OnValidSubmit="Login" FormName="user-login">
             <div class="flex input-element">
                 <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
-                <input @bind="Model.Email" id="emaol" type="email" placeholder="EMAIL ADDRESS"/>
+                <InputText @bind-Value="Model!.Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/email.svg" alt=""/></div>
-                <input @bind="Model.Password" id="password" type="password" placeholder="PASSWORD"/> 
+                <InputText @bind-Value="Model!.Password" id="password" type="password" placeholder="PASSWORD"/> 
             </div>
 
-            <button type="button" @onclick="LogInAsync" class="register">LOG IN</button>
+            <button type="submit" class="register">LOG IN</button>
 
-        </form>
+        </EditForm>
         <div>@Message</div>
     </div>
 
@@ -37,13 +37,13 @@
 </div>
 
 @code {
-    [CascadingParameter] private HttpContext? HttpContext { get; set; }
-    private UserLoginModel? Model { get; set; } = new UserLoginModel();
+    [SupplyParameterFromForm]
+    private UserLoginModel? Model { get; set; } = new ();
     private string Message { get; set; } = string.Empty;
 
-    private async Task LogInAsync()
+    private async Task Login()
     {
-        IAuthResult result = await AuthService.LoginAsync(Model, HttpContext);
+        IAuthResult result = await AuthService.LoginAsync(Model!);
         if (result.Success)
         {
             //do something
