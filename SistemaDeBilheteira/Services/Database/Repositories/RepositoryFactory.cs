@@ -7,7 +7,7 @@ public class RepositoryFactory(SistemaDeBilheteiraContext context): IRepositoryF
 {
     private readonly SistemaDeBilheteiraContext _context = context;
     
-    public IRepository<TEntity> Create<TEntity>() where TEntity : IdentityUser, IDbItem
+    public IRepository<TEntity> Create<TEntity>() where TEntity : DbItem
     {
         return new Repository<TEntity>(_context);
     }
