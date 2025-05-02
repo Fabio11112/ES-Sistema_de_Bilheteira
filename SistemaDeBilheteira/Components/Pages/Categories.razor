@@ -1,0 +1,47 @@
+﻿@page "/Categories"
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@inject NavigationManager Navigation
+
+<PageTitle>Categories</PageTitle>
+
+<div class="categories-container">
+    <h1 class="categories-title">All Movie Categories</h1>
+    
+    <div class="categories-grid">
+        @if (Genres != null && Genres.Genres.Any())
+        {
+            @foreach (var genre in Genres.Genres)
+            {
+                @* <div class="genre-card" @onclick="() => NavigateToGenre(genre.Name)">
+                    <h3>@genre.Name</h3>
+                </div> *@
+
+                var encodedGenre = Uri.EscapeDataString(genre.Name);
+                <a class="category-button" href="@($"/Genre/{encodedGenre}")">@genre.Name</a>
+            }
+        }
+        else
+        {
+            <p>Loading categories...</p>
+        }
+    </div>
+</div>
+
+@code {
+    Response<Genre>? Genres { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var genreDeserializer = new Deserializer<Response<Genre>>();
+        string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+        Genres = await genreDeserializer.Fetch(genreUrl)!;
+    }
+
+    private void NavigateToGenre(string genreName)
+    {
+        var encodedGenre = Uri.EscapeDataString(genreName); // Codifica el nombre para la URL
+        Navigation.NavigateTo($"/Genre/{encodedGenre}");
+    }
+}

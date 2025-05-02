@@ -18,6 +18,7 @@ body {
   font-weight: bold;
   font-size: 1.5em;
   color: #facc15; /* Yellow */
+  text-decoration-line: none  ;
 }
 
 .menu {
@@ -99,3 +100,27 @@ body {
   height: 30.752px;
   flex-shrink: 0;
 }
+
+.search-input {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  background-color: white;
+  color: black;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  margin-left: 8px;
+  transition: width 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-input.show {
+  width: 200px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
