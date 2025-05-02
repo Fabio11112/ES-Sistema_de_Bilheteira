@@ -1,6 +1,11 @@
 ﻿@page "/SignUp"
-@using SistemaDeBilheteira.Components.Cards
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Identity
 @using SistemaDeBilheteira.Components.Cards.Authentication
+@using SistemaDeBilheteira.Services.AuthenticationService
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@inject IAuthService AuthService
+@inject NavigationManager NavigationManager
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Konkhmer+Sleokchher|Montserrrat">
@@ -13,27 +18,29 @@
         <div class="get-started">Sign Up to Get Started</div>
 
 
-        <form>
+        <EditForm Model="User" OnValidSubmit="Register" FormName="user-register">
             <div class="flex input-element">
                 <div class="logo"> <img class="user-logo" src="images/icons/profile/user.svg" alt=""/></div>
-                <input @bind="FullName" id="full name" placeholder="FULL NAME"/>
+                <InputText @bind-Value="User!.Name" id="full name" placeholder="FULL NAME"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/email.svg" alt=""/></div>
-                <input @bind="Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
+                <InputText @bind-Value="User!.Email" id="email" type="email" placeholder="EMAIL ADDRESS"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/lock.svg" alt=""/></div>
-                <input @bind="Password" id="password" type="password" placeholder="PASSWORD"/>
+                <InputText @bind-Value="User!.Password" id="password" type="password" placeholder="PASSWORD"/>
             </div>
             <div class="flex input-element">
                 <div class="logo"> <img src="images/icons/authentication/lock.svg" alt=""/></div>
-                <input @bind="ConfirmPassword" id="confirm-password" type="password" placeholder="CONFIRM PASSWORD"/>
+                <InputText @bind-Value="User!.ConfirmPassword" id="confirm-password" type="password" placeholder="CONFIRM PASSWORD"/>
             </div>
             
-            <button type="button" @onclick="Register" class="register">REGISTER</button>
+            <button type="submit" class="register">REGISTER</button>
+            
+            <div>@Message</div>
 
-        </form>
+        </EditForm>
     </div>
     
 
@@ -41,18 +48,24 @@
 
 @code {
 
-    private string FullName { get; set; } = String.Empty;
-    private string Email { get; set; } = String.Empty;
-    private string Password { get; set; } = String.Empty;
-    private string ConfirmPassword { get; set; } = String.Empty;
+    [SupplyParameterFromForm] private UserRegisterModel? User { get; set; } = new(); 
+    private String Message { get; set; } = string.Empty;
     
-    private void Register()
+    private async Task Register()
     {
-        // Aqui você pode acessar os valores das propriedades
-        Console.WriteLine($"Full Name: {FullName}");
-        Console.WriteLine($"Email: {Email}");
-        Console.WriteLine($"Password: {Password}");
-        Console.WriteLine($"Confirm Password: {ConfirmPassword}");
+        IAuthResult result = await AuthService.RegisterAsync(User);
+
+        if (!result.Success)
+        {
+            Console.WriteLine($"Name: {User.Name}\n Email: {User.Email}");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/Profile");
+        }
+
+        Message = result.Message;
+
     }
 
 }

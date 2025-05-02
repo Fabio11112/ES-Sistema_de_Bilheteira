@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Storage;
 using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Repositories;
 
@@ -23,7 +24,7 @@ public class UnitOfWork(SistemaDeBilheteiraContext context, IRepositoryFactory r
     }
     
 
-    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : DbItem
+    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : IdentityUser, IDbItem
     {
         if (!Repositories.ContainsKey(typeof(TEntity)))
         {

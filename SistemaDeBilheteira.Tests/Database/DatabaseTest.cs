@@ -7,23 +7,24 @@ namespace SistemaDeBilheteira.Tests.Database;
 
 public class DatabaseTest
 {
-    private User User;
+    private AppUser User = new AppUser();
     private SistemaDeBilheteiraContext Context;
     private IRepositoryFactory Factory;
     private IUnitOfWork UnitOfWork;
-    private IRepository<User> UserRepository;
+    private IRepository<AppUser> UserRepository;
 
     public DatabaseTest()
     {
-        User = new User("João", "Roberto", "roberto@gmail.com");
-
+        User.FirstName = "João";
+        User.LastName = "Roberto";
+        User.Email = "roberto@gmail.com";
         Context = new MemorySistemaDeBilheteiraContext();
         Context.Database.EnsureCreated();
         
         Factory = new RepositoryFactory(Context);
         UnitOfWork = new UnitOfWork(Context, Factory);
 
-        UserRepository = UnitOfWork.GetRepository<User>();
+        UserRepository = UnitOfWork.GetRepository<AppUser>();
         
         UnitOfWork.Begin();
         UserRepository.Insert(User);

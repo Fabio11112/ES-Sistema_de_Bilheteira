@@ -1,6 +1,6 @@
 ﻿namespace SistemaDeBilheteira.Services.Database.Repositories;
 
-public interface IRepository<TEntity> where TEntity : DbItem
+public interface IRepository<TEntity> where TEntity : IDbItem
 {
         
     List<TEntity> GetAll();
