@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AdditionalFiles Include="Components\Cards\AddedCart\AddedToCartItem.razor" />
       <AdditionalFiles Include="Components\Cards\Cart\CartElement.razor" />
       <AdditionalFiles Include="Components\Layout\Footer.razor" />
 

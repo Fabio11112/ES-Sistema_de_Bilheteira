@@ -1,30 +1,28 @@
-﻿@page "/PurchaseHistory"
+@page "/PurchaseHistory"
 @using SistemaDeBilheteira.Components.Cards;
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 
 
-<Card Title=""></Card>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat">
 <PageTitle>Purchase History</PageTitle>
-<h1>@MovieTitle</h1>
-<h1>@typeof(PurchaseHistoryItem)</h1>
-<h1>@foreach ( var item in purchaseHistory)
-    {
-        <div>
-            <h2>@item.MovieTitle</h2>
-            <p>Price: @item.Price</p>
-            <p>Quantity: @item.Quantity</p>
-            <p>Total Price: @item.TotalPrice</p>
-            <p>Purchase Date: @item.PurchaseDate.ToShortDateString()</p>
-        </div>
-    }</h1>
-@*<img src="@backdropLink" alt="image"/>*@
-
-
+<div class="background">
+    <div class="logo">
+        <img class="purchase-image" src="images/icons/purchase/purchase.svg" alt="cart"/>
+        <div class="title">PURCHASE HISTORY</div>
+    </div>
+    
+    <div class="products">
+        <PurchaseHistoryItem></PurchaseHistoryItem>
+        <PurchaseHistoryItem></PurchaseHistoryItem>
+        <PurchaseHistoryItem></PurchaseHistoryItem>
+    </div>
+</div>
+    
 
 @code {
-
     string? MovieTitle { get; set; }
     Response<Movie>? Response { get; set; }
 
