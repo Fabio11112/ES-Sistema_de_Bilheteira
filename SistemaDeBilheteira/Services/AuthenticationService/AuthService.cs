@@ -100,42 +100,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
     
-    public async Task<IAuthResult> LoginAsync(UserLoginModel model, HttpContext httpContext)
-    {
-        // var userRepository = UnitOfWork.GetRepository<AppUser>();
-        IAuthResult result = new AuthResult();
-        return result;
-        // if (userRepository == null)
-        // {
-        //     result.Success = false;
-        //     result.Message = "Internal Server Error";
-        //     return result;
-        // }
-        //
-        // var user = userRepository.GetAll().FirstOrDefault(x => x.Email == model.Email);
-        //
-        // if (user is null || new PasswordHasher<AppUser>().VerifyHashedPassword(user, user.PasswordHash, model.Password) == PasswordVerificationResult.Failed)
-        // {
-        //     result.Success = false;
-        //     result.Message = "Invalid email or password.";
-        //     return result;
-        // }
-        //
-        // // var claims = new List<Claim>
-        // // {
-        // //     new Claim(ClaimTypes.Email, model.Email),
-        // //     new Claim(ClaimTypes.Role, user.Role),
-        // // };
-        //
-        // // var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        // // var principal = new ClaimsPrincipal(identity);
-        // // await httpContext.SignInAsync(principal);
-        //
-        // result.Success = true;
-        // result.Message = "Logged in successfully";
-        // return result;
-    }
-
+    
     public async Task<IAuthResult> LogoutAsync()
     {
         var authResult = new AuthResult();
@@ -152,18 +117,5 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         }
         return authResult;
     }
-
-    private bool UserAlreadyExist(List<AppUser> users, UserRegisterModel model)
-    {
-        return users.Any(u => u.Email == model.Email);
-    }
     
-
-    private void AddUser(AppUser user, IRepository<AppUser> repository)
-    {
-        // UnitOfWork.Begin();
-        // repository?.Insert(user);
-        // UnitOfWork.SaveChanges();
-        // UnitOfWork.Commit();
-    }
 }
