@@ -1,5 +1,34 @@
-﻿<h3>AddedToCart</h3>
+﻿@page "/AddedToCart"
+@using SistemaDeBilheteira.Components.Cards.AddedCart
+@using SistemaDeBilheteira.Components.Cards
 
-@code {
-    
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
+
+
+
+<div class="background">
+    <div class="flex">
+        <div class="products">
+            <AddedToCartItem></AddedToCartItem>
+            
+        </div>
+
+        <div class="select">
+            <ButtonsAddedCart></ButtonsAddedCart>
+        </div>
+    </div>
+    <div class="button">
+        <SearchButton></SearchButton>
+    </div>
+    <div class="carousel">
+        <MovieCarousel MovieIds="@MovieIds"></MovieCarousel>
+    </div>
+
+</div>
+
+@code{
+
+    private List<int> MovieIds = new List<int> { 324544, 399579, 550, 56454, 4181, 48484, 48452, 48453, 48451, 48450, 48449, 48448, 48447, 48446, 48445, 48444, 48443, 48442, 48441, 48440 };
+
 }

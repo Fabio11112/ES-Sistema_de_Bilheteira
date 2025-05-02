@@ -1,0 +1,27 @@
+﻿@using SistemaDeBilheteira.Services.Movies
+
+<div class="element">
+    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
+    <div>
+        <div class="content">
+            <div class="movie-information">
+                <div class="movie-name">@Movie?.Title</div>
+                <div class="text information">Type @Type</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
+    private string Type { get; set; } = "Rental";
+    private Movie? Movie { get; set; }
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new MovieDeserializer();
+        Movie = await deserializer.FetchMovie(324544);
+        PosterPath += Movie?.PosterPath;
+    }
+}
