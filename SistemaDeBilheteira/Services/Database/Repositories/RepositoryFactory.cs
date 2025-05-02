@@ -3,11 +3,26 @@ using SistemaDeBilheteira.Services.Database.Context;
 
 namespace SistemaDeBilheteira.Services.Database.Repositories;
 
-public class RepositoryFactory(SistemaDeBilheteiraContext context): IRepositoryFactory
-{
-    private readonly SistemaDeBilheteiraContext _context = context;
+// public class RepositoryFactory(SistemaDeBilheteiraContext context): IRepositoryFactory
+// {
+//     private readonly SistemaDeBilheteiraContext _context = context;
     
-    public IRepository<TEntity> Create<TEntity>() where TEntity : IdentityUser, IDbItem
+//     public IRepository<TEntity> Create<TEntity>() where TEntity : IdentityUser, IDbItem
+//     {
+//         return new Repository<TEntity>(_context);
+//     }
+// }
+
+public class RepositoryFactory : IRepositoryFactory
+{
+    private readonly SistemaDeBilheteiraContext _context;
+
+    public RepositoryFactory(SistemaDeBilheteiraContext context)
+    {
+        _context = context;
+    }
+
+    public IRepository<TEntity> Create<TEntity>() where TEntity : class, IDbItem
     {
         return new Repository<TEntity>(_context);
     }

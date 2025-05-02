@@ -5,11 +5,10 @@ namespace SistemaDeBilheteira.Services.Database.UnitOfWork;
 
 public interface IUnitOfWork : IDisposable
 {
-    IRepository<TEntity>? GetRepository<TEntity>() where TEntity : IdentityUser, IDbItem;
-
-    void Begin();
+    IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IDbItem;
+    void BeginTransaction();
     void Commit();
     void Rollback();
-    
     void SaveChanges();
 }
+
