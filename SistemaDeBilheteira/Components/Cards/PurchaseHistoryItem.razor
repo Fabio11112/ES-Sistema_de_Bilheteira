@@ -1,4 +1,6 @@
-﻿@using SistemaDeBilheteira.Services.Movies
+﻿@using System.IdentityModel.Tokens.Jwt
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
     <div>
@@ -44,8 +46,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var deserializer = new MovieDeserializer();
-        Movie = await deserializer.FetchMovie(324544);
+        var id = 324544;
+        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
+        var deserializer = new Deserializer<Movie>();
+        Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
     }
  }
