@@ -1,0 +1,140 @@
+@page "/SelectType/{id:int}"
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@inject NavigationManager NavigationManager
+
+<div class="container">
+    @if (movie != null)
+    {
+        <section class="banner">
+            <div class="banner-wrapper">
+                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                    <p class="movie-overview">@movie.Overview</p>
+                </div> 
+            </div>
+            <div class="play-button-container">
+                <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
+            </div>
+        </section>
+
+        <section class="movie-details">
+            <div class="movie-details-wrapper">
+                <div class="imdb-rating">
+                    <p class="movie-release-date">IMDB @Math.Round(movie.VoteAverage, 1)</p>
+                    <p class="movie-release-date">
+                        @movie.ReleaseDate.ToString("yyyy-MM-dd") • PG12  • @FormatRuntime(movie.Runtime)
+                    </p>
+                </div>
+
+                <div class="genres-container">
+                    @foreach (var genre in genreNames)
+                    {
+                        <span class="genre-badge">@genre</span>
+                    }
+                </div>
+
+                <div class="actions-container">
+                    <div class="action-buttons">
+                        <div class="watch-later-button">
+                            <img src="images/icons/MovieDescription/add.svg" alt="Watch later" class="button-icon"/>
+                            <p class="button-text">Watch Later</p>
+                        </div>
+                        <div class="share-button">
+                            <img src="images/icons/MovieDescription/share.svg" alt="Share" class="button-icon"/>
+                            <p class="button-text">Share</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rent & Buy Buttons -->
+            <div class="actions-container">
+                <div class="flex gap-2 mt-4 relative">
+                    <!-- Rent Button -->
+                    <button class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded">
+                        Rent<br><span class="text-sm font-normal">HD 9.99 €</span>
+                    </button>
+
+                    <!-- Buy Button + Dropdown -->
+                    <div class="relative">
+                        <button @onclick="ToggleDropdown"
+                                class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded inline-flex items-center justify-between w-full">
+                            Buy
+                            <svg class="ml-2 w-4 h-4 transform transition-transform duration-200"
+                                 style="@((showDropdown ? "transform: rotate(180deg);" : ""))"
+                                 fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.25 7.5L10 12.25L14.75 7.5H5.25Z" />
+                            </svg>
+                        </button>
+
+                        @if (showDropdown)
+                        {
+                            <div class="absolute z-10 mt-1 w-48 bg-yellow-400 rounded shadow-lg">
+                                <!-- DVD Option -->
+                                <div class="px-4 py-2 hover:bg-yellow-500 cursor-pointer flex justify-between items-center">
+                                    <div>
+                                        Buy DVD<br />
+                                        <span class="text-sm font-normal">HD 12.99€</span>
+                                    </div>
+                                    <span class="text-xl">📀</span>
+                                </div>
+                                <!-- Blu-Ray Option -->
+                                <div class="px-4 py-2 hover:bg-yellow-500 cursor-pointer flex justify-between items-center">
+                                    <div>
+                                        Buy Blu-Ray<br />
+                                        <span class="text-sm font-normal">HD 12.99€</span>
+                                    </div>
+                                    <span class="text-xl">💿</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Movie? movie;
+    private List<string> genreNames = new();
+    private bool showDropdown = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var movieDeserializer = new Deserializer<Movie>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
+        
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
+        
+        //
+        // if (movie != null && movie.GenreIds != null)
+        // {
+        //     genreNames = allGenres
+        //         .Where(g => movie.GenreIds.Contains(g.Id))
+        //         .Select(g => g.Name)
+        //         .ToList();
+        // }
+    }
+
+    private string FormatRuntime(int runtime)
+    {
+        var hours = runtime / 60;
+        var minutes = runtime % 60;
+        return $"{hours}h {minutes}m";
+    }
+
+    private void ToggleDropdown()
+    {
+        showDropdown = !showDropdown;
+    }
+}

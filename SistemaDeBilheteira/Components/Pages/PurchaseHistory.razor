@@ -1,5 +1,9 @@
-﻿@page "/PurchaseHistory"
+@page "/PurchaseHistory"
 @using SistemaDeBilheteira.Components.Cards;
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -19,7 +23,46 @@
     
 
 @code {
-    
-    
+    string? MovieTitle { get; set; }
+    Response<Movie>? Response { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var deserializer = new Deserializer<Response<Movie>>();
+        Response = await deserializer.Fetch($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular")!;
+        //Response = await Task.Run(() => deserializer.FetchPopularMovies());
+        Console.WriteLine(Response?.Results[0].BackdropPath);
+        //backdropLink += response.Results[0].BackdropPath;
+        //title = response.Results[0].Title;
+    }
+    // Simulate fetching purchase history
+    public List<PurchaseHistoryItem> purchaseHistory = new List<PurchaseHistoryItem>
+    {
+        new PurchaseHistoryItem
+        {
+            MovieTitle = "Movie 1",
+            Price = 10.00m,
+            Quantity = 2,
+            TotalPrice = 20.00m,
+            PurchaseDate = DateTime.Now.AddDays(-1)
+        },
+        new PurchaseHistoryItem
+        {
+            MovieTitle = "Movie 2",
+            Price = 15.00m,
+            Quantity = 1,
+            TotalPrice = 15.00m,
+            PurchaseDate = DateTime.Now.AddDays(-2)
+        }
+    };
+
+    public class PurchaseHistoryItem
+    {
+        public string MovieTitle { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime PurchaseDate { get; set; }
+    }
 
 }

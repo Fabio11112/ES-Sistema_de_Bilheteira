@@ -1,0 +1,79 @@
+@page "/QuantityOfTickets/{id:int}"
+@using DotNetEnv
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+
+
+@if (Movie != null)
+{
+    <div class="movie-info">
+        <div class="movie-details">
+            <h2 class="movie-title">@Movie.Title</h2>
+            <p class="date">Saturday, April 6th</p>
+            <p class="time">21:10h</p>
+
+            <div class="cinema-name">
+                <img src="images/icons/location.svg" alt="location" class="button-icon"/>
+                <p class="cinema">Cinemas NOS Forum Madeira</p>
+                <p class="location">Funchal, Madeira</p>
+            </div>
+
+            <div class="session-name">
+                <p class="room">Room 5</p>
+            </div>
+        </div>
+
+        <div class="people-going">
+            <p class="people-going-text">How many people will go ?</p>
+
+            <div class="counter-container">
+                <div class="counter-box">
+                    <div class="number-display">@numberOfPeople</div>
+                </div>
+                <div class="counter-buttons">
+                    <button class="arrow-button" @onclick="IncreasePeople">▲</button>
+                    <button class="arrow-button" @onclick="DecreasePeople">▼</button>
+                </div>
+            </div>
+
+            <div class="continue-container">
+                <button class="primary-button">Continue</button>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading movie details...</p>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Movie? Movie { get; set; }
+    private Response<Genre>? Genres { get; set; }
+
+    private int numberOfPeople = 2;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var movieDeserializer = new Deserializer<Movie>();
+        //var genreDeserializer = new Deserializer<Response<Genre>>();
+        
+        string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
+       // string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+        
+        Movie = await movieDeserializer.Fetch(movieUrl)!;
+        //Genres = await genreDeserializer.Fetch(genreUrl)!;
+        
+        //var movieGenres = Genres.Results.Where(item => Movie.GenreIds.Contains(item.Id)).ToList();
+        
+    }
+
+    private void IncreasePeople() => numberOfPeople++;
+    private void DecreasePeople()
+    {
+        if (numberOfPeople > 1)
+            numberOfPeople--;
+    }
+}

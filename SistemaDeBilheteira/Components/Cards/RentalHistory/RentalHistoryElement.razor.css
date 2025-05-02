@@ -1,0 +1,87 @@
+﻿.element{
+    background-color: #1A1A1D;
+    border-radius: 20px;
+    padding: 15px 20px 10px 50px;
+    margin-top: 30px;
+}
+
+.image{
+    width: 13%;
+    margin-right: 10.7%;
+}
+
+.movie-title{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 300px;
+}
+
+.rental{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.flex{
+    display: flex;
+}
+
+.total{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 20px;
+}
+
+.price{
+    color: #FFF;
+    font-family: Poppins, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100px;
+}
+
+
+.title-type{
+    width: 100%;
+    margin-right: 150px;
+    /*margin-right: 26.10%;*/
+}
+
+.information{
+    width: 100%;
+}
+
+.date{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.dates{
+    margin-top: 15%;
+}
+
+.initial{
+    margin-right: 300px;
+}
+
+.expired{
+    color: #FF4141;
+}
+

@@ -1,4 +1,5 @@
-﻿@using SistemaDeBilheteira.Services.Movies
+﻿@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
@@ -38,8 +39,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var deserializer = new MovieDeserializer();
-        Movie = await deserializer.FetchMovie(324544);
+        string? url = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        var deserializer = new Deserializer<Movie>();
+        Movie = await deserializer.Fetch($"{url}/{1197306}")!;
         PosterPath += Movie?.PosterPath;
     }
 }

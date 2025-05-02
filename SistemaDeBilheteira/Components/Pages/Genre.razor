@@ -1,0 +1,61 @@
+@page "/Genre/{GenreName}"
+@using RestSharp
+@using Newtonsoft.Json
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@inject NavigationManager Navigation
+
+<PageTitle>@GenreName</PageTitle>
+
+<main class="main-content">
+    <section class="movie-section">
+        <h2 class="section-title">@GenreName</h2>
+        <div class="movie-carousel no-scrollbar">
+            @if (FilteredMovies != null && FilteredMovies.Any())
+            {
+                @foreach (var movie in FilteredMovies)
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
+                }
+            }
+            else
+            {
+                <p class="loading">Loading @GenreName movies...</p>
+            }
+        </div>
+    </section>
+</main>
+
+@code {
+    [Parameter]
+    public string GenreName { get; set; }
+
+    List<Movie> AllMovies = new();
+    List<Movie> FilteredMovies = new();
+    Response<Genre> Genres;
+    public const int TOTAL_PAGES = 10;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var movieDeserializer = new Deserializer<Response<Movie>>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
+
+        Genres = await genreDeserializer.Fetch($"{Environment.GetEnvironmentVariable("GENRES_LINK")}")!;
+
+        for (int page = 1; page <= TOTAL_PAGES; page++)
+        {
+            var moviesPage = await movieDeserializer.Fetch($"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}");
+            if (moviesPage != null)
+                AllMovies.AddRange(moviesPage.Results);
+        }
+
+        var genreObj = Genres.Genres.FirstOrDefault(g => g.Name.Equals(GenreName, StringComparison.OrdinalIgnoreCase));
+        if (genreObj != null)
+        {
+            FilteredMovies = AllMovies.Where(m => m.GenreIds.Contains(genreObj.Id)).ToList();
+        }
+    }
+}

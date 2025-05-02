@@ -1,0 +1,154 @@
+@page "/SelectSession/{id:int}"
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+
+
+<div class="session-selection-container">
+    @if (movie != null)
+    {
+        <section class="banner">
+            <div class="banner-wrapper">
+                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <div class="banner-title-overlay">
+                    <h2 class="banner-title">@movie.Title</h2>
+                    <p class="movie-overview">@movie.Overview</p>
+                </div>
+
+            </div>
+            <div class="play-button-container">
+                <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
+            </div>
+        </section>
+
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+
+    <div class="header-section">
+        <h2 class="title">BUY TICKET</h2>
+    </div>
+
+    <div class="cinema-selector">
+        @foreach (var cinema in cinemas)
+        {
+            <button class="cinema-option">
+                @cinema
+            </button>
+        }
+    </div>
+
+    <div class="sessions-table">
+
+        @foreach (var date in dates)
+        {
+            <div class="session-row">
+                <div class="date-cell">@date.Value</div>
+                @foreach (var cinema in cinemas)
+                {
+                     <div class="time-cell @(selectedCinema == cinema ? "active" : "")"> 
+                    @*     <button class="time-slot" @(IsSelectedSession(cinema, date.Key, "14:30") ? "selected" : ")" *@
+                    @*             @onclick="() => SelectSessionHandler(cinema, date.Key, "14:30")"> *@
+                    @*         14:30 *@
+                    @*     </button> *@
+                     </div> 
+                }
+            </div>
+        }
+    </div>
+
+    @if (movie != null)
+    {
+        <div class="action-buttons">
+            <a class="primary-button" href="@($"SeatSelect/{movie.Id}")">
+                CONFIRM SELECTION
+            </a>
+        </div>
+    }
+    else
+    {
+        <p class="loading">Loading movie details...</p>
+    }
+
+</div>
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Movie? movie;
+    private List<string> genreNames = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var movieDeserializer = new Deserializer<Movie>();
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
+    }
+
+    private List<string> cinemas = new()
+    {
+        "Madeira Movie Center",
+        "Cinemas NOS",
+        "Cine Place"
+    };
+
+    private Dictionary<string, string> dates = new()
+    {
+        { "Today", "Today" },
+        { "Tomorrow", "Tomorrow" },
+        { "Tuesday", "Tuesday - 28/03" },
+        { "Wednesday", "Wednesday - 29/03" },
+        { "Thursday", "Thursday - 30/03" },
+        { "Friday", "Friday - 31/03" },
+        { "Saturday", "Saturday - 01/04" },
+        { "Sunday", "Sunday - 02/04" }
+    };
+
+    private string? selectedCinema;
+    private SelectedSession? selectedSession;
+
+    private class SelectedSession
+    {
+        public string Cinema { get; set; } = string.Empty;
+        public string DateKey { get; set; } = string.Empty;
+        public string DateDisplay { get; set; } = string.Empty;
+        public string Time { get; set; } = string.Empty;
+    }
+
+    /*private void SelectCinema(string cinema)
+    {
+        selectedCinema = cinema;
+    }
+
+    private bool IsSelectedSession(string cinema, string dateKey, string time)
+    {
+        return selectedSession != null &&
+               selectedSession.Cinema == cinema &&
+               selectedSession.DateKey == dateKey &&
+               selectedSession.Time == time;
+    }
+
+    // Rename method to avoid name conflict with the class 'SelectSession'
+    private void SelectSessionHandler(string cinema, string dateKey, string time)
+    {
+        selectedSession = new SelectedSession
+        {
+            Cinema = cinema,
+            DateKey = dateKey,
+            DateDisplay = dates[dateKey],
+            Time = time
+        };
+    }
+
+    private void ProceedToCheckout()
+    {
+        if (selectedSession != null)
+        {
+            NavigationManager.NavigateTo(
+                $"/checkout/{id}" +
+                $"/{Uri.EscapeDataString(selectedSession.Cinema)}" +
+                $"/{selectedSession.DateKey}" +
+                $"/{selectedSession.Time}");
+        }
+    }*/
+}

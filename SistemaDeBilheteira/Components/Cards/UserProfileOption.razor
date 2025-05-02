@@ -1,5 +1,4 @@
-﻿
-<div onclick="@Method" class="profile-option">
+﻿<div @onclick="HandleClick" class="profile-option" style="cursor: pointer;">
     <div class="logo-title">
         <img class="logo" src="@ImageSource" alt=""/>
         <h1 class="title text">@Title</h1>
@@ -11,5 +10,15 @@
     [Parameter] public string ImageSource { get; set; } = string.Empty;
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string Description { get; set; } = string.Empty;
-    [Parameter] public EventCallback Method { get; set; }
+    
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    private async Task HandleClick()
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
 }

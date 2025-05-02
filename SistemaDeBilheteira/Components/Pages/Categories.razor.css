@@ -1,0 +1,51 @@
+﻿body {
+    background-color: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+  }
+  
+  .categories-container {
+    padding: 40px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .categories-title {
+    font-size: 2.25rem;
+    text-align: center;
+    color: #facc15;
+    margin-bottom: 32px;
+    font: bold;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 32px;
+  }
+  
+  .genre-card {
+    background-color: #181818;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+  }
+  
+  .genre-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .genre-card:hover {
+    background-color: #000;
+    border-color: #facc15;
+    box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+    transform: translateY(-4px);
+  }
+  
