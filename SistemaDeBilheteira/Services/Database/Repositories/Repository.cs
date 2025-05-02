@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Context;
 
 namespace SistemaDeBilheteira.Services.Database.Repositories;
 
-public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IRepository<TEntity> where TEntity : DbItem
+public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IRepository<TEntity> where TEntity : IdentityUser, IDbItem
 {
     private readonly SistemaDeBilheteiraContext _context = context;
     

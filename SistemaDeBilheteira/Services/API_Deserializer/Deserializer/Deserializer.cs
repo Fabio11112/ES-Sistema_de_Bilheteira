@@ -27,7 +27,7 @@ public class Deserializer<T> : IDeserializer<T>
         var client = new RestClient(options);
         var request = new RestRequest("");
         request.AddHeader("accept", "application/json");
-        request.AddHeader("Authorization", $"Bearer {Enviroment.Enviroment.TmdbApiKey}");
+        request.AddHeader("Authorization", $"Bearer {Environment.GetEnvironmentVariable("TMDB_API_KEY")}");
         return await client.GetAsync(request);
     }
     
