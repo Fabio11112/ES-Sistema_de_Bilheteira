@@ -5,9 +5,12 @@ using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
+using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
+using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
+using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +54,12 @@ builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IService<Address>, AddressService>();
+
+builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
+
+builder.Services.AddScoped<IUserContext, UserContext>();
 
 //Services configuration
 
