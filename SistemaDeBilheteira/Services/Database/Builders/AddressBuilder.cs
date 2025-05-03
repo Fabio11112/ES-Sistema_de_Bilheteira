@@ -56,6 +56,8 @@ public class AddressBuilder
     
     public Address Build()
     {
-        return Address;
+        var built = Address;
+        Address = new();
+        return built;
     }
 }

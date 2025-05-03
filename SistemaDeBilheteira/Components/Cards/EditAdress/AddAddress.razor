@@ -1,7 +1,8 @@
 ﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@rendermode InteractiveServer
 <div class="add-address"></div>
 
-<EditForm Model="Model" OnValidSubmit="OnValidSubmit" FormName="add-address">
+<EditForm Model="Model" OnValidSubmit="HandleSubmit" FormName="add-address">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -29,4 +30,9 @@
 @code {
     [Parameter] public AddressModel? Model { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    
+    private void HandleSubmit()
+    {
+        OnValidSubmit.InvokeAsync();
+    }
 }

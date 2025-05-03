@@ -1,12 +1,20 @@
-﻿<div class="address">
-    <div class="name">Cidade</div>
-    <div class="address-street-line-1">Cidade</div>
-    <div> Pais</div>
+﻿@using SistemaDeBilheteira.Services.Database.Entities
+<div class="address">
+    <div class="name">@Address.StreetLine1</div>
+    <div class="name">@Address.StreetLine2!</div>
+    <div>@Address.City, @Address.State, @Address.Country @Address.ZipCode</div>
     <div>
-        <button>Delete</button>
+        <button @onclick="HandleDelete">Delete</button>
     </div>
 </div>
 
 @code {
-    
+    [Parameter] public Address Address { get; set; }
+    [Parameter] public EventCallback Delete { get; set; }
+
+
+    private void HandleDelete()
+    {
+        Delete.InvokeAsync();
+    }
 }

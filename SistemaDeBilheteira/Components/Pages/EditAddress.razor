@@ -10,7 +10,12 @@
 @inject AddressBuilder AddressBuilder
 
 <div class="addresses flex">
-    <Address></Address>
+    @foreach (var address in Addresses)
+    {
+        <AddressElement
+            Address="address">
+        </AddressElement>
+    }
 </div>
 
 <div class="address-form">
@@ -24,9 +29,17 @@
     @Message
 </div>
 
+
 @code {
+    [SupplyParameterFromForm]
     private AddressModel Model { get; set; } = new();
     private string Message { get; set; } = string.Empty;
+    private ICollection<Address>? Addresses { get; set; } = new List<Address>();
+
+    protected override void OnInitialized()
+    {
+        Addresses = AddressService.GetAll();
+    }
     
     
     private void SubmitAddress()
@@ -43,6 +56,15 @@
 
         var result = AddressService.Add(address);
         Message = result.Message;
+        
+        
+        Addresses = AddressService.GetAll();
+        StateHasChanged();
     }
 
+    private void DeleteAddress(Guid id)
+    {
+        var result = AddressService.Delete(id);
+        Message = result.Message;
+    }
 }
