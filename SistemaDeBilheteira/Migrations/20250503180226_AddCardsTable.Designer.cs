@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaDeBilheteira.Services.Database.Context;
 
@@ -10,9 +11,11 @@ using SistemaDeBilheteira.Services.Database.Context;
 namespace SistemaDeBilheteira.Migrations
 {
     [DbContext(typeof(SistemaDeBilheteiraContext))]
-    partial class SistemaDeBilheteiraContextModelSnapshot : ModelSnapshot
+    [Migration("20250503180226_AddCardsTable")]
+    partial class AddCardsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");

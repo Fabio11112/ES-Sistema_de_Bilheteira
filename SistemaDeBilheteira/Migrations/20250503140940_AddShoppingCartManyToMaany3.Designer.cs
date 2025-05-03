@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaDeBilheteira.Services.Database.Context;
 
@@ -10,9 +11,11 @@ using SistemaDeBilheteira.Services.Database.Context;
 namespace SistemaDeBilheteira.Migrations
 {
     [DbContext(typeof(SistemaDeBilheteiraContext))]
-    partial class SistemaDeBilheteiraContextModelSnapshot : ModelSnapshot
+    [Migration("20250503140940_AddShoppingCartManyToMaany3")]
+    partial class AddShoppingCartManyToMaany3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -239,106 +242,6 @@ namespace SistemaDeBilheteira.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Currency", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CurrencyCode")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CurrencyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CurrencyName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CurrencySymbol")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("MinorUnit")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Currencies");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Payment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CurrencyId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("PaymentMethodId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CurrencyId");
-
-                    b.HasIndex("PaymentMethodId");
-
-                    b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("PaymentMethodType")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("PaymentMethods");
-
-                    b.HasDiscriminator<string>("PaymentMethodType").HasValue("PaymentMethod");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ShoppingCartItem", b =>
                 {
                     b.Property<string>("AppUserId")
@@ -385,46 +288,6 @@ namespace SistemaDeBilheteira.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasDiscriminator().HasValue("AppUser");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Card", b =>
-                {
-                    b.HasBaseType("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod");
-
-                    b.Property<string>("CardHolderName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Cvv")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Card");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Paypal", b =>
-                {
-                    b.HasBaseType("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod");
-
-                    b.Property<string>("PaypalEmail")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PaypalTransactionId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("TransactionDate")
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Paypal");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -478,36 +341,6 @@ namespace SistemaDeBilheteira.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Payment", b =>
-                {
-                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.Payment.Currency", "Currency")
-                        .WithMany("Payments")
-                        .HasForeignKey("CurrencyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod", "PaymentMethod")
-                        .WithMany("Payments")
-                        .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Currency");
-
-                    b.Navigation("PaymentMethod");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod", b =>
-                {
-                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ShoppingCartItem", b =>
                 {
                     b.HasOne("SistemaDeBilheteira.Services.Database.Entities.AppUser", "AppUser")
@@ -530,16 +363,6 @@ namespace SistemaDeBilheteira.Migrations
             modelBuilder.Entity("Product", b =>
                 {
                     b.Navigation("ShoppingCartItems");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Currency", b =>
-                {
-                    b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod", b =>
-                {
-                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.AppUser", b =>

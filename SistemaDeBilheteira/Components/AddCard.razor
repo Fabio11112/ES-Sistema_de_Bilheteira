@@ -1,0 +1,114 @@
+@page "/add-card"
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.ComponentModel.DataAnnotations
+@using System.Globalization
+@using System.Security.Claims
+@using SistemaDeBilheteira.Services.Database.Entities.CardServices
+@using SistemaDeBilheteira.Services.Database.Entities.Payment
+@inject ICardServices CardServices
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<EditForm Model="CardModel" OnValidSubmit="HandleSubmit" 
+          AdditionalAttributes="@(new Dictionary<string, object> { ["name"] = "AddCardForm" })">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-container">
+        <h2>Agregar Tarjeta</h2>
+
+        <div>
+            <label>Nombre en la Tarjeta</label>
+            <InputText @bind-Value="CardModel.CardHolderName" class="input-field" />
+            <ValidationMessage For="@(() => CardModel.CardHolderName)" />
+        </div>
+
+        <div>
+            <label>Número de Tarjeta</label>
+            <InputText @bind-Value="CardModel.CardNumber" class="input-field" />
+            <ValidationMessage For="@(() => CardModel.CardNumber)" />
+        </div>
+
+        <div>
+            <label>CVV</label>
+            <InputText @bind-Value="CardModel.Cvv" class="input-field" type="password" />
+            <ValidationMessage For="@(() => CardModel.Cvv)" />
+        </div>
+
+        <div>
+            <label>Fecha de Expiración (MM/AA)</label>
+            <InputText @bind-Value="CardModel.ExpirationDateString" class="input-field" />
+            <ValidationMessage For="@(() => CardModel.ExpirationDateString)" />
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div style="color:red;">@ErrorMessage</div>
+        }
+
+        <button type="submit">Agregar Tarjeta</button>
+    </div>
+</EditForm>
+
+@code {
+    private CardInputModel CardModel = new();
+    private string? ErrorMessage;
+
+    public class CardInputModel
+    {
+        [Required(ErrorMessage = "El nombre en la tarjeta es requerido")]
+        [StringLength(100)]
+        public string CardHolderName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "El número de tarjeta es requerido")]
+        [CreditCard]
+        public string CardNumber { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "El CVV es requerido")]
+        [RegularExpression(@"^\d{3,4}$", ErrorMessage = "CVV debe tener 3 o 4 dígitos")]
+        public string Cvv { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "La fecha de expiración es requerida")]
+        [RegularExpression(@"^(0[1-9]|1[0-2])\/?([0-9]{2})$", ErrorMessage = "Formato inválido. Use MM/AA")]
+        public string ExpirationDateString { get; set; } = string.Empty;
+    }
+
+    private async Task HandleSubmit()
+    {
+        try
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+            var userId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                ErrorMessage = "Usuario no autenticado";
+                return;
+            }
+
+            if (!DateTime.TryParseExact(CardModel.ExpirationDateString, "MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var expDate))
+            {
+                ErrorMessage = "Formato de fecha inválido. Use MM/AA";
+                return;
+            }
+
+            var card = new Card
+            {
+                CardHolderName = CardModel.CardHolderName,
+                CardNumber = CardModel.CardNumber,
+                Cvv = CardModel.Cvv,
+                ExpirationDate = expDate,
+                AppUserId = userId
+            };
+
+            await CardServices.AddCardAsync(card, userId);
+            NavigationManager.NavigateTo("/payment-methods");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Error al guardar la tarjeta: {ex.Message}";
+        }
+    }
+}

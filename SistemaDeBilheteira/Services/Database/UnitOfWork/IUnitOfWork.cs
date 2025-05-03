@@ -5,7 +5,7 @@ namespace SistemaDeBilheteira.Services.Database.UnitOfWork;
 
 public interface IUnitOfWork : IDisposable
 {
-    IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IDbItem;
+    IRepository<TEntity> GetRepository<TEntity>() where TEntity : DbItem;
     void BeginTransaction();
     void Commit();
     void Rollback();

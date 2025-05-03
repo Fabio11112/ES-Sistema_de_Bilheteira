@@ -119,6 +119,7 @@ using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
+using SistemaDeBilheteira.Services.Database.Entities.CardServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -146,6 +147,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 
+
 // Razor e Blazor
 builder.Services.AddRazorPages();  
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -154,8 +156,10 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+// Add to your service registration
+builder.Services.AddScoped<ICardServices, CardServices>();
 // Configurar Kestrel e portas
 builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
 builder.WebHost.ConfigureKestrel(serverOptions =>
@@ -189,29 +193,4 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
-
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<SistemaDeBilheteiraContext>();
-
-    // Substitui por IDs válidos existentes na tua base de dados
-    var item = new ShoppingCartItem
-    {
-        AppUserId = 1,      // ID de um utilizador existente
-        ProductId = 356,    // ID de um produto existente
-        Quantity = 1
-    };
-
-    // Só adiciona se não existir já este item para o user/produto
-    if (!context.ShoppingCartItems.Any(i => i.AppUserId == item.AppUserId && i.ProductId == item.ProductId))
-    {
-        context.ShoppingCartItems.Add(item);
-        context.SaveChanges();
-        Console.WriteLine("Item adicionado ao carrinho com sucesso!");
-    }
-    else
-    {
-        Console.WriteLine("Item já existe no carrinho.");
-    }
-}
 

@@ -1,26 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
-using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.UnitOfWork;
+using SistemaDeBilheteira.Services.Database.Repositories;
 
-public class ShoppingCartService
+public class ShoppingCartService : IShoppingCartService
 {
-    private readonly SistemaDeBilheteiraContext _context;
+    private readonly IRepository<ShoppingCartItem> _shoppingCartRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ShoppingCartService(SistemaDeBilheteiraContext context)
+    public ShoppingCartService(IUnitOfWork unitOfWork)
     {
-        _context = context;
+        _unitOfWork = unitOfWork;
+        _shoppingCartRepository = _unitOfWork.GetRepository<ShoppingCartItem>();
     }
 
     // Add a product to the cart
-    public void AddItemToCart(int userId, int productId, int quantity = 1)
+    public void AddItemToCart(String userId, Guid productId, int quantity = 1)
     {
-        var existingItem = _context.ShoppingCartItems
+        var existingItem = _shoppingCartRepository
+            .GetAll()
             .FirstOrDefault(i => i.AppUserId == userId && i.ProductId == productId);
 
         if (existingItem != null)
         {
             existingItem.Quantity += quantity;
+            _shoppingCartRepository.Update(existingItem);
         }
         else
         {
@@ -30,73 +35,81 @@ public class ShoppingCartService
                 ProductId = productId,
                 Quantity = quantity
             };
-            _context.ShoppingCartItems.Add(item);
+            _shoppingCartRepository.Insert(item);
         }
 
-        _context.SaveChanges();
+        _unitOfWork.SaveChanges();
     }
 
     // Remove a product from the cart
-    public void RemoveItemFromCart(int userId, int productId)
+    public void RemoveItemFromCart(String userId, Guid productId)
     {
-        var item = _context.ShoppingCartItems
+        var item = _shoppingCartRepository
+            .GetAll()
             .FirstOrDefault(i => i.AppUserId == userId && i.ProductId == productId);
 
         if (item != null)
         {
-            _context.ShoppingCartItems.Remove(item);
-            _context.SaveChanges();
+            _shoppingCartRepository.Delete(item);
+            _unitOfWork.SaveChanges();
         }
     }
 
     // Obtain all items in the cart
-    public List<ShoppingCartItem> GetCartItems(int userId)
+    public List<ShoppingCartItem> GetCartItems(String userId)
     {
-        return _context.ShoppingCartItems
+        return _shoppingCartRepository
+            .GetAll()
             .Where(i => i.AppUserId == userId)
             .ToList();
     }
 
     // Clear the cart completely
-    public void ClearCart(int userId)
+    public void ClearCart(String userId)
     {
-        var items = _context.ShoppingCartItems
-            .Where(i => i.AppUserId == userId);
+        var items = _shoppingCartRepository
+            .GetAll()
+            .Where(i => i.AppUserId == userId)
+            .ToList();
 
-        _context.ShoppingCartItems.RemoveRange(items);
-        _context.SaveChanges();
+        foreach (var item in items)
+        {
+            _shoppingCartRepository.Delete(item);
+        }
+
+        _unitOfWork.SaveChanges();
     }
 
-    // Actually update the quantity of a product in the cart
-    public void UpdateItemQuantity(int userId, int productId, int newQuantity)
+    // Update the quantity of a product in the cart
+    public void UpdateItemQuantity(String userId, Guid productId, int newQuantity)
     {
-        var item = _context.ShoppingCartItems
+        var item = _shoppingCartRepository
+            .GetAll()
             .FirstOrDefault(i => i.AppUserId == userId && i.ProductId == productId);
 
         if (item != null)
         {
             item.Quantity = newQuantity;
-            _context.SaveChanges();
+            _shoppingCartRepository.Update(item);
+            _unitOfWork.SaveChanges();
         }
     }
-       public void AddTestCartItem()
+
+    // Add a hardcoded item to the cart (for testing/demo)
+    public void AddTestCartItem()
     {
-        // Cambia estos valores por IDs válidos que existan en tu base de datos
-        int userId = 1;
-        int productId = 356;
+        String userId = "1";
+        Guid productId = Guid.NewGuid(); // Simulate a product ID
         int quantity = 1;
 
-        using (var context = new SistemaDeBilheteiraContext())
+        var item = new ShoppingCartItem
         {
-            var item = new ShoppingCartItem
-            {
-                AppUserId = userId,
-                ProductId = productId,
-                Quantity = quantity
-            };
-            context.ShoppingCartItems.Add(item);
-            context.SaveChanges();
-        }
-    }
+            AppUserId = userId,
+            ProductId = productId,
+            Quantity = quantity
+        };
 
+        _shoppingCartRepository.Insert(item);
+        _unitOfWork.SaveChanges();
+    }
 }

@@ -9,8 +9,6 @@ namespace SistemaDeBilheteira.Services.AuthenticationService;
 
 public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : IAuthService
 {
-    // private IUnitOfWork UnitOfWork { get; } = unitOfWork;
-    // private IUserInputValidator UserInputValidator { get; } = userInputValidator;
     private UserManager<AppUser> UserManager { get; } = userManager;
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
 
@@ -33,45 +31,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         
         return authResult;
     }
-    
-    
-    // public Task<IAuthResult> RegisterAsync(UserRegisterModel model)
-    // {
-    //     var userRepository = UnitOfWork.GetRepository<AppUser>();
-    //     IAuthResult result = new AuthResult();
-    //     if (userRepository == null)
-    //     {
-    //         result.Success = false;
-    //         result.Message = "Internal Server Error";
-    //         return Task.FromResult(result);
-    //     }
-    //     
-    //     var users = userRepository?.GetAll()!;
-    //
-    //     if (UserAlreadyExist(users, model))
-    //     {
-    //         result.Success = false;
-    //         result.Message = "The email address is already in use.";
-    //         return Task.FromResult(result);
-    //     }
-    //
-    //     if (!UserInputValidator.ValidateInput(model, result))
-    //     {
-    //         return Task.FromResult(result);
-    //     }
-    //     
-    //     AppUser user = new()
-    //     {
-    //         Email = model.Email,
-    //         FirstName = model.Name,
-    //     };
-    //     
-    //     user.PasswordHash = new PasswordHasher<AppUser>().HashPassword(user, model.Password);
-    //     AddUser(user, userRepository);
-    //     result.Success = true;
-    //     result.Message = "The account has been created successfully.";
-    //     return Task.FromResult(result);
-    // }
+
     public async Task<IAuthResult> LoginAsync(UserLoginModel model)
     {
         IAuthResult authResult = new AuthResult();

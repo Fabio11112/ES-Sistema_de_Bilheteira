@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.Payment;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
 
-public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, int>
+public class SistemaDeBilheteiraContext : IdentityDbContext
 {
     public SistemaDeBilheteiraContext()
     {
@@ -16,10 +17,23 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, in
     {
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        options.UseSqlite("Data Source=SistemaDeBilheteira.db");
+    }
+
     public DbSet<Product> Products { get; set; }
     public DbSet<ShoppingCartItem> ShoppingCart { get; set; }
-
     public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
+
+    public DbSet<PaymentMethod> PaymentMethods { get; set; }
+    public DbSet<Card> Cards { get; set; }
+    public DbSet<Paypal> Paypals { get; set; }
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<Currency> Currencies { get; set; }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -37,6 +51,26 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, in
             .HasOne(sci => sci.Product)
             .WithMany(p => p.ShoppingCartItems)
             .HasForeignKey(sci => sci.ProductId);
-    }
+
+
+        // Herança TPH para PaymentMethod
+        modelBuilder.Entity<PaymentMethod>()
+            .HasDiscriminator<string>("PaymentMethodType")
+            .HasValue<Card>("Card")
+            .HasValue<Paypal>("Paypal");
+
+        // Relação 1:N PaymentMethod -> Payments
+        modelBuilder.Entity<PaymentMethod>()
+            .HasMany(pm => pm.Payments)
+            .WithOne(p => p.PaymentMethod)
+            .HasForeignKey(p => p.PaymentMethodId);
+
+        // Relação 1:N Currency -> Payments
+        modelBuilder.Entity<Currency>()
+            .HasMany(c => c.Payments)
+            .WithOne(p => p.Currency)
+            .HasForeignKey(p => p.CurrencyId);
+        }
+
 
 }
