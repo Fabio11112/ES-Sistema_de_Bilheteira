@@ -1,6 +1,5 @@
 ﻿@page "/EditAddress"
 @inherits AuthenticatedComponentBase
-@using Microsoft.AspNetCore.Components.Authorization
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Components.Cards.EditAdress
@@ -9,7 +8,6 @@
 @rendermode InteractiveServer
 @inject IService<Address> AddressService
 @inject AddressBuilder AddressBuilder
-@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="addresses flex">
     <Address></Address>
@@ -42,6 +40,9 @@
             .WithIsDefault(false)
             .WithUserId(UserId!)
             .Build();
+
+        var result = AddressService.Add(address);
+        Message = result.Message;
     }
 
 }

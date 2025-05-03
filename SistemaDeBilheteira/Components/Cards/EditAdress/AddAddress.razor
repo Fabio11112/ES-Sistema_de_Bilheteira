@@ -1,7 +1,7 @@
 ﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
 <div class="add-address"></div>
 
-<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
+<EditForm Model="Model" OnValidSubmit="OnValidSubmit" FormName="add-address">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -22,9 +22,11 @@
 
     <label>ZIP Code</label>
     <InputText @bind-Value="Model.ZipCode" class="form-control" />
+    
+    <button type="submit" class="submit">ADD ADDRESS</button>
 </EditForm>
 
 @code {
-    [Parameter] public AddressModel Model { get; set; } = new();
+    [Parameter] public AddressModel? Model { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 }
