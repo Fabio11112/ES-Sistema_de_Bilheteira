@@ -1,0 +1,47 @@
+﻿@page "/EditAddress"
+@inherits AuthenticatedComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Components.Cards.EditAdress
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@using SistemaDeBilheteira.Services.Database.Builders
+@rendermode InteractiveServer
+@inject IService<Address> AddressService
+@inject AddressBuilder AddressBuilder
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div class="addresses flex">
+    <Address></Address>
+</div>
+
+<div class="address-form">
+    <AddAddress
+        Model="Model"
+        OnValidSubmit="SubmitAddress">
+    </AddAddress>
+</div>
+
+<div class="alert-warning">
+    @Message
+</div>
+
+@code {
+    private AddressModel Model { get; set; } = new();
+    private string Message { get; set; } = string.Empty;
+    
+    
+    private void SubmitAddress()
+    {
+        var address = AddressBuilder.WithStreetLine1(Model.StreetLine1)
+            .WithStreetLine2(Model.StreetLine2!)
+            .WithCity(Model.City)
+            .WithState(Model.State)
+            .WithCountry(Model.Country)
+            .WithZipCode(Model.ZipCode)
+            .WithIsDefault(false)
+            .WithUserId(UserId!)
+            .Build();
+    }
+
+}

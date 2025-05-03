@@ -1,0 +1,30 @@
+﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
+<div class="add-address"></div>
+
+<EditForm Model="Model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>Street Line 1</label>
+    <InputText @bind-Value="Model.StreetLine1" class="form-control" />
+
+    <label>Street Line 2</label>
+    <InputText @bind-Value="Model.StreetLine2" class="form-control" />
+
+    <label>Country</label>
+    <InputText @bind-Value="Model.Country" class="form-control" />
+
+    <label>State</label>
+    <InputText @bind-Value="Model.State" class="form-control" />
+
+    <label>City</label>
+    <InputText @bind-Value="Model.City" class="form-control" />
+
+    <label>ZIP Code</label>
+    <InputText @bind-Value="Model.ZipCode" class="form-control" />
+</EditForm>
+
+@code {
+    [Parameter] AddressModel Model { get; set; } = new();
+    [Parameter] EventCallback OnValidSubmit { get; set; }
+}
