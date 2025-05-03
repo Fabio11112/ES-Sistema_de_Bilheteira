@@ -59,7 +59,6 @@ builder.Services.AddScoped<IService<Address>, AddressService>();
 
 builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
 
-builder.Services.AddScoped<IUserContext, UserContext>();
 
 //Services configuration
 
