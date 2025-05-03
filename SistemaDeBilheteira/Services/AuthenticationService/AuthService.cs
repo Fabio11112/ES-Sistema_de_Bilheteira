@@ -14,9 +14,9 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
     private UserManager<AppUser> UserManager { get; } = userManager;
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
 
-    public async Task<IAuthResult> RegisterAsync(UserRegisterModel model)
+    public async Task<IResult> RegisterAsync(UserRegisterModel model)
     {
-        IAuthResult authResult = new AuthResult();
+        IResult authResult = new Result();
         
         var user = new AppUser { UserName = model.Email, Email = model.Email, FirstName = model.Name};
         var result = await UserManager.CreateAsync(user, model.Password);
@@ -72,9 +72,9 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
     //     result.Message = "The account has been created successfully.";
     //     return Task.FromResult(result);
     // }
-    public async Task<IAuthResult> LoginAsync(UserLoginModel model)
+    public async Task<IResult> LoginAsync(UserLoginModel model)
     {
-        IAuthResult authResult = new AuthResult();
+        IResult authResult = new Result();
         var user = await UserManager.FindByEmailAsync(model.Email);
         if (user != null)
         {
@@ -101,9 +101,9 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
     }
     
     
-    public async Task<IAuthResult> LogoutAsync()
+    public async Task<IResult> LogoutAsync()
     {
-        var authResult = new AuthResult();
+        var authResult = new Result();
         try
         {
             await SignInManager.SignOutAsync();
