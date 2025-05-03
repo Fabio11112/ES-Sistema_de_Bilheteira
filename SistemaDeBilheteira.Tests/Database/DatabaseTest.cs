@@ -7,27 +7,34 @@ namespace SistemaDeBilheteira.Tests.Database;
 
 public class DatabaseTest
 {
-    private AppUser User = new AppUser();
+    private Address Address;
     private SistemaDeBilheteiraContext Context;
     private IRepositoryFactory Factory;
     private IUnitOfWork UnitOfWork;
-    private IRepository<AppUser> UserRepository;
+    private IRepository<Address> AdressRepository;
 
     public DatabaseTest()
     {
-        User.FirstName = "João";
-        User.LastName = "Roberto";
-        User.Email = "roberto@gmail.com";
+        Address = new Address()
+        {
+            City = "London",
+            Country = "England",
+            IsDefault = true,
+            State = "Washington",
+            StreetLine1 = "London",
+            ZipCode = "12345"
+        };
+        
         Context = new MemorySistemaDeBilheteiraContext();
         Context.Database.EnsureCreated();
         
         Factory = new RepositoryFactory(Context);
         UnitOfWork = new UnitOfWork(Context, Factory);
 
-        UserRepository = UnitOfWork.GetRepository<AppUser>();
+        AdressRepository = UnitOfWork.GetRepository<Address>();
         
         UnitOfWork.Begin();
-        UserRepository.Insert(User);
+        AdressRepository.Insert(Address);
         
         UnitOfWork.SaveChanges();
     }
@@ -38,7 +45,7 @@ public class DatabaseTest
     {
         UnitOfWork.Commit();
 
-        var users = UserRepository.GetAll();
+        var users = AdressRepository.GetAll();
         Assert.Single(users);
     }
 
@@ -47,7 +54,7 @@ public class DatabaseTest
     {
         UnitOfWork.Rollback();
         
-        var servers = UserRepository.GetAll();
-        Assert.Empty(servers);
+        var adresses = AdressRepository.GetAll();
+        Assert.Empty(adresses);
     }
 }

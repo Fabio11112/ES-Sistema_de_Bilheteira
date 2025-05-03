@@ -85,7 +85,8 @@ public class UnitOfWork : IUnitOfWork
         _repositoryFactory = repositoryFactory;
     }
 
-    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IDbItem
+    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : DbItem
+
     {
         if (!_repositories.ContainsKey(typeof(TEntity)))
         {

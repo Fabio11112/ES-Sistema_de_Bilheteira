@@ -7,6 +7,7 @@ namespace SistemaDeBilheteira.Services.Database.Repositories;
 // {
 //     private readonly SistemaDeBilheteiraContext _context = context;
     
+    public IRepository<TEntity> Create<TEntity>() where TEntity : DbItem
 //     public IRepository<TEntity> Create<TEntity>() where TEntity : IdentityUser, IDbItem
 //     {
 //         return new Repository<TEntity>(_context);
