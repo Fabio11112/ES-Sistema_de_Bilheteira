@@ -1,20 +1,25 @@
 ﻿@using SistemaDeBilheteira.Services.Database.Entities
+@rendermode InteractiveServer
 <div class="address">
     <div class="name">@Address.StreetLine1</div>
     <div class="name">@Address.StreetLine2!</div>
     <div>@Address.City, @Address.State, @Address.Country @Address.ZipCode</div>
+    
     <div>
-        <button @onclick="HandleDelete">Delete</button>
+        <button @onclick="@HandleDelete" class="btn btn-danger">Delete</button>
     </div>
+    
+
 </div>
+
 
 @code {
     [Parameter] public Address Address { get; set; }
     [Parameter] public EventCallback Delete { get; set; }
 
 
-    private void HandleDelete()
+    private async Task HandleDelete()
     {
-        Delete.InvokeAsync();
+        await Delete.InvokeAsync();
     }
 }
