@@ -25,6 +25,6 @@
 </EditForm>
 
 @code {
-    [Parameter] AddressModel Model { get; set; } = new();
-    [Parameter] EventCallback OnValidSubmit { get; set; }
+    [Parameter] public AddressModel Model { get; set; } = new();
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 }
