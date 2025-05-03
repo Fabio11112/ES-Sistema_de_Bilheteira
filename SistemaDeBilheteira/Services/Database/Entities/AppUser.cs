@@ -2,7 +2,7 @@
 
 namespace SistemaDeBilheteira.Services.Database.Entities;
 
-public class AppUser : IdentityUser, IDbItem
+public class AppUser : IdentityUser<int>, IDbItem
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } =string.Empty;
@@ -15,4 +15,6 @@ public class AppUser : IdentityUser, IDbItem
         
     }
 
+    // Navegação para os itens do carrinho
+    public ICollection<ShoppingCartItem> ShoppingCartItems { get; set; } = new List<ShoppingCartItem>();
 }
