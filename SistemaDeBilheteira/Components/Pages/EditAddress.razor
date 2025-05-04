@@ -1,6 +1,8 @@
 ﻿@page "/EditAddress"
 @rendermode InteractiveServer
+@attribute [Authorize]
 @inherits AuthenticatedComponentBase
+@using Microsoft.AspNetCore.Authorization
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Components.Cards.EditAdress
@@ -20,9 +22,8 @@
             Delete="() => DeleteAddress(address.Id)">
         </AddressElement>
         
-        <button type="button" @onclick="Click">Delete</button>
     }
-    <button type="button" @onclick="Click">Button</button>
+
 </div>
 
 <div class="address-form">

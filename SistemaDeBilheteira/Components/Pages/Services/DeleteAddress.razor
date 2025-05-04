@@ -1,0 +1,23 @@
+﻿@page "/DeleteAddress/{id:guid}"
+@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.IService
+@inject NavigationManager NavigationManager
+@inject IService<Address> AddressService
+<h3>DeleteAddress</h3>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        PerformDelete();
+    }    
+    
+    private void PerformDelete()
+    {
+        var result = AddressService.Delete(Id);
+        Console.WriteLine("deleted");
+        NavigationManager.NavigateTo("/EditAddress");
+    }
+}
