@@ -9,6 +9,7 @@
     <ItemGroup>
       <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
       <PackageReference Include="DotNetEnv" Version="3.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.4" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
@@ -32,6 +33,7 @@
       <AdditionalFiles Include="Components\Cards\AddedCart\AddedToCartItem.razor" />
       <AdditionalFiles Include="Components\Cards\Cart\CartElement.razor" />
       <AdditionalFiles Include="Components\Layout\Footer.razor" />
+      <AdditionalFiles Include="Components\Pages\Services\Logout.razor" />
 
     </ItemGroup>
 
