@@ -1,4 +1,6 @@
-﻿<div @onclick="HandleClick" class="profile-option" style="cursor: pointer;">
+﻿@rendermode InteractiveServer
+
+<div @onclick="HandleClick" class="profile-option" style="cursor: pointer;">
     <div class="logo-title">
         <img class="logo" src="@ImageSource" alt=""/>
         <h1 class="title text">@Title</h1>
@@ -16,6 +18,7 @@
 
     private async Task HandleClick()
     {
+        Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync();

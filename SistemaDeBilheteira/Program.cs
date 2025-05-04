@@ -114,14 +114,22 @@ using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
+using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
+//using SistemaDeBilheteira.Services.Database.Builders;
+//using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
+using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+    
 DotNetEnv.Env.Load();
 
 // Config o DbContext com SQLite
@@ -155,6 +163,17 @@ builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<IService<Address>, AddressService>();
+
+builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
+
+
+//Services configuration
+
+builder.Services.AddRazorPages();  //  Identity needs this
+builder.Services.AddAuthorization(); // for [Authorize]
+
 
 // Configurar Kestrel e portas
 builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");

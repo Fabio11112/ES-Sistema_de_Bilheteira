@@ -1,0 +1,92 @@
+﻿@page "/EditAddress"
+@rendermode InteractiveServer
+@inherits AuthenticatedComponentBase
+@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Components.Cards.EditAdress
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@using SistemaDeBilheteira.Services.Database.Builders
+
+@inject IService<Address> AddressService
+@inject AddressBuilder AddressBuilder
+
+
+<h1>@pupu</h1>
+<div class="addresses flex">
+    @foreach (var address in Addresses)
+    {
+        <AddressElement
+            Address="address"
+            Delete="() => DeleteAddress(address.Id)">
+        </AddressElement>
+        
+        <button type="button" @onclick="Click">Delete</button>
+    }
+    <button type="button" @onclick="Click">Button</button>
+</div>
+
+<div class="address-form">
+    <AddAddress
+        Model="Model"
+        OnValidSubmit="SubmitAddress">
+    </AddAddress>
+</div>
+
+<div class="alert-warning">
+    @Message
+</div>
+
+
+@code {
+    [SupplyParameterFromForm] private AddressModel Model { get; set; } = new();
+    private string Message { get; set; } = string.Empty;
+    private ICollection<Address>? Addresses { get; set; } = new List<Address>();
+
+    private string pupu { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        Addresses = AddressService.GetAll();
+    }
+
+
+    private void Click()
+    {
+        pupu = "Clicked";
+    }
+    
+    private void SubmitAddress()
+    {
+        var address = AddressBuilder.WithStreetLine1(Model.StreetLine1)
+            .WithStreetLine2(Model.StreetLine2!)
+            .WithCity(Model.City)
+            .WithState(Model.State)
+            .WithCountry(Model.Country)
+            .WithZipCode(Model.ZipCode)
+            .WithIsDefault(false)
+            .WithUserId(UserId!)
+            .Build();
+
+        var result = AddressService.Add(address);
+        Message = result.Message;
+
+
+        Addresses = AddressService.GetAll();
+        StateHasChanged();
+    }
+
+    private void DeleteAddress(Guid id)
+    {
+        var result = AddressService.Delete(id);
+        Message = result.Message;
+        Console.WriteLine("deleted");
+        UpdateState();
+    }
+
+    private void UpdateState()
+    {
+        Addresses = AddressService.GetAll();
+        StateHasChanged();
+    }
+
+}
