@@ -117,14 +117,6 @@
         string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
         
-        //
-        // if (movie != null && movie.GenreIds != null)
-        // {
-        //     genreNames = allGenres
-        //         .Where(g => movie.GenreIds.Contains(g.Id))
-        //         .Select(g => g.Name)
-        //         .ToList();
-        // }
     }
 
     private string FormatRuntime(int runtime)

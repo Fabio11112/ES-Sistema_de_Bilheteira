@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
 
@@ -42,6 +43,12 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        
+        modelBuilder.Entity<Product>().UseTpcMappingStrategy();
+        modelBuilder.Entity<Rental>().ToTable("Rentals");
+        
+        
 
         modelBuilder.Entity<ShoppingCartItem>()
             .HasKey(sci => new { sci.AppUserId, sci.ProductId });

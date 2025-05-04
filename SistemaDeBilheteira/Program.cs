@@ -62,7 +62,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IService<Address>, AddressService>();
 
+//BUILDERS
 builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
+builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 
 
 //Services configuration
