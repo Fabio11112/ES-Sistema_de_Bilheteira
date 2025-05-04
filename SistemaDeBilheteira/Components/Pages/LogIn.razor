@@ -1,4 +1,5 @@
 ﻿@page "/LogIn"
+@inherits AuthenticatedComponentBase
 @rendermode InteractiveServer
 @using SistemaDeBilheteira.Components.Cards.Authentication
 @using SistemaDeBilheteira.Services.AuthenticationService
@@ -43,7 +44,7 @@
 
     private async Task Login()
     {
-        IAuthResult result = await AuthService.LoginAsync(Model!);
+        IResult result = await AuthService.LoginAsync(Model!);
         if (result.Success)
         {
             //do something

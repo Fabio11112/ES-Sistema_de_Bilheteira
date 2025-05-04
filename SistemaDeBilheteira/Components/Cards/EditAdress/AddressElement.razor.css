@@ -1,0 +1,9 @@
+﻿.flex{
+    display: flex;
+}
+
+.address{
+    width: 20%;
+    margin: 5%;
+    color: white;
+}

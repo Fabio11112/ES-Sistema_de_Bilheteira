@@ -8,7 +8,8 @@ namespace SistemaDeBilheteira.Services.Database.Context;
 public class SistemaDeBilheteiraContext: IdentityDbContext<AppUser>
 {
     //Each set is a table from the Database
-    DbSet<Cart> Carts { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<Address> Addresses { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {

@@ -5,8 +5,8 @@ namespace SistemaDeBilheteira.Services.AuthenticationService;
 
 public interface IAuthService
 {
-    public Task<IAuthResult> RegisterAsync(UserRegisterModel model);
+    public Task<IResult> RegisterAsync(UserRegisterModel model);
     
-    Task<IAuthResult> LoginAsync(UserLoginModel model);
-    Task<IAuthResult> LogoutAsync();
+    Task<IResult> LoginAsync(UserLoginModel model);
+    Task<IResult> LogoutAsync();
 }

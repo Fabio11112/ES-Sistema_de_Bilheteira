@@ -24,7 +24,7 @@ public class UnitOfWork(SistemaDeBilheteiraContext context, IRepositoryFactory r
     }
     
 
-    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : IdentityUser, IDbItem
+    public IRepository<TEntity> GetRepository<TEntity>() where TEntity : DbItem
     {
         if (!Repositories.ContainsKey(typeof(TEntity)))
         {

@@ -1,6 +1,6 @@
 ﻿namespace SistemaDeBilheteira.Services.AuthenticationService;
 
-public class AuthResult : IAuthResult
+public class Result : IResult
 {
     public bool Success { get; set; }
     public string Message { get; set; }

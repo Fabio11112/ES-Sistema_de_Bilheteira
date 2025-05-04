@@ -1,6 +1,6 @@
 ﻿namespace SistemaDeBilheteira.Services.AuthenticationService.Models;
 
-public class UserRegisterModel
+public class UserRegisterModel : IModel
 {
     public string Name { get; set; } = String.Empty;
     public string Email { get; set; } = String.Empty;

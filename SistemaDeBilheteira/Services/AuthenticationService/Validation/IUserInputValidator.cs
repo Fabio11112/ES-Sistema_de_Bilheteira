@@ -8,5 +8,5 @@ public interface IUserInputValidator
     public bool IsValidPassword(string password);
     public bool IsPasswordConfirmed(string password, string confirmPassword);
 
-    public bool ValidateInput(UserRegisterModel model, IAuthResult result);
+    public bool ValidateInput(UserRegisterModel model, IResult result);
 }
