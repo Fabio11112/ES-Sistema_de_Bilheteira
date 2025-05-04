@@ -6,7 +6,7 @@ using SistemaDeBilheteira.Services.Database.Entities.Payment;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
 
-public class SistemaDeBilheteiraContext : IdentityDbContext
+public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, string>
 {
     //Each set is a table from the Database
     public DbSet<Address> Addresses { get; set; }
@@ -60,7 +60,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext
         // Herança TPH para PaymentMethod
         modelBuilder.Entity<PaymentMethod>()
             .HasDiscriminator<string>("PaymentMethodType")
-            .HasValue<Card>("Card")
+            .HasValue<Card>("Card")  
             .HasValue<Paypal>("Paypal");
 
         // Relação 1:N PaymentMethod -> Payments
