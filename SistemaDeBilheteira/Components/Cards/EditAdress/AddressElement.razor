@@ -5,9 +5,11 @@
     <div class="name">@Address.StreetLine2!</div>
     <div>@Address.City, @Address.State, @Address.Country @Address.ZipCode</div>
     
-    <div>
-        <button @onclick="@HandleDelete" class="btn btn-danger">Delete</button>
-    </div>
+    @* <div> *@
+    @*     <button @onclick="@HandleDelete" class="btn btn-danger">Delete</button> *@
+    @* </div> *@
+    
+    <a href="@url" class="btn btn-danger"> Delete A</a>
     
 
 </div>
@@ -16,8 +18,13 @@
 @code {
     [Parameter] public Address Address { get; set; }
     [Parameter] public EventCallback Delete { get; set; }
+    public string url { get; set; } = string.Empty;
 
-
+    protected override void OnInitialized()
+    {
+        url = $"/deleteAddress/{Address.Id}";
+    }
+    
     private async Task HandleDelete()
     {
         await Delete.InvokeAsync();
