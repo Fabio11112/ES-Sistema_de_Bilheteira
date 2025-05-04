@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
+using SistemaDeBilheteira.Services.AuthenticationService;
 
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
 
 public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : IAuthService
 {
-    // private IUnitOfWork UnitOfWork { get; } = unitOfWork;
-    // private IUserInputValidator UserInputValidator { get; } = userInputValidator;
     private UserManager<AppUser> UserManager { get; } = userManager;
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
 
@@ -33,72 +32,39 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         
         return authResult;
     }
-    
-    
-    // public Task<IAuthResult> RegisterAsync(UserRegisterModel model)
-    // {
-    //     var userRepository = UnitOfWork.GetRepository<AppUser>();
-    //     IAuthResult result = new AuthResult();
-    //     if (userRepository == null)
-    //     {
-    //         result.Success = false;
-    //         result.Message = "Internal Server Error";
-    //         return Task.FromResult(result);
-    //     }
-    //     
-    //     var users = userRepository?.GetAll()!;
-    //
-    //     if (UserAlreadyExist(users, model))
-    //     {
-    //         result.Success = false;
-    //         result.Message = "The email address is already in use.";
-    //         return Task.FromResult(result);
-    //     }
-    //
-    //     if (!UserInputValidator.ValidateInput(model, result))
-    //     {
-    //         return Task.FromResult(result);
-    //     }
-    //     
-    //     AppUser user = new()
-    //     {
-    //         Email = model.Email,
-    //         FirstName = model.Name,
-    //     };
-    //     
-    //     user.PasswordHash = new PasswordHasher<AppUser>().HashPassword(user, model.Password);
-    //     AddUser(user, userRepository);
-    //     result.Success = true;
-    //     result.Message = "The account has been created successfully.";
-    //     return Task.FromResult(result);
-    // }
+
+
     public async Task<IResult> LoginAsync(UserLoginModel model)
+{
+    IResult authResult = new Result();
+    var user = await UserManager.FindByEmailAsync(model.Email);
+
+    if (user != null)
     {
-        IResult authResult = new Result();
-        var user = await UserManager.FindByEmailAsync(model.Email);
-        if (user != null)
+        var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
+        if (result.Succeeded)
         {
-            var result = await SignInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                authResult.Message = "Logged in";
-                authResult.Success = true;
-            }
-            else
-            {
-                authResult.Message = "The email or password is incorrect.";
-                authResult.Success = false;
-            }
+            // 💡 Esta línea garantiza que se emita la cookie
+            await SignInManager.SignInAsync(user, isPersistent: false);
+
+            authResult.Message = "Logged in";
+            authResult.Success = true;
         }
         else
         {
-            authResult.Message = "This email is not registered";
+            authResult.Message = "The email or password is incorrect.";
             authResult.Success = false;
         }
-        
-        
-        return authResult;
     }
+    else
+    {
+        authResult.Message = "This email is not registered";
+        authResult.Success = false;
+    }
+
+    return authResult;
+}
+
     
     
     public async Task<IResult> LogoutAsync()
@@ -117,5 +83,9 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         }
         return authResult;
     }
-    
+
+    // Task<IResult> IAuthService.LoginAsync(UserLoginModel model)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

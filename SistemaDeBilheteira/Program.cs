@@ -1,17 +1,22 @@
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using Scalar.AspNetCore;
-using SistemaDeBilheteira.Components;
+using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Context;
+using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
 using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
-using SistemaDeBilheteira.Services.Database.Builders;
-using SistemaDeBilheteira.Services.Database.Entities;
+//using SistemaDeBilheteira.Services.Database.Builders;
+//using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
+using Scalar.AspNetCore;
+using SistemaDeBilheteira.Components;
+// using SistemaDeBilheteira.Services.Database.Entities.CardServices;
+using SistemaDeBilheteira.Services.Database.Builders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,41 +24,40 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
     
+DotNetEnv.Env.Load();
 
-builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.ListenAnyIP(7193, listenOptions => listenOptions.UseHttps());
-    serverOptions.ListenAnyIP(5212);
-});
+// Config o DbContext com SQLite
+builder.Services.AddDbContext<SistemaDeBilheteiraContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Config Identity with custom user and role classes
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<SistemaDeBilheteiraContext>()
+    .AddDefaultTokenProviders();
+
+// Autenticação por cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.Cookie.Name = "auth_token";
         options.LoginPath = "/LogIn";
-        options.Cookie.MaxAge = TimeSpan.FromHours(1);
+        // options.Cookie.MaxAge = TimeSpan.FromHours(1);
         options.AccessDeniedPath = "/AccessDenied";
     });
+
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
 
 
-builder.Services.AddDbContext<SistemaDeBilheteiraContext>();
+// Razor e Blazor
+builder.Services.AddRazorPages();  
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
-// builder.Services.AddDefaultIdentity<AppUser>(options =>
-//     {
-//         options.SignIn.RequireConfirmedAccount = false;
-//     })
-//     .AddEntityFrameworkStores<SistemaDeBilheteiraContext>();
-
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-    .AddEntityFrameworkStores<SistemaDeBilheteiraContext>()
-    .AddDefaultTokenProviders();
-
+// Serviços customizados
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
+builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IService<Address>, AddressService>();
@@ -67,38 +71,40 @@ builder.Services.AddRazorPages();  //  Identity needs this
 builder.Services.AddAuthorization(); // for [Authorize]
 
 
+// Configurar Kestrel e portas
+builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(7193, listenOptions => listenOptions.UseHttps());
+    serverOptions.ListenAnyIP(5212);
+});
 
 var app = builder.Build();
-DotNetEnv.Env.Load();
-// Configure the HTTP request pipeline.
+
+// Pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.MapScalarApiReference();
     app.UseCssLiveReload(); 
+    app.UseDeveloperExceptionPage();
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
-
-
-
 app.MapStaticAssets();
+app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseAntiforgery();
 
-app.MapRazorPages(); // Importante para as páginas de Login/Register
+app.MapRazorPages();
 app.MapControllers();
 app.MapBlazorHub();
-
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-
-
-
 app.Run();
+
