@@ -65,7 +65,7 @@ public class ShoppingCartItemTests
         var shoppingCartRepo = _unitOfWork.GetRepository<ShoppingCartItem>();
 
         // Act
-        _unitOfWork.BeginTransaction();
+        _unitOfWork.Begin();
         shoppingCartRepo.Insert(cartItem);
         _unitOfWork.SaveChanges();
         _unitOfWork.Commit();
@@ -101,7 +101,7 @@ public class ShoppingCartItemTests
         var shoppingCartRepo = _unitOfWork.GetRepository<ShoppingCartItem>();
 
         // Act
-        _unitOfWork.BeginTransaction();
+        _unitOfWork.Begin();
         shoppingCartRepo.Insert(cartItem);
         _unitOfWork.SaveChanges();
         _unitOfWork.Rollback();
@@ -166,7 +166,7 @@ public class PaymentTests
             var paymentRepo = _unitOfWork.GetRepository<Payment>();
 
             // Act
-            _unitOfWork.BeginTransaction();
+            _unitOfWork.Begin();
             paymentRepo.Insert(payment);
             _unitOfWork.SaveChanges();
             _unitOfWork.Commit();
@@ -218,7 +218,7 @@ public class PaymentTests
             var paymentRepo = _unitOfWork.GetRepository<Payment>();
 
             // Act
-            _unitOfWork.BeginTransaction();
+            _unitOfWork.Begin();
             paymentRepo.Insert(payment);
             _unitOfWork.SaveChanges();
             _unitOfWork.Rollback();
