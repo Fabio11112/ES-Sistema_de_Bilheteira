@@ -116,6 +116,9 @@
                 <p class="loading">Loading Sci-fi movies...</p>
             }
         </div>
+        
+        <button @onclick="Clicked">Button</button>
+        <h1>@Texto</h1>
     </section>
 </main>
 
@@ -123,7 +126,7 @@
 
 @code {
 
-    
+    string Texto { get; set; } = string.Empty;
 
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
@@ -136,6 +139,11 @@
         {
             NavigationManager.NavigateTo("/LogIn", true);
         }
+    }
+
+    public void Clicked()
+    {
+        Texto = "Clicked";
     }
     
     public const int TOTAL_PAGES = 9;
