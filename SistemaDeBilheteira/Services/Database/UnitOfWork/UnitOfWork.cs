@@ -19,6 +19,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     }
 
     public IRepository<TEntity> GetRepository<TEntity>() where TEntity : DbItem
+
     {
         if (!_repositories.ContainsKey(typeof(TEntity)))
         {

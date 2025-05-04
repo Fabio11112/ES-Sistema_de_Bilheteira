@@ -1,4 +1,5 @@
 ﻿@page "/SignUp"
+@inherits AuthenticatedComponentBase
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Identity
 @using SistemaDeBilheteira.Components.Cards.Authentication
@@ -53,7 +54,7 @@
     
     private async Task Register()
     {
-        IAuthResult result = await AuthService.RegisterAsync(User);
+        IResult result = await AuthService.RegisterAsync(User);
 
         if (!result.Success)
         {

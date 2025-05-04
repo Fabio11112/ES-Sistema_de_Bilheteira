@@ -1,4 +1,6 @@
 ﻿@page "/Profile"
+@inherits AuthenticatedComponentBase
+@rendermode InteractiveServer
 @using SistemaDeBilheteira.Components.Cards
 @inject NavigationManager Navigation
 
@@ -18,14 +20,14 @@
                 ImageSource="images/icons/profile/ticket.svg"
                 Title="My Tickets"
                 Description="View your tickets"
-                OnClick="@(e => Navigation.NavigateTo("/Tickets"))">
+                OnClick="@(() => Navigation.NavigateTo("/Tickets"))">
             </UserProfileOption>
 
             <UserProfileOption
                 ImageSource="images/icons/profile/user.svg"
                 Title="Edit Info"
                 Description="Edit your information"
-                OnClick="@(e => Navigation.NavigateTo("/"))">
+                OnClick="@(() => Navigation.NavigateTo("/UserInfo"))">
             </UserProfileOption>
         </div>
 
@@ -34,14 +36,23 @@
                 ImageSource="images/icons/profile/purchaseHistory.svg"
                 Title="Purchase History"
                 Description="Review your purchases"
-                OnClick="@(e => Navigation.NavigateTo("/PurchaseHistory"))">
+                OnClick="@(() => Navigation.NavigateTo("/PurchaseHistory"))">
             </UserProfileOption>
 
             <UserProfileOption
                 ImageSource="images/icons/profile/rentalHistory.svg"
                 Title="Rental History"
                 Description="Info about rentals"
-                OnClick="@(e => Navigation.NavigateTo("/RentalHistory"))">
+                OnClick="@(() => Navigation.NavigateTo("/RentalHistory"))">
+            </UserProfileOption>
+        </div>
+        
+        <div class="options">
+            <UserProfileOption
+                ImageSource="images/icons/profile/purchaseHistory.svg"
+                Title="Addresses"
+                Description="Add or Delete an address"
+                OnClick="@(() => Navigation.NavigateTo("/EditAddress"))">
             </UserProfileOption>
         </div>
     </div>
@@ -50,6 +61,7 @@
 @code {
     private readonly string _profileImageFile = "profile1.svg";
     private readonly string _userName = "User";
+    
 
     private void HandleLogout()
     {

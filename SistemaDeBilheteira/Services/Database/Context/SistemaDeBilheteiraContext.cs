@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
@@ -8,6 +8,10 @@ namespace SistemaDeBilheteira.Services.Database.Context;
 
 public class SistemaDeBilheteiraContext : IdentityDbContext
 {
+    //Each set is a table from the Database
+    public DbSet<Address> Addresses { get; set; }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
     public SistemaDeBilheteiraContext()
     {
     }

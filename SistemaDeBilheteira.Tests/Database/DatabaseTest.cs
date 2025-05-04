@@ -9,17 +9,39 @@ namespace SistemaDeBilheteira.Tests.Database;
 
 public class ShoppingCartItemTests
 {
+    private Address Address;
+    private SistemaDeBilheteiraContext Context;
+    private IRepositoryFactory Factory;
+    private IUnitOfWork UnitOfWork;
+    private IRepository<Address> AdressRepository;
     private readonly SistemaDeBilheteiraContext _context;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepositoryFactory _repositoryFactory;
 
     public ShoppingCartItemTests()
     {
-        _context = new MemorySistemaDeBilheteiraContext();
-        _context.Database.EnsureCreated();
+        Address = new Address()
+        {
+            City = "London",
+            Country = "England",
+            IsDefault = true,
+            State = "Washington",
+            StreetLine1 = "London",
+            ZipCode = "12345"
+        };
+        
+        Context = new MemorySistemaDeBilheteiraContext();
+        Context.Database.EnsureCreated();
+        
+        Factory = new RepositoryFactory(Context);
+        UnitOfWork = new UnitOfWork(Context, Factory);
 
-        _repositoryFactory = new RepositoryFactory(_context);
-        _unitOfWork = new UnitOfWork(_context, _repositoryFactory);
+        AdressRepository = UnitOfWork.GetRepository<Address>();
+        
+        UnitOfWork.Begin();
+        AdressRepository.Insert(Address);
+        
+        UnitOfWork.SaveChanges();
     }
 
     [Fact]
@@ -48,6 +70,8 @@ public class ShoppingCartItemTests
         _unitOfWork.SaveChanges();
         _unitOfWork.Commit();
 
+        var users = AdressRepository.GetAll();
+        Assert.Single(users);
         var items = shoppingCartRepo.GetAll().ToList();
 
         // Assert
@@ -205,3 +229,12 @@ public class PaymentTests
             Assert.Empty(payments);
         }
     }
+
+    public void WhenAddingServersInDatabase_TheyAreNotStoredIfFailed()
+    {
+        UnitOfWork.Rollback();
+        
+        var adresses = AdressRepository.GetAll();
+        Assert.Empty(adresses);
+    }
+}
