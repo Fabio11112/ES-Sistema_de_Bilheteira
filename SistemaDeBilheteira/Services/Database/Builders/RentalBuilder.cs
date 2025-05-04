@@ -41,6 +41,11 @@ public class RentalBuilder
             return null;
         }
 
-        return new Rental(Price, MovieId, startDate, endDate);
+        var rental = new Rental();
+        rental.Price = Price;
+        rental.MovieId = MovieId;
+        rental.startDate = startDate;
+        rental.endDate = endDate;
+        return rental;
     }
 }

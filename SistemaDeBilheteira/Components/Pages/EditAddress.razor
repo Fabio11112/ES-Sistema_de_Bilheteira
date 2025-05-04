@@ -8,8 +8,9 @@
 @using SistemaDeBilheteira.Components.Cards.EditAdress
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
 @using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.IService.ServiceManager
 
-@inject IService<Address> AddressService
+@inject IServiceManager ServiceManager
 @inject AddressBuilder AddressBuilder
 
 
@@ -42,11 +43,14 @@
     [SupplyParameterFromForm] private AddressModel Model { get; set; } = new();
     private string Message { get; set; } = string.Empty;
     private ICollection<Address>? Addresses { get; set; } = new List<Address>();
+    private IService<Address> AddressService { get; set; }
+
 
     private string pupu { get; set; } = string.Empty;
 
     protected override void OnInitialized()
     {
+        AddressService = ServiceManager.GetService<Address>();
         Addresses = AddressService.GetAll();
     }
 

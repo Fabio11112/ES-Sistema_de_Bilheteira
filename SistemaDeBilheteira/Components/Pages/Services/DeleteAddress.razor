@@ -2,15 +2,18 @@
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject NavigationManager NavigationManager
-@inject IService<Address> AddressService
+@inject IServiceManager ServiceManager
 <h3>DeleteAddress</h3>
 
 @code {
     [Parameter] public Guid Id { get; set; }
+    private IService<Address> AddressService { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
+        AddressService = ServiceManager.GetService<Address>();
         PerformDelete();
     }    
     

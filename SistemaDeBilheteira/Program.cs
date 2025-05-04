@@ -15,8 +15,10 @@ using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
+using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 // using SistemaDeBilheteira.Services.Database.Entities.CardServices;
 using SistemaDeBilheteira.Services.Database.Builders;
+using SistemaDeBilheteira.Services.IService.ServiceManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,7 +62,8 @@ builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
 builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddScoped<IService<Address>, AddressService>();
+// builder.Services.AddScoped<IService<T>, Service<T>>();
+builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 //BUILDERS
 builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
