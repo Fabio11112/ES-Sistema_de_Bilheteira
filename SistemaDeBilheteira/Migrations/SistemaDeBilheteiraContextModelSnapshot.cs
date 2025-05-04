@@ -239,6 +239,55 @@ namespace SistemaDeBilheteira.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StreetLine1")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StreetLine2")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Currency", b =>
                 {
                     b.Property<Guid>("Id")
@@ -478,6 +527,17 @@ namespace SistemaDeBilheteira.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Address", b =>
+                {
+                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.AppUser", "AppUser")
+                        .WithMany("Addresses")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.Payment", b =>
                 {
                     b.HasOne("SistemaDeBilheteira.Services.Database.Entities.Payment.Currency", "Currency")
@@ -544,6 +604,8 @@ namespace SistemaDeBilheteira.Migrations
 
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.AppUser", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("ShoppingCartItems");
                 });
 #pragma warning restore 612, 618

@@ -33,7 +33,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
 
-    public async Task<IAuthResult> LoginAsync(UserLoginModel model)
+    // public async Task<IAuthResult> LoginAsync(UserLoginModel model)
     
     
     // public Task<IAuthResult> RegisterAsync(UserRegisterModel model)
@@ -119,8 +119,8 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
 
-    Task<IResult> IAuthService.LoginAsync(UserLoginModel model)
-    {
-        throw new NotImplementedException();
-    }
+    // Task<IResult> IAuthService.LoginAsync(UserLoginModel model)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

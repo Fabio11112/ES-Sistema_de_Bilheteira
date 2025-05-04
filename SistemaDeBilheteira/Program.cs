@@ -124,6 +124,7 @@ using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.Database.Entities.CardServices;
+using SistemaDeBilheteira.Services.Database.Builders;
 
 var builder = WebApplication.CreateBuilder(args);
 

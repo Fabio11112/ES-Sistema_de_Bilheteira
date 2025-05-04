@@ -108,7 +108,8 @@
                         <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
                     </a>
                 }
-                <button class="logout-button" @onclick="EventHandler">Logout</button>
+
+            
             }
             else
             {
@@ -116,6 +117,9 @@
             }
         </div>
     </section>
+    <h1>@pupu</h1>
+            <button type="button" @onclick="Click">Button</button>
+                
 </main>
 
 
@@ -123,6 +127,12 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
+    private string pupu { get; set; } = string.Empty;
+    
+    private void Click()
+    {
+        pupu = "Clicked";
+    }
         
     private async Task Logout()
     {
