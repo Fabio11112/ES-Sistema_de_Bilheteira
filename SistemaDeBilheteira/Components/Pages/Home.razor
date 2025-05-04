@@ -95,8 +95,6 @@
         </div>
     </section>
 
-      
-
     <section class="movie-section">
         <h2 class="section-title">Sci-fi</h2>
         <div class="movie-carousel no-scrollbar">
@@ -109,6 +107,7 @@
                         <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
                     </a>
                 }
+                <button class="logout-button" @onclick="EventHandler">Logout</button>
             }
             else
             {
@@ -123,6 +122,7 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
+        
     private async Task Logout()
     {
         NavigationManager.NavigateTo("/LogIn", true);
