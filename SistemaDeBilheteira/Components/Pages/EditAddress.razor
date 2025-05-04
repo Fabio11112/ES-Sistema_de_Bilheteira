@@ -1,5 +1,5 @@
-﻿@rendermode InteractiveServer
-@page "/EditAddress"
+﻿@page "/EditAddress"
+@rendermode InteractiveServer
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
@@ -19,7 +19,10 @@
             Address="address"
             Delete="() => DeleteAddress(address.Id)">
         </AddressElement>
+        
+        <button type="button" @onclick="Click">Delete</button>
     }
+    <button type="button" @onclick="Click">Button</button>
 </div>
 
 <div class="address-form">
@@ -47,6 +50,11 @@
     }
 
 
+    private void Click()
+    {
+        pupu = "Clicked";
+    }
+    
     private void SubmitAddress()
     {
         var address = AddressBuilder.WithStreetLine1(Model.StreetLine1)

@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+    
 
 builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
 builder.WebHost.ConfigureKestrel(serverOptions =>
