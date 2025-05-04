@@ -33,3 +33,4 @@ public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IReposito
         _context.Remove(item);
     }
 }
+

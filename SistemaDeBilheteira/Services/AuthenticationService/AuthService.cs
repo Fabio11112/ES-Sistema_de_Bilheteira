@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
+using SistemaDeBilheteira.Services.AuthenticationService;
 
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
 
 public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : IAuthService
 {
-    // private IUnitOfWork UnitOfWork { get; } = unitOfWork;
-    // private IUserInputValidator UserInputValidator { get; } = userInputValidator;
     private UserManager<AppUser> UserManager { get; } = userManager;
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
 
@@ -33,6 +32,8 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         
         return authResult;
     }
+
+    // public async Task<IAuthResult> LoginAsync(UserLoginModel model)
     
     
     // public Task<IAuthResult> RegisterAsync(UserRegisterModel model)
@@ -117,5 +118,9 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         }
         return authResult;
     }
-    
+
+    // Task<IResult> IAuthService.LoginAsync(UserLoginModel model)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }

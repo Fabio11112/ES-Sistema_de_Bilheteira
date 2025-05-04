@@ -1,7 +1,8 @@
 @page "/"
 @inherits AuthenticatedComponentBase
+@using RestSharp;
+@using Newtonsoft.Json;
 @rendermode InteractiveServer
-
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
@@ -36,7 +37,6 @@
             <p class="loading">Loading banner...</p>
         }
     </section>
-
 
     <!-- Movie Categories -->
     <section class="movie-section">
@@ -96,8 +96,6 @@
         </div>
     </section>
 
-      
-
     <section class="movie-section">
         <h2 class="section-title">Sci-fi</h2>
         <div class="movie-carousel no-scrollbar">
@@ -110,6 +108,8 @@
                         <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
                     </a>
                 }
+
+            
             }
             else
             {
@@ -120,8 +120,10 @@
         <button @onclick="Clicked">Button</button>
         <h1>@Texto</h1>
     </section>
+    <h1>@pupu</h1>
+            <button type="button" @onclick="Click">Button</button>
+                
 </main>
-
 
 
 @code {
@@ -131,6 +133,13 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
+    private string pupu { get; set; } = string.Empty;
+    
+    private void Click()
+    {
+        pupu = "Clicked";
+    }
+        
     private async Task Logout()
     {
         NavigationManager.NavigateTo("/LogIn", true);
@@ -153,15 +162,10 @@
       var movieDeserializer = new Deserializer<Response<Movie>>();
       var genreDeserializer = new Deserializer<Response<Genre>>();
 
-      //string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular";
       string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
 
       //Movies = await movieDeserializer.Fetch(movieUrl)!;
       Genres = await genreDeserializer.Fetch(genreUrl)!;
-
-      //var movieGenres = Genres.Results.Where(item => Movies.Results.GenreIds.Contains(item.Id)).ToList();
-      
-      
 
       for (int page = 1; page <= TOTAL_PAGES; page++)
       {

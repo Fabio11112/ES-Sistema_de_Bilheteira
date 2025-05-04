@@ -45,6 +45,7 @@
     private async Task Login()
     {
         IResult result = await AuthService.LoginAsync(Model!);
+        
         if (result.Success)
         {
             //do something
