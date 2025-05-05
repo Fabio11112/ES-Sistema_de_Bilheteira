@@ -1,4 +1,6 @@
-﻿
+﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@rendermode InteractiveServer
+
 <div class="title">User Info</div>
 <p class="subtitle">Here you can modify your data</p>
 <div class="input-container">
@@ -57,21 +59,16 @@
 
 @code {
     
-    private CardInfo CardModel = new();
+    [Parameter] public CardModel CardModel { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private void HandleSubmit()
     {
-        // Aquí puedes guardar los datos o hacer validaciones adicionales
+        OnValidSubmit.InvokeAsync();
     }
 
-    public class CardInfo
-    {
-        public string NameOnCard { get; set; } = string.Empty;
-        public string CardNumber { get; set; } = string.Empty;
-        public string CVV { get; set; } = string.Empty;
-        public string ExpDate { get; set; } = string.Empty;
-    }
-    @*
+    
+    
     [Parameter] public string Label { get; set; } = "Password";
     [Parameter] public string Placeholder { get; set; } = "";
     [Parameter] public string Value { get; set; } = "";
@@ -80,7 +77,6 @@
     private bool IsVisible { get; set; } = false;
 
     private string PasswordType => IsVisible ? "text" : "password";
-    private string EyeIcon => IsVisible ? "images/icons/eye-closed.svg" : "images/icons/eye-icon.svg";
 
     private async Task ToggleVisibility()
     {
@@ -100,5 +96,5 @@
     private void TogglePasswordVisibility()
     {
         ShowPassword = !ShowPassword;
-    }*@
+    }
 }
