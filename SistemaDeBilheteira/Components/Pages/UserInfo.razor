@@ -1,16 +1,70 @@
 ﻿@page "/UserInfo"
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Components.Cards;
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
+@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.Database.Builders
+@rendermode InteractiveServer
+@inject IService<Card> CardService
+@inject CardBuilder CardBuilder
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat">
 <PageTitle>User Info</PageTitle>
 <div class="background">
       <div class="products">
-            <UserInfoItem></UserInfoItem>
+            <UserInfoItem Model="CardModel" OnValidSubmit="SubmitCard"></UserInfoItem>
       </div>
+</div>
+<div class="alert-warning">
+    @Message
 </div>
 
 @code {
-    
+      [SupplyParameterFromForm] private CardModel CardModel { get; set; } = new();
+      private string Message { get; set; } = string.Empty;
+
+      private ICollection<Card>? Cards { get; set; } = new List<Card>();
+
+      protected override void OnInitialized()
+      {
+            Cards = CardService.GetAll();
+      }
+
+      private void SubmitCard()
+      {
+            CardBuilder.WithAppUserId(UserId!)
+                  .WithAppUser(null!)
+                  .WithIsDefault(false)
+                  .WithPayments(null!);
+            
+            var card = CardBuilder
+                  .WithNameOnCard(CardModel.NameOnCard)
+                  .WithCardNumber(CardModel.CardNumber!)
+                  .WithCvv(CardModel.CVV!)
+                  .WithExpirationDate(CardModel.ExpDate.Value)
+                  .Build(); 
+
+      var result = CardService.Add(card);
+      Message = "Card added successfully";
+      Cards = CardService.GetAll();
+      StateHasChanged();
+      }
+      private void DeleteCard(Guid id)
+      {
+            var result = CardService.Delete(id);
+            Message = "Card deleted successfully";
+
+            Cards = CardService.GetAll();
+            StateHasChanged();
+      }
+
+      private void UpdateState()
+      {
+
+            StateHasChanged();
+      }
 }

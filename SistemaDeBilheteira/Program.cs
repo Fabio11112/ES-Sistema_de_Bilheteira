@@ -67,6 +67,7 @@ builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 //BUILDERS
 builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
+builder.Services.AddSingleton<CardBuilder, CardBuilder>();
 builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 
 

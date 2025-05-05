@@ -14,7 +14,6 @@
 @inject AddressBuilder AddressBuilder
 
 
-<h1>@pupu</h1>
 <div class="addresses flex">
     @foreach (var address in Addresses)
     {
@@ -46,7 +45,6 @@
     private IService<Address> AddressService { get; set; }
 
 
-    private string pupu { get; set; } = string.Empty;
 
     protected override void OnInitialized()
     {
@@ -54,11 +52,6 @@
         Addresses = AddressService.GetAll();
     }
 
-
-    private void Click()
-    {
-        pupu = "Clicked";
-    }
     
     private void SubmitAddress()
     {
