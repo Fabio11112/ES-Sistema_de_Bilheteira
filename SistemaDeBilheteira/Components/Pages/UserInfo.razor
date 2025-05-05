@@ -7,8 +7,9 @@
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.IService.ServiceManager
 @rendermode InteractiveServer
-@inject IService<Card> CardService
+@inject IServiceManager ServiceManager
 @inject CardBuilder CardBuilder
 
 <link rel="stylesheet"
@@ -16,7 +17,7 @@
 <PageTitle>User Info</PageTitle>
 <div class="background">
       <div class="products">
-            <UserInfoItem Model="CardModel" OnValidSubmit="SubmitCard"></UserInfoItem>
+            <UserInfoItem Model="Model" OnValidSubmit="SubmitCard" ></UserInfoItem>
       </div>
 </div>
 <div class="alert-warning">
@@ -24,13 +25,14 @@
 </div>
 
 @code {
-      [SupplyParameterFromForm] private CardModel CardModel { get; set; } = new();
+      [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
       private string Message { get; set; } = string.Empty;
-
       private ICollection<Card>? Cards { get; set; } = new List<Card>();
+      private IService<Card> CardService { get; set; } 
 
       protected override void OnInitialized()
       {
+            CardService = ServiceManager.GetService<Card>();
             Cards = CardService.GetAll();
       }
 
@@ -42,10 +44,10 @@
                   .WithPayments(null!);
             
             var card = CardBuilder
-                  .WithNameOnCard(CardModel.NameOnCard)
-                  .WithCardNumber(CardModel.CardNumber!)
-                  .WithCvv(CardModel.CVV!)
-                  .WithExpirationDate(CardModel.ExpDate.Value)
+                  .WithNameOnCard(Model.NameOnCard)
+                  .WithCardNumber(Model.CardNumber!)
+                  .WithCvv(Model.CVV!)
+                  .WithExpirationDate(Model.ExpDate.Value)
                   .Build(); 
 
       var result = CardService.Add(card);
