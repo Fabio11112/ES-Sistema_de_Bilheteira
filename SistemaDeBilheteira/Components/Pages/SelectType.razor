@@ -1,9 +1,16 @@
 @page "/SelectType/{id:int}"
+@rendermode InteractiveServer
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@inject IServiceManager ServiceManager
 @inject NavigationManager NavigationManager
+@inject RentalBuilder RentalBuilder
 
 <div class="container">
     @if (movie != null)
@@ -108,23 +115,18 @@
     private Movie? movie;
     private List<string> genreNames = new();
     private bool showDropdown = false;
+    private IService<Rental> RentalService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        RentalService = ServiceManager.GetService<Rental>();
+        AddRental();
         var movieDeserializer = new Deserializer<Movie>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
         
         string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
         
-        //
-        // if (movie != null && movie.GenreIds != null)
-        // {
-        //     genreNames = allGenres
-        //         .Where(g => movie.GenreIds.Contains(g.Id))
-        //         .Select(g => g.Name)
-        //         .ToList();
-        // }
     }
 
     private string FormatRuntime(int runtime)
@@ -137,5 +139,27 @@
     private void ToggleDropdown()
     {
         showDropdown = !showDropdown;
+    }
+
+    private void AddRental()
+    {
+        var rentals = RentalService.GetAll()
+            .Where(r => r.MovieId == id.ToString());
+
+        if (rentals.Any())
+            return;
+
+        var rental = RentalBuilder.WithMovie(id.ToString())
+            .WithPrice(GeneratedPrice())
+            .WithStartDate(DateTime.Now)
+            .WithEndDate(DateTime.Now.AddDays(7))
+            .Build();
+        
+        RentalService.Add(rental!);
+    }
+
+    private double GeneratedPrice()
+    {
+        return 10.0;
     }
 }
