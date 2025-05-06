@@ -1,4 +1,5 @@
 @inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 @if (isLoading)
 {
@@ -16,13 +17,6 @@ else
         <main class="fade-in">
             <article class="content px-4">
                 @Body
-                <script>
-                    // Asegúrate de que la página siempre se desplace a la parte superior después de la carga
-                    window.onload = function() {
-                        window.scrollTo(0, 0);  // Desplazar a la parte superior
-                    };
-                </script>
-
             </article>
         </main>
 
@@ -39,11 +33,27 @@ else
 </div>
 
 @code {
-    private bool isLoading = true;
+    private bool isLoading = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await Task.Delay(1200); // Simula carga inicial
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        isLoading = true;
+        StateHasChanged();
+
+        // Simula carregamento
+        await Task.Delay(1000); 
+
         isLoading = false;
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
     }
 }

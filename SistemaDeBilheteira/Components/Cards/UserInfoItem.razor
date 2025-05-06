@@ -43,14 +43,14 @@
     <ValidationSummary />
     <div class="form-container">
         <h2 class="title">Card Info</h2>
-        <p class="subtitle">    Here you can add another Card</p>
+        <p class="subtitle">Here you can add another Card</p>
 
-        <InputText class="input-field" placeholder="NAME ON CARD" @bind-Value="Model.NameOnCard" />
-        <InputText class="input-field" placeholder="CARD NUMBER" @bind-Value="Model.CardNumber" />
+        <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
+        <InputText class="input-field" @bind-Value="Model.CardNumber" placeholder="CARD NUMBER" />
 
         <div class="row">
-            <InputText class="input-field half" placeholder="CVV" @bind-Value="Model.CVV" />
-            <InputDate class="input-field half" placeholder="EXP. DATE" @bind-Value="Model.ExpDate" />
+            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
+            <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
 
         <button class="submit-button" type="submit">Add Card</button>

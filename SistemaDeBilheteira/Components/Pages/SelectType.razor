@@ -33,7 +33,7 @@
                 <div class="imdb-rating">
                     <p class="movie-release-date">IMDB @Math.Round(movie.VoteAverage, 1)</p>
                     <p class="movie-release-date">
-                        @movie.ReleaseDate.ToString("yyyy-MM-dd") • PG12  • @FormatRuntime(movie.Runtime)
+                        @(movie.ReleaseDate.HasValue ? movie.ReleaseDate.Value.ToString("yyyy-MM-dd") : "Unknown") • PG12  • @FormatRuntime(movie.Runtime)
                     </p>
                 </div>
 

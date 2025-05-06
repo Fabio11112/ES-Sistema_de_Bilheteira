@@ -8,15 +8,12 @@ using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
 using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
-//using SistemaDeBilheteira.Services.Database.Builders;
-//using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
-// using SistemaDeBilheteira.Services.Database.Entities.CardServices;
 using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
@@ -76,6 +73,7 @@ builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddRazorPages();  //  Identity needs this
 builder.Services.AddAuthorization(); // for [Authorize]
 
+builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 
 // Configurar Kestrel e portas
 builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");

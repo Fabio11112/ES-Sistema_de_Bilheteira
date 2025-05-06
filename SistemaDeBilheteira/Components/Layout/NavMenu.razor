@@ -3,98 +3,107 @@
 @using SistemaDeBilheteira.Services.AuthenticationService
 
 @inject IAuthService AuthService
-@inject NavigationManager NavigationManager;
+@inject NavigationManager NavigationManager
 
+<nav class="navbar">
+  <AuthorizeView>
+    <Authorized>
+      <a class="sessionButton" href="/Logout">LOGOUT</a>
+      <a class="logo" href="/">UMAMovies</a>
+      <div class="icons">
+        <input 
+          @bind="searchTerm" 
+          @bind:event="oninput"
+          @onkeydown="HandleKeyDown"
+          type="text" 
+          placeholder="Buscar..." 
+          class="search-input" 
+          id="searchBox" 
+        />
 
-  <nav class="navbar">
-    <a class="logo" href="/" >UMAMovies</a>
-    
-    <div class="menu">
-      <a href="/" class="menu-item active">Movie</a>
-      <a href="/Kids" class="menu-item">Kids</a>
-    </div>
+        <div class="icon-search" onclick="toggleSearch()">
+          <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14.5" r="9.5" stroke="white" stroke-width="2"/>
+            <line x1="21.7071" y1="21.7929" x2="28.7071" y2="28.7929" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
 
-    <AuthorizeView>
+        <a href="/Cart" class="icon-cart" style="position: relative;">
+          <span class="cart-count">2</span>
+          <svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12.25 30.5C13.2165 30.5 14 29.7165 14 28.75C14 27.7835 13.2165 27 12.25 27C11.2835 27 10.5 27.7835 10.5 28.75C10.5 29.7165 11.2835 30.5 12.25 30.5Z" fill="white"/>
+            <path d="M25.25 30.5C26.2165 30.5 27 29.7165 27 28.75C27 27.7835 26.2165 27 25.25 27C24.2835 27 23.5 27.7835 23.5 28.75C23.5 29.7165 24.2835 30.5 25.25 30.5Z" fill="white"/>
+            <path d="M6.75 4.25H3.25V6H5.5L9.5 21.25H26.75L30.25 9.5H10.75L9.5 4.25H6.75Z" fill="white"/>
+          </svg>
+        </a>
 
-      <Authorized>
-        <div class="icons">
-        <a href="/Cart" class="icon cart" >
-                <span class="cart-count">2</span>
-                  <svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_138_111)">
-                  <path d="M1.375 2.17241H6.875L10.56 20.4567C10.6857 21.0854 11.0301 21.6501 11.5329 22.052C12.0356 22.4539 12.6647 22.6674 13.31 22.6552H26.675C27.3203 22.6674 27.9494 22.4539 28.4521 22.052C28.9549 21.6501 29.2993 21.0854 29.425 20.4567L31.625 9H8.25M13.75 29.4828C13.75 30.2369 13.1344 30.8483 12.375 30.8483C11.6156 30.8483 11 30.2369 11 29.4828C11 28.7286 11.6156 28.1172 12.375 28.1172C13.1344 28.1172 13.75 28.7286 13.75 29.4828ZM28.875 29.4828C28.875 30.2369 28.2594 30.8483 27.5 30.8483C26.7406 30.8483 26.125 30.2369 26.125 29.4828C26.125 28.7286 26.7406 28.1172 27.5 28.1172C28.2594 28.1172 28.875 28.7286 28.875 29.4828Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                  </g>
-                  <defs>
-                  <clipPath id="clip0_138_111">
-                  <rect width="33" height="32.7724" fill="white" transform="translate(0 0.806885)"/>
-                  </clipPath>
-                  </defs>
-                  </svg>
-              </a>
-
-          
-          <input type="text" placeholder="Buscar..." class="search-input" id="searchBox" />
-          <div class="icon search" onclick="toggleSearch()">
-                  <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M25.4471 22.7228C26.0516 23.1596 26.4468 23.8658 26.4468 24.6662C26.4468 25.9939 25.3618 27.0714 24.0249 27.0714C23.2189 27.0714 22.5079 26.6789 22.0681 26.0785V26.0824L18.5205 22.5593C19.9213 21.7511 21.0896 20.5909 21.9034 19.1997L25.4509 22.7209H25.4471V22.7228Z" fill="white"/>
-                      <path d="M23.1571 14.5664C23.1571 16.2539 22.6999 17.8375 21.9035 19.1997L18.5032 15.8229L18.0886 16.2346C18.2959 15.719 18.4102 15.1552 18.4102 14.5664C18.4102 12.067 16.37 10.0428 13.8552 10.0428C11.3403 10.0428 9.3001 12.067 9.3001 14.5664C9.3001 17.0659 11.3383 19.0901 13.8552 19.0901C14.448 19.0901 15.0157 18.9765 15.535 18.7707L15.1203 19.1824L18.5207 22.5593C17.1489 23.3501 15.5543 23.8042 13.8552 23.8042C8.71691 23.8042 4.55322 19.6673 4.55322 14.5664C4.55322 9.46553 8.71691 5.32863 13.8552 5.32863C18.9934 5.32863 23.1571 9.4636 23.1571 14.5664Z" fill="white"/>
-                      <path d="M18.5032 15.8229L21.9035 19.1997C21.0898 20.5909 19.9215 21.7511 18.5207 22.5593L15.1204 19.1824L15.535 18.7707C16.6994 18.3127 17.6275 17.391 18.0886 16.2346L18.5032 15.8229Z" fill="white"/>
-                  </svg>
-          </div>
-          <a class="icon avatar" href="/Profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="37" viewBox="0 0 36 37" fill="none">
-            <rect y="0.827591" width="36" height="35.7517" fill="#FFC700"/>
-            <mask id="mask0_102_59" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="37">
-              <rect y="0.827591" width="36" height="35.7517" fill="#FFC700"/>
+        <a class="icon-avatar" href="/Profile">
+          <svg width="43" height="44" viewBox="0 0 220 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.750977" width="218.304" height="192" fill="#FFC700"/>
+            <mask id="mask0_278_129" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="220" height="192">
+              <rect x="0.750977" width="218.304" height="192" fill="#FFC700"/>
             </mask>
-            <g mask="url(#mask0_102_59)">
-              <path d="M3.25616 15.1483C5.30643 8.26758 12.5527 4.33071 19.4411 6.35505L30.7173 9.66888C37.6057 11.6932 41.5278 18.9122 39.4775 25.793L36.1837 36.8472C34.1334 43.7279 26.8872 47.6648 19.9988 45.6404L8.72251 42.3266C1.83411 40.3023 -2.08798 33.0833 -0.0377028 26.2025L3.25616 15.1483Z" fill="#C3073F"/>
+            <g mask="url(#mask0_278_129)">
+              <path d="M38.8622 22.3213C41.1518 15.5164 48.6405 11.466 55.5887 13.2743L250.074 63.8913C257.022 65.6997 260.798 72.6821 258.509 79.4869L201.803 248.025C199.513 254.83 192.024 258.88 185.076 257.072L-9.4087 206.455C-16.3569 204.647 -20.1335 197.664 -17.844 190.859L38.8622 22.3213Z" fill="#C3073F"/>
             </g>
-            <ellipse cx="2.34834" cy="2.33473" rx="2.34834" ry="2.33473" transform="matrix(0.959713 0.280981 -0.284581 0.958652 16.1414 12)" fill="white"/>
-            <ellipse cx="2.34834" cy="2.33473" rx="2.34834" ry="2.33473" transform="matrix(0.959713 0.280981 -0.284581 0.958652 27.7319 15.3935)" fill="white"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M27.236 26.3374C25.2514 27.5884 22.3618 27.9264 19.4793 27.0269C16.5968 26.1273 14.4213 24.2087 13.5139 22.0553C12.9692 24.8308 15.2594 27.857 18.861 28.981C22.4626 30.1049 26.0842 28.9235 27.236 26.3374Z" fill="white"/>
-            </svg>
-          </a>
-        </div>
-        
-        
-        <a href="/Logout">LOGOUT</a>
-      </Authorized>
-      <NotAuthorized>
-        <div class="icons">
-          <input type="text" placeholder="Buscar..." class="search-input" id="searchBox" />
-          <div class="icon search" onclick="toggleSearch()">
-                  <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M25.4471 22.7228C26.0516 23.1596 26.4468 23.8658 26.4468 24.6662C26.4468 25.9939 25.3618 27.0714 24.0249 27.0714C23.2189 27.0714 22.5079 26.6789 22.0681 26.0785V26.0824L18.5205 22.5593C19.9213 21.7511 21.0896 20.5909 21.9034 19.1997L25.4509 22.7209H25.4471V22.7228Z" fill="white"/>
-                      <path d="M23.1571 14.5664C23.1571 16.2539 22.6999 17.8375 21.9035 19.1997L18.5032 15.8229L18.0886 16.2346C18.2959 15.719 18.4102 15.1552 18.4102 14.5664C18.4102 12.067 16.37 10.0428 13.8552 10.0428C11.3403 10.0428 9.3001 12.067 9.3001 14.5664C9.3001 17.0659 11.3383 19.0901 13.8552 19.0901C14.448 19.0901 15.0157 18.9765 15.535 18.7707L15.1203 19.1824L18.5207 22.5593C17.1489 23.3501 15.5543 23.8042 13.8552 23.8042C8.71691 23.8042 4.55322 19.6673 4.55322 14.5664C4.55322 9.46553 8.71691 5.32863 13.8552 5.32863C18.9934 5.32863 23.1571 9.4636 23.1571 14.5664Z" fill="white"/>
-                      <path d="M18.5032 15.8229L21.9035 19.1997C21.0898 20.5909 19.9215 21.7511 18.5207 22.5593L15.1204 19.1824L15.535 18.7707C16.6994 18.3127 17.6275 17.391 18.0886 16.2346L18.5032 15.8229Z" fill="white"/>
-                  </svg>
-          </div>
-        </div>
-        
-        
-      </NotAuthorized>
-    </AuthorizeView>
-  </nav>
-  <script>
-    function toggleSearch() {
-      const input = document.getElementById("searchBox");
-      input.classList.toggle("show");
-      if (input.classList.contains("show")) {
-        input.focus();
-      }
-    }
-  </script>
+            <ellipse cx="14.1186" cy="12.6772" rx="14.1186" ry="12.6772" transform="matrix(0.967991 0.250987 -0.317818 0.948152 98.6318 60)" fill="white"/>
+            <ellipse cx="14.1186" cy="12.6772" rx="14.1186" ry="12.6772" transform="matrix(0.967991 0.250987 -0.317818 0.948152 168.918 78.2241)" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M165.91 136.997C153.875 143.715 136.353 145.53 118.873 140.699C101.394 135.869 88.2018 125.565 82.699 114C79.3964 128.905 93.284 145.157 115.124 151.193C136.964 157.23 158.926 150.885 165.91 136.997Z" fill="white"/>
+          </svg>
+        </a>
+      </div>
+    </Authorized>
 
-@code{
+    <NotAuthorized>
+      <a class="sessionButton" href="/LogIn">LogIn</a>
+      <a class="logo" href="/">UMAMovies</a>
+      <div class="icons">
+        <input 
+          type="text" 
+          placeholder="Buscar..." 
+          class="search-input" 
+          id="searchBox" 
+        />
+        <div class="icon-search" onclick="toggleSearch()">
+          <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="14" cy="14.5" r="9.5" stroke="white" stroke-width="2"/>
+            <line x1="21.7071" y1="21.7929" x2="28.7071" y2="28.7929" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </NotAuthorized>
+  </AuthorizeView>
+</nav>
 
-  private async Task Logout()
-  {
-    NavigationManager.NavigateTo("/LogIn", true);
-    var result = await AuthService.LogoutAsync();
-    if (result.Success)
-    {
-      NavigationManager.NavigateTo("/LogIn", true);
+<script>
+  function toggleSearch() {
+    const input = document.getElementById("searchBox");
+    input.classList.toggle("show");
+    if (input.classList.contains("show")) {
+      input.focus();
     }
   }
+</script>
+
+@code {
+    private string searchTerm = "";
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(searchTerm))
+        {
+            // Redirige a la página de búsqueda con el término de búsqueda.
+            NavigationManager.NavigateTo($"/search/{Uri.EscapeDataString(searchTerm)}");
+        }
+    }
+
+    private async Task Logout()
+    {
+        NavigationManager.NavigateTo("/LogIn", true);
+        var result = await AuthService.LogoutAsync();
+        if (result.Success)
+        {
+            NavigationManager.NavigateTo("/LogIn", true);
+        }
+    }
 }

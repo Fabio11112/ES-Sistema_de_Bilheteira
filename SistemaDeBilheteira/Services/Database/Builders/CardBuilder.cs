@@ -31,11 +31,11 @@ namespace SistemaDeBilheteira.Services.Database.Builders
             return this;
         }
 
-        public CardBuilder WithBrand(string brand)
-        {
-            _card.Brand = brand;
-            return this;
-        }
+        // public CardBuilder WithBrand(string brand)
+        // {
+        //     _card.Brand = brand;
+        //     return this;
+        // }
 
         public Card Build()
         {

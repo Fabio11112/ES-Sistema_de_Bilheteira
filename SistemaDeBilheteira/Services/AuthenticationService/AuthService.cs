@@ -8,10 +8,11 @@ using SistemaDeBilheteira.Services.AuthenticationService;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
 
-public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : IAuthService
+public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor) : IAuthService
 {
     private UserManager<AppUser> UserManager { get; } = userManager;
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
+    private IHttpContextAccessor HttpContextAccessor { get; } = httpContextAccessor;
 
     public async Task<IResult> RegisterAsync(UserRegisterModel model)
     {
@@ -84,6 +85,15 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
 
+    public async Task<AppUser?> GetAppUserAsync(){
+        var user = HttpContextAccessor.HttpContext?.User;
+        if(user == null)
+            return null;
+
+        var appUser = await UserManager.GetUserAsync(user);
+        
+        return appUser;
+    }
     // Task<IResult> IAuthService.LoginAsync(UserLoginModel model)
     // {
     //     throw new NotImplementedException();

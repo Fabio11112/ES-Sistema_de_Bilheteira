@@ -51,3 +51,30 @@
     font-size: 18px;
     margin-bottom: 30px;
 }
+
+.popup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFC700;
+    padding: 20px 30px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.popup-close {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+}

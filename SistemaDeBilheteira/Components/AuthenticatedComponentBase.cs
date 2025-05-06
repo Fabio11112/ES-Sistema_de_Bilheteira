@@ -1,23 +1,22 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using SistemaDeBilheteira.Services.AuthenticationService;
+using SistemaDeBilheteira.Services.Database.Entities;
 
 namespace SistemaDeBilheteira.Components;
 
 public abstract class AuthenticatedComponentBase : ComponentBase
 {
     [Inject] protected AuthenticationStateProvider AuthProvider { get; set; } = null!;
-    protected ClaimsPrincipal? User { get; private set; }
+
+    [Inject] protected IAuthService AuthService { get; set; } = null!;
+
+    protected AppUser? User { get; private set; }
     protected string? UserId { get; private set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await AuthProvider.GetAuthenticationStateAsync();
-        User = authState.User;
-
-        if (User.Identity?.IsAuthenticated == true)
-        {
-            UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        }
+        User = await AuthService.GetAppUserAsync();
     }
 }

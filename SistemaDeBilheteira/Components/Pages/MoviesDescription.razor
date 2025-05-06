@@ -25,7 +25,8 @@
         <section class="movie-details">
             <div class="movie-details-wrapper">
                 <p class="movie-release-date">
-                    @Movie.ReleaseDate.ToString("yyyy-MM-dd") • @Movie.certification • @FormatRuntime(Movie.Runtime)
+                    @(Movie.ReleaseDate.HasValue ? Movie.ReleaseDate.Value.ToString("yyyy-MM-dd") : "Unknown") • 
+                    @Movie.certification • @FormatRuntime(Movie.Runtime)
                 </p>
 
                 <div class="genres-container">

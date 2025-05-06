@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.AuthenticationService.Models;
+using SistemaDeBilheteira.Services.Database.Entities;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
 
@@ -9,4 +10,5 @@ public interface IAuthService
     
     Task<IResult> LoginAsync(UserLoginModel model);
     Task<IResult> LogoutAsync();
+    Task<AppUser?> GetAppUserAsync();
 }

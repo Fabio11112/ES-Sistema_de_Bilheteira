@@ -33,7 +33,7 @@ public class Movie
     public string PosterPath { get; set; }
 
     [JsonProperty("release_date")]
-    public DateTime ReleaseDate { get; set; }
+    public DateTime? ReleaseDate { get; set; }
 
     [JsonProperty("title")]
     public string? Title { get; set; } = String.Empty;
