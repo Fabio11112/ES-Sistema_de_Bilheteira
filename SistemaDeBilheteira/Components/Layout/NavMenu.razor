@@ -1,6 +1,8 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Authorization
 @using SistemaDeBilheteira.Services.AuthenticationService
+@using Microsoft.AspNetCore.Components.Web
+
 
 @inject IAuthService AuthService
 @inject NavigationManager NavigationManager
@@ -11,7 +13,7 @@
       <a class="sessionButton" href="/Logout">LOGOUT</a>
       <a class="logo" href="/">UMAMovies</a>
       <div class="icons">
-        <input 
+        @* <input 
           @bind="searchTerm" 
           @bind:event="oninput"
           @onkeydown="HandleKeyDown"
@@ -19,14 +21,14 @@
           placeholder="Buscar..." 
           class="search-input" 
           id="searchBox" 
-        />
+        /> *@
 
-        <div class="icon-search" onclick="toggleSearch()">
+        <a class="icon-search" href="/search">
           <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="14" cy="14.5" r="9.5" stroke="white" stroke-width="2"/>
             <line x1="21.7071" y1="21.7929" x2="28.7071" y2="28.7929" stroke="white" stroke-width="2"/>
           </svg>
-        </div>
+        </a>
 
         <a href="/Cart" class="icon-cart" style="position: relative;">
           <span class="cart-count">2</span>
@@ -64,12 +66,12 @@
           class="search-input" 
           id="searchBox" 
         />
-        <div class="icon-search" onclick="toggleSearch()">
+        <a class="icon-search" href="/search">
           <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="14" cy="14.5" r="9.5" stroke="white" stroke-width="2"/>
             <line x1="21.7071" y1="21.7929" x2="28.7071" y2="28.7929" stroke="white" stroke-width="2"/>
           </svg>
-        </div>
+        </a>
       </div>
     </NotAuthorized>
   </AuthorizeView>
@@ -88,14 +90,8 @@
 @code {
     private string searchTerm = "";
 
-    private async Task HandleKeyDown(KeyboardEventArgs e)
-    {
-        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(searchTerm))
-        {
-            // Redirige a la página de búsqueda con el término de búsqueda.
-            NavigationManager.NavigateTo($"/search/{Uri.EscapeDataString(searchTerm)}");
-        }
-    }
+  
+    
 
     private async Task Logout()
     {
