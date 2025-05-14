@@ -6,6 +6,5 @@ public abstract class PaymentMethod : DbItem
     public AppUser AppUser { get; set; } = null!;
     public bool IsDefault { get; set; } = false;
     public ICollection<Payment> Payments { get; set; } = new List<Payment>();
-
-    public int balance { get; set; } = 500;
+    public int Balance { get; set; } = 500;
 }

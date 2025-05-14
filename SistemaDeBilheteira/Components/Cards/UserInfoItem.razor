@@ -57,8 +57,6 @@
     </div>
 </EditForm>
 
-
-
 @code {
     
     [Parameter] public CardModel? Model { get; set; } 
@@ -70,7 +68,6 @@
         OnValidSubmit.InvokeAsync();
     }
 
-    
     
     [Parameter] public string Label { get; set; } = "Password";
     [Parameter] public string Placeholder { get; set; } = "";

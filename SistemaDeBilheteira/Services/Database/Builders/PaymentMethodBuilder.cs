@@ -7,6 +7,7 @@ public abstract class PaymentMethodBuilder
     protected AppUser AppUser { get; set; } = null!;
     protected bool IsDefault { get; set; } = false;
     protected ICollection<Payment> Payments { get; set; } = new List<Payment>();
+    protected int Balance { get; set; }
 
     public PaymentMethodBuilder WithAppUserId(string appUserId)
     {
@@ -32,12 +33,19 @@ public abstract class PaymentMethodBuilder
         return this;
     }
 
+    public PaymentMethodBuilder WithBalance(int balance)
+    {
+        Balance = balance;
+        return this;
+    }
+
     protected void SemiBuild(PaymentMethod paymentMethod)
     {
         paymentMethod.AppUserId = AppUserId;
         paymentMethod.AppUser = AppUser;
         paymentMethod.IsDefault = IsDefault;
         paymentMethod.Payments = Payments;
+        paymentMethod.Balance = Balance;
     }
 
     // public abstract PaymentMethod Build();

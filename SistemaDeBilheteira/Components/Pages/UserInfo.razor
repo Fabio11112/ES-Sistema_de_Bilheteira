@@ -46,10 +46,11 @@
 
     private void SubmitCard()
     {
-        CardBuilder.WithAppUserId(UserId!)
+        CardBuilder.WithAppUserId(User.Id!)
                    .WithAppUser(null!)
                    .WithIsDefault(false)
-                   .WithPayments(null!);
+                   .WithPayments(null!)
+                   .WithBalance(500);
 
         var card = CardBuilder
             .WithNameOnCard(Model.NameOnCard)
@@ -57,7 +58,6 @@
             .WithCvv(Model.CVV!)
             .WithExpirationDate(Model.ExpDate.Value)
             .Build();
-
         var result = CardService.Add(card);
         Message = "Card added successfully";
         ShowPopup = true;
