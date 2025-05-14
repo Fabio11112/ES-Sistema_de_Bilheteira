@@ -29,6 +29,10 @@
     line-height: normal;
     border-radius: 100px;
     border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cart{
@@ -42,6 +46,10 @@
     line-height: normal;
     border-radius: 100px;
     border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .text-section {

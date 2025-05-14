@@ -1,23 +1,21 @@
-﻿@using SistemaDeBilheteira.Services.API_Deserializer
+﻿
+@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 
-@if (Images.Any())
+@if (Movies != null && Movies.Any())
 {
-    <div class="carousel-container">
-        <button class="carousel-button left" @onclick="PreviousSlide">&#8249;</button>
-
+    <div class="carousel-container">Recommendations based on the genre of the movie
         <div class="carousel-wrapper">
-            <div class="carousel-track" style="transform: translateX(-@($"{CurrentIndex * SlideWidth}%")); transition: transform 0.5s ease;">
-                @foreach (var image in Images)
+            <div class="carousel-track">
+                @foreach (var movie in GetMoviesByGenre(Genre))
                 {
-                    <div class="carousel-item">
-                        <img src="@image" alt="carousel image" />
-                    </div>
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="carousel-item">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" />
+                    </a>
                 }
             </div>
         </div>
-
-        <button class="carousel-button right" @onclick="NextSlide">&#8250;</button>
     </div>
 }
 else
@@ -25,45 +23,49 @@ else
     <p>Loading images...</p>
 }
 
+
 @code {
-    private int CurrentIndex = 0;
-    private List<string> Images { get; set; } = new();
-
+    List<Movie>? Movies { get; set; } = new List<Movie>();
+    Response<Genre>? Genres { get; set; }
     [Parameter]
-    public List<int> MovieIds { get; set; }
+    public string Genre { get; set; } = string.Empty;
 
-    private int ImagesPerView = 4; 
-    private int SlideWidth => 100 / ImagesPerView;
+    
+    
+    public const int TOTAL_PAGES = 9;
 
     protected override async Task OnParametersSetAsync()
     {
-        if (MovieIds.Any())
+        var movieDeserializer = new Deserializer<Response<Movie>>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
+
+        //string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular";
+        string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+
+        //Movies = await movieDeserializer.Fetch(movieUrl)!;
+        Genres = await genreDeserializer.Fetch(genreUrl)!;
+
+        //var movieGenres = Genres.Results.Where(item => Movies.Results.GenreIds.Contains(item.Id)).ToList();
+      
+      
+
+        for (int page = 1; page <= TOTAL_PAGES; page++)
         {
-            Images.Clear(); // importante limpiar antes de agregar de nuevo
+            string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
 
-            var deserializer = new Deserializer<Movie>();
-
-            foreach (var id in MovieIds)
-            {
-                var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
-                var movie = await deserializer.Fetch(url)!;
-                if (movie != null && !string.IsNullOrEmpty(movie.PosterPath))
-                {
-                    Images.Add($"https://image.tmdb.org/t/p/original{movie.PosterPath}");
-                }
-            }
+            var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
+            if(movies != null)
+                Movies?.AddRange(movies.Results);
         }
     }
 
-    private void PreviousSlide()
+    List<Movie> GetMoviesByGenre(string genre)
     {
-        CurrentIndex = Math.Max(CurrentIndex - 1, 0); 
-        StateHasChanged();
+        var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+          
+        return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
     }
 
-    private void NextSlide()
-    {
-        CurrentIndex = Math.Min(CurrentIndex + 1, Images.Count - ImagesPerView);
-        StateHasChanged();
-    } 
+
+    
 }
