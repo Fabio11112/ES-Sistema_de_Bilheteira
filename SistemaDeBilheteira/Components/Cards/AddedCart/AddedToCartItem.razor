@@ -1,31 +1,38 @@
 ﻿@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 
-<div class="element">
-    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
-    <div>
+<div class="element" style="padding: 1rem;">
+    @if (Movie != null)
+    {
+        <img class="movie-image" src="@PosterPath" alt="@Movie.Title" />
         <div class="content">
             <div class="movie-information">
-                <div class="movie-name">@Movie?.Title</div>
+                <div class="movie-name">@Movie.Title</div>
                 <div class="text information">Type @Type</div>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
 </div>
 
 @code {
+    [Parameter]
+    public int MovieId { get; set; }
+
     private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
     private string Type { get; set; } = "Rental";
     private Movie? Movie { get; set; }
-    
 
     protected override async Task OnInitializedAsync()
     {
-        var id = 324544;
-        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
+        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{MovieId}";
         var deserializer = new Deserializer<Movie>();
         
         Movie = await deserializer.Fetch(url);
-        PosterPath += Movie?.PosterPath;
+        if (Movie?.PosterPath != null)
+            PosterPath += Movie.PosterPath;
     }
 }

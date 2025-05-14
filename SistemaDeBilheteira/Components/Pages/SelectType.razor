@@ -6,11 +6,15 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @using SistemaDeBilheteira.Services.IService.ServiceManager
+
+
 @inject IServiceManager ServiceManager
 @inject NavigationManager NavigationManager
 @inject RentalBuilder RentalBuilder
+@inject ShoppingCartItemBuilder ShoppingCartItemBuilder
 
 <div class="container">
     @if (movie != null)
@@ -62,8 +66,8 @@
             <div class="actions-container">
                 <div class="flex gap-2 mt-4 relative">
                     <!-- Rent Button -->
-                    <a href="" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded">
-                        Rent<br><span class="text-sm font-normal">HD 9.99 €</span>
+                    <a class="secondary-button" @onclick="AddShoppingCartItem">
+                        Rent<br><span class="text-sm font-normal">HD @rental.Price €</span>
                     </a>
 
                     <!-- Buy Button + Dropdown -->
@@ -115,13 +119,23 @@
     private Movie? movie;
     private List<string> genreNames = new();
     private bool showDropdown = false;
+    private Product? rental = null;
     private IService<Rental> RentalService { get; set; }
+    private IService<ShoppingCartItem> ShoppingCartItemService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
         RentalService = ServiceManager.GetService<Rental>();
+        ShoppingCartItemService = ServiceManager.GetService<ShoppingCartItem>();
         
         AddRental();
+
+        rental = RentalService.GetAll()
+            .Where(r => r.MovieId == id.ToString())
+            .FirstOrDefault();
+
+
         var movieDeserializer = new Deserializer<Movie>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
         
@@ -154,7 +168,7 @@
             .WithPrice(GeneratedPrice())
             .WithStartDate(DateTime.Now)
             .WithEndDate(DateTime.Now.AddDays(7))
-            .Build();
+            .Build();   
         
         RentalService.Add(rental!);
     }
@@ -163,4 +177,42 @@
     {
         return 9.99;
     }
+
+    private void AddShoppingCartItem()
+    {
+        var item = ShoppingCartItemService.GetAll()
+            .Where(i => i.AppUserId == User.Id && i.ProductId == rental.Id)
+            .FirstOrDefault();
+
+        if(item != null)
+        {
+            UpdateItem(item);
+        }
+        else
+        {
+            AddItem(item);
+        }
+
+    }
+
+    private void UpdateItem(ShoppingCartItem item)
+    {
+        item.Quantity++;
+        ShoppingCartItemService.Update(item);
+    }
+
+    private void AddItem(ShoppingCartItem item)
+    {
+        var shoppingCartItem = ShoppingCartItemBuilder.WithAppUserId(User.Id!)
+            .WithProductId(rental.Id!)
+            .WithQuantity(1)
+            .Build();
+
+        ShoppingCartItemService.Add(shoppingCartItem!);
+    }
+
+
+    
+
+    
 }

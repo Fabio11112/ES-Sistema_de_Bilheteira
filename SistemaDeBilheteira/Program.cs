@@ -66,6 +66,7 @@ builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
 builder.Services.AddSingleton<CardBuilder, CardBuilder>();
 builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
+builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
 
 
 //Services configuration
