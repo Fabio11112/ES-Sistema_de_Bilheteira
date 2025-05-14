@@ -1,22 +1,28 @@
 ﻿.element {
     border-radius: 20px;
-    width: 442px;
-    height: 216px;
+    /*width: 442px;
+    height: 216px;*/
     padding: 20px 30px 20px 30px;
     margin-top: 2%;
     display: grid;
     place-items: center;
+    gap: 25px;
 }
 
 .button{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 200px;
     flex-shrink: 0;
     gap: 20px;
 }
 
+
 .search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 12px;
     background: #FFC700;
     color: #FFFFFF;
@@ -27,13 +33,22 @@
     line-height: normal;
     border-radius: 100px;
     border: none;
+    text-decoration: none;
 }
-.glass-image:hover{
-    display: flex;
-    justify-content: right;
-    height: 10px;
-    width: 10px;
-    z-index: 3;
+
+.glass-image{
+
+    height: 20px;
+    width: 20px;
+}
+
+.bar{
+    background: #FFC700;
+    color: #FFFFFF;
+    height: 5px;
+    border-radius: 100px;
+    border: none;
+    width: 95%;
 }
 
 

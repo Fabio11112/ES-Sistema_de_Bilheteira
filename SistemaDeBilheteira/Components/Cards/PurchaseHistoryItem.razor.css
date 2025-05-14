@@ -4,26 +4,44 @@
     width: 100%;
     padding: 20px 30px 20px 30px;
     display: flex;
-    margin-top: 2%;
+    margin-top: 5%;
+    
 }
 
+
+.movie{
+    display: grid;
+    padding-right: 0;
+}
 
 
 .content{
     margin-left: 20px;
-    display: flex;
+    display: grid;
+    margin-top: 0;
 }
 
 .text{
     color: #C4C4C4;
 }
 
+.movie-information{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
 .information{
-    font-family: Poppins, serif;
+    font-family: Montserrat, serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.text{
+    margin-top: 10px;
 }
 
 .number{
@@ -61,14 +79,14 @@
 
 .buttons{
     display: flex;
-    margin-top: 25%;
-    margin-left: 15%;
+    margin-left: 20%;
+    
 }
 
 .button{
     margin-left: 15px;
     color: #C4C4C4;
-    font-family: Poppins, serif;
+    font-family: Montserrat, serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;

@@ -3,10 +3,22 @@
     width: 100%;
     max-width: 800px;
     margin: auto;
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    gap: 10px;
 }
 
 .carousel-wrapper {
-    overflow: hidden;
+    overflow: auto;
+    
+}
+.carousel-wrapper::-webkit-scrollbar {
+    display: none; /* don´t display the bar */
 }
 
 .carousel-track {
