@@ -1,70 +1,88 @@
 ﻿@page "/UserInfo"
 @inherits AuthenticatedComponentBase
-@using SistemaDeBilheteira.Components.Cards;
 @attribute [Authorize]
+@rendermode InteractiveServer
+
+@using SistemaDeBilheteira.Components.Cards
 @using Microsoft.AspNetCore.Authorization
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Builders
-@rendermode InteractiveServer
-@inject IService<Card> CardService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+
+@inject IServiceManager ServiceManager
 @inject CardBuilder CardBuilder
 
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <PageTitle>User Info</PageTitle>
+
 <div class="background">
-      <div class="products">
-            <UserInfoItem Model="CardModel" OnValidSubmit="SubmitCard"></UserInfoItem>
-      </div>
+    <div class="products">
+        <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
+    </div>
 </div>
-<div class="alert-warning">
-    @Message
-</div>
+
+@if (ShowPopup)
+{
+    <div class="popup">
+        @Message
+        <button class="popup-close" @onclick="ClosePopup">X</button>
+    </div>
+}
 
 @code {
-      [SupplyParameterFromForm] private CardModel CardModel { get; set; } = new();
-      private string Message { get; set; } = string.Empty;
+    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
+    private string Message { get; set; } = string.Empty;
+    private bool ShowPopup { get; set; } = false;
+    private ICollection<Card>? Cards { get; set; } = new List<Card>();
+    private IService<Card> CardService { get; set; }
 
-      private ICollection<Card>? Cards { get; set; } = new List<Card>();
+    protected override void OnInitialized()
+    {
+        CardService = ServiceManager.GetService<Card>();
+        Cards = CardService.GetAll();
+    }
 
-      protected override void OnInitialized()
-      {
-            Cards = CardService.GetAll();
-      }
+    private void SubmitCard()
+    {
+        CardBuilder.WithAppUserId(UserId!)
+                   .WithAppUser(null!)
+                   .WithIsDefault(false)
+                   .WithPayments(null!);
 
-      private void SubmitCard()
-      {
-            CardBuilder.WithAppUserId(UserId!)
-                  .WithAppUser(null!)
-                  .WithIsDefault(false)
-                  .WithPayments(null!);
-            
-            var card = CardBuilder
-                  .WithNameOnCard(CardModel.NameOnCard)
-                  .WithCardNumber(CardModel.CardNumber!)
-                  .WithCvv(CardModel.CVV!)
-                  .WithExpirationDate(CardModel.ExpDate.Value)
-                  .Build(); 
+        var card = CardBuilder
+            .WithNameOnCard(Model.NameOnCard)
+            .WithCardNumber(Model.CardNumber!)
+            .WithCvv(Model.CVV!)
+            .WithExpirationDate(Model.ExpDate.Value)
+            .Build();
 
-      var result = CardService.Add(card);
-      Message = "Card added successfully";
-      Cards = CardService.GetAll();
+        var result = CardService.Add(card);
+        Message = "Card added successfully";
+        ShowPopup = true;
+        Cards = CardService.GetAll();
+        StateHasChanged();
+    }
+
+    private void ClosePopup()
+    {
+      ShowPopup = false;
       StateHasChanged();
-      }
-      private void DeleteCard(Guid id)
-      {
-            var result = CardService.Delete(id);
-            Message = "Card deleted successfully";
+    }
 
-            Cards = CardService.GetAll();
-            StateHasChanged();
-      }
+    private void DeleteCard(Guid id)
+    {
+        var result = CardService.Delete(id);
+        Message = "Card deleted successfully";
+        ShowPopup = true;
 
-      private void UpdateState()
-      {
+        Cards = CardService.GetAll();
+        StateHasChanged();
+    }
 
-            StateHasChanged();
-      }
+    private void UpdateState()
+    {
+        StateHasChanged();
+    }
 }

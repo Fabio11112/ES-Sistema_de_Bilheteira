@@ -1,0 +1,74 @@
+@page "/search"
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@inject NavigationManager Navigation
+
+<PageTitle>Search Movies</PageTitle>
+
+<main class="main-content">
+    <section class="search-page">
+        <input 
+            type="text" 
+            placeholder="Buscar películas..." 
+            class="search-input-box" 
+            @bind="searchTerm"
+            @bind:event="oninput"
+            @onkeydown="HandleKeyDown" />
+
+        <button class="search-btn" @onclick="PerformSearch">Buscar</button>
+
+        @if (movies != null)
+        {
+            <div class="movie-results">
+                @if (movies.Any())
+                {
+                    @foreach (var movie in movies)
+                    {
+                        <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                            <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                        </a>
+                    }
+                }
+                else
+                {
+                    <p>No se encontraron resultados.</p>
+                }
+            </div>
+        }
+    </section>
+</main>
+
+@code {
+    private string searchTerm = "";
+    private List<Movie>? movies;
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await PerformSearch();
+        }
+    }
+
+    private async Task PerformSearch()
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm)) return;
+
+        var deserializer = new Deserializer<Response<Movie>>();
+        var apiUrl = Environment.GetEnvironmentVariable("MOVIES_SEARCH_LINK");
+
+        if (string.IsNullOrEmpty(apiUrl)) return;
+
+        try
+        {
+            var response = await deserializer.Fetch($"{apiUrl}?query={Uri.EscapeDataString(searchTerm)}");
+            movies = response?.Results ?? new List<Movie>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error en búsqueda: {ex.Message}");
+            movies = new List<Movie>();
+        }
+    }
+}

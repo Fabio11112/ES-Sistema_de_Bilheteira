@@ -16,7 +16,9 @@
           "POSTER_LINK": "https://image.tmdb.org/t/p/w500",
           "MOVIES_LINK":"https://api.themoviedb.org/3/movie",
           "YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
-          "GENRES_LINK": "https://api.themoviedb.org/3/genre/movie/list"
+          "GENRES_LINK": "https://api.themoviedb.org/3/genre/movie/list",
+          "MOVIES_SEARCH_LINK":"https://api.themoviedb.org/3/search/movie",
+
           
         }
       },
@@ -35,7 +37,9 @@
           "POSTER_LINK": "https://image.tmdb.org/t/p/w500",
           "MOVIES_LINK":"https://api.themoviedb.org/3/movie",
           "YOUTUBE_LINK": "https://www.youtube.com/watch?v=",
-          "GENRES_LINK": "https://api.themoviedb.org/3/genre/movie/list"
+          "GENRES_LINK": "https://api.themoviedb.org/3/genre/movie/list",
+          "MOVIES_SEARCH_LINK":"https://api.themoviedb.org/3/search/movie",
+
         }
       }
     }

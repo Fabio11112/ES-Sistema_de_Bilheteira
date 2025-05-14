@@ -6,5 +6,5 @@ public class Card : PaymentMethod
     public string CardNumber { get; set; }
     public String Cvv { get; set; }
     public DateTime ExpirationDate { get; set; }
-    public string Brand { get; set; }
+    // public string Brand { get; set; }
 }

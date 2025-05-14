@@ -117,11 +117,8 @@
             }
         </div>
         
-        <button @onclick="Clicked">Button</button>
         <h1>@Texto</h1>
     </section>
-    <h1>@pupu</h1>  
-            <button type="button" @onclick="Click">Button</button>
                 
 </main>
 
@@ -133,13 +130,7 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
-    private string pupu { get; set; } = string.Empty;
     
-    private void Click()
-    {
-        pupu = "Clicked";
-    }
-        
     private async Task Logout()
     {
         NavigationManager.NavigateTo("/LogIn", true);
@@ -150,10 +141,6 @@
         }
     }
 
-    public void Clicked()
-    {
-        Texto = "Clicked";
-    }
     
     public const int TOTAL_PAGES = 9;
 

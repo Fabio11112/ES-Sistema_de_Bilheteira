@@ -38,17 +38,19 @@
     <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
 </div>
 
-<EditForm Model="CardModel" OnValidSubmit="HandleSubmit">
+<EditForm Model="Model" OnValidSubmit="HandleSubmit" FormName="CardForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="form-container">
         <h2 class="title">Card Info</h2>
         <p class="subtitle">Here you can add another Card</p>
 
-        <input class="input-field" placeholder="NAME ON CARD" @bind="CardModel.NameOnCard" />
-        <input class="input-field" placeholder="CARD NUMBER" @bind="CardModel.CardNumber" />
+        <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
+        <InputText class="input-field" @bind-Value="Model.CardNumber" placeholder="CARD NUMBER" />
 
         <div class="row">
-            <input class="input-field half" placeholder="CVV" @bind="CardModel.CVV" />
-            <input class="input-field half" placeholder="EXP. DATE" @bind="CardModel.ExpDate" />
+            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
+            <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
 
         <button class="submit-button" type="submit">Add Card</button>
@@ -59,7 +61,8 @@
 
 @code {
     
-    [Parameter] public CardModel CardModel { get; set; }
+    [Parameter] public CardModel? Model { get; set; } 
+    //private CardModel Model { get; set; } = new CardModel();
     [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private void HandleSubmit()
