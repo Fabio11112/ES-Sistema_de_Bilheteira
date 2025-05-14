@@ -1,24 +1,27 @@
-﻿<div @onclick="HandleClick" class="profile-option" style="cursor: pointer;">
+﻿@rendermode InteractiveServer
+
+<a href="@href" class="profile-option" style="cursor: pointer;">
     <div class="logo-title">
         <img class="logo" src="@ImageSource" alt=""/>
         <h1 class="title text">@Title</h1>
     </div>
     <h3 class="description text">@Description</h3>
-</div>
+</a>
 
 @code {
     [Parameter] public string ImageSource { get; set; } = string.Empty;
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string Description { get; set; } = string.Empty;
-    
-    [Parameter]
-    public EventCallback OnClick { get; set; }
 
-    private async Task HandleClick()
+    [Parameter] public string? href { get; set; } = null;
+    
+
+    @* private async Task HandleClick()
     {
+        Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync();
         }
-    }
+    } *@
 }

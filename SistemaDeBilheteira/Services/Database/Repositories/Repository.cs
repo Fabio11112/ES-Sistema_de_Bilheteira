@@ -4,7 +4,7 @@ using SistemaDeBilheteira.Services.Database.Context;
 
 namespace SistemaDeBilheteira.Services.Database.Repositories;
 
-public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IRepository<TEntity> where TEntity : IdentityUser, IDbItem
+public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IRepository<TEntity> where TEntity : DbItem
 {
     private readonly SistemaDeBilheteiraContext _context = context;
     
@@ -33,3 +33,4 @@ public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IReposito
         _context.Remove(item);
     }
 }
+

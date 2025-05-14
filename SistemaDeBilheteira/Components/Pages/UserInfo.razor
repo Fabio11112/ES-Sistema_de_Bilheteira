@@ -1,15 +1,88 @@
 ﻿@page "/UserInfo"
-@using SistemaDeBilheteira.Components.Cards;
+@inherits AuthenticatedComponentBase
+@attribute [Authorize]
+@rendermode InteractiveServer
 
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat">
+@using SistemaDeBilheteira.Components.Cards
+@using Microsoft.AspNetCore.Authorization
+@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+
+@inject IServiceManager ServiceManager
+@inject CardBuilder CardBuilder
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <PageTitle>User Info</PageTitle>
+
 <div class="background">
-      <div class="products">
-            <UserInfoItem></UserInfoItem>
-      </div>
+    <div class="products">
+        <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
+    </div>
 </div>
 
+@if (ShowPopup)
+{
+    <div class="popup">
+        @Message
+        <button class="popup-close" @onclick="ClosePopup">X</button>
+    </div>
+}
+
 @code {
-    
+    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
+    private string Message { get; set; } = string.Empty;
+    private bool ShowPopup { get; set; } = false;
+    private ICollection<Card>? Cards { get; set; } = new List<Card>();
+    private IService<Card> CardService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CardService = ServiceManager.GetService<Card>();
+        Cards = CardService.GetAll();
+    }
+
+    private void SubmitCard()
+    {
+        CardBuilder.WithAppUserId(User.Id!)
+                   .WithAppUser(null!)
+                   .WithIsDefault(false)
+                   .WithPayments(null!)
+                   .WithBalance(500);
+
+        var card = CardBuilder
+            .WithNameOnCard(Model.NameOnCard)
+            .WithCardNumber(Model.CardNumber!)
+            .WithCvv(Model.CVV!)
+            .WithExpirationDate(Model.ExpDate.Value)
+            .Build();
+        var result = CardService.Add(card);
+        Message = "Card added successfully";
+        ShowPopup = true;
+        Cards = CardService.GetAll();
+        StateHasChanged();
+    }
+
+    private void ClosePopup()
+    {
+      ShowPopup = false;
+      StateHasChanged();
+    }
+
+    private void DeleteCard(Guid id)
+    {
+        var result = CardService.Delete(id);
+        Message = "Card deleted successfully";
+        ShowPopup = true;
+
+        Cards = CardService.GetAll();
+        StateHasChanged();
+    }
+
+    private void UpdateState()
+    {
+        StateHasChanged();
+    }
 }

@@ -1,4 +1,6 @@
-﻿
+﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@rendermode InteractiveServer
+
 <div class="title">User Info</div>
 <p class="subtitle">Here you can modify your data</p>
 <div class="input-container">
@@ -36,58 +38,37 @@
     <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
 </div>
 
-<EditForm Model="CardModel" OnValidSubmit="HandleSubmit">
+<EditForm Model="Model" OnValidSubmit="HandleSubmit" FormName="CardForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="form-container">
         <h2 class="title">Card Info</h2>
         <p class="subtitle">Here you can add another Card</p>
 
-        <input class="input-field" placeholder="NAME ON CARD" @bind="CardModel.NameOnCard" />
-        <input class="input-field" placeholder="CARD NUMBER" @bind="CardModel.CardNumber" />
+        <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
+        <InputText class="input-field" @bind-Value="Model.CardNumber" placeholder="CARD NUMBER" />
 
         <div class="row">
-            <input class="input-field half" placeholder="CVV" @bind="CardModel.CVV" />
-            <input class="input-field half" placeholder="EXP. DATE" @bind="CardModel.ExpDate" />
+            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
+            <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
 
         <button class="submit-button" type="submit">Add Card</button>
     </div>
 </EditForm>
 
-
-
-@*<div class="input-container">
-    <img src="images/icons/lock.svg" alt="lock" class="input-icon" />
-    <div class="input-content">
-        <label class="input-label">@Label</label>
-        <input
-            class="input-field"
-            type="@PasswordType"
-            @bind="@Value"
-            placeholder="@Placeholder" />
-    </div>
-    <img src="@EyeIcon" alt="toggle" class="toggle-password" @onclick="ToggleVisibility" />
-</div>*@
-
-
-
-
 @code {
     
-    private CardInfo CardModel = new();
+    [Parameter] public CardModel? Model { get; set; } 
+    //private CardModel Model { get; set; } = new CardModel();
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     private void HandleSubmit()
     {
-        // Aquí puedes guardar los datos o hacer validaciones adicionales
+        OnValidSubmit.InvokeAsync();
     }
 
-    public class CardInfo
-    {
-        public string NameOnCard { get; set; } = string.Empty;
-        public string CardNumber { get; set; } = string.Empty;
-        public string CVV { get; set; } = string.Empty;
-        public string ExpDate { get; set; } = string.Empty;
-    }
-    @*
+    
     [Parameter] public string Label { get; set; } = "Password";
     [Parameter] public string Placeholder { get; set; } = "";
     [Parameter] public string Value { get; set; } = "";
@@ -96,7 +77,6 @@
     private bool IsVisible { get; set; } = false;
 
     private string PasswordType => IsVisible ? "text" : "password";
-    private string EyeIcon => IsVisible ? "images/icons/eye-closed.svg" : "images/icons/eye-icon.svg";
 
     private async Task ToggleVisibility()
     {
@@ -116,5 +96,5 @@
     private void TogglePasswordVisibility()
     {
         ShowPassword = !ShowPassword;
-    }*@
+    }
 }

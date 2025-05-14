@@ -23,7 +23,7 @@ public class UserInputValidator : IUserInputValidator
         return password == confirmPassword;
     }
 
-    public bool ValidateInput(UserRegisterModel model, IAuthResult result)
+    public bool ValidateInput(UserRegisterModel model, IResult result)
     {
         if (!IsValidEmail(model.Email))
         {

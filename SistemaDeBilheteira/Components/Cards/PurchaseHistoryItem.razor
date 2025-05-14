@@ -3,12 +3,11 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
-    <div>
+    <div class="movie">
         <div class="content">
             <div class="movie-information">
                 <div class="movie-name">@Movie?.Title</div>
                 <div class="text information">Type @Type</div>
-                <div class="text information">@Stock</div>
             </div>
             <div class="price-details">
                 <div class="detail">
@@ -40,7 +39,6 @@
     private string Type { get; set; } = "Rental";
     private double Price { get; set; } = 10.25;
     private string Currency { get; set; } = "€";
-    private string Stock { get; set; } = "In Stock";
     private Movie? Movie { get; set; }
     private int Quantity { get; set; } = 2;
 

@@ -1,6 +1,10 @@
 ﻿@page "/AddedToCart"
+@inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Components.Cards.AddedCart
 @using SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
@@ -10,7 +14,7 @@
 <div class="background">
     <div class="flex">
         <div class="products">
-            <AddedToCartItem></AddedToCartItem>
+            <AddedToCartItem  ></AddedToCartItem>
             
         </div>
 
@@ -22,13 +26,51 @@
         <SearchButton></SearchButton>
     </div>
     <div class="carousel">
-        <MovieCarousel MovieIds="@MovieIds"></MovieCarousel>
+        <MovieCarousel Genre="@SelectedGenre"></MovieCarousel>
     </div>
 
 </div>
 
 @code{
+    [Parameter]
+    public List<Movie>? Movies { get; set; } = new List<Movie>();
+    [Parameter]
+    public Response<Genre>? Genres { get; set; }
+    
+    private string SelectedGenre = "Fantasy";
+     
+    
+    public const int TOTAL_PAGES = 9;
 
-    private List<int> MovieIds = new List<int> { 324544, 399579, 550, 56454, 4181, 48484, 48452, 48453, 48451, 48450, 48449, 48448, 48447, 48446, 48445, 48444, 48443, 48442, 48441, 48440 };
+    protected override async Task OnParametersSetAsync()
+    {
+        var movieDeserializer = new Deserializer<Response<Movie>>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
 
+        //string movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular";
+        string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+
+        //Movies = await movieDeserializer.Fetch(movieUrl)!;
+        Genres = await genreDeserializer.Fetch(genreUrl)!;
+
+        //var movieGenres = Genres.Results.Where(item => Movies.Results.GenreIds.Contains(item.Id)).ToList();
+      
+      
+
+        for (int page = 1; page <= TOTAL_PAGES; page++)
+        {
+            string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
+
+            var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
+            if(movies != null)
+                Movies?.AddRange(movies.Results);
+        }
+    }
+
+    List<Movie> GetMoviesByGenre(string genre)
+    {
+        var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+          
+        return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
+    }
 }

@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
+using SistemaDeBilheteira.Services.AuthenticationService;
 
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
 
-public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager) : IAuthService
+public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IHttpContextAccessor httpContextAccessor) : IAuthService
 {
-    // private IUnitOfWork UnitOfWork { get; } = unitOfWork;
-    // private IUserInputValidator UserInputValidator { get; } = userInputValidator;
     private UserManager<AppUser> UserManager { get; } = userManager;
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
+    private IHttpContextAccessor HttpContextAccessor { get; } = httpContextAccessor;
 
-    public async Task<IAuthResult> RegisterAsync(UserRegisterModel model)
+    public async Task<IResult> RegisterAsync(UserRegisterModel model)
     {
-        IAuthResult authResult = new AuthResult();
+        IResult authResult = new Result();
         
         var user = new AppUser { UserName = model.Email, Email = model.Email, FirstName = model.Name};
         var result = await UserManager.CreateAsync(user, model.Password);
@@ -33,77 +33,44 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         
         return authResult;
     }
-    
-    
-    // public Task<IAuthResult> RegisterAsync(UserRegisterModel model)
-    // {
-    //     var userRepository = UnitOfWork.GetRepository<AppUser>();
-    //     IAuthResult result = new AuthResult();
-    //     if (userRepository == null)
-    //     {
-    //         result.Success = false;
-    //         result.Message = "Internal Server Error";
-    //         return Task.FromResult(result);
-    //     }
-    //     
-    //     var users = userRepository?.GetAll()!;
-    //
-    //     if (UserAlreadyExist(users, model))
-    //     {
-    //         result.Success = false;
-    //         result.Message = "The email address is already in use.";
-    //         return Task.FromResult(result);
-    //     }
-    //
-    //     if (!UserInputValidator.ValidateInput(model, result))
-    //     {
-    //         return Task.FromResult(result);
-    //     }
-    //     
-    //     AppUser user = new()
-    //     {
-    //         Email = model.Email,
-    //         FirstName = model.Name,
-    //     };
-    //     
-    //     user.PasswordHash = new PasswordHasher<AppUser>().HashPassword(user, model.Password);
-    //     AddUser(user, userRepository);
-    //     result.Success = true;
-    //     result.Message = "The account has been created successfully.";
-    //     return Task.FromResult(result);
-    // }
-    public async Task<IAuthResult> LoginAsync(UserLoginModel model)
+
+
+    public async Task<IResult> LoginAsync(UserLoginModel model)
+{
+    IResult authResult = new Result();
+    var user = await UserManager.FindByEmailAsync(model.Email);
+
+    if (user != null)
     {
-        IAuthResult authResult = new AuthResult();
-        var user = await UserManager.FindByEmailAsync(model.Email);
-        if (user != null)
+        var result = await SignInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
+        if (result.Succeeded)
         {
-            var result = await SignInManager.PasswordSignInAsync(user, model.Password, isPersistent: false, lockoutOnFailure: false);
-            if (result.Succeeded)
-            {
-                authResult.Message = "Logged in";
-                authResult.Success = true;
-            }
-            else
-            {
-                authResult.Message = "The email or password is incorrect.";
-                authResult.Success = false;
-            }
+            // 💡 Esta línea garantiza que se emita la cookie
+            await SignInManager.SignInAsync(user, isPersistent: false);
+
+            authResult.Message = "Logged in";
+            authResult.Success = true;
         }
         else
         {
-            authResult.Message = "This email is not registered";
+            authResult.Message = "The email or password is incorrect.";
             authResult.Success = false;
         }
-        
-        
-        return authResult;
     }
-    
-    
-    public async Task<IAuthResult> LogoutAsync()
+    else
     {
-        var authResult = new AuthResult();
+        authResult.Message = "This email is not registered";
+        authResult.Success = false;
+    }
+
+    return authResult;
+}
+
+    
+    
+    public async Task<IResult> LogoutAsync()
+    {
+        var authResult = new Result();
         try
         {
             await SignInManager.SignOutAsync();
@@ -117,5 +84,18 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         }
         return authResult;
     }
-    
+
+    public async Task<AppUser?> GetAppUserAsync(){
+        var user = HttpContextAccessor.HttpContext?.User;
+        if(user == null)
+            return null;
+
+        var appUser = await UserManager.GetUserAsync(user);
+        
+        return appUser;
+    }
+    // Task<IResult> IAuthService.LoginAsync(UserLoginModel model)
+    // {
+    //     throw new NotImplementedException();
+    // }
 }
