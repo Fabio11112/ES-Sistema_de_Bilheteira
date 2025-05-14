@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaDeBilheteira.Services.Database.Context;
 
@@ -10,9 +11,11 @@ using SistemaDeBilheteira.Services.Database.Context;
 namespace SistemaDeBilheteira.Migrations
 {
     [DbContext(typeof(SistemaDeBilheteiraContext))]
-    partial class SistemaDeBilheteiraContextModelSnapshot : ModelSnapshot
+    [Migration("20250514124230_Payment6588866")]
+    partial class Payment6588866
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -127,12 +130,6 @@ namespace SistemaDeBilheteira.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MovieId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -142,7 +139,7 @@ namespace SistemaDeBilheteira.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable((string)null);
+                    b.ToTable("Products");
 
                     b.UseTpcMappingStrategy();
                 });
@@ -387,6 +384,36 @@ namespace SistemaDeBilheteira.Migrations
                     b.UseTpcMappingStrategy();
                 });
 
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MovieId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("endDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("startDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rentals", (string)null);
+                });
+
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ShoppingCartItem", b =>
                 {
                     b.Property<string>("AppUserId")
@@ -412,19 +439,6 @@ namespace SistemaDeBilheteira.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCartItem");
-                });
-
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental", b =>
-                {
-                    b.HasBaseType("Product");
-
-                    b.Property<DateTime>("endDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("startDate")
-                        .HasColumnType("TEXT");
-
-                    b.ToTable("Rentals", (string)null);
                 });
 
             modelBuilder.Entity("Card", b =>

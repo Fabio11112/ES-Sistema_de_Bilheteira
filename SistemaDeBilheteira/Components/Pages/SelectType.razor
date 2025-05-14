@@ -120,6 +120,7 @@
     protected override async Task OnInitializedAsync()
     {
         RentalService = ServiceManager.GetService<Rental>();
+        
         AddRental();
         var movieDeserializer = new Deserializer<Movie>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
