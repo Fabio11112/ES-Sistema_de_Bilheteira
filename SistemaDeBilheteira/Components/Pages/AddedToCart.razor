@@ -1,4 +1,4 @@
-﻿@page "/AddedToCart"
+﻿@page "/AddedToCart/{id:int}"
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Components.Cards.AddedCart
 @using SistemaDeBilheteira.Components.Cards
@@ -14,7 +14,7 @@
 <div class="background">
     <div class="flex">
         <div class="products">
-            <AddedToCartItem  ></AddedToCartItem>
+            <AddedToCartItem MovieId="@id"></AddedToCartItem>
             
         </div>
 
@@ -32,6 +32,10 @@
 </div>
 
 @code{
+
+    [Parameter]
+    public int id { get; set; }
+
     [Parameter]
     public List<Movie>? Movies { get; set; } = new List<Movie>();
     [Parameter]
