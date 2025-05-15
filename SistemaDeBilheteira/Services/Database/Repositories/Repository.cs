@@ -13,8 +13,10 @@ public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IReposito
         return _context.Set<TEntity>().ToList();
     }
 
-    public ICollection<TEntity>? GetWithQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryBuilder)
+    public ICollection<TEntity> GetWithQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryBuilder)
     {
+        if (queryBuilder == null) throw new ArgumentNullException(nameof(queryBuilder));
+        
         var dbSet = _context.Set<TEntity>();
         var query = queryBuilder(dbSet);
         return query.ToList();

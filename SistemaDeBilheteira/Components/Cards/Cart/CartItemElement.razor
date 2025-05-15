@@ -1,5 +1,6 @@
 ﻿@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.Database.Entities
 
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
@@ -35,7 +36,7 @@
 </div>
 
 @code {
-    [Parameter] public int MovieId { get; set; }
+    [Parameter] public required ShoppingCartItem Item { get; set; }
     private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
     
     private string Type { get; set; } = "Rental";
@@ -48,8 +49,11 @@
     protected override async Task OnInitializedAsync()
     {
         var deserializer = new Deserializer<Movie>();
-        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{MovieId}";
+        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{Item.Product.MovieId}";
         Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
     }
+    
+    
+    
 }
