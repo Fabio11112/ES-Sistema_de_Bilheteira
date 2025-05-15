@@ -10,19 +10,23 @@ public class PurchaseSystem(IServiceManager serviceManager) : IPurchaseSystem
     private IService<ShoppingCartItem> CartItemService { get; } = serviceManager.GetService<ShoppingCartItem>();
     private IService<Purchase> PurchaseService { get; } = serviceManager.GetService<Purchase>();
     private IService<PurchaseItem> PurchaseItemService { get;  } = serviceManager.GetService<PurchaseItem>();
+    private IService<PaymentMethod> PaymentMethodService { get; } = serviceManager.GetService<PaymentMethod>();
 
     public bool Pay(PaymentMethod paymentMethod, AppUser user)
     {
         try
         {
             var items = GetShoppingCartItems(user);
-            if(items == null)
+            if(items == null || items.Count == 0)
                 return false;
             
             var totalPrice = GetTotalPrice(items);
             
             if (paymentMethod.Balance < totalPrice)
                 return false;
+            
+            paymentMethod.Balance -= totalPrice;
+            PaymentMethodService.Update(paymentMethod);
 
             var purchase = AddPurchase(totalPrice, user);
 

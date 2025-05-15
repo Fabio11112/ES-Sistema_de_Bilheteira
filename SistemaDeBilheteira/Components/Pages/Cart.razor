@@ -5,10 +5,13 @@
 @using SistemaDeBilheteira.Components.Cards.Cart
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.Database.Entities.Payment
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject IServiceManager ServiceManager
+@inject IPurchaseSystem PurchaseSystem
+@inject NavigationManager Navigation
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
@@ -38,6 +41,8 @@
             <PromoCode></PromoCode>
             <PaymentMethodElement></PaymentMethodElement> 
         </div>
+        
+        <buttton @onclick="Pay">PAY</buttton>
     </div>
     
 </div>
@@ -46,11 +51,13 @@
 @code {
     private ICollection<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
     private IService<ShoppingCartItem>? ItemService { get; set; }
+    private IService<PaymentMethod> PaymentMethodService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         ItemService = ServiceManager.GetService<ShoppingCartItem>();
+        PaymentMethodService = ServiceManager.GetService<PaymentMethod>();
         Items = GetCartElements();
     }
 
@@ -69,6 +76,16 @@
                         i => i.AppUserId == User.Id)
                     .Include(i => i.Product)
         );
+    }
+
+    private void Pay()
+    {
+        Console.WriteLine("PAYING");
+        var method = PaymentMethodService.GetAll()!.FirstOrDefault();
+        if (PurchaseSystem.Pay(method!, User!))
+        {
+            Navigation.NavigateTo("/Profile");
+        }
     }
     
 }
