@@ -1,16 +1,10 @@
 @page "/"
 @inherits AuthenticatedComponentBase
-@using RestSharp;
-@using Newtonsoft.Json;
 @rendermode InteractiveServer
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
-@using Microsoft.AspNetCore.Components.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService
 
-@inject NavigationManager NavigationManager
-@inject IAuthService AuthService
 
 <PageTitle>Home</PageTitle>
 
@@ -116,9 +110,7 @@
                 <p class="loading">Loading Sci-fi movies...</p>
             }
         </div>
-        
-        <button @onclick="Pressed">Press</button>
-        <h1>@Texto</h1>
+
     </section>
                 
 </main>
@@ -126,16 +118,12 @@
 
 @code {
 
-    string Texto { get; set; } = string.Empty;
+
 
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
 
-    private void Pressed()
-    {
-        Texto = "PRESSED";
-    }
 
     
     public const int TOTAL_PAGES = 9;

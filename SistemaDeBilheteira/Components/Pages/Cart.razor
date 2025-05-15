@@ -1,5 +1,6 @@
 ﻿@page "/Cart"
 @inherits AuthenticatedComponentBase
+@rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards.Cart
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
@@ -23,9 +24,12 @@
         <div class="products">
             @foreach (var item in Items)
             {
-                <CartItemElement
-                    Item="@item">
-                </CartItemElement>
+                <div @key="item">
+                    <CartItemElement
+                        Item="@item"
+                        Delete="(cartItem) => DeleteCartItem(cartItem)">
+                    </CartItemElement>
+                </div>
             }
         </div>
         
@@ -46,13 +50,7 @@
     {
         await base.OnInitializedAsync();
         ItemService = ServiceManager.GetService<ShoppingCartItem>();
-        Items = ItemService.GetWithQuery(
-            q => 
-                q
-                    .Where(
-                        i => i.AppUserId == User.Id)
-                    .Include(i => i.Product)
-            );
+        Items = GetCartElements();
     }
 
     private void DeleteCartItem(ShoppingCartItem item)
@@ -60,4 +58,16 @@
         Items.Remove(item);
         ItemService?.Delete(item);
     }
+
+    private ICollection<ShoppingCartItem> GetCartElements()
+    {
+        return ItemService.GetWithQuery(
+            q => 
+                q
+                    .Where(
+                        i => i.AppUserId == User.Id)
+                    .Include(i => i.Product)
+        );
+    }
+    
 }
