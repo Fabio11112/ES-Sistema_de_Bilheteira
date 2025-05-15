@@ -7,20 +7,37 @@
     margin-top: 2%;
 }
 
+.movie {
+    width: 100%;
+    display: grid;
+    
+    
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+    
+    margin-left: 20px;
+}
 
+.movie-information{
+    display: flex;
+    flex-direction: column;
+    
+}
 
-.content{
+/*.content{
     margin-left: 20px;
     display: flex;
-}
+}*/
 
 .text{
     color: #C4C4C4;
 }
 
 .information{
-    font-family: Poppins, serif;
-    font-size: 12px;
+    font-family: Montserrat, serif;
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -49,29 +66,30 @@
     width: 25%;
 }
 
-.price-details{
-    margin-top: 10%;
+.price-details {
     display: flex;
 }
+/*.price-details{
+    margin-top: 10%;
+    display: flex;
+}*/
 
 .detail{
     margin-left: 12px;
-    margin-right: 12px;
+    margin-right: 35px;
 }
 
-.buttons{
-    display: flex;
-    margin-top: 25%;
-    margin-left: 15%;
-}
 
-.button{
-    margin-left: 15px;
-    color: #C4C4C4;
-    font-family: Poppins, serif;
-    font-size: 12px;
+
+.date {
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 22px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: normal;
-    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 300px;
+    margin-right: 35px;
 }

@@ -24,12 +24,8 @@
                 </div>
             </div>
         </div>
-        
-        <div class="buttons">
-            <div class="button">Edit</div>
-            <div class="button">Remove</div>
-            <div class="button">Move to Wishlist</div>
-        </div>
+
+        <div class="date">Purchase Date: @PurchaseDate.ToString("dd/MM/yyyy")</div>
     </div>
 </div>
 
@@ -41,6 +37,7 @@
     private string Currency { get; set; } = "€";
     private Movie? Movie { get; set; }
     private int Quantity { get; set; } = 2;
+    private DateTime PurchaseDate { get; set; } = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
