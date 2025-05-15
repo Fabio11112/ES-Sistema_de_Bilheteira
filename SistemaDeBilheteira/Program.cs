@@ -15,6 +15,7 @@ using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
+using SistemaDeBilheteira.Services.Database.Entities.Payment;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,6 +67,8 @@ builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
 builder.Services.AddSingleton<CardBuilder, CardBuilder>();
 builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
+
+builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
 
 //Services configuration
