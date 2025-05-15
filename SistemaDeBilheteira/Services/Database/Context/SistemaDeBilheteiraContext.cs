@@ -67,14 +67,24 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithMany(p => p.ShoppingCartItems)
             .HasForeignKey(sci => sci.ProductId);
         
+
         modelBuilder.Entity<PaymentMethod>().UseTpcMappingStrategy();
+        modelBuilder.Entity<PaymentMethod>()
+            .Property(p => p.Id)
+            .ValueGeneratedNever();
+        
+        var paymentMethodTypes = new[] { typeof(Card), typeof(Paypal) };
+
+        foreach (var type in paymentMethodTypes)
+        {
+            modelBuilder.Entity(type)
+                .Property(nameof(DbItem.Id))
+                .ValueGeneratedNever();
+        }
+        
         modelBuilder.Entity<Card>().ToTable("Cards");
 
-        // Herança TPH para PaymentMethod
-        // modelBuilder.Entity<PaymentMethod>()
-        //     .HasDiscriminator<string>("PaymentMethodType")
-        //     .HasValue<Card>("Card")  
-        //     .HasValue<Paypal>("Paypal");
+
 
         // Relação 1:N PaymentMethod -> Payments
         modelBuilder.Entity<PaymentMethod>()

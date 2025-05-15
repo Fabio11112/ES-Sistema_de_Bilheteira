@@ -13,6 +13,13 @@ public class Repository<TEntity>(SistemaDeBilheteiraContext context) : IReposito
         return _context.Set<TEntity>().ToList();
     }
 
+    public ICollection<TEntity>? GetWithQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryBuilder)
+    {
+        var dbSet = _context.Set<TEntity>();
+        var query = queryBuilder(dbSet);
+        return query.ToList();
+    }
+
     public TEntity? Get(Guid id)
     {
         return _context.Set<TEntity>().Find(id);

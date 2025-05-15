@@ -4,7 +4,7 @@ public abstract class PaymentMethod : DbItem
 {
     public string AppUserId { get; set; }
     public AppUser AppUser { get; set; } = null!;
-    public bool IsDefault { get; set; } = false;
+    public bool IsDefault { get; set; }
     public ICollection<Payment> Payments { get; set; } = new List<Payment>();
     public int Balance { get; set; } = 500;
 }

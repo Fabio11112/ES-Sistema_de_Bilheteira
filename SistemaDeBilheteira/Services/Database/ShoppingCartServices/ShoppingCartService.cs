@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
 using SistemaDeBilheteira.Services.Database.Entities;
-using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using SistemaDeBilheteira.Services.Database.Repositories;
+using SistemaDeBilheteira.Services.Database.UnitOfWork;
+
+namespace SistemaDeBilheteira.Services.Database.ShoppingCartServices;
 
 public class ShoppingCartService : IShoppingCartService
 {
@@ -19,8 +19,11 @@ public class ShoppingCartService : IShoppingCartService
     public void AddItemToCart(String userId, Guid productId, int quantity = 1)
     {
         var existingItem = _shoppingCartRepository
-            .GetAll()
-            .FirstOrDefault(i => i.AppUserId == userId && i.ProductId == productId);
+            .GetWithQuery(q => 
+                q.Where(
+                    i => i.AppUserId == userId && i.ProductId == productId)
+            )!.FirstOrDefault();
+            
 
         if (existingItem != null)
         {

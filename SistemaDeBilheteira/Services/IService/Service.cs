@@ -108,5 +108,14 @@ public class Service<T>(IUnitOfWork unitOfWork) : IService<T> where T : DbItem
         
         return repository.GetAll();
     }
-    
+
+    public ICollection<T>? GetWithQuery(Func<IQueryable<T>, IQueryable<T>> queryBuilder)
+    {
+        var repository = UnitOfWork.GetRepository<T>();
+        if (repository == null)
+        {
+            return null;
+        }
+        return repository.GetWithQuery(queryBuilder);
+    }
 }

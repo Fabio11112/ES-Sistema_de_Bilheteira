@@ -10,4 +10,5 @@ public interface IService<T> where T : DbItem
     IResult Update(T item);
     T? GetById(Guid id);
     ICollection<T>? GetAll();
+    ICollection<T>? GetWithQuery(Func<IQueryable<T>, IQueryable<T>> queryBuilder);
 }

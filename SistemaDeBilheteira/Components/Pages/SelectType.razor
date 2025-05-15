@@ -180,9 +180,14 @@
 
     private void AddShoppingCartItem()
     {
-        var item = ShoppingCartItemService.GetAll()
-            .Where(i => i.AppUserId == User.Id && i.ProductId == rental.Id)
-            .FirstOrDefault();
+        var item = ShoppingCartItemService.GetWithQuery(
+            q => q.Where(
+                i => i.AppUserId == User.Id && i.ProductId == rental.Id)
+            ).FirstOrDefault();
+        
+        // var item = ShoppingCartItemService.GetAll()
+        //     .Where(i => i.AppUserId == User.Id && i.ProductId == rental.Id)
+        //     .FirstOrDefault();
 
         if(item != null)
         {
