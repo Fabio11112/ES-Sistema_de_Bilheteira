@@ -8,3 +8,9 @@ obj/
 *.env
 # Ignore Visual Studio Code files
 .vscode/
+
+*.db
+*.log
+
+.idea/
+Migrations/

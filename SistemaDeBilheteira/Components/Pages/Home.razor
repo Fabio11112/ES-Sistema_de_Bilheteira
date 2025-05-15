@@ -117,6 +117,7 @@
             }
         </div>
         
+        <button @onclick="Pressed">Press</button>
         <h1>@Texto</h1>
     </section>
                 
@@ -130,15 +131,10 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
-    
-    private async Task Logout()
+
+    private void Pressed()
     {
-        NavigationManager.NavigateTo("/LogIn", true);
-        var result = await AuthService.LogoutAsync();
-        if (result.Success)
-        {
-            NavigationManager.NavigateTo("/LogIn", true);
-        }
+        Texto = "PRESSED";
     }
 
     
