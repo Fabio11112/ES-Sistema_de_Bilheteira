@@ -3,6 +3,7 @@
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@using SistemaDeBilheteira.Components.Cards
 
 
 <link rel="stylesheet"
@@ -23,7 +24,6 @@
     
 
 @code {
-    string? MovieTitle { get; set; }
     Response<Movie>? Response { get; set; }
 
     protected override async Task OnInitializedAsync()
