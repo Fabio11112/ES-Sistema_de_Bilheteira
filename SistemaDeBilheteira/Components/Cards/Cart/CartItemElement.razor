@@ -48,11 +48,20 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
         var deserializer = new Deserializer<Movie>();
         var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{Item.Product.MovieId}";
         Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
     }
+
+    private void DeleteItem()
+    {
+        
+    }
+    
+    
+    
     
     
     

@@ -4,6 +4,7 @@
 @using SistemaDeBilheteira.Components.Cards.Cart
 @using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject IServiceManager ServiceManager
 
@@ -52,6 +53,11 @@
                         i => i.AppUserId == User.Id)
                     .Include(i => i.Product)
             );
-        
+    }
+
+    private void DeleteCartItem(ShoppingCartItem item)
+    {
+        Items.Remove(item);
+        ItemService?.Delete(item);
     }
 }
