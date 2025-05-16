@@ -1,4 +1,5 @@
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 namespace SistemaDeBilheteira.Services.Database.Builders
 {

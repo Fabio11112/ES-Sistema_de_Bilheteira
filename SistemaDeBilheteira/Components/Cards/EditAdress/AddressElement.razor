@@ -1,32 +1,34 @@
-﻿@using SistemaDeBilheteira.Services.Database.Entities
+﻿@using SistemaDeBilheteira.Services.AuthenticationService.IService
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
 @rendermode InteractiveServer
+@inject IServiceManager ServiceManager
+
+
 <div class="address">
     <div class="name">@Address.StreetLine1</div>
     <div class="name">@Address.StreetLine2!</div>
     <div>@Address.City, @Address.State, @Address.Country @Address.ZipCode</div>
     
-    @* <div> *@
-    @*     <button @onclick="@HandleDelete" class="btn btn-danger">Delete</button> *@
-    @* </div> *@
+    <button @onclick="HandleDelete" class="btn btn-danger"> Delete A</button>
     
-    <a href="@url" class="btn btn-danger"> Delete A</a>
-    
-
 </div>
 
 
 @code {
-    [Parameter] public Address Address { get; set; }
-    [Parameter] public EventCallback Delete { get; set; }
-    public string url { get; set; } = string.Empty;
+    [Parameter] public required Address Address { get; set; }
+    [Parameter] public EventCallback<Address> Delete { get; set; }
+    private IService<Address>? AddressService { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        url = $"/deleteAddress/{Address.Id}";
+        await base.OnInitializedAsync();
     }
     
     private async Task HandleDelete()
     {
-        await Delete.InvokeAsync();
+        await Delete.InvokeAsync(Address);
     }
+    
 }

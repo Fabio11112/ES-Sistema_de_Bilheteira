@@ -8,6 +8,8 @@
 @using SistemaDeBilheteira.Services.Database.Builders
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
+@using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 
 
@@ -67,7 +69,7 @@
                 <div class="flex gap-2 mt-4 relative">
                     <!-- Rent Button -->
                     <a class="secondary-button" @onclick="AddShoppingCartItem">
-                        Rent<br><span class="text-sm font-normal">HD @rental.Price €</span>
+                        Rent<br><span class="text-sm font-normal">HD @Rental?.Price €</span>
                     </a>
 
                     <!-- Buy Button + Dropdown -->
@@ -76,13 +78,13 @@
                                 class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded inline-flex items-center justify-between w-full">
                             Buy
                             <svg class="ml-2 w-4 h-4 transform transition-transform duration-200"
-                                 style="@((showDropdown ? "transform: rotate(180deg);" : ""))"
+                                 style="@((ShowDropdown ? "transform: rotate(180deg);" : ""))"
                                  fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M5.25 7.5L10 12.25L14.75 7.5H5.25Z" />
                             </svg>
                         </button>
 
-                        @if (showDropdown)
+                        @if (ShowDropdown)
                         {
                             <div class="absolute z-10 mt-1 w-48 bg-yellow-400 rounded shadow-lg">
                                 <!-- DVD Option -->
@@ -118,8 +120,8 @@
     [Parameter] public int id { get; set; }
     private Movie? movie;
     private List<string> genreNames = new();
-    private bool showDropdown = false;
-    private Product? rental = null;
+    private bool ShowDropdown { get; set; }
+    private Product? Rental { get; set; }
     private IService<Rental> RentalService { get; set; }
     private IService<ShoppingCartItem> ShoppingCartItemService { get; set; }
 
@@ -131,15 +133,15 @@
         
         AddRental();
 
-        rental = RentalService.GetAll()
-            .Where(r => r.MovieId == id.ToString())
-            .FirstOrDefault();
+        Rental = RentalService.GetWithQuery(
+            q => q.Where(
+                r => r.MovieId == id.ToString()
+                ))!.FirstOrDefault();
 
-
-        var movieDeserializer = new Deserializer<Movie>();
-        var genreDeserializer = new Deserializer<Response<Genre>>();
         
-        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        var movieDeserializer = new Deserializer<Movie>();
+        
+        var movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
         
     }
@@ -153,15 +155,18 @@
 
     private void ToggleDropdown()
     {
-        showDropdown = !showDropdown;
+        ShowDropdown = !ShowDropdown;
     }
 
     private void AddRental()
     {
-        var rentals = RentalService.GetAll()
-            .Where(r => r.MovieId == id.ToString());
-
-        if (rentals.Any())
+        var rentals = RentalService.GetWithQuery(
+            q => q.Where(
+                r => r.MovieId == id.ToString()
+            ));
+        
+        
+        if (rentals!.Any())
             return;
 
         var rental = RentalBuilder.WithMovie(id.ToString())
@@ -180,9 +185,11 @@
 
     private void AddShoppingCartItem()
     {
-        var item = ShoppingCartItemService.GetAll()
-            .Where(i => i.AppUserId == User.Id && i.ProductId == rental.Id)
-            .FirstOrDefault();
+        var item = ShoppingCartItemService.GetWithQuery(
+            q => q.Where(
+                i => i.AppUserId == User.Id && i.ProductId == Rental.Id)
+            ).FirstOrDefault();
+        
 
         if(item != null)
         {
@@ -192,6 +199,7 @@
         {
             AddItem(item);
         }
+        StateHasChanged();
 
     }
 
@@ -204,7 +212,7 @@
     private void AddItem(ShoppingCartItem item)
     {
         var shoppingCartItem = ShoppingCartItemBuilder.WithAppUserId(User.Id!)
-            .WithProductId(rental.Id!)
+            .WithProductId(Rental.Id!)
             .WithQuantity(1)
             .Build();
 
