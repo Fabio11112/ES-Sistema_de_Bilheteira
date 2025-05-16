@@ -4,44 +4,43 @@
     width: 100%;
     padding: 20px 30px 20px 30px;
     display: flex;
-    margin-top: 5%;
-    
+    margin-top: 2%;
 }
 
-
-.movie{
+.movie {
+    width: 100%;
     display: grid;
-    padding-right: 0;
+
+
 }
+.content {
+    display: flex;
+    justify-content: space-between;
 
-
-.content{
     margin-left: 20px;
-    display: grid;
-    margin-top: 0;
-}
-
-.text{
-    color: #C4C4C4;
 }
 
 .movie-information{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    
+
+}
+
+/*.content{
+    margin-left: 20px;
+    display: flex;
+}*/
+
+.text{
+    color: #C4C4C4;
 }
 
 .information{
     font-family: Montserrat, serif;
-    font-size: 12px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-}
-
-.text{
-    margin-top: 10px;
 }
 
 .number{
@@ -67,29 +66,30 @@
     width: 25%;
 }
 
-.price-details{
-    margin-top: 10%;
+.price-details {
     display: flex;
 }
+/*.price-details{
+    margin-top: 10%;
+    display: flex;
+}*/
 
 .detail{
     margin-left: 12px;
-    margin-right: 12px;
+    margin-right: 35px;
 }
 
-.buttons{
-    display: flex;
-    margin-left: 20%;
-    
-}
 
-.button{
-    margin-left: 15px;
-    color: #C4C4C4;
+
+.date {
+    color: #FFF;
     font-family: Montserrat, serif;
-    font-size: 12px;
+    font-size: 22px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: normal;
-    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 300px;
+    margin-right: 35px;
 }

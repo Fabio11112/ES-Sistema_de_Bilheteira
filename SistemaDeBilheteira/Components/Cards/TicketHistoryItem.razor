@@ -1,15 +1,15 @@
 ﻿@using System.IdentityModel.Tokens.Jwt
+@using System.Runtime.InteropServices.JavaScript
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
-    <div>
+    <div class="movie">
         <div class="content">
             <div class="movie-information">
                 <div class="movie-name">@Movie?.Title</div>
                 <div class="text information">Type @Type</div>
-                <div class="text information">@Stock</div>
             </div>
             <div class="price-details">
                 <div class="detail">
@@ -26,25 +26,21 @@
                 </div>
             </div>
         </div>
-        
-        <div class="buttons">
-            <div class="button">Edit</div>
-            <div class="button">Remove</div>
-            <div class="button">Move to Wishlist</div>
-        </div>
+
+        <div class="date">Purchase Date: @PurchaseDate.ToString("dd/MM/yyyy")</div>
     </div>
 </div>
 
 @code {
     private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
     
-    private string Type { get; set; } = "Rental";
+    private string Type { get; set; } = "Ticket";
     private double Price { get; set; } = 10.25;
     private string Currency { get; set; } = "€";
-    private string Stock { get; set; } = "In Stock";
     private Movie? Movie { get; set; }
     private int Quantity { get; set; } = 2;
-
+    private DateTime PurchaseDate { get; set; } = DateTime.Now;
+    
     protected override async Task OnInitializedAsync()
     {
         var id = 324544;

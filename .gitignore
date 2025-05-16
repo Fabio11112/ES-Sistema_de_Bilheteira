@@ -1,0 +1,16 @@
+# Ignore .NET build files
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.env
+# Ignore Visual Studio Code files
+.vscode/
+
+*.db
+*.log
+
+
+Migrations/

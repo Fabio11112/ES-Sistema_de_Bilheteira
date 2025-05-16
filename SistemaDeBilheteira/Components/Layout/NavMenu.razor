@@ -1,10 +1,12 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService
-@using Microsoft.AspNetCore.Components.Web
+@using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@inherits AuthenticatedComponentBase
 
+@inject IServiceManager ServiceManager
 
-@inject IAuthService AuthService
 @inject NavigationManager NavigationManager
 
 <nav class="navbar">
@@ -13,45 +15,20 @@
       <a class="sessionButton" href="/Logout">LOGOUT</a>
       <a class="logo" href="/">UMAMovies</a>
       <div class="icons">
-        @* <input 
-          @bind="searchTerm" 
-          @bind:event="oninput"
-          @onkeydown="HandleKeyDown"
-          type="text" 
-          placeholder="Buscar..." 
-          class="search-input" 
-          id="searchBox" 
-        /> *@
-
         <a class="icon-search" href="/search">
-          <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="14" cy="14.5" r="9.5" stroke="white" stroke-width="2"/>
-            <line x1="21.7071" y1="21.7929" x2="28.7071" y2="28.7929" stroke="white" stroke-width="2"/>
-          </svg>
+          <img src="images/icons/navbar/search.svg" alt="search">
+
         </a>
 
         <a href="/Cart" class="icon-cart" style="position: relative;">
-          <span class="cart-count">2</span>
-          <svg width="33" height="34" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.25 30.5C13.2165 30.5 14 29.7165 14 28.75C14 27.7835 13.2165 27 12.25 27C11.2835 27 10.5 27.7835 10.5 28.75C10.5 29.7165 11.2835 30.5 12.25 30.5Z" fill="white"/>
-            <path d="M25.25 30.5C26.2165 30.5 27 29.7165 27 28.75C27 27.7835 26.2165 27 25.25 27C24.2835 27 23.5 27.7835 23.5 28.75C23.5 29.7165 24.2835 30.5 25.25 30.5Z" fill="white"/>
-            <path d="M6.75 4.25H3.25V6H5.5L9.5 21.25H26.75L30.25 9.5H10.75L9.5 4.25H6.75Z" fill="white"/>
-          </svg>
+          <div @key="@CartElements">
+            <span class="cart-count">@CartElements</span>
+          </div>
+          <img src="images/icons/navbar/cart.svg" alt="cart">
         </a>
 
         <a class="icon-avatar" href="/Profile">
-          <svg width="43" height="44" viewBox="0 0 220 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.750977" width="218.304" height="192" fill="#FFC700"/>
-            <mask id="mask0_278_129" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="220" height="192">
-              <rect x="0.750977" width="218.304" height="192" fill="#FFC700"/>
-            </mask>
-            <g mask="url(#mask0_278_129)">
-              <path d="M38.8622 22.3213C41.1518 15.5164 48.6405 11.466 55.5887 13.2743L250.074 63.8913C257.022 65.6997 260.798 72.6821 258.509 79.4869L201.803 248.025C199.513 254.83 192.024 258.88 185.076 257.072L-9.4087 206.455C-16.3569 204.647 -20.1335 197.664 -17.844 190.859L38.8622 22.3213Z" fill="#C3073F"/>
-            </g>
-            <ellipse cx="14.1186" cy="12.6772" rx="14.1186" ry="12.6772" transform="matrix(0.967991 0.250987 -0.317818 0.948152 98.6318 60)" fill="white"/>
-            <ellipse cx="14.1186" cy="12.6772" rx="14.1186" ry="12.6772" transform="matrix(0.967991 0.250987 -0.317818 0.948152 168.918 78.2241)" fill="white"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M165.91 136.997C153.875 143.715 136.353 145.53 118.873 140.699C101.394 135.869 88.2018 125.565 82.699 114C79.3964 128.905 93.284 145.157 115.124 151.193C136.964 157.23 158.926 150.885 165.91 136.997Z" fill="white"/>
-          </svg>
+          <img src="images/icons/profile1.svg" width="43" height="44" styles alt="">
         </a>
       </div>
     </Authorized>
@@ -67,10 +44,7 @@
           id="searchBox" 
         />
         <a class="icon-search" href="/search">
-          <svg width="31" height="32" viewBox="0 0 31 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="14" cy="14.5" r="9.5" stroke="white" stroke-width="2"/>
-            <line x1="21.7071" y1="21.7929" x2="28.7071" y2="28.7929" stroke="white" stroke-width="2"/>
-          </svg>
+          <img src="images/icons/navbar/search.svg" alt="search">
         </a>
       </div>
     </NotAuthorized>
@@ -88,11 +62,20 @@
 </script>
 
 @code {
-    private string searchTerm = "";
+    private string SearchTerm { get; set; } = "";
+    private int CartElements { get; set; }
+    private IService<ShoppingCartItem>? Service { get; set; }
 
-  
+    protected override async Task OnInitializedAsync()
+    {
+      await base.OnInitializedAsync();
+      Service = ServiceManager.GetService<ShoppingCartItem>();
+
+      if (User == null) return;
+      GetCartElements();
+    }
     
-
+    
     private async Task Logout()
     {
         NavigationManager.NavigateTo("/LogIn", true);
@@ -102,4 +85,19 @@
             NavigationManager.NavigateTo("/LogIn", true);
         }
     }
+    private void GetCartElements()
+    {
+      if (Service != null)
+      {
+        var items = Service.GetWithQuery(
+          q => q.Where(
+            i => i.AppUserId == User!.Id));
+        foreach (var item in items)
+        {
+          CartElements += item.Quantity;
+        }
+      }
+    }
+    
+    
 }

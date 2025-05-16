@@ -10,6 +10,8 @@
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental.RentalStates
+@using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
+@using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 
 @inject IServiceManager ServiceManager
@@ -67,6 +69,7 @@
                 <div class="rent-buy-container">
                     <!-- Rent Button -->
                     <a class="secondary-button" @onclick="AddShoppingCartItem">
+                        Rent<br><span class="text-sm font-normal">HD @Rental?.Price €</span>
                         Rent<span class="text-sm font-normal"> HD @rental?.Price €</span>
                     </a>
 
@@ -74,9 +77,15 @@
                     <div class="buy-button-wrapper" style="position: relative;">
                         <a @onclick="ToggleDropdown" class="secondary-button">
                             Buy
+                            <svg class="ml-2 w-4 h-4 transform transition-transform duration-200"
+                                 style="@((ShowDropdown ? "transform: rotate(180deg);" : ""))"
+                                 fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M5.25 7.5L10 12.25L14.75 7.5H5.25Z" />
+                            </svg>
+                        </button>
                         </a>
 
-                        @if (showDropdown)
+                        @if (ShowDropdown)
                         {
                             <div class="buy-dropdown show">
                                 <div class="buy-dropdown-item">
@@ -111,6 +120,8 @@
     [Parameter] public int id { get; set; }
     private Movie? movie;
     private List<string> genreNames = new();
+    private bool ShowDropdown { get; set; }
+    private Product? Rental { get; set; }
     private bool showDropdown = false;
     private Rental? rental = null;
 
@@ -122,10 +133,21 @@
         await base.OnInitializedAsync();
         RentalService = ServiceManager.GetService<Rental>();
         ShoppingCartItemService = ServiceManager.GetService<ShoppingCartItem>();
+        
+        AddRental();
+
+        Rental = RentalService.GetWithQuery(
+            q => q.Where(
+                r => r.MovieId == id.ToString()
+                ))!.FirstOrDefault();
+
+        
 
         rental = AddRental();
 
         var movieDeserializer = new Deserializer<Movie>();
+        
+        var movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
     }
@@ -137,10 +159,18 @@
         return $"{hours}h {minutes}m";
     }
 
-    private void ToggleDropdown() => showDropdown = !showDropdown;
+    private void ToggleDropdown() => ShowDropdown = !ShowDropdown;
 
     private Rental AddRental()
     {
+        var rentals = RentalService.GetWithQuery(
+            q => q.Where(
+                r => r.MovieId == id.ToString()
+            ));
+        
+        
+        if (rentals!.Any())
+            return;
         var rentals = RentalService.GetAll().Where(r => r.MovieId == id.ToString());
         if (rentals.Any())
             return rentals.First();
@@ -160,6 +190,11 @@
 
     private void AddShoppingCartItem()
     {
+        var item = ShoppingCartItemService.GetWithQuery(
+            q => q.Where(
+                i => i.AppUserId == User.Id && i.ProductId == Rental.Id)
+            ).FirstOrDefault();
+        
 
         var item = ShoppingCartItemService.GetAll()
             .FirstOrDefault(i => i.AppUserId == User.Id && i.ProductId == rental.Id);
@@ -172,6 +207,8 @@
         {
             AddItem();
         }
+        StateHasChanged();
+
     }
 
     private void UpdateItem(ShoppingCartItem item)
@@ -182,10 +219,8 @@
 
     private void AddItem()
     {
-        if (rental?.Id == null) return;
-
         var shoppingCartItem = ShoppingCartItemBuilder.WithAppUserId(User.Id!)
-            .WithProductId(rental.Id)
+            .WithProductId(Rental.Id!)
             .WithQuantity(1)
             .Build();
 

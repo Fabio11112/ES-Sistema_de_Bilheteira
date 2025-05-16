@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SistemaDeBilheteira.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0836899b53890162cafe19daae6516dd1f5c5e56")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbbff4dfd6ed00436cde661d5087e464f16d270a")]
 [assembly: System.Reflection.AssemblyProductAttribute("SistemaDeBilheteira.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SistemaDeBilheteira.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

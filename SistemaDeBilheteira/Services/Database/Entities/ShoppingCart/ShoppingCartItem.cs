@@ -1,5 +1,5 @@
 ﻿
-namespace SistemaDeBilheteira.Services.Database.Entities;
+namespace SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 public class ShoppingCartItem : DbItem
 {

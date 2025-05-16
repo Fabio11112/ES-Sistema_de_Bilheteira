@@ -8,6 +8,7 @@
 @using SistemaDeBilheteira.Components.Cards.EditAdress
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
 @using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 
 @inject IServiceManager ServiceManager
@@ -19,7 +20,7 @@
     {
         <AddressElement
             Address="address"
-            Delete="() => DeleteAddress(address.Id)">
+            Delete="(a) => DeleteAddress(a)">
         </AddressElement>
         
     }
@@ -46,8 +47,9 @@
 
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
         AddressService = ServiceManager.GetService<Address>();
         Addresses = AddressService.GetAll();
     }
@@ -62,7 +64,7 @@
             .WithCountry(Model.Country)
             .WithZipCode(Model.ZipCode)
             .WithIsDefault(false)
-            .WithUserId(UserId!)
+            .WithUserId(User!.Id)
             .Build();
 
         var result = AddressService.Add(address);
@@ -73,9 +75,9 @@
         StateHasChanged();
     }
 
-    private void DeleteAddress(Guid id)
+    private void DeleteAddress(Address address)
     {
-        var result = AddressService.Delete(id);
+        var result = AddressService.Delete(address);
         Message = result.Message;
         Console.WriteLine("deleted");
         UpdateState();

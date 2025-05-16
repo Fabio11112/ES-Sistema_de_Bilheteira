@@ -2,6 +2,7 @@
 using SistemaDeBilheteira.Components.Cards.EditAdress;
 using SistemaDeBilheteira.Services.Database;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
+using SistemaDeBilheteira.Services.IService;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService.IService;
 
@@ -33,7 +34,7 @@ public class Service<T>(IUnitOfWork unitOfWork) : IService<T> where T : DbItem
         return result;
     }
 
-    public  IResult Delete(Guid id)
+    public  IResult Delete(T? item)
     {
         IResult result = new Result();
         
@@ -42,20 +43,19 @@ public class Service<T>(IUnitOfWork unitOfWork) : IService<T> where T : DbItem
         if (repository == null)
         {
             result.Success = false;
-            result.Message = "Internal Server Error";
+            result.Message = "Internal Server Error | Null item";
+            return result;
+        }
+        
+        if (item == null)
+        {
+            
+            result.Success = false;
+            result.Message = $"There is no {typeof(T)} with this ID";
             return result;
         }
         
         UnitOfWork.Begin();
-        var item = repository.Get(id);
-
-        if (item == null)
-        {
-            UnitOfWork.Commit();
-            result.Success = false;
-            result.Message = "There is no address with this ID";
-            return result;
-        }
         repository.Delete(item);
         UnitOfWork.SaveChanges();
         UnitOfWork.Commit();
@@ -108,5 +108,14 @@ public class Service<T>(IUnitOfWork unitOfWork) : IService<T> where T : DbItem
         
         return repository.GetAll();
     }
-    
+
+    public ICollection<T>? GetWithQuery(Func<IQueryable<T>, IQueryable<T>> queryBuilder)
+    {
+        var repository = UnitOfWork.GetRepository<T>();
+        if (repository == null)
+        {
+            return null;
+        }
+        return repository.GetWithQuery(queryBuilder);
+    }
 }

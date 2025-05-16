@@ -1,4 +1,7 @@
 ﻿@page "/PaymentSucssefully"
+@using SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 @inherits AuthenticatedComponentBase
 
 <div class="background">
@@ -11,9 +14,28 @@
             <img src="images/icons/check.png" alt="check" class="input-icon" />
         </div>
     </div>
+    <div class="button">
+        <SearchButton></SearchButton>
+    </div>
+    <div class="carousel">
+        <MovieCarousel Genre="@SelectedGenre"></MovieCarousel>
+    </div>
 </div>
 
 @code {
+    
+    [Parameter]
+    public List<Movie>? Movies { get; set; } = new List<Movie>();
+    [Parameter]
+    public Response<Genre>? Genres { get; set; }
+    private string SelectedGenre = "Fantasy";
+    
+    List<Movie> GetMoviesByGenre(string genre)
+    {
+        var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+          
+        return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
+    }
     
 }
 
