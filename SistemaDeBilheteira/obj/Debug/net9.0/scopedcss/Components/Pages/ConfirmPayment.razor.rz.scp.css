@@ -1,0 +1,22 @@
+.background[b-gxzgdenpvx]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+
+.title[b-gxzgdenpvx]{
+    text-align: center;
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.flex[b-gxzgdenpvx]{
+    display: flex;
+}
+
+.product[b-gxzgdenpvx]{
+    margin-right: 20px;
+}

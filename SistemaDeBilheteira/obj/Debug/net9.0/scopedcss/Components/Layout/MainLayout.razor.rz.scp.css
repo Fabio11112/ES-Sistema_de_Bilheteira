@@ -1,0 +1,131 @@
+/* Loader Spinner */
+.loader-overlay[b-ivxd8a9c4t] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.spinner[b-ivxd8a9c4t] {
+    border: 6px solid #e0e0e0;
+    border-top: 6px solid #FFC700;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin-b-ivxd8a9c4t 0.8s linear infinite;
+}
+
+@keyframes spin-b-ivxd8a9c4t {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Fade In Animation */
+.fade-in[b-ivxd8a9c4t] {
+    opacity: 0;
+    animation: fadeIn-b-ivxd8a9c4t 0.8s ease forwards;
+}
+
+@keyframes fadeIn-b-ivxd8a9c4t {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Transiciones y efectos */
+.menu-item[b-ivxd8a9c4t], .icon[b-ivxd8a9c4t] {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item:hover[b-ivxd8a9c4t], .icon:hover[b-ivxd8a9c4t] {
+    transform: scale(1.1);
+    color: #FFC700;
+    cursor: pointer;
+}
+
+/* Ajustes base */
+.page[b-ivxd8a9c4t] {
+    position: relative;
+    display: flex;
+}
+
+main[b-ivxd8a9c4t] {
+    flex: 1;
+}
+
+.sidebar[b-ivxd8a9c4t] {
+    background-color: black;
+}
+
+.top-row[b-ivxd8a9c4t] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 640.98px) {
+    .top-row[b-ivxd8a9c4t] {
+        justify-content: space-between;
+    }
+
+    .top-row[b-ivxd8a9c4t]  a, .top-row[b-ivxd8a9c4t]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-ivxd8a9c4t] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-ivxd8a9c4t] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-ivxd8a9c4t] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-ivxd8a9c4t], article[b-ivxd8a9c4t] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+/* Blazor error UI */
+#blazor-error-ui[b-ivxd8a9c4t] {
+    color-scheme: light only;
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss[b-ivxd8a9c4t] {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+

@@ -1,0 +1,161 @@
+body[b-4rdb57g0ei] {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+.main-content[b-4rdb57g0ei] {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+}
+
+.banner[b-4rdb57g0ei] {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.5s;
+
+}
+
+.banner-wrapper[b-4rdb57g0ei] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+}
+
+.banner-image[b-4rdb57g0ei] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.banner-title-overlay[b-4rdb57g0ei] {
+    position: absolute;
+    bottom: 30px;
+    left: 20%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.banner-title[b-4rdb57g0ei] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+
+.section-title[b-4rdb57g0ei] {
+    font-size: 1.5em;
+    color: gold;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.movie-carousel[b-4rdb57g0ei] {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.movie-carousel.no-scrollbar[b-4rdb57g0ei] {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar[b-4rdb57g0ei]::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.movie-poster[b-4rdb57g0ei] {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover[b-4rdb57g0ei] {
+    transform: scale(1.05);
+}
+
+.banner:hover[b-4rdb57g0ei] {
+    transform: scale(1.05);
+}
+
+
+
+.category-filter[b-4rdb57g0ei] {
+    background-color: #1f1f1f;
+    border: 1px solid gold;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 30px 0;
+    color: gold;
+}
+
+.category-buttons[b-4rdb57g0ei] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-buttons button[b-4rdb57g0ei]{
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-buttons button:hover[b-4rdb57g0ei] {
+    background-color: gold;
+    color: black;
+}
+
+.category-button[b-4rdb57g0ei] {
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+.category-button:hover[b-4rdb57g0ei] {
+    background-color: gold;
+    color: black;
+}
+
+/* Opcional: estilo para cuando el NavLink está activo */
+.category-button.active[b-4rdb57g0ei] {
+    background-color: gold;
+    color: black;
+}
+
+.Category-title[b-4rdb57g0ei]{
+    font-size: 1.5em;
+    color: gold;
+    margin: 20px 0 10px 0;
+    text-decoration-line: none  ;
+}

@@ -1,0 +1,369 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\SistemaDeBilheteira.bundle.scp.css",
+      "PackagePath": "staticwebassets\\SistemaDeBilheteira.wghwlph2x1.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\SistemaDeBilheteiraContextFactory.cs",
+      "PackagePath": "staticwebassets\\SistemaDeBilheteiraContextFactory.cs"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\MovieDescription\\add.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\MovieDescription\\add.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\MovieDescription\\play.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\MovieDescription\\play.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\MovieDescription\\share.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\MovieDescription\\share.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\BluePoint.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\BluePoint.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\BlueSeat.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\BlueSeat.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\RedPoint.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\RedPoint.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\RedSeat.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\RedSeat.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\Screen.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\Screen.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\WhitePoint.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\WhitePoint.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\Seat\\WhiteSeat.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\Seat\\WhiteSeat.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\authentication\\email.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\authentication\\email.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\authentication\\lock.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\authentication\\lock.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\authentication\\projector.png",
+      "PackagePath": "staticwebassets\\images\\icons\\authentication\\projector.png"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\cart\\cart.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\cart\\cart.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\check.png",
+      "PackagePath": "staticwebassets\\images\\icons\\check.png"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\email.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\email.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\eye-closed.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\eye-closed.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\eye-icon.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\eye-icon.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\failed.png",
+      "PackagePath": "staticwebassets\\images\\icons\\failed.png"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\footer\\arrow.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\footer\\arrow.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\footer\\earthIcon.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\footer\\earthIcon.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\location.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\location.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\lock.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\lock.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\logout.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\logout.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\magnifying.png",
+      "PackagePath": "staticwebassets\\images\\icons\\magnifying.png"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\payment\\paymentMethod\\applepay.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\payment\\paymentMethod\\applepay.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\payment\\paymentMethod\\arrow.png",
+      "PackagePath": "staticwebassets\\images\\icons\\payment\\paymentMethod\\arrow.png"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\payment\\paymentMethod\\mastercard.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\payment\\paymentMethod\\mastercard.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\payment\\paymentMethod\\paypal.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\payment\\paymentMethod\\paypal.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\payment\\paymentMethod\\visa.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\payment\\paymentMethod\\visa.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile1.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile1.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile2.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile2.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile3.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile3.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile\\purchaseHistory.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile\\purchaseHistory.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile\\rentalHistory.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile\\rentalHistory.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile\\ticket.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile\\ticket.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\profile\\user.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\profile\\user.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\purchase\\purchase.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\purchase\\purchase.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\images\\icons\\rental\\rentalHistory.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\rental\\rentalHistory.svg"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\ASUS\\OneDrive - Universidade da Madeira\\6º Semestre\\Engenharia de Software\\projeto\\ES-Sistema_de_Bilheteira\\SistemaDeBilheteira\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.SistemaDeBilheteira.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.SistemaDeBilheteira.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.SistemaDeBilheteira.props",
+      "PackagePath": "build\\SistemaDeBilheteira.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.SistemaDeBilheteira.props",
+      "PackagePath": "buildMultiTargeting\\SistemaDeBilheteira.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.SistemaDeBilheteira.props",
+      "PackagePath": "buildTransitive\\SistemaDeBilheteira.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

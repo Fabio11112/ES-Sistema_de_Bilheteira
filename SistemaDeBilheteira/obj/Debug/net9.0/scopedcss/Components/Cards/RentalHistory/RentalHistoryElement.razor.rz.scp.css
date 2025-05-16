@@ -1,0 +1,87 @@
+.element[b-qw9mlnxzh9]{
+    background-color: #1A1A1D;
+    border-radius: 20px;
+    padding: 15px 20px 10px 50px;
+    margin-top: 30px;
+}
+
+.image[b-qw9mlnxzh9]{
+    width: 13%;
+    margin-right: 10.7%;
+}
+
+.movie-title[b-qw9mlnxzh9]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 300px;
+}
+
+.rental[b-qw9mlnxzh9]{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.flex[b-qw9mlnxzh9]{
+    display: flex;
+}
+
+.total[b-qw9mlnxzh9]{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 20px;
+}
+
+.price[b-qw9mlnxzh9]{
+    color: #FFF;
+    font-family: Poppins, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100px;
+}
+
+
+.title-type[b-qw9mlnxzh9]{
+    width: 100%;
+    margin-right: 150px;
+    /*margin-right: 26.10%;*/
+}
+
+.information[b-qw9mlnxzh9]{
+    width: 100%;
+}
+
+.date[b-qw9mlnxzh9]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.dates[b-qw9mlnxzh9]{
+    margin-top: 15%;
+}
+
+.initial[b-qw9mlnxzh9]{
+    margin-right: 300px;
+}
+
+.expired[b-qw9mlnxzh9]{
+    color: #FF4141;
+}
+

@@ -1,0 +1,296 @@
+/* Main layout */
+.main-content[b-oupfgeyiyz] {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Banner section */
+.banner[b-oupfgeyiyz] {
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.banner-wrapper[b-oupfgeyiyz] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+}
+
+.banner-image[b-oupfgeyiyz] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-title-overlay[b-oupfgeyiyz] {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    max-width: 80%;
+}
+
+.banner-title[b-oupfgeyiyz] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.play-button-container[b-oupfgeyiyz] {
+    position: absolute;
+    top: 85%;
+    right: 40px;
+    transform: translateY(-50%);    
+    padding: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+.play-button-container:hover[b-oupfgeyiyz] {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.play-icon[b-oupfgeyiyz] {
+    width: 60px;
+    height: 60px;
+}
+
+/* Movie details section */
+.movie-details-wrapper[b-oupfgeyiyz] {
+    padding: 0 20px;
+}
+
+.movie-release-date[b-oupfgeyiyz] {
+    color: #B0B0B0;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    margin-right: 20px;
+}
+
+.genres-container[b-oupfgeyiyz] {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.genre-badge[b-oupfgeyiyz] {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+}
+
+.movie-overview[b-oupfgeyiyz] {
+    color: #E0E0E0;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 800px;
+}
+
+/* Action buttons section */
+.actions-container[b-oupfgeyiyz] {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    margin-top: 30px;
+}
+
+.actions-container1[b-oupfgeyiyz] {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.imdb-rating[b-oupfgeyiyz] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.movie-rating[b-oupfgeyiyz] {
+    color: #F5C518;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+
+.action-buttons[b-oupfgeyiyz] {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.watch-later-button[b-oupfgeyiyz],
+.share-button[b-oupfgeyiyz] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.watch-later-button:hover[b-oupfgeyiyz],
+.share-button:hover[b-oupfgeyiyz] {
+    transform: scale(1.05);
+}
+
+.button-icon[b-oupfgeyiyz] {
+    width: 24px;
+    height: 24px;
+}
+
+.button-text[b-oupfgeyiyz] {
+    color: white;
+    font-size: 24px; /* Matches icon height */
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: 24px; /* Perfect vertical alignment */
+    margin: 0;
+}
+
+/* Loading state */
+.loading-container[b-oupfgeyiyz] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.loading[b-oupfgeyiyz] {
+    color: white;
+    font-size: 20px;
+}
+
+/* Rent & Buy Container */
+/* .rent-buy-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+} */
+
+/* Botones principales */
+.rent-button[b-oupfgeyiyz], .buy-button[b-oupfgeyiyz] {
+    background-color: #f5c518;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    white-space: nowrap;
+}
+
+/* Dropdown de compra */
+.buy-dropdown[b-oupfgeyiyz] {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f5c518;
+    color: #000;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    z-index: 10;
+    width: 160px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Inicialmente oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Mostrar el dropdown cuando está activo */
+.buy-dropdown.show[b-oupfgeyiyz] {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Elementos del dropdown */
+.buy-dropdown-item[b-oupfgeyiyz] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+.buy-dropdown-item:hover[b-oupfgeyiyz] {
+    background-color: #ffdb4d;
+}
+
+/* Iconos estilo texto (puedes reemplazar por imágenes si quieres más fidelidad) */
+.buy-dropdown-item span[b-oupfgeyiyz] {
+    font-size: 1.2rem;
+}
+
+/* Precio dentro de botones */
+.button-price[b-oupfgeyiyz] {
+    font-size: 0.85rem;
+    display: block;
+    line-height: 1.2;
+}
+
+/* Animación de la flecha */
+.buy-dropdown-button svg[b-oupfgeyiyz] {
+    transition: transform 0.3s ease;
+}
+
+.buy-dropdown-button.open svg[b-oupfgeyiyz] {
+    transform: rotate(180deg);
+}
+
+.secondary-button[b-oupfgeyiyz] {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.secondary-button:hover[b-oupfgeyiyz] {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.rent-buy-container[b-oupfgeyiyz] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* espacio entre los botones */
+    align-items: flex-start; /* alineación a la izquierda */
+} 

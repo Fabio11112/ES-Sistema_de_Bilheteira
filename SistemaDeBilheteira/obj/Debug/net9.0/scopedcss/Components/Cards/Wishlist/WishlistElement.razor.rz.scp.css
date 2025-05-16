@@ -1,0 +1,88 @@
+.element[b-g4k2vcynja] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+.content-text[b-g4k2vcynja]{
+    width: 100%;
+}
+
+.content[b-g4k2vcynja]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-g4k2vcynja]{
+    color: #C4C4C4;
+}
+
+.information[b-g4k2vcynja]{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-g4k2vcynja]{
+    color: #FFF;
+}
+
+.quantity[b-g4k2vcynja]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-g4k2vcynja]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-g4k2vcynja]{
+    width: 15%;
+    height: 13%;
+}
+
+.price-details[b-g4k2vcynja]{
+    margin-top: 6%;
+    margin-left: 20%;
+    display: flex;
+    
+}
+
+.detail[b-g4k2vcynja]{
+    margin-left: 12px;
+    margin-right: 40px;
+}
+
+.buttons[b-g4k2vcynja]{
+    display: flex;
+    margin-top: 10%;
+    margin-left: 15%;
+}
+
+.button[b-g4k2vcynja]{
+    margin-left: 15px;
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.movie-information[b-g4k2vcynja]{
+    width: 28.67%;
+}
+
+

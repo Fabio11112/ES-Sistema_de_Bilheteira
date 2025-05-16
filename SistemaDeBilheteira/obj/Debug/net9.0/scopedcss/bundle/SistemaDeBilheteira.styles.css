@@ -1,0 +1,4055 @@
+/* _content/SistemaDeBilheteira/Components/Cards/AddedCart/AddedToCartItem.razor.rz.scp.css */
+.element[b-7ohxx8n5pd] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+.content[b-7ohxx8n5pd]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-7ohxx8n5pd]{
+    color: #C4C4C4;
+}
+
+.information[b-7ohxx8n5pd]{
+    font-family: Montserrat, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-7ohxx8n5pd]{
+    color: #FFF;
+}
+
+.quantity[b-7ohxx8n5pd]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-7ohxx8n5pd]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-7ohxx8n5pd]{
+    width: 25%;
+}
+
+.price-details[b-7ohxx8n5pd]{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail[b-7ohxx8n5pd]{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+
+
+/* _content/SistemaDeBilheteira/Components/Cards/AddedCart/ButtonsAddedCart.razor.rz.scp.css */
+.element[b-rt7rd5ykyp] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 442px;
+    height: 216px;
+    padding: 20px 30px 20px 30px;
+    margin-top: 2%;
+    display: grid;
+    place-items: center;
+}
+
+.buttons[b-rt7rd5ykyp]{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    /*height: 10px;*/
+    flex-shrink: 0;
+    gap: 20px;
+}
+
+.payment[b-rt7rd5ykyp]{
+    padding: 12px;
+    background: #FFC700;
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 100px;
+    border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart[b-rt7rd5ykyp]{
+    padding: 12px;
+    background: #747269;
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 100px;
+    border: none;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-section[b-rt7rd5ykyp] {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.title[b-rt7rd5ykyp] {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+}
+
+.subtitle[b-rt7rd5ykyp] {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin-left: 5px;
+    line-height: 1;
+}
+
+/* _content/SistemaDeBilheteira/Components/Cards/Authentication/Banner.razor.rz.scp.css */
+.banner[b-uqk89z3mo2]{
+    background-color: #FFC700;
+    width: 53.16%;
+    border-radius: 15px;
+    padding: 15%
+}
+
+.projector[b-uqk89z3mo2]{
+    width: 40%;
+}
+
+.page-name[b-uqk89z3mo2]{
+    color: #1A1A1D;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.description[b-uqk89z3mo2]{
+    color: #333335;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/Cart/CartItemElement.razor.rz.scp.css */
+.element[b-7gl4h0uqvd] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+
+
+.content[b-7gl4h0uqvd]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-7gl4h0uqvd]{
+    color: #C4C4C4;
+}
+
+.information[b-7gl4h0uqvd]{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-7gl4h0uqvd]{
+    color: #FFF;
+}
+
+.quantity[b-7gl4h0uqvd]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-7gl4h0uqvd]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-7gl4h0uqvd]{
+    width: 25%;
+}
+
+.price-details[b-7gl4h0uqvd]{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail[b-7gl4h0uqvd]{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.buttons[b-7gl4h0uqvd]{
+    display: flex;
+    margin-top: 25%;
+    margin-left: 15%;
+}
+
+.button[b-7gl4h0uqvd]{
+    margin-left: 15px;
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+/* _content/SistemaDeBilheteira/Components/Cards/Cart/ConfirmPaymentElement.razor.rz.scp.css */
+.element[b-rsu7puhp1b] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+
+
+.content[b-rsu7puhp1b]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-rsu7puhp1b]{
+    color: #C4C4C4;
+}
+
+.information[b-rsu7puhp1b]{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-rsu7puhp1b]{
+    color: #FFF;
+}
+
+.quantity[b-rsu7puhp1b]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-rsu7puhp1b]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-rsu7puhp1b]{
+    width: 25%;
+}
+
+.price-details[b-rsu7puhp1b]{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail[b-rsu7puhp1b]{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.center[b-rsu7puhp1b]{
+    margin-top: 8%;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/Cart/PaymentMethodElement.razor.rz.scp.css */
+.flex[b-56vztjmssh]{
+    display: flex;
+}
+
+.payment[b-56vztjmssh]{
+    padding: 20px;
+    
+    border-radius: 20px;
+    background: #1A1A1D;
+    margin-top: 20px;
+}
+
+.title[b-56vztjmssh]
+{
+    margin-top: 15px;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.text[b-56vztjmssh]{
+    color: #FEFCFC;
+    font-style: normal;
+    line-height: normal;
+    
+}
+
+.type[b-56vztjmssh]{
+    margin-top:20px;
+    font-family: Nunito, serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.input-label[b-56vztjmssh]{
+    margin-top: 10px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+}
+
+input[b-56vztjmssh]{
+    width: 100%;
+    background-color: #333335;
+    border-radius: 6px;
+    padding: 7px 10px 7px 10px;
+    color: #FEFCFC;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    
+}
+
+input[b-56vztjmssh]::placeholder{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.expiration[b-56vztjmssh]{
+    margin-right:10px;
+}
+
+.card-form[b-56vztjmssh]{
+    margin-left:10px;
+}
+
+.payment-details[b-56vztjmssh]{
+    margin-top: 20px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.payment .value[b-56vztjmssh]{
+    text-align: right;
+    float: right;
+}
+
+.card-detail[b-56vztjmssh]{
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+.space-between[b-56vztjmssh]{
+    justify-content: space-between;
+}
+
+.checkout[b-56vztjmssh]{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 12px;
+    background: #FFC700;
+    padding: 15px;
+}
+
+.checkout div[b-56vztjmssh]{
+    color: #FEFCFC;
+    font-family: Poppins, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.checkout img[b-56vztjmssh]{
+    width: 30px;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/Cart/PromoCode.razor.rz.scp.css */
+.promo[b-fh4txcoa7b]{
+    border-radius: 20px;
+    background: #1A1A1D;
+    padding: 20px;
+}
+
+.promo-title[b-fh4txcoa7b]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.promo-input[b-fh4txcoa7b]{
+    margin-top: 10px;
+    fill: #333335;
+}
+
+.promo-input[b-fh4txcoa7b] {
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 20%;
+}
+
+.promo-input input[b-fh4txcoa7b] {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    background-color: #333;
+    color: white;
+    outline: none;
+}
+
+.promo-input input[b-fh4txcoa7b]::placeholder {
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.promo-input button[b-fh4txcoa7b] {
+    padding: 15px 25px;
+    background-color: #FFC700;
+    border: none;
+    color: #FEFCFC;
+    font-family: Nunito, serif;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    transition: background-color 0.3s ease;
+}
+
+.promo-input button:hover[b-fh4txcoa7b] {
+    background-color: #e6af00;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/EditAdress/AddAddress.razor.rz.scp.css */
+label[b-3w6bhlk8tr]{
+    color: #FFFFFF;
+}
+
+.submit[b-3w6bhlk8tr]{
+    width: 100%;
+    margin-top: 10%;
+    border-radius: 12px;
+    background: #FFC700;
+    border: none;
+    padding: 12px;
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/EditAdress/AddressElement.razor.rz.scp.css */
+.flex[b-p3z7wj1co3]{
+    display: flex;
+}
+
+.address[b-p3z7wj1co3]{
+    width: 20%;
+    margin: 5%;
+    color: white;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/FooterOptionList.razor.rz.scp.css */
+.title[b-dt9vle0o7b]{
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.items-list[b-dt9vle0o7b] {
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    list-style-type: "- ";
+    width: 100%;
+    margin: 10px;
+}
+
+.items-list li[b-dt9vle0o7b] {
+    margin-bottom: 10px;
+}
+
+.lists[b-dt9vle0o7b] {
+    margin-left: 5%;
+    flex-wrap: wrap;
+    width: 25%;
+    white-space: nowrap;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/MovieCarousel.razor.rz.scp.css */
+.carousel-container[b-kfd2z3f2ln] {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    gap: 10px;
+}
+
+.carousel-wrapper[b-kfd2z3f2ln] {
+    overflow: auto;
+    
+}
+.carousel-wrapper[b-kfd2z3f2ln]::-webkit-scrollbar {
+    display: none; /* don´t display the bar */
+}
+
+.carousel-track[b-kfd2z3f2ln] {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    width: calc(100% * 5); /* You can customize it depending on the number of images */
+}
+
+.carousel-item[b-kfd2z3f2ln] {
+    /*flex: 0 0 25%; /* 100% / 4 images = 25% */
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    margin: 5px;
+    float: left;
+    width: 180px;
+}
+
+.carousel-item img[b-kfd2z3f2ln] {
+    width: 100%;
+    height: 150px;
+    object-fit: scale-down;
+    border-radius: 8px;
+}
+
+.carousel-button[b-kfd2z3f2ln] {
+    background: #333334;
+    color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 10;
+    border: none;
+    border-radius: 50%;
+}
+
+.carousel-button.right[b-kfd2z3f2ln] {
+    right: 35px;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/PurchaseHistoryItem.razor.rz.scp.css */
+.element[b-kydu8tm05v] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 5%;
+    
+}
+
+
+.movie[b-kydu8tm05v]{
+    display: grid;
+    padding-right: 0;
+}
+
+
+.content[b-kydu8tm05v]{
+    margin-left: 20px;
+    display: grid;
+    margin-top: 0;
+}
+
+.text[b-kydu8tm05v]{
+    color: #C4C4C4;
+}
+
+.movie-information[b-kydu8tm05v]{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.information[b-kydu8tm05v]{
+    font-family: Montserrat, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.text[b-kydu8tm05v]{
+    margin-top: 10px;
+}
+
+.number[b-kydu8tm05v]{
+    color: #FFF;
+}
+
+.quantity[b-kydu8tm05v]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-kydu8tm05v]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-kydu8tm05v]{
+    width: 25%;
+}
+
+.price-details[b-kydu8tm05v]{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail[b-kydu8tm05v]{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.buttons[b-kydu8tm05v]{
+    display: flex;
+    margin-left: 20%;
+    
+}
+
+.button[b-kydu8tm05v]{
+    margin-left: 15px;
+    color: #C4C4C4;
+    font-family: Montserrat, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/RentalHistory/RentalHistoryElement.razor.rz.scp.css */
+.element[b-qw9mlnxzh9]{
+    background-color: #1A1A1D;
+    border-radius: 20px;
+    padding: 15px 20px 10px 50px;
+    margin-top: 30px;
+}
+
+.image[b-qw9mlnxzh9]{
+    width: 13%;
+    margin-right: 10.7%;
+}
+
+.movie-title[b-qw9mlnxzh9]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    width: 300px;
+}
+
+.rental[b-qw9mlnxzh9]{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.flex[b-qw9mlnxzh9]{
+    display: flex;
+}
+
+.total[b-qw9mlnxzh9]{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 20px;
+}
+
+.price[b-qw9mlnxzh9]{
+    color: #FFF;
+    font-family: Poppins, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100px;
+}
+
+
+.title-type[b-qw9mlnxzh9]{
+    width: 100%;
+    margin-right: 150px;
+    /*margin-right: 26.10%;*/
+}
+
+.information[b-qw9mlnxzh9]{
+    width: 100%;
+}
+
+.date[b-qw9mlnxzh9]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.dates[b-qw9mlnxzh9]{
+    margin-top: 15%;
+}
+
+.initial[b-qw9mlnxzh9]{
+    margin-right: 300px;
+}
+
+.expired[b-qw9mlnxzh9]{
+    color: #FF4141;
+}
+
+/* _content/SistemaDeBilheteira/Components/Cards/SearchButton.razor.rz.scp.css */
+.element[b-ncwt5699o2] {
+    border-radius: 20px;
+    /*width: 442px;
+    height: 216px;*/
+    padding: 20px 30px 20px 30px;
+    margin-top: 2%;
+    display: grid;
+    place-items: center;
+    gap: 25px;
+}
+
+.button[b-ncwt5699o2]{
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    flex-shrink: 0;
+    gap: 20px;
+}
+
+
+.search[b-ncwt5699o2]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: #FFC700;
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border-radius: 100px;
+    border: none;
+    text-decoration: none;
+}
+
+.glass-image[b-ncwt5699o2]{
+
+    height: 20px;
+    width: 20px;
+}
+
+.bar[b-ncwt5699o2]{
+    background: #FFC700;
+    color: #FFFFFF;
+    height: 5px;
+    border-radius: 100px;
+    border: none;
+    width: 95%;
+}
+
+
+/* _content/SistemaDeBilheteira/Components/Cards/TicketHistoryItem.razor.rz.scp.css */
+.element[b-x5chbyunrj] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+
+
+.content[b-x5chbyunrj]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-x5chbyunrj]{
+    color: #C4C4C4;
+}
+
+.information[b-x5chbyunrj]{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-x5chbyunrj]{
+    color: #FFF;
+}
+
+.quantity[b-x5chbyunrj]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-x5chbyunrj]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-x5chbyunrj]{
+    width: 25%;
+}
+
+.price-details[b-x5chbyunrj]{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail[b-x5chbyunrj]{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.buttons[b-x5chbyunrj]{
+    display: flex;
+    margin-top: 25%;
+    margin-left: 15%;
+}
+
+.button[b-x5chbyunrj]{
+    margin-left: 15px;
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/UserInfoItem.razor.rz.scp.css */
+.input-container[b-p3ujbxhukx] {
+    display: flex;
+    align-items: center;
+    background-color: #0D0D0D;
+    border-radius: 10px;
+    padding: 10px 20px;
+    height: 70px;
+    width: 100%;
+    max-width: 500px;
+    margin: 10px auto;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.input-icon[b-p3ujbxhukx] {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+    filter: brightness(0) saturate(100%) invert(75%) sepia(87%) saturate(673%) hue-rotate(6deg) brightness(102%) contrast(103%);
+}
+
+.input-content[b-p3ujbxhukx] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.input-label[b-p3ujbxhukx] {
+    font-size: 12px;
+    color: #FFFFFF;
+    font-family: Montserrat, sans-serif;
+    /*margin-bottom: 4px;*/
+    letter-spacing: 1px;
+}
+
+.input-fields[b-p3ujbxhukx] {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-family: Poppins, sans-serif;
+    outline: none;
+}
+
+.form-container[b-p3ujbxhukx] {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2D2D2F;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    display: grid;
+    place-items: center;
+}
+
+.title[b-p3ujbxhukx] {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.subtitle[b-p3ujbxhukx] {
+    color: #FFC700;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.input-field[b-p3ujbxhukx] {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.input-field[b-p3ujbxhukx]::placeholder {
+    color: #AFAFAF;
+    text-transform: uppercase;
+}
+
+.row[b-p3ujbxhukx] {
+    display: flex;
+    gap: 15px;
+    width: 460px;
+    align-items: center;
+}
+
+.half[b-p3ujbxhukx] {
+    flex: 1;
+}
+
+.submit-button[b-p3ujbxhukx] {
+    background-color: #FFC700;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+/* _content/SistemaDeBilheteira/Components/Cards/UserProfileOption.razor.rz.scp.css */
+.profile-option[b-2uqu4stkj9]{
+    cursor: pointer;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    background-color: #424242;
+    color: white;
+    padding: 50px;
+    width: 45%;
+    margin-right: 5%;
+    /*text-decoration:none*/
+}
+
+.logo-title[b-2uqu4stkj9]{
+    display: flex;
+    text-decoration: none;
+}
+.logo[b-2uqu4stkj9]{
+    margin-right: 50px;
+}
+
+.text[b-2uqu4stkj9] {
+    font-family: Montserrat, serif;
+    font-style: normal;
+    line-height: normal;
+}
+
+.title[b-2uqu4stkj9]{
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.description[b-2uqu4stkj9]{
+    color: #0D0D0D;
+    font-size: 42px;
+    font-weight: 500;
+}
+
+.profile-option[b-2uqu4stkj9]{
+    text-decoration: none;
+}
+
+.profile-option:hover[b-2uqu4stkj9]{
+    color: black;
+    transition: 0.3s;
+    transform: scale(1.05);
+    
+}
+/* _content/SistemaDeBilheteira/Components/Cards/Wishlist/WishlistElement.razor.rz.scp.css */
+.element[b-g4k2vcynja] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+.content-text[b-g4k2vcynja]{
+    width: 100%;
+}
+
+.content[b-g4k2vcynja]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-g4k2vcynja]{
+    color: #C4C4C4;
+}
+
+.information[b-g4k2vcynja]{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-g4k2vcynja]{
+    color: #FFF;
+}
+
+.quantity[b-g4k2vcynja]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-g4k2vcynja]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-g4k2vcynja]{
+    width: 15%;
+    height: 13%;
+}
+
+.price-details[b-g4k2vcynja]{
+    margin-top: 6%;
+    margin-left: 20%;
+    display: flex;
+    
+}
+
+.detail[b-g4k2vcynja]{
+    margin-left: 12px;
+    margin-right: 40px;
+}
+
+.buttons[b-g4k2vcynja]{
+    display: flex;
+    margin-top: 10%;
+    margin-left: 15%;
+}
+
+.button[b-g4k2vcynja]{
+    margin-left: 15px;
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.movie-information[b-g4k2vcynja]{
+    width: 28.67%;
+}
+
+
+/* _content/SistemaDeBilheteira/Components/Layout/MainLayout.razor.rz.scp.css */
+/* Loader Spinner */
+.loader-overlay[b-ivxd8a9c4t] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.spinner[b-ivxd8a9c4t] {
+    border: 6px solid #e0e0e0;
+    border-top: 6px solid #FFC700;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin-b-ivxd8a9c4t 0.8s linear infinite;
+}
+
+@keyframes spin-b-ivxd8a9c4t {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Fade In Animation */
+.fade-in[b-ivxd8a9c4t] {
+    opacity: 0;
+    animation: fadeIn-b-ivxd8a9c4t 0.8s ease forwards;
+}
+
+@keyframes fadeIn-b-ivxd8a9c4t {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Transiciones y efectos */
+.menu-item[b-ivxd8a9c4t], .icon[b-ivxd8a9c4t] {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item:hover[b-ivxd8a9c4t], .icon:hover[b-ivxd8a9c4t] {
+    transform: scale(1.1);
+    color: #FFC700;
+    cursor: pointer;
+}
+
+/* Ajustes base */
+.page[b-ivxd8a9c4t] {
+    position: relative;
+    display: flex;
+}
+
+main[b-ivxd8a9c4t] {
+    flex: 1;
+}
+
+.sidebar[b-ivxd8a9c4t] {
+    background-color: black;
+}
+
+.top-row[b-ivxd8a9c4t] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 640.98px) {
+    .top-row[b-ivxd8a9c4t] {
+        justify-content: space-between;
+    }
+
+    .top-row[b-ivxd8a9c4t]  a, .top-row[b-ivxd8a9c4t]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-ivxd8a9c4t] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-ivxd8a9c4t] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-ivxd8a9c4t] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-ivxd8a9c4t], article[b-ivxd8a9c4t] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+/* Blazor error UI */
+#blazor-error-ui[b-ivxd8a9c4t] {
+    color-scheme: light only;
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss[b-ivxd8a9c4t] {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+/* _content/SistemaDeBilheteira/Components/Layout/NavMenu.razor.rz.scp.css */
+body[b-qrr7w40784] {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: white;
+}
+
+.navbar[b-qrr7w40784] {
+  /* align-items: center; */
+  padding: 16px 24px;
+  background-color: #181818;
+}
+
+.logo[b-qrr7w40784] {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #facc15;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.logo:hover[b-qrr7w40784] {
+  transform: scale(1.05);
+}
+
+.menu[b-qrr7w40784] {
+  display: flex;
+  gap: 90px;
+  background-color: #000;
+  padding: 6px 16px;
+  border-radius: 99px;
+  position: relative;
+  
+
+}
+
+.menu-item[b-qrr7w40784] {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+.menu-item.active[b-qrr7w40784],
+.menu-item:hover[b-qrr7w40784] {
+  color: #facc15;
+}
+
+.icons[b-qrr7w40784] {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.icon-avatar[b-qrr7w40784]{
+  width: 40px;
+  height: 40px;
+  
+}
+
+.icon-cart[b-qrr7w40784],
+.icon-search[b-qrr7w40784],
+.icon-avatar[b-qrr7w40784] {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.icon-cart:hover[b-qrr7w40784],
+.icon-search:hover[b-qrr7w40784],
+.icon-avatar:hover[b-qrr7w40784] {
+  transform: scale(1.05);
+}
+
+.cart-count[b-qrr7w40784] {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #facc15;
+  color: black;
+  border-radius: 50%;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* .search-input {
+  width: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  background-color: white;
+  color: black;
+  margin-left: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  transition: width 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.search-input.show {
+  width: 200px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+} */
+
+.search-container[b-qrr7w40784] {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input[b-qrr7w40784] {
+  width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: white;
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.search-input.show[b-qrr7w40784] {
+  width: 200px;
+  padding: 5px 10px;
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.icon-search[b-qrr7w40784] {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.search-button[b-qrr7w40784] {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.search-button:hover[b-qrr7w40784] {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sessionButton[b-qrr7w40784] {
+  background-color: #F5C518;
+  color: #000;
+  border: none;
+  padding: 8px 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.sessionButton:hover[b-qrr7w40784] {
+  background-color: #e0b000;
+  transform: translateY(-2px);
+}
+/* _content/SistemaDeBilheteira/Components/Layout/PagesFooter.razor.rz.scp.css */
+.footer-background[b-iuxo97r4we]{
+    border-radius: 24px;
+    background-color: #0D0D0D;
+    margin: 15px;
+    padding: 50px;
+}
+.footer-content[b-iuxo97r4we]{
+    display: flex;
+}
+
+.footer-text[b-iuxo97r4we]{
+    font-style: normal;
+    line-height: normal;
+}
+
+.page-name[b-iuxo97r4we]{
+    color: #FFC700;
+    font-family: "Konkhmer Sleokchher", "serif";
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.language-block[b-iuxo97r4we]{
+    display:inline-flex;
+    background-color: #1A1A1D;
+    margin-left: 12px;
+    padding: 8px;
+}
+
+.language[b-iuxo97r4we]{
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.lists[b-iuxo97r4we]{
+    margin-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.copyright[b-iuxo97r4we]{
+    margin-top: 3%;
+    bottom: 30px;
+    text-align: center;
+    color: #585858;
+    font-family: Montserrat, serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/AddedToCart.razor.rz.scp.css */
+.background[b-jmjdo8cvn3]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+
+.flex[b-jmjdo8cvn3]{
+    display: flex;
+    justify-content: space-between;
+}
+
+.products[b-jmjdo8cvn3]{
+    width: 56%;
+}
+
+.select[b-jmjdo8cvn3]{
+    margin-left: 40px;
+}
+
+
+
+/* _content/SistemaDeBilheteira/Components/Pages/Cart.razor.rz.scp.css */
+.logo[b-1sca4mjcd0]{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.title[b-1sca4mjcd0]{
+    display: inline-block;  
+    justify-content: center; 
+    align-items: center;
+    margin-left: 15px;
+
+    color: gold;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.background[b-1sca4mjcd0]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+
+.flex[b-1sca4mjcd0]{
+    display: flex;
+}
+
+.products[b-1sca4mjcd0]{
+    width: 56%;
+}
+
+.payment[b-1sca4mjcd0]{
+    margin-left: 40px;
+}
+
+/* _content/SistemaDeBilheteira/Components/Pages/Categories.razor.rz.scp.css */
+body[b-jhmo3mot0y] {
+  background-color: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.categories-container[b-jhmo3mot0y] {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.categories-title[b-jhmo3mot0y] {
+  font-size: 2.25rem;
+  text-align: center;
+  color: #facc15;
+  margin-bottom: 32px;
+  font-weight: bold;
+}
+
+.categories-grid[b-jhmo3mot0y] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 32px;
+}
+
+/* Usado si decides volver a utilizar los <div class="genre-card"> */
+.genre-card[b-jhmo3mot0y] {
+  background-color: #181818;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.genre-card h3[b-jhmo3mot0y] {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.genre-card:hover[b-jhmo3mot0y] {
+  background-color: #000;
+  border-color: #facc15;
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Para los botones tipo <a> */
+.category-button[b-jhmo3mot0y] {
+  display: inline-block;
+  padding: 16px 24px;
+  border-radius: 20px;
+  background-color: #181818;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.category-button:hover[b-jhmo3mot0y] {
+  background-color: #000;
+  border-color: #facc15;
+  color: #facc15;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+}
+/* _content/SistemaDeBilheteira/Components/Pages/ConfirmPayment.razor.rz.scp.css */
+.background[b-gxzgdenpvx]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+
+.title[b-gxzgdenpvx]{
+    text-align: center;
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.flex[b-gxzgdenpvx]{
+    display: flex;
+}
+
+.product[b-gxzgdenpvx]{
+    margin-right: 20px;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/EditAddress.razor.rz.scp.css */
+/* _content/SistemaDeBilheteira/Components/Pages/Genre.razor.rz.scp.css */
+body[b-0fjk65y4kz] {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+.main-content[b-0fjk65y4kz] {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+}
+
+.banner[b-0fjk65y4kz] {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.5s;
+
+}
+
+.banner-wrapper[b-0fjk65y4kz] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+}
+
+.banner-image[b-0fjk65y4kz] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.banner-title-overlay[b-0fjk65y4kz] {
+    position: absolute;
+    bottom: 30px;
+    left: 20%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.banner-title[b-0fjk65y4kz] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+*[b-0fjk65y4kz] {
+    opacity: 0;
+    animation: fadeIn-b-0fjk65y4kz 0.8s ease forwards;
+}
+
+@keyframes fadeIn-b-0fjk65y4kz {
+    to {
+        opacity: 1;
+    }
+}
+
+
+.section-title[b-0fjk65y4kz] {
+    font-size: 1.5em;
+    color: gold;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.movie-carousel[b-0fjk65y4kz] {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.movie-carousel.no-scrollbar[b-0fjk65y4kz] {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar[b-0fjk65y4kz]::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.movie-poster[b-0fjk65y4kz] {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover[b-0fjk65y4kz] {
+    transform: scale(1.05);
+}
+
+.banner:hover[b-0fjk65y4kz] {
+    transform: scale(1.05);
+}
+
+
+
+.category-filter[b-0fjk65y4kz] {
+    background-color: #1f1f1f;
+    border: 1px solid gold;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 30px 0;
+    color: gold;
+}
+
+.category-buttons[b-0fjk65y4kz] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-buttons button[b-0fjk65y4kz] {
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-buttons button:hover[b-0fjk65y4kz] {
+    background-color: gold;
+    color: black;
+}
+
+.movie-carousel[b-0fjk65y4kz] {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 20px;
+}
+
+.movie-poster[b-0fjk65y4kz] {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.poster-wrapper:hover .movie-poster[b-0fjk65y4kz] {
+    transform: scale(1.05);
+}
+
+/* _content/SistemaDeBilheteira/Components/Pages/Home.razor.rz.scp.css */
+body[b-4rdb57g0ei] {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+.main-content[b-4rdb57g0ei] {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+}
+
+.banner[b-4rdb57g0ei] {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.5s;
+
+}
+
+.banner-wrapper[b-4rdb57g0ei] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+}
+
+.banner-image[b-4rdb57g0ei] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.banner-title-overlay[b-4rdb57g0ei] {
+    position: absolute;
+    bottom: 30px;
+    left: 20%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.banner-title[b-4rdb57g0ei] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+
+.section-title[b-4rdb57g0ei] {
+    font-size: 1.5em;
+    color: gold;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.movie-carousel[b-4rdb57g0ei] {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.movie-carousel.no-scrollbar[b-4rdb57g0ei] {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar[b-4rdb57g0ei]::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.movie-poster[b-4rdb57g0ei] {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover[b-4rdb57g0ei] {
+    transform: scale(1.05);
+}
+
+.banner:hover[b-4rdb57g0ei] {
+    transform: scale(1.05);
+}
+
+
+
+.category-filter[b-4rdb57g0ei] {
+    background-color: #1f1f1f;
+    border: 1px solid gold;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 30px 0;
+    color: gold;
+}
+
+.category-buttons[b-4rdb57g0ei] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-buttons button[b-4rdb57g0ei]{
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-buttons button:hover[b-4rdb57g0ei] {
+    background-color: gold;
+    color: black;
+}
+
+.category-button[b-4rdb57g0ei] {
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-decoration: none;
+}
+
+.category-button:hover[b-4rdb57g0ei] {
+    background-color: gold;
+    color: black;
+}
+
+/* Opcional: estilo para cuando el NavLink está activo */
+.category-button.active[b-4rdb57g0ei] {
+    background-color: gold;
+    color: black;
+}
+
+.Category-title[b-4rdb57g0ei]{
+    font-size: 1.5em;
+    color: gold;
+    margin: 20px 0 10px 0;
+    text-decoration-line: none  ;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/Kids.razor.rz.scp.css */
+body[b-5mkckqdizl] {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+}
+
+.main-content[b-5mkckqdizl] {
+    padding: 20px;
+    background-color: #111;
+    color: white;
+}
+
+.banner[b-5mkckqdizl] {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.5s;
+
+}
+
+.banner-wrapper[b-5mkckqdizl] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+}
+
+.banner-image[b-5mkckqdizl] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.banner-title-overlay[b-5mkckqdizl] {
+    position: absolute;
+    bottom: 30px;
+    left: 20%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.banner-title[b-5mkckqdizl] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+*[b-5mkckqdizl] {
+    opacity: 0;
+    animation: fadeIn-b-5mkckqdizl 0.8s ease forwards;
+}
+
+@keyframes fadeIn-b-5mkckqdizl {
+    to {
+        opacity: 1;
+    }
+}
+
+
+.section-title[b-5mkckqdizl] {
+    font-size: 1.5em;
+    color: gold;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.movie-carousel[b-5mkckqdizl] {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.movie-carousel.no-scrollbar[b-5mkckqdizl] {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar[b-5mkckqdizl]::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+.movie-poster[b-5mkckqdizl] {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover[b-5mkckqdizl] {
+    transform: scale(1.05);
+}
+
+.banner:hover[b-5mkckqdizl] {
+    transform: scale(1.05);
+}
+
+
+
+.category-filter[b-5mkckqdizl] {
+    background-color: #1f1f1f;
+    border: 1px solid gold;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 30px 0;
+    color: gold;
+}
+
+.category-buttons[b-5mkckqdizl] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.category-buttons button[b-5mkckqdizl] {
+    background-color: transparent;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.category-buttons button:hover[b-5mkckqdizl] {
+    background-color: gold;
+    color: black;
+}
+
+.movie-carousel[b-5mkckqdizl] {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 20px;
+}
+
+.movie-poster[b-5mkckqdizl] {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.poster-wrapper:hover .movie-poster[b-5mkckqdizl] {
+    transform: scale(1.05);
+}
+
+/* _content/SistemaDeBilheteira/Components/Pages/LogIn.razor.rz.scp.css */
+.background[b-gjyreoedt9]{
+    background-color: #333334;
+}
+
+.flex[b-gjyreoedt9]{
+    display: flex;
+}
+
+.greetings[b-gjyreoedt9]{
+    color: #FFC700;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.get-started[b-gjyreoedt9]{
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+.user-logo[b-gjyreoedt9]{
+    width: 18px;
+    height: 19px;
+}
+
+.logo[b-gjyreoedt9]{
+    width: 48px;
+    background-color: #000000;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    border-radius: 6px 0 0 6px;
+}
+
+input[b-gjyreoedt9]{
+    background-color: #000000;
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 0 6px 6px 0;
+}
+
+input[b-gjyreoedt9]::placeholder{
+    color: #C4C4C4;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.input-element[b-gjyreoedt9]{
+    margin-top: 6px;
+}
+
+.sign-up[b-gjyreoedt9]{
+    margin-top: 15%;
+    margin-left: 13%;
+}
+
+.register[b-gjyreoedt9]{
+    width: 100%;
+    margin-top: 10%;
+    border-radius: 12px;
+    background: #FFC700;
+    border: none;
+    padding: 12px;
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/MoviesDescription.razor.rz.scp.css */
+/* Main layout */
+.main-content[b-04rea4z9m0] {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Banner section */
+.banner[b-04rea4z9m0] {
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.banner-wrapper[b-04rea4z9m0] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+}
+
+.banner-image[b-04rea4z9m0] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-title-overlay[b-04rea4z9m0] {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    max-width: 80%;
+}
+
+.banner-title[b-04rea4z9m0] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.play-button-container[b-04rea4z9m0] {
+    position: absolute;
+    top: 85%;
+    right: 40px;
+    transform: translateY(-50%);    
+    padding: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+.play-button-container:hover[b-04rea4z9m0] {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.play-icon[b-04rea4z9m0] {
+    width: 60px;
+    height: 60px;
+}
+
+/* Movie details section */
+.movie-details-wrapper[b-04rea4z9m0] {
+    padding: 0 20px;
+}
+
+.movie-release-date[b-04rea4z9m0] {
+    color: #B0B0B0;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.genres-container[b-04rea4z9m0] {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.genre-badge[b-04rea4z9m0] {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+}
+
+.movie-overview[b-04rea4z9m0] {
+    color: #E0E0E0;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 800px;
+}
+
+/* Action buttons section */
+.actions-container[b-04rea4z9m0] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.imdb-rating[b-04rea4z9m0] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.movie-rating[b-04rea4z9m0] {
+    color: #F5C518;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.imdb-label[b-04rea4z9m0] {
+    color: #F5C518;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.action-buttons[b-04rea4z9m0] {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.watch-later-button[b-04rea4z9m0],
+.share-button[b-04rea4z9m0] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.watch-later-button:hover[b-04rea4z9m0],
+.share-button:hover[b-04rea4z9m0] {
+    transform: scale(1.05);
+}
+
+.button-icon[b-04rea4z9m0] {
+    width: 24px;
+    height: 24px;
+}
+
+.button-text[b-04rea4z9m0] {
+    color: white;
+    font-size: 24px; /* Matches icon height */
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: 24px; /* Perfect vertical alignment */
+    margin: 0;
+}
+
+/* Loading state */
+.loading-container[b-04rea4z9m0] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.loading[b-04rea4z9m0] {
+    color: white;
+    font-size: 20px;
+}
+
+
+
+/* Estilos para la sección de reparto */
+.cast-section[b-04rea4z9m0] {
+    margin-top: 50px;
+    padding: 20px;
+    height: auto;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    background: rgba(88, 88, 88, 0.40);
+}
+
+.section-title[b-04rea4z9m0] {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.actors-grid[b-04rea4z9m0] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.actor-card[b-04rea4z9m0] {
+    text-align: center;
+}
+
+.actor-image[b-04rea4z9m0] {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #333;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.actor-name[b-04rea4z9m0] {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Estilos para los botones de compra */
+.purchase-buttons[b-04rea4z9m0] {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.primary-button[b-04rea4z9m0] {
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.secondary-button[b-04rea4z9m0] {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.primary-button:hover[b-04rea4z9m0] {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+}
+
+.secondary-button:hover[b-04rea4z9m0] {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.actor[b-04rea4z9m0]{
+    width: 115px;
+    height: 130px;
+    background-color: #333;
+    overflow: hidden;
+
+}
+
+/* _content/SistemaDeBilheteira/Components/Pages/PaymentFailed.razor.rz.scp.css */
+/*.background{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+.container {
+    width: 700px;
+    height: 235px;
+    border-radius: 20px;
+    background: #1A1A1D;
+    display: grid;
+    place-items: center;
+}
+.input-icon{
+    width: 80px;
+    height: 80px;
+    left: 10px;
+}*/
+
+.background[b-hgo5fffapu] {
+    padding: 20px 50px;
+    background-color: #333334;
+}
+
+.container[b-hgo5fffapu] {
+    width: 700px;
+    height: 235px;
+    border-radius: 20px;
+    background: #1A1A1D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-icon-container[b-hgo5fffapu] {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* espacio entre texto e ícono */
+}
+
+.text-section[b-hgo5fffapu] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title[b-hgo5fffapu] {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.subtitle[b-hgo5fffapu] {
+    color: #FFC700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0;
+}
+
+.input-icon[b-hgo5fffapu] {
+    width: 80px;
+    height: 80px;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/PaymentSucssefull.razor.rz.scp.css */
+/*.background{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+.container {
+    width: 700px;
+    height: 235px;
+    border-radius: 20px;
+    background: #1A1A1D;
+    display: grid;
+    place-items: center;
+}
+.input-icon{
+    width: 80px;
+    height: 80px;
+    left: 10px;
+}*/
+
+.background[b-nws8eypzms] {
+    padding: 20px 50px;
+    background-color: #333334;
+}
+
+.container[b-nws8eypzms] {
+    width: 700px;
+    height: 235px;
+    border-radius: 20px;
+    background: #1A1A1D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-icon-container[b-nws8eypzms] {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* espacio entre texto e ícono */
+}
+
+.text-section[b-nws8eypzms] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title[b-nws8eypzms] {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.subtitle[b-nws8eypzms] {
+    color: #FFC700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    margin: 0;
+}
+
+.input-icon[b-nws8eypzms] {
+    width: 80px;
+    height: 80px;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/Profile.razor.rz.scp.css */
+.background[b-kxov1j6k41] {
+    flex-shrink: 0;
+    background-color: #1A1A1D;
+    box-sizing: border-box;
+}
+
+.profile-background[b-kxov1j6k41]{
+    background-color: #333334;
+    border: 1px solid #000;
+    padding: 100px;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+}
+
+.profile-picture[b-kxov1j6k41] {
+    flex-shrink: 0;
+    width: 25.5%;
+}
+
+.welcome-message[b-kxov1j6k41]
+{
+    padding-left: 140px;
+    padding-top: 40px;
+    width: 50%;
+}
+
+
+.welcome-title[b-kxov1j6k41]{
+    color: #FFF;
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: block;
+}
+
+.greetings[b-kxov1j6k41]{
+    font-size: 96px;
+}
+
+.welcome[b-kxov1j6k41]{
+    font-size: 128px;
+}
+
+.logout-button[b-kxov1j6k41]
+{
+    padding-top: 3%;
+    position: absolute;
+    width: 6.85%;
+    right: 4.5%;
+    top: 10%;
+    cursor: pointer;
+}
+
+.options[b-kxov1j6k41]
+{
+    display: flex;
+    width: 100%;
+}
+
+.logo[b-kxov1j6k41], title[b-kxov1j6k41], description[b-kxov1j6k41]{
+    undernline:none;
+}
+
+.logout-button:hover[b-kxov1j6k41] {
+    transition: 0.3s;
+    transform: scale(1.05);
+}
+/* _content/SistemaDeBilheteira/Components/Pages/PurchaseHistory.razor.rz.scp.css */
+.background[b-c7bvsbsn93]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+.logo[b-c7bvsbsn93]{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.title[b-c7bvsbsn93]{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+    
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.flex[b-c7bvsbsn93]{
+    display: flex;
+}
+
+.products[b-c7bvsbsn93]{
+    margin: auto;
+    
+}
+/* _content/SistemaDeBilheteira/Components/Pages/QuantityOfTickets.razor.rz.scp.css */
+.movie-info[b-ythcqxdubj] {
+    display: flex;
+    width: 100%;
+    height: 696px;
+    background-color: rgba(88, 88, 88, 0.40);
+    justify-content: space-between;
+    padding: 40px;
+}
+
+.movie-details[b-ythcqxdubj] {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.people-going[b-ythcqxdubj] {
+    width: 870px;
+    height: 578px;
+    border-radius: 0px 15px 0px 0px;
+    background: #1B1717;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.continue-container[b-ythcqxdubj] {
+    width: 100%;
+    height: 118px;
+    background: #2B2F38;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 40px;
+}
+
+.primary-button[b-ythcqxdubj] {
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.primary-button:hover[b-ythcqxdubj] {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+}
+
+.movie-title[b-ythcqxdubj] {
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.date[b-ythcqxdubj], .time[b-ythcqxdubj] {
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher";
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.cinema[b-ythcqxdubj], .location[b-ythcqxdubj], .room[b-ythcqxdubj] {
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher";
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.people-going-text[b-ythcqxdubj] {
+    color: #FFF;
+    font-family: "Montserrat";
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.counter-container[b-ythcqxdubj] {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.counter-box[b-ythcqxdubj] {
+    width: 200px;
+    height: 200px;
+    background-color: #888;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30%;
+}
+
+.number-display[b-ythcqxdubj] {
+    font-size: 100px;
+    font-weight: bold;
+    color: #FFD700;
+}
+
+.counter-buttons[b-ythcqxdubj] {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.arrow-button[b-ythcqxdubj] {
+    background-color: #E8DCDC;
+    border: none;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.arrow-button:hover[b-ythcqxdubj] {
+    background-color: #cfcfcf;
+}
+
+.location-icon[b-ythcqxdubj]{
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.button-icon[b-ythcqxdubj]{
+    width: 5%;
+    height: 5%;
+    margin-right: 10px;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/RentalHistory.razor.rz.scp.css */
+.background[b-3aba7jk7ac]{
+    background-color: #333334;
+    padding: 20px;
+}
+
+.flex[b-3aba7jk7ac]{
+    display: flex;
+}
+
+.title-logo[b-3aba7jk7ac]{
+    justify-content: center;
+}
+
+.title[b-3aba7jk7ac]{
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+/* _content/SistemaDeBilheteira/Components/Pages/Search.razor.rz.scp.css */
+.search-page[b-iy3kne26px] {
+    padding: 40px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search-input-box[b-iy3kne26px] {
+    width: 60%;
+    padding: 12px 16px;
+    border-radius: 20px;
+    border: none;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.search-btn[b-iy3kne26px] {
+    padding: 12px 24px;
+    margin-left: 12px;
+    border-radius: 20px;
+    background-color: #facc15;
+    color: black;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.movie-results[b-iy3kne26px] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.poster-wrapper img.movie-poster[b-iy3kne26px] {
+    width: 200px;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.poster-wrapper img.movie-poster:hover[b-iy3kne26px] {
+    transform: scale(1.05);
+}
+/* _content/SistemaDeBilheteira/Components/Pages/SeatSelect.razor.rz.scp.css */
+.session-selection-container[b-77xlvv4ni0] {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.banner[b-77xlvv4ni0] {
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.banner-wrapper[b-77xlvv4ni0] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+}
+
+.banner-image[b-77xlvv4ni0] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-title-overlay[b-77xlvv4ni0] {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    max-width: 80%;
+}
+
+.banner-title[b-77xlvv4ni0] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.play-button-container[b-77xlvv4ni0] {
+    position: absolute;
+    top: 85%;
+    right: 40px;
+    transform: translateY(-50%);    
+    padding: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+.play-button-container:hover[b-77xlvv4ni0] {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.play-icon[b-77xlvv4ni0] {
+    width: 60px;
+    height: 60px;
+}
+
+.seat-map[b-77xlvv4ni0] {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.seat-row[b-77xlvv4ni0] {
+    display: flex;
+    justify-content: center;
+}
+
+.seat[b-77xlvv4ni0] {
+    border-radius: 4px;
+    margin: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.reserved[b-77xlvv4ni0] {
+    cursor: not-allowed;
+}
+
+
+
+.legend[b-77xlvv4ni0] {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.legend-item[b-77xlvv4ni0] {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.legend-item.available[b-77xlvv4ni0] {
+    background-color: #0ff;
+}
+
+.legend-item.reserved[b-77xlvv4ni0] {
+    background-color: #f44;
+}
+
+.legend-item.selected[b-77xlvv4ni0] {
+    background-color: #fff;
+    color: #000;
+}
+
+.seats-container[b-77xlvv4ni0] {
+    margin-top: 50px;
+    padding: 0 20px;
+    height: 880px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    background: rgba(88, 88, 88, 0.40);
+}
+
+.seat-icon[b-77xlvv4ni0]{
+    margin: 5px;
+}
+
+.seat-selection-title[b-77xlvv4ni0] {
+    color: #FFC700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.seat-selection-title2[b-77xlvv4ni0]{
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+button[b-77xlvv4ni0] {
+    background:transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.screen-container[b-77xlvv4ni0] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px ;
+}
+
+.screen-icon[b-77xlvv4ni0]{
+    margin-top: 50px;
+}
+
+.screen-title[b-77xlvv4ni0] {
+    font-weight: bold;
+    text-align: center;
+    color: #00C7BB;
+    text-align: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 60px;
+}
+
+.select-seat-container[b-77xlvv4ni0]{
+    background-color: #1A1A1D;
+    filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.07));
+    width: auto;
+    height: 650px;
+    flex-shrink: 0;
+    border-radius: 15px;
+}
+
+.legend[b-77xlvv4ni0] {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.legend-itemB[b-77xlvv4ni0] {
+    display: flex;
+    align-items: right;
+    font-family: 'Montserrat', sans-serif;
+    gap: 8px;
+    color: #00C7BB;
+}
+
+.legend-itemR[b-77xlvv4ni0] {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    gap: 8px;
+    color: #f44;
+    margin-left: 100px;
+}
+
+.legend-itemW[b-77xlvv4ni0] {
+    display: flex;
+    align-items: left;
+    font-family: 'Montserrat', sans-serif;
+    gap: 8px;
+    color: white;
+    margin-left: 100px;
+}
+
+.legend-icon[b-77xlvv4ni0] {
+    width: 20px;
+    height: 20px;
+}
+
+.movie-overview[b-77xlvv4ni0] {
+    color: #E0E0E0;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 800px;
+}
+
+.primary-button[b-77xlvv4ni0] {
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.primary-button:hover[b-77xlvv4ni0] {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+}
+
+.prim-buttons[b-77xlvv4ni0] {
+    display: flex;
+    gap: 20px;
+    margin: 30px;
+    justify-content: center;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/SelectSession.razor.rz.scp.css */
+.session-selection-container[b-8cmgu2k9mb] {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.header-section[b-8cmgu2k9mb] {
+    margin-bottom: 30px;
+}
+.movie-overview[b-8cmgu2k9mb] {
+    color: #E0E0E0;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 800px;
+}
+
+.header-section .title[b-8cmgu2k9mb] {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #F5C518;
+    text-align: center;
+}
+
+.cinema-selector[b-8cmgu2k9mb] {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.cinema-option[b-8cmgu2k9mb] {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cinema-option:hover[b-8cmgu2k9mb] {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.cinema-option.active[b-8cmgu2k9mb] {
+    background: #F5C518;
+    color: #000;
+    font-weight: 600;
+}
+
+.sessions-table[b-8cmgu2k9mb] {
+    width: 100%;
+    margin-bottom: 40px;
+    background: rgba(88, 88, 88, 0.4);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-header[b-8cmgu2k9mb] {
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px 20px;
+    font-weight: 600;
+}
+
+.date-column[b-8cmgu2k9mb] {
+    flex: 1;
+    min-width: 150px;
+}
+
+.time-column[b-8cmgu2k9mb] {
+    flex: 1;
+    text-align: center;
+    opacity: 0.7;
+}
+
+.time-column.active[b-8cmgu2k9mb] {
+    opacity: 1;
+    color: #F5C518;
+}
+
+.session-row[b-8cmgu2k9mb] {
+    display: flex;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.session-row:last-child[b-8cmgu2k9mb] {
+    border-bottom: none;
+}
+
+.date-cell[b-8cmgu2k9mb] {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.time-cell[b-8cmgu2k9mb] {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+.time-cell.active[b-8cmgu2k9mb] {
+    opacity: 1;
+}
+
+.time-slot[b-8cmgu2k9mb] {
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.time-slot:hover[b-8cmgu2k9mb] {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.time-slot.selected[b-8cmgu2k9mb] {
+    background: #F5C518;
+    color: #000;
+    font-weight: 600;
+}
+
+.action-buttons[b-8cmgu2k9mb] {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.primary-button[b-8cmgu2k9mb] {
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.primary-button:hover:not(:disabled)[b-8cmgu2k9mb] {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+}
+
+.primary-button:disabled[b-8cmgu2k9mb] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.banner[b-8cmgu2k9mb] {
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.banner-wrapper[b-8cmgu2k9mb] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+}
+
+.banner-image[b-8cmgu2k9mb] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-title-overlay[b-8cmgu2k9mb] {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    max-width: 80%;
+}
+
+.banner-title[b-8cmgu2k9mb] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.play-button-container[b-8cmgu2k9mb] {
+    position: absolute;
+    top: 85%;
+    right: 40px;
+    transform: translateY(-50%);    
+    padding: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+.play-button-container:hover[b-8cmgu2k9mb] {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.play-icon[b-8cmgu2k9mb] {
+    width: 60px;
+    height: 60px;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/SelectType.razor.rz.scp.css */
+/* Main layout */
+.main-content[b-oupfgeyiyz] {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Banner section */
+.banner[b-oupfgeyiyz] {
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.banner-wrapper[b-oupfgeyiyz] {
+    position: relative;
+    width: 100%;
+    height: 520px;
+}
+
+.banner-image[b-oupfgeyiyz] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.banner-title-overlay[b-oupfgeyiyz] {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 2;
+    color: white;
+    text-align: left;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    max-width: 80%;
+}
+
+.banner-title[b-oupfgeyiyz] {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.play-button-container[b-oupfgeyiyz] {
+    position: absolute;
+    top: 85%;
+    right: 40px;
+    transform: translateY(-50%);    
+    padding: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+.play-button-container:hover[b-oupfgeyiyz] {
+    transform: translateY(-50%) scale(1.05);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.play-icon[b-oupfgeyiyz] {
+    width: 60px;
+    height: 60px;
+}
+
+/* Movie details section */
+.movie-details-wrapper[b-oupfgeyiyz] {
+    padding: 0 20px;
+}
+
+.movie-release-date[b-oupfgeyiyz] {
+    color: #B0B0B0;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    margin-right: 20px;
+}
+
+.genres-container[b-oupfgeyiyz] {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.genre-badge[b-oupfgeyiyz] {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: white;
+}
+
+.movie-overview[b-oupfgeyiyz] {
+    color: #E0E0E0;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 800px;
+}
+
+/* Action buttons section */
+.actions-container[b-oupfgeyiyz] {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    margin-top: 30px;
+}
+
+.actions-container1[b-oupfgeyiyz] {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.imdb-rating[b-oupfgeyiyz] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.movie-rating[b-oupfgeyiyz] {
+    color: #F5C518;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+
+.action-buttons[b-oupfgeyiyz] {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.watch-later-button[b-oupfgeyiyz],
+.share-button[b-oupfgeyiyz] {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.watch-later-button:hover[b-oupfgeyiyz],
+.share-button:hover[b-oupfgeyiyz] {
+    transform: scale(1.05);
+}
+
+.button-icon[b-oupfgeyiyz] {
+    width: 24px;
+    height: 24px;
+}
+
+.button-text[b-oupfgeyiyz] {
+    color: white;
+    font-size: 24px; /* Matches icon height */
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: 24px; /* Perfect vertical alignment */
+    margin: 0;
+}
+
+/* Loading state */
+.loading-container[b-oupfgeyiyz] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}
+
+.loading[b-oupfgeyiyz] {
+    color: white;
+    font-size: 20px;
+}
+
+/* Rent & Buy Container */
+/* .rent-buy-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+} */
+
+/* Botones principales */
+.rent-button[b-oupfgeyiyz], .buy-button[b-oupfgeyiyz] {
+    background-color: #f5c518;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+    white-space: nowrap;
+}
+
+/* Dropdown de compra */
+.buy-dropdown[b-oupfgeyiyz] {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #f5c518;
+    color: #000;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+    z-index: 10;
+    width: 160px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* Inicialmente oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Mostrar el dropdown cuando está activo */
+.buy-dropdown.show[b-oupfgeyiyz] {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Elementos del dropdown */
+.buy-dropdown-item[b-oupfgeyiyz] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+.buy-dropdown-item:hover[b-oupfgeyiyz] {
+    background-color: #ffdb4d;
+}
+
+/* Iconos estilo texto (puedes reemplazar por imágenes si quieres más fidelidad) */
+.buy-dropdown-item span[b-oupfgeyiyz] {
+    font-size: 1.2rem;
+}
+
+/* Precio dentro de botones */
+.button-price[b-oupfgeyiyz] {
+    font-size: 0.85rem;
+    display: block;
+    line-height: 1.2;
+}
+
+/* Animación de la flecha */
+.buy-dropdown-button svg[b-oupfgeyiyz] {
+    transition: transform 0.3s ease;
+}
+
+.buy-dropdown-button.open svg[b-oupfgeyiyz] {
+    transform: rotate(180deg);
+}
+
+.secondary-button[b-oupfgeyiyz] {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.secondary-button:hover[b-oupfgeyiyz] {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.rent-buy-container[b-oupfgeyiyz] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* espacio entre los botones */
+    align-items: flex-start; /* alineación a la izquierda */
+} 
+/* _content/SistemaDeBilheteira/Components/Pages/SignUp.razor.rz.scp.css */
+.background[b-te9ji3pfvv]{
+    background-color: #333334;
+}
+
+.flex[b-te9ji3pfvv]{
+    display: flex;
+}
+
+.greetings[b-te9ji3pfvv]{
+    color: #FFC700;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.get-started[b-te9ji3pfvv]{
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+.user-logo[b-te9ji3pfvv]{
+    width: 18px;
+    height: 19px;
+}
+
+.logo[b-te9ji3pfvv]{
+    width: 48px;
+    background-color: #000000;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    border-radius: 6px 0 0 6px;
+}
+
+input[b-te9ji3pfvv]{
+    background-color: #000000;
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 0 6px 6px 0;
+}
+
+input[b-te9ji3pfvv]::placeholder{
+    color: #C4C4C4;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.input-element[b-te9ji3pfvv]{
+    margin-top: 6px;
+}
+
+.sign-up[b-te9ji3pfvv]{
+    margin-top: 15%;
+    margin-left: 13%;
+}
+
+.register[b-te9ji3pfvv]{
+    width: 100%;
+    margin-top: 10%;
+    border-radius: 12px;
+    background: #FFC700;
+    border: none;
+    padding: 12px;
+    color: #FFF;
+    font-family: "Konkhmer Sleokchher", serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/TicketHistory.razor.rz.scp.css */
+.background[b-f4d7necpep]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+.logo[b-f4d7necpep]{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.title[b-f4d7necpep]{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.flex[b-f4d7necpep]{
+    display: flex;
+}
+
+.products[b-f4d7necpep]{
+    margin: auto;
+    width: 1199px;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/UserInfo.razor.rz.scp.css */
+.background[b-jecc5nrets]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+.logo[b-jecc5nrets]{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.title{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}*/
+.flex[b-jecc5nrets]{
+    display: flex;
+}
+.title[b-jecc5nrets] {
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.subtitle[b-jecc5nrets] {
+    color: #FFC700;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.popup[b-jecc5nrets] {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFC700;
+    padding: 20px 30px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.popup-close[b-jecc5nrets] {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+}
+/* _content/SistemaDeBilheteira/Components/Pages/Wishlist.razor.rz.scp.css */
+.logo[b-kx3jewdsfv]{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.title[b-kx3jewdsfv]{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.background[b-kx3jewdsfv]{
+    padding: 20px 50px 20px 50px;
+    background-color: #333334;
+}
+
+.flex[b-kx3jewdsfv]{
+    display: flex;
+}
+
+.products[b-kx3jewdsfv]{
+    width: 100%;
+}
+
+.payment[b-kx3jewdsfv]{
+    margin-left: 40px;
+}
+

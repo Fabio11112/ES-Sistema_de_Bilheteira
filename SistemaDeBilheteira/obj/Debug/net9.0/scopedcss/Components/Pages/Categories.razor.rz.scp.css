@@ -1,0 +1,74 @@
+body[b-jhmo3mot0y] {
+  background-color: #111;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.categories-container[b-jhmo3mot0y] {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.categories-title[b-jhmo3mot0y] {
+  font-size: 2.25rem;
+  text-align: center;
+  color: #facc15;
+  margin-bottom: 32px;
+  font-weight: bold;
+}
+
+.categories-grid[b-jhmo3mot0y] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 32px;
+}
+
+/* Usado si decides volver a utilizar los <div class="genre-card"> */
+.genre-card[b-jhmo3mot0y] {
+  background-color: #181818;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.genre-card h3[b-jhmo3mot0y] {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.genre-card:hover[b-jhmo3mot0y] {
+  background-color: #000;
+  border-color: #facc15;
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Para los botones tipo <a> */
+.category-button[b-jhmo3mot0y] {
+  display: inline-block;
+  padding: 16px 24px;
+  border-radius: 20px;
+  background-color: #181818;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.category-button:hover[b-jhmo3mot0y] {
+  background-color: #000;
+  border-color: #facc15;
+  color: #facc15;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);
+}

@@ -1,0 +1,31 @@
+.title[b-dt9vle0o7b]{
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.items-list[b-dt9vle0o7b] {
+    color: #FFC700;
+    font-family: Montserrat, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    list-style-type: "- ";
+    width: 100%;
+    margin: 10px;
+}
+
+.items-list li[b-dt9vle0o7b] {
+    margin-bottom: 10px;
+}
+
+.lists[b-dt9vle0o7b] {
+    margin-left: 5%;
+    flex-wrap: wrap;
+    width: 25%;
+    white-space: nowrap;
+}

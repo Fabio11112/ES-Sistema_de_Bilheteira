@@ -1,0 +1,117 @@
+.flex[b-56vztjmssh]{
+    display: flex;
+}
+
+.payment[b-56vztjmssh]{
+    padding: 20px;
+    
+    border-radius: 20px;
+    background: #1A1A1D;
+    margin-top: 20px;
+}
+
+.title[b-56vztjmssh]
+{
+    margin-top: 15px;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.text[b-56vztjmssh]{
+    color: #FEFCFC;
+    font-style: normal;
+    line-height: normal;
+    
+}
+
+.type[b-56vztjmssh]{
+    margin-top:20px;
+    font-family: Nunito, serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.input-label[b-56vztjmssh]{
+    margin-top: 10px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+    
+}
+
+input[b-56vztjmssh]{
+    width: 100%;
+    background-color: #333335;
+    border-radius: 6px;
+    padding: 7px 10px 7px 10px;
+    color: #FEFCFC;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: none;
+    
+}
+
+input[b-56vztjmssh]::placeholder{
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.expiration[b-56vztjmssh]{
+    margin-right:10px;
+}
+
+.card-form[b-56vztjmssh]{
+    margin-left:10px;
+}
+
+.payment-details[b-56vztjmssh]{
+    margin-top: 20px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.payment .value[b-56vztjmssh]{
+    text-align: right;
+    float: right;
+}
+
+.card-detail[b-56vztjmssh]{
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+.space-between[b-56vztjmssh]{
+    justify-content: space-between;
+}
+
+.checkout[b-56vztjmssh]{
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 12px;
+    background: #FFC700;
+    padding: 15px;
+}
+
+.checkout div[b-56vztjmssh]{
+    color: #FEFCFC;
+    font-family: Poppins, serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.checkout img[b-56vztjmssh]{
+    width: 30px;
+}

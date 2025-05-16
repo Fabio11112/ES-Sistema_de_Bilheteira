@@ -1,0 +1,70 @@
+.background[b-kxov1j6k41] {
+    flex-shrink: 0;
+    background-color: #1A1A1D;
+    box-sizing: border-box;
+}
+
+.profile-background[b-kxov1j6k41]{
+    background-color: #333334;
+    border: 1px solid #000;
+    padding: 100px;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+}
+
+.profile-picture[b-kxov1j6k41] {
+    flex-shrink: 0;
+    width: 25.5%;
+}
+
+.welcome-message[b-kxov1j6k41]
+{
+    padding-left: 140px;
+    padding-top: 40px;
+    width: 50%;
+}
+
+
+.welcome-title[b-kxov1j6k41]{
+    color: #FFF;
+    font-family: Montserrat, sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: block;
+}
+
+.greetings[b-kxov1j6k41]{
+    font-size: 96px;
+}
+
+.welcome[b-kxov1j6k41]{
+    font-size: 128px;
+}
+
+.logout-button[b-kxov1j6k41]
+{
+    padding-top: 3%;
+    position: absolute;
+    width: 6.85%;
+    right: 4.5%;
+    top: 10%;
+    cursor: pointer;
+}
+
+.options[b-kxov1j6k41]
+{
+    display: flex;
+    width: 100%;
+}
+
+.logo[b-kxov1j6k41], title[b-kxov1j6k41], description[b-kxov1j6k41]{
+    undernline:none;
+}
+
+.logout-button:hover[b-kxov1j6k41] {
+    transition: 0.3s;
+    transform: scale(1.05);
+}

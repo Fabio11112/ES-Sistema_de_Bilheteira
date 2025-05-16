@@ -1,0 +1,54 @@
+.footer-background[b-iuxo97r4we]{
+    border-radius: 24px;
+    background-color: #0D0D0D;
+    margin: 15px;
+    padding: 50px;
+}
+.footer-content[b-iuxo97r4we]{
+    display: flex;
+}
+
+.footer-text[b-iuxo97r4we]{
+    font-style: normal;
+    line-height: normal;
+}
+
+.page-name[b-iuxo97r4we]{
+    color: #FFC700;
+    font-family: "Konkhmer Sleokchher", "serif";
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.language-block[b-iuxo97r4we]{
+    display:inline-flex;
+    background-color: #1A1A1D;
+    margin-left: 12px;
+    padding: 8px;
+}
+
+.language[b-iuxo97r4we]{
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.lists[b-iuxo97r4we]{
+    margin-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.copyright[b-iuxo97r4we]{
+    margin-top: 3%;
+    bottom: 30px;
+    text-align: center;
+    color: #585858;
+    font-family: Montserrat, serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

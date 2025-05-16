@@ -1,0 +1,63 @@
+.carousel-container[b-kfd2z3f2ln] {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    color: #FFFFFF;
+    font-family: Montserrat, serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    gap: 10px;
+}
+
+.carousel-wrapper[b-kfd2z3f2ln] {
+    overflow: auto;
+    
+}
+.carousel-wrapper[b-kfd2z3f2ln]::-webkit-scrollbar {
+    display: none; /* don´t display the bar */
+}
+
+.carousel-track[b-kfd2z3f2ln] {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+    width: calc(100% * 5); /* You can customize it depending on the number of images */
+}
+
+.carousel-item[b-kfd2z3f2ln] {
+    /*flex: 0 0 25%; /* 100% / 4 images = 25% */
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    margin: 5px;
+    float: left;
+    width: 180px;
+}
+
+.carousel-item img[b-kfd2z3f2ln] {
+    width: 100%;
+    height: 150px;
+    object-fit: scale-down;
+    border-radius: 8px;
+}
+
+.carousel-button[b-kfd2z3f2ln] {
+    background: #333334;
+    color: white;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    padding: 8px 12px;
+    cursor: pointer;
+    z-index: 10;
+    border: none;
+    border-radius: 50%;
+}
+
+.carousel-button.right[b-kfd2z3f2ln] {
+    right: 35px;
+}

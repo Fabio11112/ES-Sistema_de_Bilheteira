@@ -1,9 +1,0 @@
-namespace SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
-
-public class Auditory : DbItem
-{
-    public int Number { get; set; }
-
-    public ICollection<Seat> Seats { get; set; } = new List<Seat>();
-    public ICollection<Function> Functions { get; set; } = new List<Function>();
-}

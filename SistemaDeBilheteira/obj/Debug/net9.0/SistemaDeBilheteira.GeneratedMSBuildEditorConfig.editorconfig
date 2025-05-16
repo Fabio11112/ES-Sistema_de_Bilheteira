@@ -1,0 +1,257 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SistemaDeBilheteira
+build_property.RootNamespace = SistemaDeBilheteira
+build_property.ProjectDir = C:\Users\ASUS\OneDrive - Universidade da Madeira\6º Semestre\Engenharia de Software\projeto\ES-Sistema_de_Bilheteira\SistemaDeBilheteira\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\ASUS\OneDrive - Universidade da Madeira\6º Semestre\Engenharia de Software\projeto\ES-Sistema_de_Bilheteira\SistemaDeBilheteira
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/AddedCart/AddedToCartItem.razor]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xBZGRlZENhcnRcQWRkZWRUb0NhcnRJdGVtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = b-7ohxx8n5pd
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Cart/CartElement.razor]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Layout/Footer.razor]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Services/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = 
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXJ2aWNlc1xMb2dvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/DvdsAndBluray.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEdmRzQW5kQmx1cmF5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFcnJvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/MovieDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNb3ZpZURldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Tickets.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUaWNrZXRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/AddedCart/ButtonsAddedCart.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xBZGRlZENhcnRcQnV0dG9uc0FkZGVkQ2FydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-rt7rd5ykyp
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Authentication/Banner.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xBdXRoZW50aWNhdGlvblxCYW5uZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-uqk89z3mo2
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Cart/CartItemElement.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xDYXJ0XENhcnRJdGVtRWxlbWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-7gl4h0uqvd
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Cart/ConfirmPaymentElement.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xDYXJ0XENvbmZpcm1QYXltZW50RWxlbWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-rsu7puhp1b
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Cart/PaymentMethodElement.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xDYXJ0XFBheW1lbnRNZXRob2RFbGVtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-56vztjmssh
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Cart/PromoCode.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xDYXJ0XFByb21vQ29kZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-fh4txcoa7b
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/EditAdress/AddAddress.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xFZGl0QWRyZXNzXEFkZEFkZHJlc3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-3w6bhlk8tr
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/EditAdress/AddressElement.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xFZGl0QWRyZXNzXEFkZHJlc3NFbGVtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-p3z7wj1co3
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/FooterOptionList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xGb290ZXJPcHRpb25MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-dt9vle0o7b
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/MovieCarousel.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xNb3ZpZUNhcm91c2VsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-kfd2z3f2ln
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/PurchaseHistoryItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xQdXJjaGFzZUhpc3RvcnlJdGVtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-kydu8tm05v
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/RentalHistory/RentalHistoryElement.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xSZW50YWxIaXN0b3J5XFJlbnRhbEhpc3RvcnlFbGVtZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-qw9mlnxzh9
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/SearchButton.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xTZWFyY2hCdXR0b24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ncwt5699o2
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/TicketHistoryItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xUaWNrZXRIaXN0b3J5SXRlbS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-x5chbyunrj
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/UserInfoItem.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xVc2VySW5mb0l0ZW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-p3ujbxhukx
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/UserProfileOption.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xVc2VyUHJvZmlsZU9wdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-2uqu4stkj9
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Cards/Wishlist/WishlistElement.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkc1xXaXNobGlzdFxXaXNobGlzdEVsZW1lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-g4k2vcynja
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ivxd8a9c4t
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-qrr7w40784
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Layout/PagesFooter.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcUGFnZXNGb290ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-iuxo97r4we
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/AddedToCart.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRlZFRvQ2FydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-jmjdo8cvn3
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Cart.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-1sca4mjcd0
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Categories.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWVzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-jhmo3mot0y
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/ConfirmPayment.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb25maXJtUGF5bWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-gxzgdenpvx
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/EditAddress.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xFZGl0QWRkcmVzcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-0jouh8o6yu
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Genre.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xHZW5yZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-0fjk65y4kz
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-4rdb57g0ei
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Kids.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xLaWRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-5mkckqdizl
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/LogIn.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dJbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-gjyreoedt9
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/MoviesDescription.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xNb3ZpZXNEZXNjcmlwdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-04rea4z9m0
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/PaymentFailed.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQYXltZW50RmFpbGVkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-hgo5fffapu
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/PaymentSucssefull.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQYXltZW50U3Vjc3NlZnVsbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-nws8eypzms
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Profile.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9maWxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-kxov1j6k41
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/PurchaseHistory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQdXJjaGFzZUhpc3RvcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-c7bvsbsn93
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/QuantityOfTickets.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xRdWFudGl0eU9mVGlja2V0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ythcqxdubj
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/RentalHistory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xSZW50YWxIaXN0b3J5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-3aba7jk7ac
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Search.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZWFyY2gucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-iy3kne26px
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/SeatSelect.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZWF0U2VsZWN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-77xlvv4ni0
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/SelectSession.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZWxlY3RTZXNzaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-8cmgu2k9mb
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/SelectType.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZWxlY3RUeXBlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-oupfgeyiyz
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/SignUp.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTaWduVXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-te9ji3pfvv
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/TicketHistory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUaWNrZXRIaXN0b3J5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-f4d7necpep
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/UserInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVc2VySW5mby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-jecc5nrets
+
+[C:/Users/ASUS/OneDrive - Universidade da Madeira/6º Semestre/Engenharia de Software/projeto/ES-Sistema_de_Bilheteira/SistemaDeBilheteira/Components/Pages/Wishlist.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXaXNobGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-kx3jewdsfv

@@ -1,0 +1,78 @@
+.element[b-7gl4h0uqvd] {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+
+
+.content[b-7gl4h0uqvd]{
+    margin-left: 20px;
+    display: flex;
+}
+
+.text[b-7gl4h0uqvd]{
+    color: #C4C4C4;
+}
+
+.information[b-7gl4h0uqvd]{
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number[b-7gl4h0uqvd]{
+    color: #FFF;
+}
+
+.quantity[b-7gl4h0uqvd]{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name[b-7gl4h0uqvd]{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image[b-7gl4h0uqvd]{
+    width: 25%;
+}
+
+.price-details[b-7gl4h0uqvd]{
+    margin-top: 10%;
+    display: flex;
+}
+
+.detail[b-7gl4h0uqvd]{
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.buttons[b-7gl4h0uqvd]{
+    display: flex;
+    margin-top: 25%;
+    margin-left: 15%;
+}
+
+.button[b-7gl4h0uqvd]{
+    margin-left: 15px;
+    color: #C4C4C4;
+    font-family: Poppins, serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+

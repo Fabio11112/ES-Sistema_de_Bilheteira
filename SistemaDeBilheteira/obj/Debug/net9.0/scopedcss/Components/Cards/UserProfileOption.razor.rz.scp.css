@@ -1,0 +1,49 @@
+.profile-option[b-2uqu4stkj9]{
+    cursor: pointer;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    background-color: #424242;
+    color: white;
+    padding: 50px;
+    width: 45%;
+    margin-right: 5%;
+    /*text-decoration:none*/
+}
+
+.logo-title[b-2uqu4stkj9]{
+    display: flex;
+    text-decoration: none;
+}
+.logo[b-2uqu4stkj9]{
+    margin-right: 50px;
+}
+
+.text[b-2uqu4stkj9] {
+    font-family: Montserrat, serif;
+    font-style: normal;
+    line-height: normal;
+}
+
+.title[b-2uqu4stkj9]{
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.description[b-2uqu4stkj9]{
+    color: #0D0D0D;
+    font-size: 42px;
+    font-weight: 500;
+}
+
+.profile-option[b-2uqu4stkj9]{
+    text-decoration: none;
+}
+
+.profile-option:hover[b-2uqu4stkj9]{
+    color: black;
+    transition: 0.3s;
+    transform: scale(1.05);
+    
+}
