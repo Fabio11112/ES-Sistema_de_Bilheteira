@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SistemaDeBilheteira.Services.Database.Context;
 
@@ -10,9 +11,11 @@ using SistemaDeBilheteira.Services.Database.Context;
 namespace SistemaDeBilheteira.Migrations
 {
     [DbContext(typeof(SistemaDeBilheteiraContext))]
-    partial class SistemaDeBilheteiraContextModelSnapshot : ModelSnapshot
+    [Migration("20250515132342_Payment658886666466548765647")]
+    partial class Payment658886666466548765647
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -383,6 +386,112 @@ namespace SistemaDeBilheteira.Migrations
                     b.UseTpcMappingStrategy();
                 });
 
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Auditory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Auditories");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Cinema", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Cinemas");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Function", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AuditoryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CinemaId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditoryId");
+
+                    b.HasIndex("CinemaId");
+
+                    b.ToTable("Functions");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Seat", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AuditoryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Letter")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuditoryId");
+
+                    b.ToTable("Seats");
+                });
+
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ShoppingCartItem", b =>
                 {
                     b.Property<string>("AppUserId")
@@ -410,18 +519,39 @@ namespace SistemaDeBilheteira.Migrations
                     b.ToTable("ShoppingCartItem");
                 });
 
-            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental.Rental", b =>
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.CinemaTicket", b =>
                 {
                     b.HasBaseType("Product");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<Guid>("FunctionId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("StateName")
+                    b.Property<string>("Method")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Resolution")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("SeatId")
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("FunctionId");
+
+                    b.HasIndex("SeatId");
+
+                    b.ToTable("CinemaTickets");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental", b =>
+                {
+                    b.HasBaseType("Product");
+
+                    b.Property<DateTime>("endDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("startDate")
                         .HasColumnType("TEXT");
 
                     b.ToTable("Rentals", (string)null);
@@ -559,6 +689,36 @@ namespace SistemaDeBilheteira.Migrations
                     b.Navigation("AppUser");
                 });
 
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Function", b =>
+                {
+                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Auditory", "Auditory")
+                        .WithMany("Functions")
+                        .HasForeignKey("AuditoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Cinema", "Cinema")
+                        .WithMany("Functions")
+                        .HasForeignKey("CinemaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auditory");
+
+                    b.Navigation("Cinema");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Seat", b =>
+                {
+                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Auditory", "Auditory")
+                        .WithMany("Seats")
+                        .HasForeignKey("AuditoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auditory");
+                });
+
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ShoppingCartItem", b =>
                 {
                     b.HasOne("SistemaDeBilheteira.Services.Database.Entities.AppUser", "AppUser")
@@ -576,6 +736,25 @@ namespace SistemaDeBilheteira.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.CinemaTicket", b =>
+                {
+                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Function", "Function")
+                        .WithMany("Tickets")
+                        .HasForeignKey("FunctionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Seat", "Seat")
+                        .WithMany()
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Function");
+
+                    b.Navigation("Seat");
                 });
 
             modelBuilder.Entity("Product", b =>
@@ -598,6 +777,23 @@ namespace SistemaDeBilheteira.Migrations
             modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.Payment.PaymentMethod", b =>
                 {
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Auditory", b =>
+                {
+                    b.Navigation("Functions");
+
+                    b.Navigation("Seats");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Cinema", b =>
+                {
+                    b.Navigation("Functions");
+                });
+
+            modelBuilder.Entity("SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Function", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }

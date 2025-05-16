@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.Payment;
-using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
 
