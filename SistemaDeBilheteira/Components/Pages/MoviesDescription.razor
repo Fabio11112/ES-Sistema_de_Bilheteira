@@ -4,6 +4,8 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 
+@inject IJSRuntime JS
+
 <PageTitle>Movie Description</PageTitle>
 
 <main class="main-content">
@@ -117,6 +119,14 @@
     private Response<Video>? Trailers;  
     private bool showTrailerModal = false;
 
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("eval", "window.scrollToTop = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };");
+        }
+    }
     protected override async Task OnInitializedAsync()
     {
         

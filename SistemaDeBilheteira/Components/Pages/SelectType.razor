@@ -18,6 +18,8 @@
 @inject NavigationManager NavigationManager
 @inject RentalBuilder RentalBuilder
 @inject ShoppingCartItemBuilder ShoppingCartItemBuilder
+@inject NotificationService NotificationService
+
 
 <div class="container">
     @if (movie != null)
@@ -173,19 +175,21 @@
     private void AddShoppingCartItem()
     {
         var item = ShoppingCartItemService.GetWithQuery(
-            q => q.Where(
-                i => i.AppUserId == User.Id && i.ProductId == Rental.Id)
-            ).FirstOrDefault();
-        
-        if (item != null)
-        {
-            UpdateItem(item);
-        }
-        else
-        {
-            AddItem();
-        }
-        StateHasChanged();
+        q => q.Where(
+            i => i.AppUserId == User.Id && i.ProductId == Rental.Id)
+        ).FirstOrDefault();
+
+    if (item != null)
+    {
+        UpdateItem(item);
+        NotificationService.Notify("Quantity Actualized.");
+    }
+    else
+    {
+        AddItem();
+        NotificationService.Notify("Product Added to Cart.");
+    }
+    StateHasChanged();
 
     }
 
@@ -206,4 +210,6 @@
 
         ShoppingCartItemService.Add(shoppingCartItem!);
     }
+
+    
 }
