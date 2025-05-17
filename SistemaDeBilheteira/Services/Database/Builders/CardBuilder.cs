@@ -1,4 +1,3 @@
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
 using System;
 
 namespace SistemaDeBilheteira.Services.Database.Builders

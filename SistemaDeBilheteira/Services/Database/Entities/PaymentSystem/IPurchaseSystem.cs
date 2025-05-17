@@ -1,4 +1,4 @@
-﻿namespace SistemaDeBilheteira.Services.Database.Entities.Payment;
+﻿namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 public interface IPurchaseSystem
 {

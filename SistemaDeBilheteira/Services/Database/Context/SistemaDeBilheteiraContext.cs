@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
