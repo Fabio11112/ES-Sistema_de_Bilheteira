@@ -9,4 +9,4 @@ public class PurchaseItem : DbItem
     public int Quantity { get; set; }
     
     //public double priceAtTime
-}
+}   
