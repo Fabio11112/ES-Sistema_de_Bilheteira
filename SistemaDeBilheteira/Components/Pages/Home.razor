@@ -73,7 +73,7 @@
     </section>
 
     <section class="category-filter">
-        <a class="Category-title" href="/Categories">Category</a>
+        <a class="Category-title">Category</a>
         <div class="category-buttons">
             @if (Genres != null && Genres.Genres.Any())
             {
@@ -82,7 +82,9 @@
                     var encodedGenre = Uri.EscapeDataString(genre.Name);
                     <a class="category-button" href="@($"/Genre/{encodedGenre}")">@genre.Name</a>
                 }
+                <a class="category-button" href="/Categories">More</a>
             }
+            
             else
             {
                 <p class="loading">Loading genres...</p>

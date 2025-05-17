@@ -6,4 +6,4 @@ public class Purchase : DbItem
     public string AppUserId { get; set; }
     public double Amount { get; set; }
     
-}
+}   

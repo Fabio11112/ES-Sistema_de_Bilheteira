@@ -75,6 +75,8 @@ builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
 builder.Services.AddRazorPages();  //  Identity needs this
 builder.Services.AddAuthorization(); // for [Authorize]
+builder.Services.AddSingleton<NotificationService>();
+
 
 builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 

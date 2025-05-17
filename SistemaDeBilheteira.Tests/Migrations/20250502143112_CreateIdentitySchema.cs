@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SistemaDeBilheteira.Migrations
+namespace SistemaDeBilheteira.Tests.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:SistemaDeBilheteira.Tests/Migrations/20250514091143_Payment656.cs
+    public partial class Payment656 : Migration
+========
     public partial class CreateIdentitySchema : Migration
+>>>>>>>> main:SistemaDeBilheteira.Tests/Migrations/20250502143112_CreateIdentitySchema.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -173,6 +177,115 @@ namespace SistemaDeBilheteira.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+<<<<<<<< HEAD:SistemaDeBilheteira.Tests/Migrations/20250514091143_Payment656.cs
+            migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AppUserId = table.Column<string>(type: "TEXT", nullable: false),
+                    IsDefault = table.Column<bool>(type: "INTEGER", nullable: false),
+                    balance = table.Column<int>(type: "INTEGER", nullable: false),
+                    CardHolderName = table.Column<string>(type: "TEXT", nullable: false),
+                    CardNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Cvv = table.Column<string>(type: "TEXT", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cards_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Paypals",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    AppUserId = table.Column<string>(type: "TEXT", nullable: false),
+                    IsDefault = table.Column<bool>(type: "INTEGER", nullable: false),
+                    balance = table.Column<int>(type: "INTEGER", nullable: false),
+                    PaypalEmail = table.Column<string>(type: "TEXT", nullable: false),
+                    PaypalTransactionId = table.Column<string>(type: "TEXT", nullable: false),
+                    TransactionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Paypals", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Paypals_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PaymentMethodId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Amount = table.Column<decimal>(type: "TEXT", nullable: false),
+                    CurrencyId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payments_Currencies_CurrencyId",
+                        column: x => x.CurrencyId,
+                        principalTable: "Currencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCartItem",
+                columns: table => new
+                {
+                    AppUserId = table.Column<string>(type: "TEXT", nullable: false),
+                    ProductId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Quantity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartItem", x => new { x.AppUserId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItem_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItem_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_AppUserId",
+                table: "Addresses",
+                column: "AppUserId");
+
+========
+>>>>>>>> main:SistemaDeBilheteira.Tests/Migrations/20250502143112_CreateIdentitySchema.cs
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -209,6 +322,34 @@ namespace SistemaDeBilheteira.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+<<<<<<<< HEAD:SistemaDeBilheteira.Tests/Migrations/20250514091143_Payment656.cs
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cards_AppUserId",
+                table: "Cards",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_CurrencyId",
+                table: "Payments",
+                column: "CurrencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_PaymentMethodId",
+                table: "Payments",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Paypals_AppUserId",
+                table: "Paypals",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItem_ProductId",
+                table: "ShoppingCartItem",
+                column: "ProductId");
+========
+>>>>>>>> main:SistemaDeBilheteira.Tests/Migrations/20250502143112_CreateIdentitySchema.cs
         }
 
         /// <inheritdoc />
@@ -230,13 +371,39 @@ namespace SistemaDeBilheteira.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+<<<<<<<< HEAD:SistemaDeBilheteira.Tests/Migrations/20250514091143_Payment656.cs
+                name: "Cards");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
+                name: "Paypals");
+
+            migrationBuilder.DropTable(
+                name: "Rentals");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCartItem");
+========
                 name: "Carts");
+>>>>>>>> main:SistemaDeBilheteira.Tests/Migrations/20250502143112_CreateIdentitySchema.cs
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+<<<<<<<< HEAD:SistemaDeBilheteira.Tests/Migrations/20250514091143_Payment656.cs
+                name: "Currencies");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+========
+                name: "AspNetUsers");
+>>>>>>>> main:SistemaDeBilheteira.Tests/Migrations/20250502143112_CreateIdentitySchema.cs
         }
     }
 }

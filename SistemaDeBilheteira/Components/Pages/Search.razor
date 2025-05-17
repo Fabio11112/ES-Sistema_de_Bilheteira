@@ -3,20 +3,20 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 @inject NavigationManager Navigation
-
+@implements IDisposable
+@rendermode InteractiveServer
 <PageTitle>Search Movies</PageTitle>
 
 <main class="main-content">
     <section class="search-page">
         <input 
             type="text" 
-            placeholder="Buscar películas..." 
+            placeholder="Search Movies..." 
             class="search-input-box" 
-            @bind="searchTerm"
-            @bind:event="oninput"
-            @onkeydown="HandleKeyDown" />
+            value="@searchTerm"
+            @oninput="HandleInput" />
 
-        <button class="search-btn" @onclick="PerformSearch">Buscar</button>
+        <button class="search-btn" @onclick="PerformSearch">Search</button>
 
         @if (movies != null)
         {
@@ -32,7 +32,7 @@
                 }
                 else
                 {
-                    <p>No se encontraron resultados.</p>
+                    <p class="color:White">Results not Found</p>
                 }
             </div>
         }
@@ -42,33 +42,65 @@
 @code {
     private string searchTerm = "";
     private List<Movie>? movies;
+    private System.Threading.Timer? searchTimer;
+    private readonly int searchDelay = 100; 
 
-    private async Task HandleKeyDown(KeyboardEventArgs e)
+    private async Task HandleInput(ChangeEventArgs e)
     {
-        if (e.Key == "Enter")
+        searchTerm = e.Value?.ToString() ?? "";
+        await OnSearchTermChanged();
+    }
+
+    private async Task OnSearchTermChanged()
+    {
+        await Task.Delay(1); // Forcing async context to be captured
+        searchTimer?.Dispose();
+        
+        if (string.IsNullOrWhiteSpace(searchTerm)) 
         {
-            await PerformSearch();
+            movies = new List<Movie>();
+            StateHasChanged();
+            return;
         }
+        
+        // Set up a timer to delay the search
+        // This will prevent the search from being triggered too frequently
+        searchTimer = new System.Threading.Timer(async _ => 
+        {
+            await InvokeAsync(PerformSearch);
+        }, null, searchDelay, Timeout.Infinite);
     }
 
     private async Task PerformSearch()
     {
-        if (string.IsNullOrWhiteSpace(searchTerm)) return;
-
         var deserializer = new Deserializer<Response<Movie>>();
         var apiUrl = Environment.GetEnvironmentVariable("MOVIES_SEARCH_LINK");
 
-        if (string.IsNullOrEmpty(apiUrl)) return;
+        if (string.IsNullOrEmpty(apiUrl))
+        {
+            Console.WriteLine("API URL is empty");
+            return;
+        }
 
         try
         {
-            var response = await deserializer.Fetch($"{apiUrl}?query={Uri.EscapeDataString(searchTerm)}");
+            var url = $"{apiUrl}?query={Uri.EscapeDataString(searchTerm)}";
+            
+            var response = await deserializer.Fetch(url);
+            
             movies = response?.Results ?? new List<Movie>();
+            StateHasChanged();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error en búsqueda: {ex.Message}");
             movies = new List<Movie>();
+            StateHasChanged();
         }
+    }
+
+    public void Dispose()
+    {
+        searchTimer?.Dispose();
     }
 }

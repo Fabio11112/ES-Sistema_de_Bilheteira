@@ -1,51 +1,48 @@
-﻿using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+﻿using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental.RentalStates;
+using System;
 
 namespace SistemaDeBilheteira.Services.Database.Builders;
 
 public class RentalBuilder
 {
-    public double Price { get; set; } 
-    public string? MovieId { get; set; } 
-    public DateTime startDate { get; set; } 
-    public DateTime endDate { get; set; }
-
-
-    public RentalBuilder WithPrice(double price)
-    {
-        Price = price;
-        return this;
-    }
+    private readonly Rental _rental = new();
 
     public RentalBuilder WithMovie(string movieId)
     {
-        MovieId = movieId;
+        _rental.MovieId = movieId;
+        return this;
+    }
+
+    public RentalBuilder WithPrice(double price)
+    {
+        _rental.Price = price;
         return this;
     }
 
     public RentalBuilder WithStartDate(DateTime startDate)
     {
-        this.startDate = startDate;
+        _rental.StartDate = startDate;
         return this;
     }
 
     public RentalBuilder WithEndDate(DateTime endDate)
     {
-        this.endDate = endDate;
+        _rental.EndDate = endDate;
         return this;
     }
 
-    public Rental? Build()
+    public RentalBuilder WithState(RentalState state)
     {
-        if (Price == 0 || MovieId == null || MovieId.Length == 0 || startDate == null || endDate == null)
-        {
-            return null;
-        }
+        _rental.State = state;
+        _rental.StateName = state.Name;
+        return this;
+    }
 
-        var rental = new Rental();
-        rental.Price = Price;
-        rental.MovieId = MovieId;
-        rental.startDate = startDate;
-        rental.endDate = endDate;
-        return rental;
+    public Rental Build()
+    {
+        _rental.CreatedAt = DateTime.Now;
+        return _rental;
     }
 }
+    

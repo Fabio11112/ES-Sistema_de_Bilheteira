@@ -42,26 +42,26 @@
     <div class="payment-details text ">
         <div class="flex space-between card-detail">
             <div class="description">Subtotal</div>
-            <div class="value">€132.52</div>
+            <div class="value">@Subtotal.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-PT"))</div>
         </div>
 
         <div class="flex space-between card-detail">
             <div class="description">Shipping</div>
-            <div class="value">€10</div>
+            <div class="value">@Shipping.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-PT"))</div>
         </div>
 
         <div class="flex space-between card-detail">
             <div class="description">Total (Tax incl.)</div>
-            <div class="value">€146.24</div>
+            <div class="value">@Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-PT"))</div>
         </div>
     </div>
 
-    <button class="checkout">
+    <button class="checkout" @onclick="OnPay">
         <div class="flex space-between">
-            <div>€146.24</div>
+            <div>@Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-PT"))</div>
             <div>
                 Checkout
-                <img src="images/icons/payment/paymentMethod/arrow.png" alt="">
+                <img src="images/icons/payment/paymentMethod/arrow.png" alt="" />
             </div>
         </div>
     </button>
@@ -69,5 +69,12 @@
 </div>
 
 @code {
-    
+    [Parameter]
+    public decimal Total { get; set; }
+
+    [Parameter]
+    public EventCallback OnPay { get; set; }
+
+    private decimal Shipping => 10;
+    private decimal Subtotal => Total - Shipping;
 }

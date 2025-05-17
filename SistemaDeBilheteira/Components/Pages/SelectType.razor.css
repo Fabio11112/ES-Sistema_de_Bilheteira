@@ -112,10 +112,18 @@
 
 /* Action buttons section */
 .actions-container {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
     margin-top: 30px;
+}
+
+.actions-container1 {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    margin-top: 30px;
+    margin-bottom: 100px;
 }
 
 .imdb-rating {
@@ -180,11 +188,11 @@
 }
 
 /* Rent & Buy Container */
-.rent-buy-container {
+/* .rent-buy-container {
     display: flex;
     gap: 0.5rem;
     margin-top: 1rem;
-}
+} */
 
 /* Botones principales */
 .rent-button, .buy-button {
@@ -273,8 +281,16 @@
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
+    text-decoration: none;
 }
 .secondary-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
 }
+
+.rent-buy-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* espacio entre los botones */
+    align-items: flex-start; /* alineación a la izquierda */
+} 
