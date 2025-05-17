@@ -17,6 +17,7 @@ using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager
 using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
+using SistemaDeBilheteira.Services.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
