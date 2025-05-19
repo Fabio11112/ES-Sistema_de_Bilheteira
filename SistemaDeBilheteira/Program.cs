@@ -16,12 +16,12 @@ using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
-<<<<<<< HEAD
+
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 
-=======
+
 using SistemaDeBilheteira.Services.UI;
->>>>>>> main
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,13 +99,16 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+
     var context = services.GetRequiredService<SistemaDeBilheteiraContext>();
 
     SeedCinemas(context);
     SeedAuditories(context);
-    var context = services.GetRequiredService<IServiceManager>();
+
+    var service = services.GetRequiredService<IServiceManager>();
     
-    SeedFormats(context);
+    SeedFormats(service);
+
 }
 
 // Pipeline HTTP
@@ -134,6 +137,7 @@ app.MapRazorComponents<App>()
 
 app.Run();
 return;
+
 
 void SeedCinemas(SistemaDeBilheteiraContext context)
 {
