@@ -10,5 +10,9 @@ public class CinemaTicket : Product
 
     public Guid FunctionId { get; set; }
     public Function Function { get; set; } = null!;
+    public override string GetProductType()
+    {
+        return "Cinema Ticket";
+    }
 }
 

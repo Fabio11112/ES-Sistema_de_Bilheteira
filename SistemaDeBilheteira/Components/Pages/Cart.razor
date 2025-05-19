@@ -4,6 +4,7 @@
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards.Cart
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
@@ -70,7 +71,9 @@
             q => q
                 .Where(i => i.AppUserId == User!.Id)
                 .Include(i => i.Product)
-        );
+                .ThenInclude(p => (p as PhysicalMedia)!.Format)
+            );
+
     }
 
     private void Pay()
