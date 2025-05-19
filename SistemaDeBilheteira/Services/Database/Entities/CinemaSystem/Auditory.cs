@@ -5,6 +5,9 @@ public class Auditory : DbItem
     public int Number { get; set; }
     public string Name { get; set; } = string.Empty;
 
+    public Cinema Cinema { get; set; } = null!;
+    public Guid CinemaId { get; set; }
+
     public ICollection<Seat> Seats { get; set; } = new List<Seat>();
     public ICollection<Function> Functions { get; set; } = new List<Function>();
 }

@@ -13,7 +13,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
 {
     //Each set is a table from the Database
     public DbSet<Address> Addresses { get; set; }
-    
+
     public SistemaDeBilheteiraContext(DbContextOptions<SistemaDeBilheteiraContext> options)
         : base(options)
     {
@@ -34,16 +34,17 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     public DbSet<Paypal> Paypals { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Currency> Currencies { get; set; }
-    
+
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
     public DbSet<PhysicalMediaFormat> PhysicalMediaFormats { get; set; }
 
-    public DbSet<Cinema> Cinemas { get; set; }
     public DbSet<Function> Functions { get; set; }
+
+    public DbSet<Cinema> Cinemas { get; set; }
     public DbSet<Auditory> Auditories { get; set; }
     public DbSet<Seat> Seats { get; set; }
-    //public DbSet<CinemaTicket> CinemaTickets { get; set; }
+    public DbSet<CinemaTicket> CinemaTickets { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,7 +55,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         modelBuilder.Entity<Product>().UseTpcMappingStrategy();
         modelBuilder.Entity<Rental>().ToTable("Rentals");
         modelBuilder.Entity<PhysicalMedia>().ToTable("PhysicalMedias");
-        
+
         modelBuilder.Entity<Product>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
@@ -90,7 +91,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         //         .OnDelete(DeleteBehavior.Cascade);
 
         //     entity.HasOne(ct => ct.Seat)
-        //         .WithMany() 
+        //         .WithMany()
         //         .HasForeignKey(ct => ct.SeatId)
         //         .OnDelete(DeleteBehavior.Restrict);
         // });
@@ -120,10 +121,10 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithOne(p => p.Currency)
             .HasForeignKey(p => p.CurrencyId);
 
-        modelBuilder.Entity<Function>()
-                .HasOne(f => f.Cinema)
-                .WithMany(c => c.Functions)
-                .HasForeignKey(f => f.CinemaId);
+        // modelBuilder.Entity<Function>()
+        //         .HasOne(f => f.Cinema)
+        //         .WithMany(c => c.Functions)
+        //         .HasForeignKey(f => f.CinemaId);
 
         modelBuilder.Entity<Function>()
             .HasOne(f => f.Auditory)

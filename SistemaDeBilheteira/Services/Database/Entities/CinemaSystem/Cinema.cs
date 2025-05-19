@@ -4,5 +4,5 @@ public class Cinema : DbItem
 {
     public string Name { get; set; } = string.Empty;
 
-    public ICollection<Function> Functions { get; set; } = new List<Function>();
+    public ICollection<Auditory> Auditories { get; set; } = new List<Auditory>();
 }
