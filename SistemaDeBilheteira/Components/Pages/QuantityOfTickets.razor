@@ -5,6 +5,8 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@using SistemaDeBilheteira.Services.UI
+@inject SharedTicket SharedTicket 
 
 @if (Movie != null)
 {
@@ -76,6 +78,7 @@ else
 
     private void ProceedToNextStep()
     {
+        SharedTicket.Quantity = numberOfPeople;
         NavigationManager.NavigateTo($"/SeatSelect/{id}?quantity={numberOfPeople}");
     }
 }

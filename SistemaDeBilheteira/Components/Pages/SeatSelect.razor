@@ -1,7 +1,14 @@
 @page "/SeatSelect/{id:int}"
-@inject NavigationManager NavigationManager
 @using Microsoft.AspNetCore.WebUtilities
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @rendermode InteractiveServer
+@using SistemaDeBilheteira.Services.UI
+@inject SharedTicket SharedTicket 
+@inject IServiceManager ServiceManager
+@inject NavigationManager NavigationManager
+
+
 
 <div class="seat-selection-container">
     <h3 class="Title">Seat Selection</h3>
@@ -151,7 +158,16 @@
         {
             // Create comma-separated list of selected seats
             var seats = string.Join(",", SelectedSeats.Select(s => s.Label));
-            
+
+            foreach (var seat in SelectedSeats)
+            {
+                SharedTicket.CinemaTicket!.WithSeatId(id);//el id esta malo esta la minicalse de seat OJOOOO
+                var ticket = SharedTicket.CinemaTicket.Build();
+                Console.WriteLine(ticket);
+
+            }
+
+
             // Navigate to next page with selected parameters
             NavigationManager.NavigateTo(
                 $"/AddedToCart/{id}" +
@@ -160,6 +176,7 @@
                 $"&time={Uri.EscapeDataString(Time!)}" +
                 $"&seats={Uri.EscapeDataString(seats)}" +
                 $"&quantity={TicketQuantity}");
+            
         }
     }
 
@@ -169,4 +186,5 @@
         public bool IsReserved { get; set; }
         public bool IsSelected { get; set; }
     }
+
 }

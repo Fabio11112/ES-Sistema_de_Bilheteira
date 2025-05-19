@@ -4,11 +4,12 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @using SistemaDeBilheteira.Services.IService.ServiceManager
+@using SistemaDeBilheteira.Services.Database.Builders
 @using SistemaDeBilheteira.Services.UI
+@inject SharedTicket SharedTicket 
 @inject NavigationManager NavigationManager
 @inject IServiceManager ServiceManager
 @rendermode InteractiveServer
-@inject SharedTicket SharedTicket 
 
 <div class="session-selection-container">
     @if (movie != null)
@@ -183,9 +184,13 @@
         };
 
         var result = functionService.Add(newFunction);
-
+        
         if (!result.Success)
             throw new Exception(result.Message);
+
+        SharedTicket.CinemaTicket!.WithFunctionId(newFunction.Id);
+
+        SharedTicket.Quantity = 1;
 
         NavigationManager.NavigateTo($"/QuantityOfTickets/{movie.Id}?cinema={Uri.EscapeDataString(selectedSession.Cinema)}&date={Uri.EscapeDataString(selectedSession.DateKey)}&time={Uri.EscapeDataString(selectedSession.Time)}");
 

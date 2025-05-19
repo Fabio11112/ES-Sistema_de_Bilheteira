@@ -7,4 +7,6 @@ public class Seat : DbItem
 
     public Guid AuditoryId { get; set; }
     public Auditory Auditory { get; set; } = null!;
+
+    
 }
