@@ -3,53 +3,83 @@
 @using Microsoft.AspNetCore.WebUtilities
 @rendermode InteractiveServer
 
-<h3 class="Title">Seat Selection</h3>
+<div class="seat-selection-container">
+    <h3 class="Title">Seat Selection</h3>
 
-@if (string.IsNullOrEmpty(Cinema) || string.IsNullOrEmpty(DateKey) || string.IsNullOrEmpty(Time))
-{
-    <p>Return and select a valid Session</p>
-}
-else
-{
-    <p class="Text"><strong>Cine:</strong> @Cinema</p>
-    <p class="Text"><strong>Fecha:</strong> @DateKey</p>
-    <p class="Text"><strong>Hora:</strong> @Time</p>
+    @if (TicketQuantity <= 0 )
+    {
+        <p class="Text">Please return and select a valid session and ticket quantity</p>
+    }
+    else
+    {
+        <div class="ticket-info">
+            <p class="Text"><strong>Cinema:</strong> @Cinema</p>
+            <p class="Text"><strong>Date:</strong> @DateKey</p>
+            <p class="Text"><strong>Time:</strong> @Time</p>
+            <p class="Text"><strong>Tickets:</strong> @TicketQuantity</p>
+        </div>
 
-    <div class="seat-map">
-        @foreach (var row in SeatRows)
+        <div class="screen-container">
+            <div class="screen">SCREEN</div>
+        </div>
+
+        @if (SelectedSeats.Count > 0)
         {
-            <div class="seat-row">
-                @foreach (var seat in row)
+            <div class="selected-seats">
+                @foreach (var seat in SelectedSeats)
                 {
-                    <button class="seat-button @(seat.IsSelected ? "selected" : "")"
-                            disabled="@seat.IsReserved"
-                            @onclick="() => ToggleSeatSelection(seat)">
+                    <div class="selected-seat-tag">
                         @seat.Label
-                    </button>
+                        <button class="remove-seat" @onclick="() => RemoveSeat(seat)">×</button>
+                    </div>
                 }
             </div>
         }
-    </div>
 
-    <button class="primary-button" @onclick="ConfirmSelection">Confirmar Selección</button>
-}
+        <div class="seat-map">
+            @foreach (var row in SeatRows)
+            {
+                <div class="seat-row">
+                    @foreach (var seat in row)
+                    {
+                        <button class="seat-button @(seat.IsReserved ? "reserved" : seat.IsSelected ? "selected" : "available")"
+                                disabled="@(seat.IsReserved || (SelectedSeats.Count >= TicketQuantity && !seat.IsSelected))"
+                                @onclick="() => ToggleSeatSelection(seat)">
+                            @seat.Label
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+
+        <button class="primary-button" @onclick="ConfirmSelection" disabled="@(SelectedSeats.Count != TicketQuantity)">
+            Confirm Selection (@SelectedSeats.Count/@TicketQuantity)
+        </button>
+    }
+</div>
 
 @code {
     [Parameter] public int id { get; set; }
     public string? Cinema { get; set; }
     public string? DateKey { get; set; }
     public string? Time { get; set; }
+    public int TicketQuantity { get; set; }
 
+    private List<Seat> SelectedSeats = new();
     private List<List<Seat>> SeatRows = new();
 
     protected override void OnInitialized()
     {
+        
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
         var query = QueryHelpers.ParseQuery(uri.Query);
 
-        Cinema = query.TryGetValue("cinema", out var cinema) ? cinema.ToString() : null;
-        DateKey = query.TryGetValue("date", out var date) ? date.ToString() : null;
-        Time = query.TryGetValue("time", out var time) ? time.ToString() : null;
+  
+        
+        if (query.TryGetValue("quantity", out var quantity) && int.TryParse(quantity, out int qty))
+        {
+            TicketQuantity = qty;
+        }
 
         LoadSeats();
     }
@@ -58,6 +88,7 @@ else
     {
         string[] rowLabels = { "A", "B", "C", "D", "E", "F" };
         int seatCount = 9;
+        var random = new Random();
 
         SeatRows.Clear();
 
@@ -66,10 +97,12 @@ else
             var row = new List<Seat>();
             for (int i = 1; i <= seatCount; i++)
             {
+                // Randomly reserve some seats for demonstration
+                bool isReserved = random.Next(0, 5) == 0;
                 row.Add(new Seat
                 {
                     Label = $"{rowLabel}{i}",
-                    IsReserved = false,
+                    IsReserved = isReserved,
                     IsSelected = false
                 });
             }
@@ -81,30 +114,52 @@ else
     {
         if (seat.IsReserved) return;
 
+        if (seat.IsSelected)
+        {
+            // Deselect the seat
+            seat.IsSelected = false;
+            SelectedSeats.Remove(seat);
+        }
+        else if (SelectedSeats.Count < TicketQuantity)
+        {
+            // Select the seat
+            seat.IsSelected = true;
+            SelectedSeats.Add(seat);
+        }
+    }
+
+    private void RemoveSeat(Seat seat)
+    {
+        seat.IsSelected = false;
+        SelectedSeats.Remove(seat);
+        
+        // Find the seat in the SeatRows and update its status
         foreach (var row in SeatRows)
         {
-            foreach (var s in row)
+            var seatToUpdate = row.FirstOrDefault(s => s.Label == seat.Label);
+            if (seatToUpdate != null)
             {
-                s.IsSelected = false;
+                seatToUpdate.IsSelected = false;
+                break;
             }
         }
-
-        seat.IsSelected = true;
     }
 
     private void ConfirmSelection()
     {
-        var selectedSeat = SeatRows.SelectMany(r => r).FirstOrDefault(s => s.IsSelected);
-        if (selectedSeat != null)
+        if (SelectedSeats.Count == TicketQuantity)
         {
-            // Aquí puedes agregar la lógica para guardar la selección en la base de datos
-            Console.WriteLine($"Asiento seleccionado: {selectedSeat.Label}");
-            Console.WriteLine($"Cine: {Cinema}, Fecha: {DateKey}, Hora: {Time}, Película ID: {id}");
-            // Redirigir o mostrar mensaje de éxito
-        }
-        else
-        {
-            Console.WriteLine("Por favor, seleccione un asiento.");
+            // Create comma-separated list of selected seats
+            var seats = string.Join(",", SelectedSeats.Select(s => s.Label));
+            
+            // Navigate to next page with selected parameters
+            NavigationManager.NavigateTo(
+                $"/AddedToCart/{id}" +
+                $"?cinema={Uri.EscapeDataString(Cinema!)}" +
+                $"&date={Uri.EscapeDataString(DateKey!)}" +
+                $"&time={Uri.EscapeDataString(Time!)}" +
+                $"&seats={Uri.EscapeDataString(seats)}" +
+                $"&quantity={TicketQuantity}");
         }
     }
 
