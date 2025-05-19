@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
 
@@ -37,6 +38,9 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     public DbSet<Paypal> Paypals { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Currency> Currencies { get; set; }
+    
+    public DbSet<Purchase> Purchases { get; set; }
+    public DbSet<PurchaseItem> PurchaseItems { get; set; }
 
 
 
@@ -53,9 +57,11 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .ValueGeneratedNever();
         
         
-
         modelBuilder.Entity<ShoppingCartItem>()
             .HasKey(sci => new { sci.AppUserId, sci.ProductId });
+        
+        modelBuilder.Entity<PurchaseItem>()
+            .HasKey(sci => new { sci.PurchaseId, sci.ProductId });
 
         modelBuilder.Entity<ShoppingCartItem>()
             .HasOne(sci => sci.AppUser)
@@ -67,14 +73,24 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithMany(p => p.ShoppingCartItems)
             .HasForeignKey(sci => sci.ProductId);
         
+
         modelBuilder.Entity<PaymentMethod>().UseTpcMappingStrategy();
+        modelBuilder.Entity<PaymentMethod>()
+            .Property(p => p.Id)
+            .ValueGeneratedNever();
+        
+        var paymentMethodTypes = new[] { typeof(Card), typeof(Paypal) };
+
+        foreach (var type in paymentMethodTypes)
+        {
+            modelBuilder.Entity(type)
+                .Property(nameof(DbItem.Id))
+                .ValueGeneratedNever();
+        }
+        
         modelBuilder.Entity<Card>().ToTable("Cards");
 
-        // Herança TPH para PaymentMethod
-        // modelBuilder.Entity<PaymentMethod>()
-        //     .HasDiscriminator<string>("PaymentMethodType")
-        //     .HasValue<Card>("Card")  
-        //     .HasValue<Paypal>("Paypal");
+
 
         // Relação 1:N PaymentMethod -> Payments
         modelBuilder.Entity<PaymentMethod>()

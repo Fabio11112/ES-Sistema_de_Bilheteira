@@ -1,5 +1,6 @@
 ﻿using SistemaDeBilheteira.Services.Database;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
+using SistemaDeBilheteira.Services.IService;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;

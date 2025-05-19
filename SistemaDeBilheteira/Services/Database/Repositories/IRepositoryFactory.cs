@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace SistemaDeBilheteira.Services.Database.Repositories;
+﻿namespace SistemaDeBilheteira.Services.Database.Repositories;
 
 public interface IRepositoryFactory
 {

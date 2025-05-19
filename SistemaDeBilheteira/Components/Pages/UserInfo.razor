@@ -5,10 +5,9 @@
 
 @using SistemaDeBilheteira.Components.Cards
 @using Microsoft.AspNetCore.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
-@using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 
 @inject IServiceManager ServiceManager
@@ -34,9 +33,9 @@
 @code {
     [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
     private string Message { get; set; } = string.Empty;
-    private bool ShowPopup { get; set; } = false;
+    private bool ShowPopup { get; set; }
     private ICollection<Card>? Cards { get; set; } = new List<Card>();
-    private IService<Card> CardService { get; set; }
+    private IService<Card>? CardService { get; set; }
 
     protected override void OnInitialized()
     {
@@ -46,7 +45,7 @@
 
     private void SubmitCard()
     {
-        CardBuilder.WithAppUserId(User.Id!)
+        CardBuilder.WithAppUserId(User!.Id)
                    .WithAppUser(null!)
                    .WithIsDefault(false)
                    .WithPayments(null!)
@@ -54,15 +53,19 @@
 
         var card = CardBuilder
             .WithNameOnCard(Model.NameOnCard)
-            .WithCardNumber(Model.CardNumber!)
-            .WithCvv(Model.CVV!)
-            .WithExpirationDate(Model.ExpDate.Value)
+            .WithCardNumber(Model.CardNumber)
+            .WithCvv(Model.CVV)
+            .WithExpirationDate(Model.ExpDate!.Value)
             .Build();
-        var result = CardService.Add(card);
+        var result = CardService!.Add(card);
+
+        if (!result.Success) return;
+        
         Message = "Card added successfully";
         ShowPopup = true;
         Cards = CardService.GetAll();
         StateHasChanged();
+
     }
 
     private void ClosePopup()
@@ -71,9 +74,9 @@
       StateHasChanged();
     }
 
-    private void DeleteCard(Guid id)
+    private void DeleteCard(Card card)
     {
-        var result = CardService.Delete(id);
+        var result = CardService.Delete(card);
         Message = "Card deleted successfully";
         ShowPopup = true;
 

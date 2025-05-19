@@ -1,5 +1,8 @@
 ﻿@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
+@rendermode InteractiveServer
 
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
@@ -7,49 +10,64 @@
         <div class="content">
             <div class="movie-information">
                 <div class="movie-name">@Movie?.Title</div>
-                <div class="text information">Type @Type</div>
+                <div class="text information">Type </div>
                 <div class="text information">@Stock</div>
             </div>
             <div class="price-details">
                 <div class="detail">
                     <div class="text information">Each</div>
-                    <div class="number information">@Currency@Price</div>
+                    <div class="number information">@Currency@Item.Product.Price</div>
                 </div>
                 <div class="detail">
                     <div class="text information">Quantity</div>
-                    <div class="number information quantity">@Quantity</div>
+                    <div class="number information quantity">@Item.Quantity</div>
                 </div>
                 <div class="detail">
                     <div class="text information">Total</div>
-                    <div class="number information">@Currency@Price</div>
+                    <div class="number information">@Currency@Total</div>
                 </div>
             </div>
         </div>
         
         <div class="buttons">
             <div class="button">Edit</div>
-            <div class="button">Remove</div>
+            <div @onclick="HandleDelete" class="button">Remove</div>
             <div class="button">Move to Wishlist</div>
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter] public int MovieId { get; set; }
+    [Parameter] public required ShoppingCartItem Item { get; set; }
+    [Parameter] public required EventCallback<ShoppingCartItem> Delete { get; set; }
     private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
-    
-    private string Type { get; set; } = "Rental";
-    private double Price { get; set; } = 10.25;
+
+    private string Type { get; set; } = string.Empty;
     private string Currency { get; set; } = "€";
     private string Stock { get; set; } = "In Stock";
     private Movie? Movie { get; set; }
     private int Quantity { get; set; } = 2;
+    private double Total { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
         var deserializer = new Deserializer<Movie>();
-        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{MovieId}";
+        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{Item.Product.MovieId}";
         Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
+        Type = Item.Product.GetType().Name;
+        Total = Item.Product.Price * Item.Quantity;
     }
+
+    private async Task HandleDelete()
+    {
+        await Delete.InvokeAsync(Item);
+    }
+    
+    
+    
+    
+    
+    
 }

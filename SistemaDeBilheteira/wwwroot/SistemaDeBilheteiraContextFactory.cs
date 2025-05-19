@@ -12,4 +12,3 @@ public class SistemaDeBilheteiraContextFactory : IDesignTimeDbContextFactory<Sis
         return new SistemaDeBilheteiraContext(optionsBuilder.Options);
     }
 }
-// This class is used to create a new instance of the SistemaDeBilheteiraContext for design-time services, such as migrations.

@@ -1,5 +1,6 @@
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@using SistemaDeBilheteira.Components.Pages.Notification
 
 @if (isLoading)
 {
@@ -17,6 +18,7 @@ else
         <main class="fade-in">
             <article class="content px-4">
                 @Body
+                <Notification />
             </article>
         </main>
 

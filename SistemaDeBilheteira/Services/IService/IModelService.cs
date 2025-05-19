@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using SistemaDeBilheteira.Services.Database;
+using SistemaDeBilheteira.Services.IService;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService.IService;
 

@@ -1,5 +1,6 @@
 using SistemaDeBilheteira.Services.Database;
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 
 public abstract class Product : DbItem

@@ -1,9 +1,13 @@
+
 @page "/Genre/{GenreName}"
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 @inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+@rendermode InteractiveServer
 
 <PageTitle>@GenreName</PageTitle>
 
@@ -11,9 +15,9 @@
     <section class="movie-section">
         <h2 class="section-title">@GenreName</h2>
         <div class="movie-carousel no-scrollbar">
-            @if (FilteredMovies != null && FilteredMovies.Any())
+            @if (PagedMovies != null && PagedMovies.Any())
             {
-                @foreach (var movie in FilteredMovies)
+                @foreach (var movie in PagedMovies)
                 {
                     <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
                         <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
@@ -25,6 +29,14 @@
                 <p class="loading">Loading @GenreName movies...</p>
             }
         </div>
+
+        <!-- PAGINATION CONTROLS -->
+        <div class="pagination-controls">
+            <p>Page @CurrentPage of @TotalPages</p>
+            <button @onclick="PreviousPage" disabled="@IsFirstPage">Previous</button>
+            <button @onclick="NextPage" disabled="@IsLastPage">Next</button>
+        </div>
+
     </section>
 </main>
 
@@ -34,11 +46,20 @@
 
     List<Movie> AllMovies = new();
     List<Movie> FilteredMovies = new();
+    List<Movie> PagedMovies = new();
     Response<Genre> Genres;
-    public const int TOTAL_PAGES = 10;
 
+    public const int TOTAL_PAGES = 10;
+    public const int MoviesPerPage = 25;
+    int CurrentPage = 1;
+    int TotalPages => (int)Math.Ceiling((double)FilteredMovies.Count / MoviesPerPage);
+    bool IsLastPage => CurrentPage >= TotalPages;
+    bool IsFirstPage => CurrentPage <= 1;
+
+    
     protected override async Task OnInitializedAsync()
     {
+        await base.OnInitializedAsync();
         var movieDeserializer = new Deserializer<Response<Movie>>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
 
@@ -55,6 +76,34 @@
         if (genreObj != null)
         {
             FilteredMovies = AllMovies.Where(m => m.GenreIds.Contains(genreObj.Id)).ToList();
+            UpdatePagedMovies();
         }
+    }
+
+    private async Task NextPage()
+    {
+        if (!IsLastPage)
+        {
+            CurrentPage++;
+            UpdatePagedMovies();
+            await JS.InvokeVoidAsync("scrollToTop");
+        }
+    }
+    private async Task PreviousPage()
+{
+    if (!IsFirstPage)
+    {
+        CurrentPage--;
+        UpdatePagedMovies();
+        await JS.InvokeVoidAsync("scrollToTop");
+    }
+}
+
+    private void UpdatePagedMovies()
+    {
+        PagedMovies = FilteredMovies
+            .Skip((CurrentPage - 1) * MoviesPerPage)
+            .Take(MoviesPerPage)
+            .ToList();
     }
 }

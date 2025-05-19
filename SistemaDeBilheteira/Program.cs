@@ -15,6 +15,7 @@ using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
+using SistemaDeBilheteira.Services.Database.Entities.Payment;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,7 +57,6 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserInputValidator, UserInputValidator>();
-builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // builder.Services.AddScoped<IService<T>, Service<T>>();
@@ -68,11 +68,15 @@ builder.Services.AddSingleton<CardBuilder, CardBuilder>();
 builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
 
+builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
+
 
 //Services configuration
 
 builder.Services.AddRazorPages();  //  Identity needs this
 builder.Services.AddAuthorization(); // for [Authorize]
+builder.Services.AddSingleton<NotificationService>();
+
 
 builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 

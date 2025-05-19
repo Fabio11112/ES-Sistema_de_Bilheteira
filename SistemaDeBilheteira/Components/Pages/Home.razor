@@ -1,16 +1,10 @@
 @page "/"
 @inherits AuthenticatedComponentBase
-@using RestSharp;
-@using Newtonsoft.Json;
 @rendermode InteractiveServer
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
-@using Microsoft.AspNetCore.Components.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService
 
-@inject NavigationManager NavigationManager
-@inject IAuthService AuthService
 
 <PageTitle>Home</PageTitle>
 
@@ -79,7 +73,7 @@
     </section>
 
     <section class="category-filter">
-        <a class="Category-title" href="/Categories">Category</a>
+        <a class="Category-title">Category</a>
         <div class="category-buttons">
             @if (Genres != null && Genres.Genres.Any())
             {
@@ -88,7 +82,9 @@
                     var encodedGenre = Uri.EscapeDataString(genre.Name);
                     <a class="category-button" href="@($"/Genre/{encodedGenre}")">@genre.Name</a>
                 }
+                <a class="category-button" href="/Categories">More</a>
             }
+            
             else
             {
                 <p class="loading">Loading genres...</p>
@@ -116,8 +112,7 @@
                 <p class="loading">Loading Sci-fi movies...</p>
             }
         </div>
-        
-        <h1>@Texto</h1>
+
     </section>
                 
 </main>
@@ -125,21 +120,12 @@
 
 @code {
 
-    string Texto { get; set; } = string.Empty;
+
 
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
 
-    
-    private async Task Logout()
-    {
-        NavigationManager.NavigateTo("/LogIn", true);
-        var result = await AuthService.LogoutAsync();
-        if (result.Success)
-        {
-            NavigationManager.NavigateTo("/LogIn", true);
-        }
-    }
+
 
     
     public const int TOTAL_PAGES = 9;

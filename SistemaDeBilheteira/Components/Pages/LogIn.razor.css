@@ -85,3 +85,10 @@ input::placeholder{
     font-weight: 400;
     line-height: normal;
 }
+
+.createAccount{
+    margin-top: 20px;
+    text-decoration: none;
+    color:white;
+    font-family: Montserrat, serif;
+}
