@@ -10,6 +10,8 @@ obj/
 .vscode/
 
 *.db
+*.db-shm
+*.db-wal
 *.log
 
 

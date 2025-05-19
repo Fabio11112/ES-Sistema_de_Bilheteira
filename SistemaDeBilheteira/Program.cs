@@ -6,17 +6,17 @@ using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
-using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
-using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
+using SistemaDeBilheteira.Services.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +41,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.Cookie.Name = "auth_token";
         options.LoginPath = "/LogIn";
-        // options.Cookie.MaxAge = TimeSpan.FromHours(1);
         options.AccessDeniedPath = "/AccessDenied";
     });
 
@@ -67,6 +66,8 @@ builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
 builder.Services.AddSingleton<CardBuilder, CardBuilder>();
 builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
+builder.Services.AddSingleton<PhysicalMedia, PhysicalMedia>();
+builder.Services.AddSingleton<MediaBuilder, MediaBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
@@ -89,6 +90,14 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<IServiceManager>();
+    
+    SeedFormats(context);
+}
 
 // Pipeline HTTP
 if (!app.Environment.IsDevelopment())
@@ -115,4 +124,24 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+return;
 
+void SeedFormats(IServiceManager manager)
+{
+    var service = manager.GetService<PhysicalMediaFormat>();
+    if (service.GetAll()!.Count != 0)
+        return;
+    
+    var formats = new List<PhysicalMediaFormat>
+    {
+        new PhysicalMediaFormat { FormatName = "DVD", Quality = "1080p", Emoji = "\ud83d\udcbf"},
+        new PhysicalMediaFormat { FormatName = "Blu-Ray", Quality = "2160p", Emoji = "\ud83d\udcc0"},
+    };
+
+    foreach (var format in formats)
+    {
+        service.Add(format);
+    }
+
+    Console.WriteLine("✔ Physical media formats added");
+}

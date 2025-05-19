@@ -1,5 +1,4 @@
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
-
+namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 public class Card : PaymentMethod
 {
     public string CardHolderName { get; set; }

@@ -1,6 +1,6 @@
 ﻿using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using Xunit;

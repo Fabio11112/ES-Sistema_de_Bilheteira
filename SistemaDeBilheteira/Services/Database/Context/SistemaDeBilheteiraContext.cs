@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
@@ -13,11 +14,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     //Each set is a table from the Database
     public DbSet<Address> Addresses { get; set; }
     
-    
-    public SistemaDeBilheteiraContext()
-    {
-    }
-
     public SistemaDeBilheteiraContext(DbContextOptions<SistemaDeBilheteiraContext> options)
         : base(options)
     {
@@ -41,6 +37,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
+    public DbSet<PhysicalMediaFormat> PhysicalMediaFormats { get; set; }
 
 
 
@@ -51,6 +48,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         
         modelBuilder.Entity<Product>().UseTpcMappingStrategy();
         modelBuilder.Entity<Rental>().ToTable("Rentals");
+        modelBuilder.Entity<PhysicalMedia>().ToTable("PhysicalMedias");
         
         modelBuilder.Entity<Product>()
             .Property(p => p.Id)
@@ -78,6 +76,8 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         modelBuilder.Entity<PaymentMethod>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
+        
+   
         
         var paymentMethodTypes = new[] { typeof(Card), typeof(Paypal) };
 
