@@ -1,56 +1,4 @@
-﻿@* @using System.Runtime.InteropServices.JavaScript
-@using SistemaDeBilheteira.Services.API_Deserializer
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-<div class="element">
-    <div class="flex">
-        <img class="image" src="@PosterPath" alt="@Movie?.Title"/>
-        <div>
-            <div class="flex information">
-                <div class="title-type">
-                    <div class="movie-title @IsExpiredCss">@Movie?.Title</div>
-                    <div class="rental">Type Rental</div>
-                </div>
-                
-                <div class="flex">
-                    <div class="total">Total</div>
-                    <div class="price">@Currency @Price</div>
-                </div>
-            </div>
-            <div class="dates flex">
-                <div class="initial date">Initial Date: @InitialDate.ToString("dd/MM/yyyy")</div>
-                <div class="date @IsExpiredCss">Expire Date: @ExpireDate.ToString("dd/MM/yyyy")</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@code {
-    
-    [Parameter] public int MovieId { get; set; }
-    [Parameter] public DateTime ExpireDate { get; set; }
-    
-    private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
-    private Movie? Movie { get; set; }
-
-    private string Currency { get; } = "€";
-    private double Price { get; } = 12.55;
-
-    private DateTime InitialDate { get; } = new DateTime(2024, 5, 24);
-
-    private string? IsExpiredCss { get; set; }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");
-        var deserializer = new Deserializer<Movie>();
-        Movie = await deserializer.Fetch($"{url}/{1197306}")!;
-        PosterPath += Movie?.PosterPath;
-        IsExpiredCss = DateTime.Now < ExpireDate ? "" : "expired";
-    }
-} *@
-
-@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental
+﻿@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
@@ -67,11 +15,11 @@
                 
                 <div class="flex">
                     <div class="total">Total</div>
-                    <div class="price">@Currency @Purchase.Amount.ToString("N2")</div>
+                    <div class="price">@Currency @Purchase!.Amount.ToString("N2")</div>
                 </div>
             </div>
             <div class="dates flex">
-                <div class="initial date">Start Date: @Rental.StartDate.ToString("dd/MM/yyyy")</div>
+                <div class="initial date">Start Date: @Rental!.StartDate.ToString("dd/MM/yyyy")</div>
                 <div class="date @IsExpiredCss">Expire Date: @Rental.EndDate.ToString("dd/MM/yyyy")</div>
                 <div class="status">Status: @Rental.StateName</div>
             </div>
@@ -85,14 +33,14 @@
 </div>
 
 @code {
-    [Parameter] public Rental Rental { get; set; }
-    [Parameter] public Purchase Purchase { get; set; }
+    [Parameter] public Rental? Rental { get; set; }
+    [Parameter] public Purchase? Purchase { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
     
     private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
-    private string MovieTitle { get; set; }
+    private string? MovieTitle { get; set; }
     private string Currency { get; } = "€";
-    private bool IsExpired => DateTime.Now > Rental.EndDate;
+    private bool IsExpired => DateTime.Now > Rental!.EndDate;
     private string IsExpiredCss => IsExpired ? "expired" : "";
 
     protected override async Task OnInitializedAsync()
@@ -102,15 +50,15 @@
 
     private async Task LoadMovieData()
     {
-        if (!string.IsNullOrEmpty(Rental.MovieId))
+        if (!string.IsNullOrEmpty(Rental!.MovieId))
         {
-            string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");
+            var url = Environment.GetEnvironmentVariable("MOVIES_LINK");
             var deserializer = new Deserializer<Movie>();
-            var movie = await deserializer.Fetch($"{url}/{Rental.MovieId}");
+            var movie = await deserializer.Fetch($"{url}/{Rental.MovieId}")!;
             
             if (movie != null)
             {
-                MovieTitle = movie.Title;
+                MovieTitle = movie.Title!;
                 PosterPath += movie.PosterPath;
             }
         }

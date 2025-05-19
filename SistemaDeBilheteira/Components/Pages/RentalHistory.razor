@@ -5,6 +5,7 @@
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
+@using SistemaDeBilheteira.Components.Cards.RentalHistory
 @inject IServiceManager ServiceManager
 @rendermode InteractiveServer
 
@@ -21,13 +22,15 @@
         {
             @foreach (var item in UserRentalItems)
             {
-                <div @key="item.Rental.Id">
+                var rental = (Rental)item!.Product;
+                <div @key="item">
                     <RentalHistoryElement
-                        Rental="@item.Rental"
+                        Rental="@rental"
                         Purchase="@item.Purchase"
-                        OnCancel="() => CancelRental(item.Rental)">
+                        OnCancel="() => CancelRental((Rental)item.Product)">
                     </RentalHistoryElement>
                 </div>
+                
             }
         }
         else
@@ -40,8 +43,8 @@
 </div>
 
 @code {
-    private List<(Rental Rental, Purchase Purchase)> UserRentalItems { get; set; } = new();
-    private IService<PurchaseItem> PurchaseItemService { get; set; }
+    private List<PurchaseItem?>? UserRentalItems { get; set; } = [];
+    private IService<PurchaseItem>? PurchaseItemService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,28 +55,23 @@
 
     private void LoadUserRentals()
     {
-        // Obtener todos los PurchaseItems del usuario que sean de tipo Rental
-        var rentalItems = PurchaseItemService.GetWithQuery(
-            q => q.Where(pi => pi.Purchase.AppUserId == User.Id && 
+        // get the rentals associated to the User
+        UserRentalItems = PurchaseItemService!.GetWithQuery(
+            q => q.Where(pi => pi.Purchase.AppUserId == User!.Id && 
                                pi.Product is Rental)
                  .Include(pi => pi.Purchase)
                  .Include(pi => pi.Product)
-        ).ToList();
-
-        @* UserRentalItems = rentalItems
-            .Select(pi => ((Rental)pi.Product, pi.Purchase))
-            .OrderByDescending(x => x.Purchase.PurchaseDate)
-            .ToList(); *@
+        )!.ToList()!;
+        
     }
 
     private void CancelRental(Rental rental)
     {
-        if (rental.StateName != "Cancelled")
-        {
-            rental.Cancel();
-            var rentalService = ServiceManager.GetService<Rental>();
-            rentalService.Update(rental);
-            LoadUserRentals();
-        }
+        if (rental.StateName == "Cancelled") return;
+        
+        rental.Cancel();
+        var rentalService = ServiceManager.GetService<Rental>();
+        rentalService.Update(rental);
+        LoadUserRentals();
     }
 }
