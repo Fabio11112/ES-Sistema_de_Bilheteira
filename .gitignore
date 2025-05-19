@@ -8,6 +8,7 @@ obj/
 *.env
 # Ignore Visual Studio Code files
 .vscode/
+.idea/
 
 *.db
 *.db-shm

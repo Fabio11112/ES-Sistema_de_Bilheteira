@@ -81,23 +81,33 @@
         "Cine Place"
     };
 
-    private Dictionary<string, string> dates = new()
+    private Dictionary<string, DateTime?> dates = new()
     {
-        { "Today", "Today" },
-        { "Tomorrow", "Tomorrow" },
-        { "Tuesday", "Tuesday - 28/03" },
-        { "Wednesday", "Wednesday - 29/03" },
-        { "Thursday", "Thursday - 30/03" },
-        { "Friday", "Friday - 31/03" },
-        { "Saturday", "Saturday - 01/04" },
-        { "Sunday", "Sunday - 02/04" }
+        { "Today", null },
+        { "Tomorrow", null },
+        { "Tuesday", null },
+        { "Wednesday", null },
+        { "Thursday", null },
+        { "Friday", null },
+        { "Saturday", null },
+        { "Sunday", null }
     };
 
     private List<string> timeSlots = new() { "14:30", "17:30", "20:30" };
 
     private string? selectedCinema;
-    private SelectedSession? selectedSession;
+    private TimeSpan? selectedSession;
 
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        
+        PopulateDays();
+        var movieDeserializer = new Deserializer<Movie>();
+        var movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
+    }
+    
     private class SelectedSession
     {
         public string Cinema { get; set; } = string.Empty;
@@ -106,88 +116,95 @@
         public string Time { get; set; } = string.Empty;
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        var movieDeserializer = new Deserializer<Movie>();
-        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
-        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}");
-    }
+
 
     private void SelectCinema(string cinema)
     {
         selectedCinema = cinema;
     }
 
-    private bool IsSelectedSession(string cinema, string dateKey, string time)
-    {
-        return selectedSession != null &&
-               selectedSession.Cinema == cinema &&
-               selectedSession.DateKey == dateKey &&
-               selectedSession.Time == time;
-    }
+    // private bool IsSelectedSession(string cinema, string dateKey, string time)
+    // {
+    //     return selectedSession != null &&
+    //            selectedSession.Cinema == cinema &&
+    //            selectedSession.DateKey == dateKey &&
+    //            selectedSession.Time == time;
+    // }
 
-    private void SelectSessionHandler(string cinema, string dateKey, string time)
+    private void SelectSessionHandler(TimeSpan time)
     {
-        selectedSession = new SelectedSession
-        {
-            Cinema = cinema,
-            DateKey = dateKey,
-            DateDisplay = dates[dateKey],
-            Time = time
-        };
+        selectedSession = time;
+        // selectedSession = new SelectedSession
+        // {
+        //     Cinema = cinema,
+        //     DateKey = dateKey,
+        //     DateDisplay = dates[dateKey],
+        //     Time = time
+        // };
     }
 
     private async Task SaveSelectedFunctionAsync()
     {
-        if (selectedSession == null)
-            return;
+        // if (selectedSession == null)
+        //     return;
+        //
+        // var functionService = ServiceManager.GetService<Function>();
+        //
+        // var cinemaService = ServiceManager.GetService<Cinema>();
+        // var allCinemas = cinemaService.GetAll();
+        // var selectedCinemaEntity = allCinemas?.FirstOrDefault(c => c.Name == selectedSession.Cinema);
+        // if (selectedCinemaEntity == null)
+        //     throw new Exception("Selected cinema not found");
+        //
+        // var auditoryService = ServiceManager.GetService<Auditory>();
+        // var firstAuditory = auditoryService.GetAll()?.FirstOrDefault();
+        // if (firstAuditory == null)
+        //     throw new Exception("No auditory available");
+        //
+        // // Fecha real
+        // DateTime date;
+        // if (selectedSession.DateKey == "Today")
+        //     date = DateTime.Today;
+        // else if (selectedSession.DateKey == "Tomorrow")
+        //     date = DateTime.Today.AddDays(1);
+        // else
+        //     date = DateTime.ParseExact(
+        //         selectedSession.DateDisplay.Split('-').Last().Trim(),
+        //         "dd/MM",
+        //         null
+        //     ).AddYears(DateTime.Today.Year);
+        //
+        // var time = TimeSpan.Parse(selectedSession.Time);
+        // var dateTime = date.Date + time;
+        //
+        // var newFunction = new Function
+        // {
+        //     Date = dateTime,
+        //     Price = 7.5,
+        //     CinemaId = selectedCinemaEntity.Id,       
+        //     Cinema = selectedCinemaEntity,
+        //     AuditoryId = firstAuditory.Id, 
+        //     Auditory = firstAuditory
+        // };
+        //
+        // var result = functionService.Add(newFunction);
+        //
+        // if (!result.Success)
+        //     throw new Exception(result.Message);
+        //
+        // NavigationManager.NavigateTo($"/QuantityOfTickets/{movie.Id}?cinema={Uri.EscapeDataString(selectedSession.Cinema)}&date={Uri.EscapeDataString(selectedSession.DateKey)}&time={Uri.EscapeDataString(selectedSession.Time)}");
 
-        var functionService = ServiceManager.GetService<Function>();
+    }
 
-        var cinemaService = ServiceManager.GetService<Cinema>();
-        var allCinemas = cinemaService.GetAll();
-        var selectedCinemaEntity = allCinemas?.FirstOrDefault(c => c.Name == selectedSession.Cinema);
-        if (selectedCinemaEntity == null)
-            throw new Exception("Selected cinema not found");
-
-        var auditoryService = ServiceManager.GetService<Auditory>();
-        var firstAuditory = auditoryService.GetAll()?.FirstOrDefault();
-        if (firstAuditory == null)
-            throw new Exception("No auditory available");
-
-        // Fecha real
-        DateTime date;
-        if (selectedSession.DateKey == "Today")
-            date = DateTime.Today;
-        else if (selectedSession.DateKey == "Tomorrow")
-            date = DateTime.Today.AddDays(1);
-        else
-            date = DateTime.ParseExact(
-                selectedSession.DateDisplay.Split('-').Last().Trim(),
-                "dd/MM",
-                null
-            ).AddYears(DateTime.Today.Year);
-
-        var time = TimeSpan.Parse(selectedSession.Time);
-        var dateTime = date.Date + time;
-
-        var newFunction = new Function
+    private void PopulateDays()
+    {
+        dates["Today"] = DateTime.Today;
+        var previousDay = "Today";
+        TimeSpan oneDay = TimeSpan.FromDays(1);
+        
+        foreach (var day in dates.Keys)
         {
-            Date = dateTime,
-            Price = 7.5,
-            CinemaId = selectedCinemaEntity.Id,       
-            Cinema = selectedCinemaEntity,
-            AuditoryId = firstAuditory.Id, 
-            Auditory = firstAuditory
-        };
-
-        var result = functionService.Add(newFunction);
-
-        if (!result.Success)
-            throw new Exception(result.Message);
-
-        NavigationManager.NavigateTo($"/QuantityOfTickets/{movie.Id}?cinema={Uri.EscapeDataString(selectedSession.Cinema)}&date={Uri.EscapeDataString(selectedSession.DateKey)}&time={Uri.EscapeDataString(selectedSession.Time)}");
-
+            dates[day] = dates[previousDay]!.Value.Add(oneDay);
+        }
     }
 }
