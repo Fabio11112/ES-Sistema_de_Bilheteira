@@ -19,4 +19,8 @@
 
         public void NextStep() => State.Next(this);
         public void Cancel() => State.Cancel(this);
+        public override string GetProductType()
+        {
+            return "Rental";
+        }
     }

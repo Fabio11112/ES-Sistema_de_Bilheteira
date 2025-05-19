@@ -1,8 +1,8 @@
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
-@using SistemaDeBilheteira.Components.Pages.Notification
+@using SistemaDeBilheteira.Components.Cards
 
-@if (isLoading)
+@if (_isLoading)
 {
     <div class="loader-overlay">
         <div class="spinner"></div>
@@ -35,22 +35,22 @@ else
 </div>
 
 @code {
-    private bool isLoading = false;
+    private bool _isLoading;
 
     protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
-    private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    private async void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
-        isLoading = true;
+        _isLoading = true;
         StateHasChanged();
 
         // Simula carregamento
         await Task.Delay(1000); 
 
-        isLoading = false;
+        _isLoading = false;
         StateHasChanged();
     }
 

@@ -3,33 +3,31 @@
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
-@using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Builders
-@using SistemaDeBilheteira.Services.Database.Entities
-@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental.RentalStates
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
+@using SistemaDeBilheteira.Services.UI
 
 @inject IServiceManager ServiceManager
-@inject NavigationManager NavigationManager
 @inject RentalBuilder RentalBuilder
 @inject ShoppingCartItemBuilder ShoppingCartItemBuilder
+@inject MediaBuilder MediaBuilder
 @inject NotificationService NotificationService
 
 
 <div class="container">
-    @if (movie != null)
+    @if (Movie != null)
     {
         <section class="banner">
             <div class="banner-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
+                <img src="@($"https://image.tmdb.org/t/p/w1280{Movie.BackdropPath}")" alt="@Movie.Title" class="banner-image" />
                 <div class="banner-title-overlay">
-                    <h2 class="banner-title">@movie.Title</h2>
-                    <p class="movie-overview">@movie.Overview</p>
+                    <h2 class="banner-title">@Movie.Title</h2>
+                    <p class="movie-overview">@Movie.Overview</p>
                 </div> 
             </div>
             <div class="play-button-container">
@@ -40,14 +38,14 @@
         <section class="movie-details">
             <div class="movie-details-wrapper">
                 <div class="imdb-rating">
-                    <p class="movie-release-date">IMDB @Math.Round(movie.VoteAverage, 1)</p>
+                    <p class="movie-release-date">IMDB @Math.Round(Movie!.VoteAverage, 1)</p>
                     <p class="movie-release-date">
-                        @(movie.ReleaseDate.HasValue ? movie.ReleaseDate.Value.ToString("yyyy-MM-dd") : "Unknown") • PG12  • @FormatRuntime(movie.Runtime)
+                        @(Movie.ReleaseDate.HasValue ? Movie.ReleaseDate.Value.ToString("yyyy-MM-dd") : "Unknown") • PG12  • @FormatRuntime(Movie.Runtime)
                     </p>
                 </div>
 
                 <div class="genres-container">
-                    @foreach (var genre in genreNames)
+                    @foreach (var genre in GenreNames)
                     {
                         <span class="genre-badge">@genre</span>
                     }
@@ -70,9 +68,12 @@
             <div class="actions-container1">
                 <div class="rent-buy-container">
                     <!-- Rent Button -->
-                    <a class="secondary-button" @onclick="AddShoppingCartItem">
-                        Rent<span class="text-sm font-normal"> HD @Rental?.Price €</span>
-                    </a>
+                    @{
+                        var rental = Products!.OfType<Rental>().FirstOrDefault();
+                        <a class="secondary-button" @onclick="() => AddShoppingCartItem(rental!)">
+                            Rent<span class="text-sm font-normal"> HD @rental?.Price €</span>
+                        </a>
+                    }
 
                     <!-- Buy Button + Dropdown -->
                     <div class="buy-button-wrapper" style="position: relative;">
@@ -83,20 +84,19 @@
                         @if (ShowDropdown)
                         {
                             <div class="buy-dropdown show">
-                                <div class="buy-dropdown-item">
-                                    <div>
-                                        Buy DVD<br />
-                                        <span class="button-price">HD 12.99€</span>
+                                @foreach (var format in Formats)
+                                {
+                                    var medias = Products!.OfType<PhysicalMedia>();
+                                    var media = medias.FirstOrDefault(m => m.FormatId == format.Id);
+                                            
+                                    <div class="buy-dropdown-item" @onclick="() => AddShoppingCartItem(media!)">
+                                        <div>
+                                            Buy @format.FormatName<br />
+                                            <span class="button-price">HD 12.99€</span>
+                                        </div>
+                                        <span>@format.Emoji</span>
                                     </div>
-                                    <span>📀</span>
-                                </div>
-                                <div class="buy-dropdown-item">
-                                    <div>
-                                        Buy Blu-Ray<br />
-                                        <span class="button-price">HD 12.99€</span>
-                                    </div>
-                                    <span>💿</span>
-                                </div>
+                                }
                             </div>
                         }
                     </div>
@@ -112,32 +112,39 @@
 </div>
 
 @code {
-    [Parameter] public int id { get; set; }
-    private Movie? movie;
-    private List<string> genreNames = new();
+    [Parameter] public int Id { get; set; }
+    private Movie? Movie { get; set; }
+    private List<string> GenreNames { get; set; } = [];
     private bool ShowDropdown { get; set; }
-    private Product? Rental { get; set; }
-    private IService<Rental> RentalService { get; set; }
-    private IService<ShoppingCartItem> ShoppingCartItemService { get; set; }
+    private ICollection<Product>? Products { get; set; } = new List<Product>();
+
+    ICollection<PhysicalMediaFormat> Formats { get; set; } = new List<PhysicalMediaFormat>();
+    
+    private IService<ShoppingCartItem>? ShoppingCartItemService { get; set; }
+    private IService<PhysicalMediaFormat>? FormatService { get; set; }
+    
+    private IService<Product>? ProductService { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        RentalService = ServiceManager.GetService<Rental>();
+        ProductService = ServiceManager.GetService<Product>();
         ShoppingCartItemService = ServiceManager.GetService<ShoppingCartItem>();
+        FormatService = ServiceManager.GetService<PhysicalMediaFormat>();
         
+        Formats = FormatService.GetAll()!;
         AddRental();
+        AddPhysicalMedia();
 
-        Rental = RentalService.GetWithQuery(
+        Products = ProductService.GetWithQuery(
             q => q.Where(
-                r => r.MovieId == id.ToString()
-                ))!.FirstOrDefault();
-
+                p => p.MovieId == Id.ToString())
+            );
         
         var movieDeserializer = new Deserializer<Movie>();
         
         var movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
-        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
+        Movie = await movieDeserializer.Fetch($"{movieUrl}/{Id}")!;
     }
 
     private string FormatRuntime(int runtime)
@@ -149,66 +156,90 @@
 
     private void ToggleDropdown() => ShowDropdown = !ShowDropdown;
 
-    private void AddRental()
+
+    private void AddPhysicalMedia()
     {
-        var rentals = RentalService.GetWithQuery(
+        var medias = ProductService!.GetWithQuery(
             q => q.Where(
-                r => r.MovieId == id.ToString()
-            ));
+                r => r.MovieId == Id.ToString()
+                ).OfType<PhysicalMedia>())!.ToList();
+
+
         
-        
-        if (rentals!.Any())
+        if (medias.Any())
             return;
 
-        var newRental = RentalBuilder.WithMovie(id.ToString())
+        foreach (var format in Formats)
+        {
+            var newMedia = MediaBuilder.WithMovieId(Id.ToString())
+                .WithPrice(GeneratedPrice())
+                .WithFormatId(format.Id)
+                .Build();
+
+            ProductService.Add(newMedia);
+        }
+
+    }
+    
+    private void AddRental()
+    {
+        var rentals = ProductService!.GetWithQuery(
+            q => q.Where(
+                r => r.MovieId == Id.ToString()
+            ))!.OfType<Rental>();
+        
+        
+        if (rentals.Any())
+            return;
+
+        var newRental = RentalBuilder.WithMovie(Id.ToString())
             .WithPrice(GeneratedPrice())
             .WithStartDate(DateTime.Now)
             .WithEndDate(DateTime.Now.AddDays(7))
             .WithState(new RequestedState())
             .Build();
 
-        RentalService.Add(newRental!);
+        ProductService.Add(newRental);
     }
 
     private double GeneratedPrice() => 9.99;
 
-    private void AddShoppingCartItem()
+    private void AddShoppingCartItem(Product product)
     {
-        var item = ShoppingCartItemService.GetWithQuery(
+        var item = ShoppingCartItemService!.GetWithQuery(
         q => q.Where(
-            i => i.AppUserId == User.Id && i.ProductId == Rental.Id)
-        ).FirstOrDefault();
+            i => i.AppUserId == User!.Id && i.ProductId == product.Id)
+        )!.FirstOrDefault();
 
-    if (item != null)
-    {
-        UpdateItem(item);
-        NotificationService.Notify("Quantity Actualized.");
-    }
-    else
-    {
-        AddItem();
-        NotificationService.Notify("Product Added to Cart.");
-    }
-    StateHasChanged();
+        if (item != null)
+        {
+            UpdateItem(item);
+            NotificationService.Notify("Quantity Updated.");
+        }
+        else
+        {
+            AddItem(product);
+            NotificationService.Notify("Product Added to Cart.");
+        }
+        StateHasChanged();
 
     }
 
     private void UpdateItem(ShoppingCartItem item)
     {
         item.Quantity++;
-        ShoppingCartItemService.Update(item);
+        ShoppingCartItemService!.Update(item);
     }
 
-    private void AddItem()
+    private void AddItem(Product product)
     {
-        if (Rental?.Id == null) return;
-
-        var shoppingCartItem = ShoppingCartItemBuilder.WithAppUserId(User.Id!)
-            .WithProductId(Rental.Id!)
+        
+        var shoppingCartItem = ShoppingCartItemBuilder.WithAppUserId(User!.Id)
+            .WithProductId(product.Id)
             .WithQuantity(1)
             .Build();
 
-        ShoppingCartItemService.Add(shoppingCartItem!);
+        ShoppingCartItemService!.Add(shoppingCartItem!);
     }
 
     

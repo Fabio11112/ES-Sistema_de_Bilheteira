@@ -1,5 +1,4 @@
 using SistemaDeBilheteira.Services.Database;
-using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 
@@ -10,4 +9,6 @@ public abstract class Product : DbItem
     public string? MovieId { get; set; }
 
     public ICollection<ShoppingCartItem> ShoppingCartItems { get; set; } = new List<ShoppingCartItem>();
+
+    public abstract string GetProductType();
 }

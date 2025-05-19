@@ -1,6 +1,9 @@
+
+@using SistemaDeBilheteira.Services.UI
 @inject NotificationService NotificationService
-@namespace SistemaDeBilheteira.Components.Pages.Notification
+@namespace SistemaDeBilheteira.Components.Cards
 @rendermode InteractiveServer
+
 @if (!string.IsNullOrEmpty(Message))
 {
     <div class="notification">
@@ -9,7 +12,7 @@
 }
 
 @code {
-    private string? Message;
+    private string? Message { get; set; }
 
     protected override void OnInitialized()
     {
@@ -21,11 +24,11 @@
         Message = message;
         StateHasChanged();
 
-        // Mostrar el mensaje por 3 segundos
+        // show the message for 3 seconds
         await Task.Delay(3000);
 
         Message = null;
-        await InvokeAsync(() => StateHasChanged());
+        await InvokeAsync(StateHasChanged);
 
     }
 

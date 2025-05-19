@@ -3,7 +3,7 @@ using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 using SistemaDeBilheteira.Services.IService;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
-namespace SistemaDeBilheteira.Services.Database.Entities.Payment;
+namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 public class PurchaseSystem(IServiceManager serviceManager) : IPurchaseSystem
 {

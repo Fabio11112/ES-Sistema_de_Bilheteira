@@ -1,48 +1,59 @@
 ﻿using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
-using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental.RentalStates;
-using System;
 
 namespace SistemaDeBilheteira.Services.Database.Builders;
 
 public class RentalBuilder
 {
-    private readonly Rental _rental = new();
+    private string MovieId { get; set; } = string.Empty;
+    private double Price { get; set; }
+    private DateTime StartDate { get; set; }
+    private DateTime EndDate { get; set; }
+    private RentalState? RentalState { get; set; }
+    private string StateName { get; set; } = string.Empty;
 
     public RentalBuilder WithMovie(string movieId)
     {
-        _rental.MovieId = movieId;
+        MovieId = movieId;
         return this;
     }
 
     public RentalBuilder WithPrice(double price)
     {
-        _rental.Price = price;
+        Price = price;
         return this;
     }
 
     public RentalBuilder WithStartDate(DateTime startDate)
     {
-        _rental.StartDate = startDate;
+        StartDate = startDate;
         return this;
     }
 
     public RentalBuilder WithEndDate(DateTime endDate)
     {
-        _rental.EndDate = endDate;
+        EndDate = endDate;
         return this;
     }
 
     public RentalBuilder WithState(RentalState state)
     {
-        _rental.State = state;
-        _rental.StateName = state.Name;
+        RentalState = state;
+        StateName = state.Name;
         return this;
     }
 
     public Rental Build()
     {
-        _rental.CreatedAt = DateTime.Now;
-        return _rental;
+        return new Rental()
+        {
+            EndDate = EndDate,
+            MovieId = MovieId,
+            Price = Price,
+            StartDate = StartDate,
+            StateName = StateName,
+            State = RentalState!
+        };
+        
     }
 }
     

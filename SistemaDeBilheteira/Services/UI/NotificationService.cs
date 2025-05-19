@@ -1,3 +1,5 @@
+namespace SistemaDeBilheteira.Services.UI;
+
 public class NotificationService
 {
     public event Action<string>? OnNotify;
