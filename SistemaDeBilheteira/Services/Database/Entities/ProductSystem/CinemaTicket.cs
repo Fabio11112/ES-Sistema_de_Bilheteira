@@ -12,12 +12,12 @@
 
 //     public bool IsReserved { get; set; } = false;
     
+// // }
+//     public Guid FunctionId { get; set; }
+//     public Function Function { get; set; } = null!;
+//     public override string GetProductType()
+//     {
+//         return "Cinema Ticket";
+//     }
 // }
-    public Guid FunctionId { get; set; }
-    public Function Function { get; set; } = null!;
-    public override string GetProductType()
-    {
-        return "Cinema Ticket";
-    }
-}
 
