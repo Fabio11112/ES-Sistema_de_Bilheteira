@@ -67,6 +67,7 @@ builder.Services.AddSingleton<CardBuilder, CardBuilder>();
 builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
 builder.Services.AddSingleton<PhysicalMedia, PhysicalMedia>();
+builder.Services.AddSingleton<MediaBuilder, MediaBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
