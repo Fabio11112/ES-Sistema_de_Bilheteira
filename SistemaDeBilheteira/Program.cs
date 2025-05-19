@@ -16,7 +16,12 @@ using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
+<<<<<<< HEAD
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+
+=======
 using SistemaDeBilheteira.Services.UI;
+>>>>>>> main
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,16 +99,23 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+<<<<<<< HEAD
+    var context = services.GetRequiredService<SistemaDeBilheteiraContext>();
+
+    SeedCinemas(context);
+    SeedAuditories(context);
+=======
     var context = services.GetRequiredService<IServiceManager>();
     
     SeedFormats(context);
+>>>>>>> main
 }
 
 // Pipeline HTTP
 if (!app.Environment.IsDevelopment())
 {
     app.MapScalarApiReference();
-    app.UseCssLiveReload(); 
+    app.UseCssLiveReload();
     app.UseDeveloperExceptionPage();
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
     app.UseHsts();
@@ -126,6 +138,41 @@ app.MapRazorComponents<App>()
 app.Run();
 return;
 
+void SeedCinemas(SistemaDeBilheteiraContext context)
+{
+    if (!context.Cinemas.Any())
+    {
+        var cinemas = new List<Cinema>
+        {
+            new Cinema { Id = Guid.NewGuid(), Name = "Madeira Movie Center" },
+            new Cinema { Id = Guid.NewGuid(), Name = "Cinemas NOS" },
+            new Cinema { Id = Guid.NewGuid(), Name = "Cine Place" }
+        };
+
+        context.Cinemas.AddRange(cinemas);
+        context.SaveChanges();
+
+        Console.WriteLine("✔ Cines añadidos a la base de datos");
+    }
+}
+
+void SeedAuditories(SistemaDeBilheteiraContext context)
+{
+    if (!context.Auditories.Any())
+    {
+        var auditories = new List<Auditory>
+        {
+            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 1" },
+            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 2" },
+            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 3" }
+        };
+
+        context.Auditories.AddRange(auditories);
+        context.SaveChanges();
+
+        Console.WriteLine("✔ Auditorios añadidos a la base de datos");
+    }
+}
 void SeedFormats(IServiceManager manager)
 {
     var service = manager.GetService<PhysicalMediaFormat>();

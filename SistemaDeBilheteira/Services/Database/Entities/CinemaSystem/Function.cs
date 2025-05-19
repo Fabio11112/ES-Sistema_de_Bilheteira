@@ -6,9 +6,7 @@ public class Function : DbItem
     public double Price { get; set; }
     public Guid CinemaId { get; set; }
     public Cinema Cinema { get; set; } = null!;
-
     public Guid AuditoryId { get; set; }
     public Auditory Auditory { get; set; }
-
-    public ICollection<CinemaTicket> Tickets { get; set; } = new List<CinemaTicket>();
+    //public ICollection<CinemaTicket> Tickets { get; set; } = new List<CinemaTicket>();
 }

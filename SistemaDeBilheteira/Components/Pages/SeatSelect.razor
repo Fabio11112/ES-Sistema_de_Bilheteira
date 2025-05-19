@@ -1,120 +1,94 @@
 @page "/SeatSelect/{id:int}"
-@inherits AuthenticatedComponentBase
-@using SistemaDeBilheteira.Services.API_Deserializer
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-
 @inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.WebUtilities
+@rendermode InteractiveServer
 
-<div class="session-selection-container">
-    @if (movie != null)
+<div class="seat-selection-container">
+    <h3 class="Title">Seat Selection</h3>
+
+    @if (TicketQuantity <= 0 )
     {
-        <section class="banner">
-            <div class="banner-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
-                <div class="banner-title-overlay">
-                    <h2 class="banner-title">@movie.Title</h2>
-                    <p class="movie-overview">@movie.Overview</p>
-
-                </div>
-            </div>
-            <div class="play-button-container">
-                <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
-            </div>
-        </section>
+        <p class="Text">Please return and select a valid session and ticket quantity</p>
     }
     else
     {
-        <p class="loading">Loading movie details...</p>
-    }
-</div>
+        <div class="ticket-info">
+            <p class="Text"><strong>Cinema:</strong> @Cinema</p>
+            <p class="Text"><strong>Date:</strong> @DateKey</p>
+            <p class="Text"><strong>Time:</strong> @Time</p>
+            <p class="Text"><strong>Tickets:</strong> @TicketQuantity</p>
+        </div>
 
-<div class="seats-container">
-    <div class="seat-selection">
-        <h3 class="seat-selection-title">BUY TICKET</h3>
-        <h3 class="seat-selection-title2">Select a seat</h3>
-        <div class="select-seat-container">
-            <div class="screen-container">
-                <img src="images/icons/Seat/Screen.svg" alt="screen" class="screen-icon" />
-            </div>
-            <div class="screen-title">
-                <h3 class="screen-title">Screen</h3>
-            </div>
-            <div class="seat-map">
-                @foreach (var row in SeatRows)
+        <div class="screen-container">
+            <div class="screen">SCREEN</div>
+        </div>
+
+        @if (SelectedSeats.Count > 0)
+        {
+            <div class="selected-seats">
+                @foreach (var seat in SelectedSeats)
                 {
-                    <div class="seat-row">
-                        @foreach (var seat in row)
-                        {
-                            <button class="seat-button @(seat.IsSelected ? "selected" : "")"
-                                    disabled="@seat.IsReserved"
-                                    @onclick="() => ToggleSeatSelection(seat)">
-                                <img src="@GetSeatImage(seat)" alt="@seat.Label" class="seat-icon" />
-                                <span class="seat-label">@seat.Label</span>
-                            </button>
-                        }
+                    <div class="selected-seat-tag">
+                        @seat.Label
+                        <button class="remove-seat" @onclick="() => RemoveSeat(seat)">×</button>
                     </div>
                 }
             </div>
-            <div class="legend">
-                <div class="legend-itemB">
-                    <img src="images/icons/Seat/BluePoint.svg" alt="Available" class="legend-icon" />
-                    <span>Available</span>
+        }
+
+        <div class="seat-map">
+            @foreach (var row in SeatRows)
+            {
+                <div class="seat-row">
+                    @foreach (var seat in row)
+                    {
+                        <button class="seat-button @(seat.IsReserved ? "reserved" : seat.IsSelected ? "selected" : "available")"
+                                disabled="@(seat.IsReserved || (SelectedSeats.Count >= TicketQuantity && !seat.IsSelected))"
+                                @onclick="() => ToggleSeatSelection(seat)">
+                            @seat.Label
+                        </button>
+                    }
                 </div>
-                <div class="legend-itemR">
-                    <img src="images/icons/Seat/RedPoint.svg" alt="Reserved" class="legend-icon" />
-                    <span>Reserved</span>
-                </div>
-                <div class="legend-itemW">
-                    <img src="images/icons/Seat/WhitePoint.svg" alt="Selected" class="legend-icon" />
-                    <span>Selected</span>
-                </div>
-            </div>
+            }
         </div>
 
-    </div>
-    <div class="prim-buttons">
-        @if (movie != null)
-            {
-                <a class="" href="@($"QuantityOfTickets/{movie.Id}")">
-                    <button class="primary-button">CONFIRM SELECTION</button>
-                </a>
-            }
-            else
-            {
-                <p class="loading">Loading movie details...</p>
-            }
-    </div>
+        <button class="primary-button" @onclick="ConfirmSelection" disabled="@(SelectedSeats.Count != TicketQuantity)">
+            Confirm Selection (@SelectedSeats.Count/@TicketQuantity)
+        </button>
+    }
 </div>
 
 @code {
     [Parameter] public int id { get; set; }
-    private Movie? movie;
-    private List<string> genreNames = new();
+    public string? Cinema { get; set; }
+    public string? DateKey { get; set; }
+    public string? Time { get; set; }
+    public int TicketQuantity { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var movieDeserializer = new Deserializer<Movie>();
-        string? url = Environment.GetEnvironmentVariable("MOVIES_LINK");
-        movie = await movieDeserializer.Fetch($"{url}/{id}")!;
-        
-
-
-        await LoadSeats();
-    }
-
-    private class Seat
-    {
-        public string Label { get; set; } = string.Empty;
-        public bool IsReserved { get; set; }
-        public bool IsSelected { get; set; }
-    }
-
+    private List<Seat> SelectedSeats = new();
     private List<List<Seat>> SeatRows = new();
 
-    private async Task LoadSeats()
+    protected override void OnInitialized()
+    {
+        
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var query = QueryHelpers.ParseQuery(uri.Query);
+
+  
+        
+        if (query.TryGetValue("quantity", out var quantity) && int.TryParse(quantity, out int qty))
+        {
+            TicketQuantity = qty;
+        }
+
+        LoadSeats();
+    }
+
+    private void LoadSeats()
     {
         string[] rowLabels = { "A", "B", "C", "D", "E", "F" };
         int seatCount = 9;
+        var random = new Random();
 
         SeatRows.Clear();
 
@@ -123,10 +97,13 @@
             var row = new List<Seat>();
             for (int i = 1; i <= seatCount; i++)
             {
+                // Randomly reserve some seats for demonstration
+                bool isReserved = random.Next(0, 5) == 0;
                 row.Add(new Seat
                 {
                     Label = $"{rowLabel}{i}",
-                    IsReserved = (rowLabel == "A" && i <= 3) || (rowLabel == "C" && i == 6)
+                    IsReserved = isReserved,
+                    IsSelected = false
                 });
             }
             SeatRows.Add(row);
@@ -137,24 +114,59 @@
     {
         if (seat.IsReserved) return;
 
-        // Clear previous selection
-        foreach (var row in SeatRows)
+        if (seat.IsSelected)
         {
-            foreach (var s in row)
-            {
-                s.IsSelected = false;
-            }
+            // Deselect the seat
+            seat.IsSelected = false;
+            SelectedSeats.Remove(seat);
         }
-
-        seat.IsSelected = true;
+        else if (SelectedSeats.Count < TicketQuantity)
+        {
+            // Select the seat
+            seat.IsSelected = true;
+            SelectedSeats.Add(seat);
+        }
     }
 
-    private string GetSeatImage(Seat seat)
+    private void RemoveSeat(Seat seat)
     {
-        if (seat.IsReserved)
-            return "images/icons/Seat/RedSeat.svg";
-        if (seat.IsSelected)
-            return "images/icons/Seat/WhiteSeat.svg";
-        return "images/icons/Seat/BlueSeat.svg";
+        seat.IsSelected = false;
+        SelectedSeats.Remove(seat);
+        
+        // Find the seat in the SeatRows and update its status
+        foreach (var row in SeatRows)
+        {
+            var seatToUpdate = row.FirstOrDefault(s => s.Label == seat.Label);
+            if (seatToUpdate != null)
+            {
+                seatToUpdate.IsSelected = false;
+                break;
+            }
+        }
+    }
+
+    private void ConfirmSelection()
+    {
+        if (SelectedSeats.Count == TicketQuantity)
+        {
+            // Create comma-separated list of selected seats
+            var seats = string.Join(",", SelectedSeats.Select(s => s.Label));
+            
+            // Navigate to next page with selected parameters
+            NavigationManager.NavigateTo(
+                $"/AddedToCart/{id}" +
+                $"?cinema={Uri.EscapeDataString(Cinema!)}" +
+                $"&date={Uri.EscapeDataString(DateKey!)}" +
+                $"&time={Uri.EscapeDataString(Time!)}" +
+                $"&seats={Uri.EscapeDataString(seats)}" +
+                $"&quantity={TicketQuantity}");
+        }
+    }
+
+    private class Seat
+    {
+        public string Label { get; set; } = string.Empty;
+        public bool IsReserved { get; set; }
+        public bool IsSelected { get; set; }
     }
 }
