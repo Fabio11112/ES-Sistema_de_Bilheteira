@@ -106,8 +106,9 @@ using (var scope = app.Services.CreateScope())
     SeedAuditories(context);
 
     var service = services.GetRequiredService<IServiceManager>();
-    
+
     SeedFormats(service);
+    
 
 }
 
@@ -161,19 +162,30 @@ void SeedAuditories(SistemaDeBilheteiraContext context)
 {
     if (!context.Auditories.Any())
     {
-        var auditories = new List<Auditory>
+        foreach (var cinema in context.Cinemas)
         {
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 1" },
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 2" },
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 3" }
-        };
+                if (cinema == null)
+                {
+                    Console.WriteLine("❌ No cinemas found. Cannot seed auditories.");
+                    return;
+                }
 
-        context.Auditories.AddRange(auditories);
+                var auditories = new List<Auditory>
+                {
+                    new Auditory { Id = Guid.NewGuid(), Name = "Auditorium 1", CinemaId = cinema.Id },
+                    new Auditory { Id = Guid.NewGuid(), Name = "Auditorium 2", CinemaId = cinema.Id },
+                    new Auditory { Id = Guid.NewGuid(), Name = "Auditorium 3", CinemaId = cinema.Id }
+                };
+
+                context.Auditories.AddRange(auditories);
+        }
+        
         context.SaveChanges();
 
-        Console.WriteLine("✔ Auditorios añadidos a la base de datos");
+        Console.WriteLine("✔ Auditoriums added to the database");
     }
 }
+
 void SeedFormats(IServiceManager manager)
 {
     var service = manager.GetService<PhysicalMediaFormat>();
@@ -193,3 +205,4 @@ void SeedFormats(IServiceManager manager)
 
     Console.WriteLine("✔ Physical media formats added");
 }
+
