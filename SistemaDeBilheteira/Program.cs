@@ -99,16 +99,13 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-<<<<<<< HEAD
     var context = services.GetRequiredService<SistemaDeBilheteiraContext>();
 
     SeedCinemas(context);
     SeedAuditories(context);
-=======
     var context = services.GetRequiredService<IServiceManager>();
     
     SeedFormats(context);
->>>>>>> main
 }
 
 // Pipeline HTTP
