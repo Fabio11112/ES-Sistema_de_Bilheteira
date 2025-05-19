@@ -4,9 +4,11 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @using SistemaDeBilheteira.Services.IService.ServiceManager
+@using SistemaDeBilheteira.Services.UI
 @inject NavigationManager NavigationManager
 @inject IServiceManager ServiceManager
 @rendermode InteractiveServer
+@inject SharedTicket SharedTicket 
 
 <div class="session-selection-container">
     @if (movie != null)

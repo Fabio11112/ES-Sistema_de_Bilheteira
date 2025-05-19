@@ -83,6 +83,7 @@ builder.Services.AddRazorPages();  //  Identity needs this
 builder.Services.AddAuthorization(); // for [Authorize]
 builder.Services.AddSingleton<NotificationService>();
 
+builder.Services.AddScoped<SharedTicket>(); // for SharedCart
 
 builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 
