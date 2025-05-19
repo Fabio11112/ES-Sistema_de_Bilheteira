@@ -42,11 +42,11 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
 
-    // public DbSet<Cinema> Cinemas { get; set; }
-    // public DbSet<Function> Functions { get; set; }
-    // public DbSet<Auditory> Auditories { get; set; }
-    // public DbSet<Seat> Seats { get; set; }
-    // public DbSet<CinemaTicket> CinemaTickets { get; set; }
+    public DbSet<Cinema> Cinemas { get; set; }
+    public DbSet<Function> Functions { get; set; }
+    public DbSet<Auditory> Auditories { get; set; }
+    public DbSet<Seat> Seats { get; set; }
+    //public DbSet<CinemaTicket> CinemaTickets { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
