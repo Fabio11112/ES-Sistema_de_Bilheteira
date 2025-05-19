@@ -1,5 +1,7 @@
 using SistemaDeBilheteira.Services.Database.Entities;
-using SistemaDeBilheteira.Services.Database.Entities.Cinema;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+
+namespace SistemaDeBilheteira.Services.Database.Builders;
 
 public class CinemaTicketBuilder
 {
