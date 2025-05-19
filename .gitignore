@@ -13,6 +13,7 @@ obj/
 *.db-shm
 *.db-wal
 *.log
+*.xml
 
 
 Migrations/
