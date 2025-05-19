@@ -2,7 +2,11 @@
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@inject NavigationManager NavigationManager
+@inject IServiceManager ServiceManager
+@rendermode InteractiveServer
 
 <div class="session-selection-container">
     @if (movie != null)
@@ -14,13 +18,11 @@
                     <h2 class="banner-title">@movie.Title</h2>
                     <p class="movie-overview">@movie.Overview</p>
                 </div>
-
             </div>
             <div class="play-button-container">
                 <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
             </div>
         </section>
-
     }
     else
     {
@@ -34,26 +36,25 @@
     <div class="cinema-selector">
         @foreach (var cinema in cinemas)
         {
-            <button class="cinema-option">
+            <button class="cinema-option @(selectedCinema == cinema ? "selected" : "")" @onclick="() => SelectCinema(cinema)">
                 @cinema
             </button>
         }
     </div>
 
     <div class="sessions-table">
-
         @foreach (var date in dates)
         {
             <div class="session-row">
                 <div class="date-cell">@date.Value</div>
-                @foreach (var cinema in cinemas)
+                @foreach (var time in timeSlots)
                 {
-                     <div class="time-cell @(selectedCinema == cinema ? "active" : "")"> 
-                    @*     <button class="time-slot" @(IsSelectedSession(cinema, date.Key, "14:30") ? "selected" : ")" *@
-                    @*             @onclick="() => SelectSessionHandler(cinema, date.Key, "14:30")"> *@
-                    @*         14:30 *@
-                    @*     </button> *@
-                     </div> 
+                    <div class="time-cell">
+                        <button class="time-slot @(IsSelectedSession(selectedCinema, date.Key, time) ? "selected" : "")"
+                                @onclick="() => SelectSessionHandler(selectedCinema, date.Key, time)">
+                            @time
+                        </button>
+                    </div>
                 }
             </div>
         }
@@ -62,29 +63,16 @@
     @if (movie != null)
     {
         <div class="action-buttons">
-            <a class="primary-button" href="@($"SeatSelect/{movie.Id}")">
+            <button class="primary-button" @onclick="SaveSelectedFunctionAsync">
                 CONFIRM SELECTION
-            </a>
+            </button>
         </div>
     }
-    else
-    {
-        <p class="loading">Loading movie details...</p>
-    }
-
 </div>
 
 @code {
     [Parameter] public int id { get; set; }
     private Movie? movie;
-    private List<string> genreNames = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        var movieDeserializer = new Deserializer<Movie>();
-        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
-        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
-    }
 
     private List<string> cinemas = new()
     {
@@ -105,6 +93,8 @@
         { "Sunday", "Sunday - 02/04" }
     };
 
+    private List<string> timeSlots = new() { "14:30", "17:30", "20:30" };
+
     private string? selectedCinema;
     private SelectedSession? selectedSession;
 
@@ -116,7 +106,15 @@
         public string Time { get; set; } = string.Empty;
     }
 
-    /*private void SelectCinema(string cinema)
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var movieDeserializer = new Deserializer<Movie>();
+        string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
+        movie = await movieDeserializer.Fetch($"{movieUrl}/{id}");
+    }
+
+    private void SelectCinema(string cinema)
     {
         selectedCinema = cinema;
     }
@@ -129,7 +127,6 @@
                selectedSession.Time == time;
     }
 
-    // Rename method to avoid name conflict with the class 'SelectSession'
     private void SelectSessionHandler(string cinema, string dateKey, string time)
     {
         selectedSession = new SelectedSession
@@ -141,15 +138,56 @@
         };
     }
 
-    private void ProceedToCheckout()
+    private async Task SaveSelectedFunctionAsync()
     {
-        if (selectedSession != null)
+        if (selectedSession == null)
+            return;
+
+        var functionService = ServiceManager.GetService<Function>();
+
+        var cinemaService = ServiceManager.GetService<Cinema>();
+        var allCinemas = cinemaService.GetAll();
+        var selectedCinemaEntity = allCinemas?.FirstOrDefault(c => c.Name == selectedSession.Cinema);
+        if (selectedCinemaEntity == null)
+            throw new Exception("Selected cinema not found");
+
+        var auditoryService = ServiceManager.GetService<Auditory>();
+        var firstAuditory = auditoryService.GetAll()?.FirstOrDefault();
+        if (firstAuditory == null)
+            throw new Exception("No auditory available");
+
+        // Fecha real
+        DateTime date;
+        if (selectedSession.DateKey == "Today")
+            date = DateTime.Today;
+        else if (selectedSession.DateKey == "Tomorrow")
+            date = DateTime.Today.AddDays(1);
+        else
+            date = DateTime.ParseExact(
+                selectedSession.DateDisplay.Split('-').Last().Trim(),
+                "dd/MM",
+                null
+            ).AddYears(DateTime.Today.Year);
+
+        var time = TimeSpan.Parse(selectedSession.Time);
+        var dateTime = date.Date + time;
+
+        var newFunction = new Function
         {
-            NavigationManager.NavigateTo(
-                $"/checkout/{id}" +
-                $"/{Uri.EscapeDataString(selectedSession.Cinema)}" +
-                $"/{selectedSession.DateKey}" +
-                $"/{selectedSession.Time}");
-        }
-    }*/
+            Date = dateTime,
+            Price = 7.5,
+            CinemaId = selectedCinemaEntity.Id,       
+            Cinema = selectedCinemaEntity,
+            AuditoryId = firstAuditory.Id, 
+            Auditory = firstAuditory
+        };
+
+        var result = functionService.Add(newFunction);
+
+        if (!result.Success)
+            throw new Exception(result.Message);
+
+        NavigationManager.NavigateTo($"/SeatSelect/{movie.Id}?cinema={Uri.EscapeDataString(selectedSession.Cinema)}&date={Uri.EscapeDataString(selectedSession.DateKey)}&time={Uri.EscapeDataString(selectedSession.Time)}");
+
+    }
 }

@@ -1,117 +1,60 @@
 @page "/SeatSelect/{id:int}"
-@inherits AuthenticatedComponentBase
-@using SistemaDeBilheteira.Services.API_Deserializer
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-
 @inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.WebUtilities
+@rendermode InteractiveServer
 
-<div class="session-selection-container">
-    @if (movie != null)
-    {
-        <section class="banner">
-            <div class="banner-wrapper">
-                <img src="@($"https://image.tmdb.org/t/p/w1280{movie.BackdropPath}")" alt="@movie.Title" class="banner-image" />
-                <div class="banner-title-overlay">
-                    <h2 class="banner-title">@movie.Title</h2>
-                    <p class="movie-overview">@movie.Overview</p>
+<h3 class="Title">Seat Selection</h3>
 
-                </div>
-            </div>
-            <div class="play-button-container">
-                <img src="images/icons/MovieDescription/play.svg" alt="play" class="play-icon"/>
-            </div>
-        </section>
-    }
-    else
-    {
-        <p class="loading">Loading movie details...</p>
-    }
-</div>
+@if (string.IsNullOrEmpty(Cinema) || string.IsNullOrEmpty(DateKey) || string.IsNullOrEmpty(Time))
+{
+    <p>Return and select a valid Session</p>
+}
+else
+{
+    <p class="Text"><strong>Cine:</strong> @Cinema</p>
+    <p class="Text"><strong>Fecha:</strong> @DateKey</p>
+    <p class="Text"><strong>Hora:</strong> @Time</p>
 
-<div class="seats-container">
-    <div class="seat-selection">
-        <h3 class="seat-selection-title">BUY TICKET</h3>
-        <h3 class="seat-selection-title2">Select a seat</h3>
-        <div class="select-seat-container">
-            <div class="screen-container">
-                <img src="images/icons/Seat/Screen.svg" alt="screen" class="screen-icon" />
-            </div>
-            <div class="screen-title">
-                <h3 class="screen-title">Screen</h3>
-            </div>
-            <div class="seat-map">
-                @foreach (var row in SeatRows)
+    <div class="seat-map">
+        @foreach (var row in SeatRows)
+        {
+            <div class="seat-row">
+                @foreach (var seat in row)
                 {
-                    <div class="seat-row">
-                        @foreach (var seat in row)
-                        {
-                            <button class="seat-button @(seat.IsSelected ? "selected" : "")"
-                                    disabled="@seat.IsReserved"
-                                    @onclick="() => ToggleSeatSelection(seat)">
-                                <img src="@GetSeatImage(seat)" alt="@seat.Label" class="seat-icon" />
-                                <span class="seat-label">@seat.Label</span>
-                            </button>
-                        }
-                    </div>
+                    <button class="seat-button @(seat.IsSelected ? "selected" : "")"
+                            disabled="@seat.IsReserved"
+                            @onclick="() => ToggleSeatSelection(seat)">
+                        @seat.Label
+                    </button>
                 }
             </div>
-            <div class="legend">
-                <div class="legend-itemB">
-                    <img src="images/icons/Seat/BluePoint.svg" alt="Available" class="legend-icon" />
-                    <span>Available</span>
-                </div>
-                <div class="legend-itemR">
-                    <img src="images/icons/Seat/RedPoint.svg" alt="Reserved" class="legend-icon" />
-                    <span>Reserved</span>
-                </div>
-                <div class="legend-itemW">
-                    <img src="images/icons/Seat/WhitePoint.svg" alt="Selected" class="legend-icon" />
-                    <span>Selected</span>
-                </div>
-            </div>
-        </div>
+        }
+    </div>
 
-    </div>
-    <div class="prim-buttons">
-        @if (movie != null)
-            {
-                <a class="" href="@($"QuantityOfTickets/{movie.Id}")">
-                    <button class="primary-button">CONFIRM SELECTION</button>
-                </a>
-            }
-            else
-            {
-                <p class="loading">Loading movie details...</p>
-            }
-    </div>
-</div>
+    <button class="primary-button" @onclick="ConfirmSelection">Confirmar Selección</button>
+}
 
 @code {
     [Parameter] public int id { get; set; }
-    private Movie? movie;
-    private List<string> genreNames = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        var movieDeserializer = new Deserializer<Movie>();
-        string? url = Environment.GetEnvironmentVariable("MOVIES_LINK");
-        movie = await movieDeserializer.Fetch($"{url}/{id}")!;
-        
-
-
-        await LoadSeats();
-    }
-
-    private class Seat
-    {
-        public string Label { get; set; } = string.Empty;
-        public bool IsReserved { get; set; }
-        public bool IsSelected { get; set; }
-    }
+    public string? Cinema { get; set; }
+    public string? DateKey { get; set; }
+    public string? Time { get; set; }
 
     private List<List<Seat>> SeatRows = new();
 
-    private async Task LoadSeats()
+    protected override void OnInitialized()
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var query = QueryHelpers.ParseQuery(uri.Query);
+
+        Cinema = query.TryGetValue("cinema", out var cinema) ? cinema.ToString() : null;
+        DateKey = query.TryGetValue("date", out var date) ? date.ToString() : null;
+        Time = query.TryGetValue("time", out var time) ? time.ToString() : null;
+
+        LoadSeats();
+    }
+
+    private void LoadSeats()
     {
         string[] rowLabels = { "A", "B", "C", "D", "E", "F" };
         int seatCount = 9;
@@ -126,7 +69,8 @@
                 row.Add(new Seat
                 {
                     Label = $"{rowLabel}{i}",
-                    IsReserved = (rowLabel == "A" && i <= 3) || (rowLabel == "C" && i == 6)
+                    IsReserved = false,
+                    IsSelected = false
                 });
             }
             SeatRows.Add(row);
@@ -137,7 +81,6 @@
     {
         if (seat.IsReserved) return;
 
-        // Clear previous selection
         foreach (var row in SeatRows)
         {
             foreach (var s in row)
@@ -149,12 +92,26 @@
         seat.IsSelected = true;
     }
 
-    private string GetSeatImage(Seat seat)
+    private void ConfirmSelection()
     {
-        if (seat.IsReserved)
-            return "images/icons/Seat/RedSeat.svg";
-        if (seat.IsSelected)
-            return "images/icons/Seat/WhiteSeat.svg";
-        return "images/icons/Seat/BlueSeat.svg";
+        var selectedSeat = SeatRows.SelectMany(r => r).FirstOrDefault(s => s.IsSelected);
+        if (selectedSeat != null)
+        {
+            // Aquí puedes agregar la lógica para guardar la selección en la base de datos
+            Console.WriteLine($"Asiento seleccionado: {selectedSeat.Label}");
+            Console.WriteLine($"Cine: {Cinema}, Fecha: {DateKey}, Hora: {Time}, Película ID: {id}");
+            // Redirigir o mostrar mensaje de éxito
+        }
+        else
+        {
+            Console.WriteLine("Por favor, seleccione un asiento.");
+        }
+    }
+
+    private class Seat
+    {
+        public string Label { get; set; } = string.Empty;
+        public bool IsReserved { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

@@ -1,81 +1,132 @@
-.session-selection-container {
+/*=====================
+  Global Container
+======================*/
+.seat-selection-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
     color: white;
     font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #1A1A1D 0%, #2D2D30 100%);
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
-.banner {
-    margin-bottom: 40px;
-    position: relative;
+/*=====================
+  Header Section
+======================*/
+.session-header {
+    background: linear-gradient(90deg, #FFC700 0%, #FF8C00 100%);
+    padding: 25px 30px;
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(255, 199, 0, 0.3);
 }
 
-.banner-wrapper {
-    position: relative;
-    width: 100%;
-    height: 520px;
-}
-
-.banner-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.banner-title-overlay {
-    position: absolute;
-    bottom: 40px;
-    left: 40px;
-    z-index: 2;
-    color: white;
-    text-align: left;
-    padding: 12px 24px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    backdrop-filter: blur(4px);
-    max-width: 80%;
-}
-
-.banner-title {
-    font-size: 3.5em;
-    font-weight: bold;
+.session-header h2 {
+    color: #1A1A1D;
+    font-size: 28px;
+    font-weight: 700;
     margin: 0;
-    color: #fff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.play-button-container {
-    position: absolute;
-    top: 85%;
-    right: 40px;
-    transform: translateY(-50%);    
-    padding: 20px;
-    cursor: pointer;
-    z-index: 10;
-    transition: transform 0.2s ease;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
+.session-header p {
+    color: #1A1A1D;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 8px 0 0;
 }
 
-.play-button-container:hover {
-    transform: translateY(-50%) scale(1.05);
-    background: rgba(0, 0, 0, 0.9);
+/*=====================
+  Session Info Box
+======================*/
+.session-info {
+    background: rgba(30, 30, 33, 0.8);
+    padding: 20px 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.play-icon {
-    width: 60px;
-    height: 60px;
+.session-info p {
+    margin: 8px 0;
+    font-size: 18px;
+    color: #E0E0E0;
 }
 
+.session-info strong {
+    color: #FFC700;
+    font-weight: 600;
+}
+
+/*=====================
+  Titles
+======================*/
+.seat-selection-title {
+    background: linear-gradient(90deg, #FFC700 0%, #00C7BB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 42px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.seat-selection-title2 {
+    color: #FFC700;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/*=====================
+  Screen Section
+======================*/
+.screen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    perspective: 1000px;
+}
+
+.screen-icon {
+    background: linear-gradient(to bottom, #555 0%, #333 100%);
+    width: 80%;
+    height: 50px;
+    border-radius: 8px;
+    color: #FFC700;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    transform: rotateX(30deg);
+    border-bottom: 3px solid #FFC700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/*=====================
+  Seat Map
+======================*/
 .seat-map {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(40, 40, 45, 0.6);
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .seat-row {
@@ -83,188 +134,208 @@
     justify-content: center;
 }
 
-.seat {
-    border-radius: 4px;
-    margin: 20px;
+/*=====================
+  Seat Buttons
+======================*/
+.seat-button {
+    width: 50px;
+    height: 50px;
+    margin: 8px;
+    border-radius: 8px;
     border: none;
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.available {
+    background: linear-gradient(135deg, #00C7BB 0%, #00A8A8 100%);
+    color: white;
     cursor: pointer;
 }
 
-
-
-.reserved {
-    cursor: not-allowed;
+.available:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 199, 187, 0.6);
 }
 
+.reserved {
+    background: linear-gradient(135deg, #FF4757 0%, #E84118 100%);
+    color: white;
+    cursor: not-allowed;
+    position: relative;
+    opacity: 0.9;
+}
 
+.reserved::after {
+    content: "✖";
+    position: absolute;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.selected {
+    background: linear-gradient(135deg, #FFF 0%, #EEE 100%);
+    color: #000;
+    animation: pulse 1.5s infinite;
+}
+
+/*=====================
+  Legend
+======================*/
+.legend-container {
+    background: rgba(40, 40, 45, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 30px auto;
+    max-width: 600px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
 .legend {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 40px;
     margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .legend-item {
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.9em;
-}
-
-.legend-item.available {
-    background-color: #0ff;
-}
-
-.legend-item.reserved {
-    background-color: #f44;
-}
-
-.legend-item.selected {
-    background-color: #fff;
-    color: #000;
-}
-
-.seats-container {
-    margin-top: 50px;
-    padding: 0 20px;
-    height: 880px;
-    width: 100%;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 15px;
-    background: rgba(88, 88, 88, 0.40);
-}
-
-.seat-icon{
-    margin: 5px;
-}
-
-.seat-selection-title {
-    color: #FFC700;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.seat-selection-title2{
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-button {
-    background:transparent;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-}
-
-.screen-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px ;
-}
-
-.screen-icon{
-    margin-top: 50px;
-}
-
-.screen-title {
-    font-weight: bold;
-    text-align: center;
-    color: #00C7BB;
-    text-align: center;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-bottom: 60px;
-}
-
-.select-seat-container{
-    background-color: #1A1A1D;
-    filter: drop-shadow(0px 0px 14px rgba(0, 0, 0, 0.07));
-    width: auto;
-    height: 650px;
-    flex-shrink: 0;
-    border-radius: 15px;
-}
-
-.legend {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.legend-itemB {
-    display: flex;
-    align-items: right;
-    font-family: 'Montserrat', sans-serif;
-    gap: 8px;
-    color: #00C7BB;
-}
-
-.legend-itemR {
     display: flex;
     align-items: center;
-    font-family: 'Montserrat', sans-serif;
-    gap: 8px;
-    color: #f44;
-    margin-left: 100px;
-}
-
-.legend-itemW {
-    display: flex;
-    align-items: left;
-    font-family: 'Montserrat', sans-serif;
-    gap: 8px;
-    color: white;
-    margin-left: 100px;
+    gap: 12px;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .legend-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.movie-overview {
-    color: #E0E0E0;
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 32px;
-    max-width: 800px;
+.legend-itemB .legend-icon {
+    background: linear-gradient(135deg, #00C7BB 0%, #00A8A8 100%);
+}
+
+.legend-itemR .legend-icon {
+    background: linear-gradient(135deg, #f44 0%, #d33 100%);
+}
+
+.legend-itemW .legend-icon {
+    background: linear-gradient(135deg, #FFF 0%, #EEE 100%);
+    border: 1px solid #ccc;
+}
+
+/*=====================
+  Buttons
+======================*/
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
 }
 
 .primary-button {
-    background-color: #F5C518;
-    color: #000;
+    background: linear-gradient(135deg, #FFC700 0%, #FF8C00 100%);
+    color: #1A1A1D;
     border: none;
-    padding: 12px 30px;
+    padding: 16px 40px;
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
-    font-weight: 600;
-    border-radius: 30px;
+    font-weight: 700;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(255, 199, 0, 0.3);
 }
 
 .primary-button:hover {
-    background-color: #e0b000;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(255, 140, 0, 0.4);
+    background: linear-gradient(135deg, #FFD700 0%, #FF9C00 100%);
 }
 
-.prim-buttons {
-    display: flex;
-    gap: 20px;
-    margin: 30px;
-    justify-content: center;
+.secondary-button {
+    background: transparent;
+    color: #FFC700;
+    border: 2px solid #FFC700;
+    padding: 16px 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+    background: rgba(255, 199, 0, 0.1);
+}
+
+/*=====================
+  Effects & Animations
+======================*/
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+/*=====================
+  Responsive
+======================*/
+@media (max-width: 768px) {
+    .seat-button {
+        width: 40px;
+        height: 40px;
+        margin: 5px;
+        font-size: 12px;
+    }
+
+    .legend {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .seat-selection-title {
+        font-size: 32px;
+    }
+
+    .seat-selection-title2 {
+        font-size: 22px;
+    }
+}
+
+/*=====================
+  Razor-Specific
+======================*/
+.Text {
+    font-size: 18px;
+    color: #E0E0E0;
+    margin: 10px 0;
+    font-weight: 500;
+    text-align: center;
+}
+
+.Title {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #FFC700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

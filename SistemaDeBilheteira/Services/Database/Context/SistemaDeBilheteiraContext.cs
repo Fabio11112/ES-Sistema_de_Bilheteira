@@ -42,24 +42,29 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
 
+    public DbSet<Cinema> Cinemas { get; set; }
+    public DbSet<Function> Functions { get; set; }
+    public DbSet<Auditory> Auditories { get; set; }
+    public DbSet<Seat> Seats { get; set; }
+    public DbSet<CinemaTicket> CinemaTickets { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
-        
+
+
         modelBuilder.Entity<Product>().UseTpcMappingStrategy();
         modelBuilder.Entity<Rental>().ToTable("Rentals");
-        
+
         modelBuilder.Entity<Product>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
-        
-        
+
+
         modelBuilder.Entity<ShoppingCartItem>()
             .HasKey(sci => new { sci.AppUserId, sci.ProductId });
-        
+
         modelBuilder.Entity<PurchaseItem>()
             .HasKey(sci => new { sci.PurchaseId, sci.ProductId });
 
@@ -72,13 +77,13 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .HasOne(sci => sci.Product)
             .WithMany(p => p.ShoppingCartItems)
             .HasForeignKey(sci => sci.ProductId);
-        
+
 
         modelBuilder.Entity<PaymentMethod>().UseTpcMappingStrategy();
         modelBuilder.Entity<PaymentMethod>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
-        
+
         var paymentMethodTypes = new[] { typeof(Card), typeof(Paypal) };
 
         foreach (var type in paymentMethodTypes)
@@ -87,7 +92,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
                 .Property(nameof(DbItem.Id))
                 .ValueGeneratedNever();
         }
-        
+
         modelBuilder.Entity<Card>().ToTable("Cards");
 
 
@@ -103,7 +108,17 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .HasMany(c => c.Payments)
             .WithOne(p => p.Currency)
             .HasForeignKey(p => p.CurrencyId);
-        }
+
+        modelBuilder.Entity<Function>()
+                .HasOne(f => f.Cinema)
+                .WithMany(c => c.Functions)
+                .HasForeignKey(f => f.CinemaId);
+
+        modelBuilder.Entity<Function>()
+            .HasOne(f => f.Auditory)
+            .WithMany(a => a.Functions)
+            .HasForeignKey(f => f.AuditoryId);
+    }
 
 
 }
