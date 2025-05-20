@@ -1,3 +1,5 @@
+using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
+
 namespace SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 
 public class Cinema : DbItem

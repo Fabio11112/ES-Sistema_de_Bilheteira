@@ -4,13 +4,14 @@
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder
+@using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject IServiceManager ServiceManager
 @inject FunctionBuilder FunctionBuilder
-@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
-
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject NavigationManager Navigation;
 @rendermode InteractiveServer
 
 <div class="session-selection-container">
@@ -142,7 +143,7 @@
         return SelectedDay == day && SelectedSession == time;
     } 
     
-    private void SaveSelectedFunctionAsync()
+    private async Task SaveSelectedFunctionAsync()
     {
         if (SelectedDay == null || SelectedSession == null)
             return;
@@ -150,7 +151,9 @@
         var function = GetOrGenerateFunction();
         
         if (function == null) return;
+        await SessionStorage.SetItemAsync("function", function);
         
+        Navigation.NavigateTo($"/QuantityOfTickets/{id}");
 
 
     }
