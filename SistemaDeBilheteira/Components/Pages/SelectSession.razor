@@ -74,7 +74,7 @@
 @code {
     [Parameter] public int id { get; set; }
     private Movie? movie;
-    private IService<Cinema> CinemaService;
+    private IService<Cinema>? CinemaService { get; set; }
 
     private ICollection<Cinema> Cinemas { get; set; } = new List<Cinema>();
     private Dictionary<string, DateTime?> Dates { get; set; } = new()
@@ -135,7 +135,7 @@
     
     private async Task SaveSelectedFunctionAsync()
     {
-
+        
     }
 
     private void PopulateDays()

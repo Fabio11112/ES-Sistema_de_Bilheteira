@@ -13,6 +13,7 @@ using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
+using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
@@ -73,6 +74,7 @@ builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
 builder.Services.AddSingleton<PhysicalMedia, PhysicalMedia>();
 builder.Services.AddSingleton<MediaBuilder, MediaBuilder>();
+builder.Services.AddSingleton<CinemaTicketBuilder, CinemaTicketBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
