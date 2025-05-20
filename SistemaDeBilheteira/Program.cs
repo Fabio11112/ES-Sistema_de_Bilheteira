@@ -74,7 +74,8 @@ builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
 builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
 builder.Services.AddSingleton<PhysicalMedia, PhysicalMedia>();
 builder.Services.AddSingleton<MediaBuilder, MediaBuilder>();
-builder.Services.AddSingleton<CinemaTicketBuilder, CinemaTicketBuilder>();
+builder.Services.AddScoped<CinemaTicketBuilder, CinemaTicketBuilder>();
+builder.Services.AddScoped<SharedTicketBuilder, SharedTicketBuilder>();
 builder.Services.AddSingleton<SeatBuilder, SeatBuilder>();
 builder.Services.AddSingleton<FunctionBuilder, FunctionBuilder>();
 

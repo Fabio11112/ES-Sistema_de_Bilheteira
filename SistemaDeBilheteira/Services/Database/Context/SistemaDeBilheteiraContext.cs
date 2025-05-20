@@ -120,10 +120,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithOne(p => p.Currency)
             .HasForeignKey(p => p.CurrencyId);
 
-        modelBuilder.Entity<Function>()
-                .HasOne(f => f.Cinema)
-                .WithMany(c => c.Functions)
-                .HasForeignKey(f => f.CinemaId);
 
         modelBuilder.Entity<Function>()
             .HasOne(f => f.Auditory)
