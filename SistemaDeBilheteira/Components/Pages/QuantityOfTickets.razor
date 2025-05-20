@@ -96,6 +96,6 @@ else
     private async Task ProceedToNextStep()
     {
         await SessionStorage.SetItemAsync("quantity", NumberOfPeople);
-        NavigationManager.NavigateTo($"/SeatSelect/{id}?quantity={NumberOfPeople}");
+        NavigationManager.NavigateTo($"/SeatSelect/{id}");
     }
 }

@@ -55,6 +55,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         modelBuilder.Entity<Product>().UseTpcMappingStrategy();
         modelBuilder.Entity<Rental>().ToTable("Rentals");
         modelBuilder.Entity<PhysicalMedia>().ToTable("PhysicalMedias");
+        modelBuilder.Entity<CinemaTicket>().ToTable("CinemaTickets");
         
         modelBuilder.Entity<Product>()
             .Property(p => p.Id)

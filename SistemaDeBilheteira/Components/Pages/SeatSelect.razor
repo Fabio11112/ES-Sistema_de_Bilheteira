@@ -1,7 +1,20 @@
 @page "/SeatSelect/{id:int}"
+@inherits AuthenticatedComponentBase
 @inject NavigationManager NavigationManager
-@using Microsoft.AspNetCore.WebUtilities
+@inject IServiceManager ServiceManager
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+@inject SeatBuilder SeatBuilder
+@inject CinemaTicketBuilder TicketBuilder
+@inject ShoppingCartItemBuilder CartItemBuilder
+@using Microsoft.EntityFrameworkCore
+@using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
 @rendermode InteractiveServer
+
 
 <div class="seat-selection-container">
     <h3 class="Title">Seat Selection</h3>
@@ -13,9 +26,9 @@
     else
     {
         <div class="ticket-info">
-            <p class="Text"><strong>Cinema:</strong> @Cinema</p>
-            <p class="Text"><strong>Date:</strong> @DateKey</p>
-            <p class="Text"><strong>Time:</strong> @Time</p>
+            <p class="Text"><strong>Cinema:</strong> @Function!.Auditory.Cinema!.Name</p>
+            <p class="Text"><strong>Date:</strong> @Function.Date.ToString("dd/MM/yyyy")</p>
+            <p class="Text"><strong>Time:</strong> @Function.Date.ToString("HH:mm")</p>
             <p class="Text"><strong>Tickets:</strong> @TicketQuantity</p>
         </div>
 
@@ -23,13 +36,13 @@
             <div class="screen">SCREEN</div>
         </div>
 
-        @if (SelectedSeats.Count > 0)
+        @if (SelectedSeats!.Count > 0)
         {
             <div class="selected-seats">
                 @foreach (var seat in SelectedSeats)
                 {
                     <div class="selected-seat-tag">
-                        @seat.Label
+                        @seat.Letter@seat.Number
                         <button class="remove-seat" @onclick="() => RemoveSeat(seat)">×</button>
                     </div>
                 }
@@ -37,15 +50,15 @@
         }
 
         <div class="seat-map">
-            @foreach (var row in SeatRows)
+            @foreach (var row in SeatsRows!)
             {
                 <div class="seat-row">
                     @foreach (var seat in row)
                     {
-                        <button class="seat-button @(seat.IsReserved ? "reserved" : seat.IsSelected ? "selected" : "available")"
-                                disabled="@(seat.IsReserved || (SelectedSeats.Count >= TicketQuantity && !seat.IsSelected))"
+                        <button class="seat-button @(IsReserved(seat) ? "reserved" : IsSelected(seat) ? "selected" : "available"))"
+                                disabled="@(IsReserved(seat) || (SelectedSeats.Count >= TicketQuantity && !IsSelected(seat)))"
                                 @onclick="() => ToggleSeatSelection(seat)">
-                            @seat.Label
+                            @seat.Number@seat.Letter
                         </button>
                     }
                 </div>
@@ -60,113 +73,178 @@
 
 @code {
     [Parameter] public int id { get; set; }
-    public string? Cinema { get; set; }
-    public string? DateKey { get; set; }
-    public string? Time { get; set; }
-    public int TicketQuantity { get; set; }
+    private int TicketQuantity { get; set; }
+    private Function? Function { get; set; }
+    
+    private ICollection<ICollection<Seat>>? SeatsRows{ get; set; }
+    private ICollection<Seat>? ReservedSeats { get; set; }
+    private ICollection<Seat>? SelectedSeats { get; set; }
+    
+    private IService<Seat>? SeatService { get; set; }
+    private IService<Function>? FunctionService { get; set; }
+    private IService<CinemaTicket>? TicketService { get; set; }
+    private IService<ShoppingCartItem>? ItemService { get; set; }
+    
+    private string[] rowLabels = ["A", "B", "C", "D", "E", "F"];
 
-    private List<Seat> SelectedSeats = new();
-    private List<List<Seat>> SeatRows = new();
+    private bool _initialized = false;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
-        var query = QueryHelpers.ParseQuery(uri.Query);
-
-  
-        
-        if (query.TryGetValue("quantity", out var quantity) && int.TryParse(quantity, out int qty))
-        {
-            TicketQuantity = qty;
-        }
-
-        LoadSeats();
+        await base.OnInitializedAsync();
+        FunctionService = ServiceManager.GetService<Function>();
+        SeatService = ServiceManager.GetService<Seat>();
+        TicketService = ServiceManager.GetService<CinemaTicket>();
+        ItemService = ServiceManager.GetService<ShoppingCartItem>();
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!(firstRender && !_initialized))
+            return;
+        
+        Function = LoadFunction(await SessionStorage.GetItemAsync<Guid>("functionId"));
+        TicketQuantity = await SessionStorage.GetItemAsync<int>("quantity");
+        LoadSeats();
+        ReservedSeats = GetReservedSeats();
+        SelectedSeats = new List<Seat>();
+        _initialized = true;
+        StateHasChanged();
+    }
+
+    private Function LoadFunction(Guid functionId)
+    {
+        return FunctionService!.GetWithQuery(
+            q => q.Where(
+                f => f.Id == functionId)
+                .Include(f => f.Auditory)
+                .ThenInclude(a => a.Cinema))!.FirstOrDefault()!;
+    }
+    
     private void LoadSeats()
     {
-        string[] rowLabels = { "A", "B", "C", "D", "E", "F" };
-        int seatCount = 9;
-        var random = new Random();
+        if (!AreThereSeatsInDatabase())
+            CreateSeats();
+        
+        SeatsRows = GetSeatRows();
+    }
 
-        SeatRows.Clear();
+    private ICollection<Seat> GetReservedSeats()
+    {
+        ICollection<Seat> seats = new List<Seat>();
 
+        var tickets = GetTicketsFromFunction();
+        
+        foreach (var ticket in tickets!)
+            seats.Add(ticket.Seat);
+        
+        return seats;
+    }
+
+    private ICollection<CinemaTicket>? GetTicketsFromFunction()
+    {
+        return TicketService!.GetWithQuery(
+            q => q.Where(
+                    t => t.FunctionId == Function!.Id)
+                .Include(t => t.Seat));
+    }
+
+    private bool AreThereSeatsInDatabase()
+    {
+        return SeatService!.GetWithQuery(
+            q => q.Where(
+                s => s.AuditoryId == Function!.AuditoryId))!.Any();
+    }
+
+    private void CreateSeats()
+    {
+        const int seatCount = 9;
+        
         foreach (var rowLabel in rowLabels)
         {
-            var row = new List<Seat>();
-            for (int i = 1; i <= seatCount; i++)
+            for (var i = 1; i <= seatCount; i++)
             {
-                // Randomly reserve some seats for demonstration
-                bool isReserved = random.Next(0, 5) == 0;
-                row.Add(new Seat
-                {
-                    Label = $"{rowLabel}{i}",
-                    IsReserved = isReserved,
-                    IsSelected = false
-                });
+                var newSeat = SeatBuilder.WithAuditory(Function!.AuditoryId)
+                    .WithLetter(rowLabel)
+                    .WithNumber(i)
+                    .Build();
+
+                SeatService!.Add(newSeat);
             }
-            SeatRows.Add(row);
         }
     }
 
+    private ICollection<ICollection<Seat>> GetSeatRows()
+    {
+        ICollection<ICollection<Seat>> seatsRows = new List<ICollection<Seat>>();
+        foreach (var row in rowLabels)
+        {
+            var seatRow = SeatService!.GetWithQuery(
+                q => q.Where(
+                        s => s.Letter == row && s.AuditoryId == Function!.AuditoryId)
+                    .OrderBy(s => s.Number));
+            
+            seatsRows.Add(seatRow!);
+        }
+
+        return seatsRows;
+    }
+    
+    
     private void ToggleSeatSelection(Seat seat)
     {
-        if (seat.IsReserved) return;
+        if (IsReserved(seat)) return;
 
-        if (seat.IsSelected)
+        if (IsSelected(seat))
         {
-            // Deselect the seat
-            seat.IsSelected = false;
-            SelectedSeats.Remove(seat);
+            SelectedSeats!.Remove(seat);
         }
-        else if (SelectedSeats.Count < TicketQuantity)
+        else if (SelectedSeats!.Count < TicketQuantity)
         {
-            // Select the seat
-            seat.IsSelected = true;
             SelectedSeats.Add(seat);
         }
     }
 
     private void RemoveSeat(Seat seat)
     {
-        seat.IsSelected = false;
-        SelectedSeats.Remove(seat);
-        
-        // Find the seat in the SeatRows and update its status
-        foreach (var row in SeatRows)
-        {
-            var seatToUpdate = row.FirstOrDefault(s => s.Label == seat.Label);
-            if (seatToUpdate != null)
-            {
-                seatToUpdate.IsSelected = false;
-                break;
-            }
-        }
+        SelectedSeats!.Remove(seat);
     }
 
     private void ConfirmSelection()
     {
-        if (SelectedSeats.Count == TicketQuantity)
+        if (SelectedSeats!.Count != TicketQuantity) return;
+
+        foreach (var seat in SelectedSeats)
         {
-            // Create comma-separated list of selected seats
-            var seats = string.Join(",", SelectedSeats.Select(s => s.Label));
-            
-            // Navigate to next page with selected parameters
-            NavigationManager.NavigateTo(
-                $"/AddedToCart/{id}" +
-                $"?cinema={Uri.EscapeDataString(Cinema!)}" +
-                $"&date={Uri.EscapeDataString(DateKey!)}" +
-                $"&time={Uri.EscapeDataString(Time!)}" +
-                $"&seats={Uri.EscapeDataString(seats)}" +
-                $"&quantity={TicketQuantity}");
+            SaveTicketInCart(seat);
         }
+        
+        // Navigate to next page with selected parameters
+        NavigationManager.NavigateTo($"/AddedToCart/{id}");
     }
 
-    private class Seat
+    private void SaveTicketInCart(Seat seat)
     {
-        public string Label { get; set; } = string.Empty;
-        public bool IsReserved { get; set; }
-        public bool IsSelected { get; set; }
+        var ticket = TicketBuilder.WithFunction(Function!.Id)
+            .WithPrice(GetPrice())
+            .WithSeat(seat.Id)
+            .WithMovieId(id.ToString())
+            .Build();
+
+        TicketService!.Add(ticket!);
+
+        var item = CartItemBuilder.WithQuantity(1)
+            .WithProductId(ticket!.Id)
+            .WithAppUserId(User!.Id)
+            .Build();
+
+        ItemService!.Add(item!);
+    }
+    
+    private double GetPrice() =>  9.99;
+
+    private bool IsSelected(Seat seat) => SelectedSeats!.Contains(seat);
+    
+    private bool IsReserved(Seat seat) => ReservedSeats!.Contains(seat);
     }
 }

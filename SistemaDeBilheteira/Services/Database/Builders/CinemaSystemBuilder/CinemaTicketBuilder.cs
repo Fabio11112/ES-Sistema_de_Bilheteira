@@ -40,6 +40,8 @@ public class CinemaTicketBuilder
         {
             FunctionId = _functionId,
             SeatId = _seatId,
+            Price = _price,
+            MovieId = _movieId,
         };
     }
 
