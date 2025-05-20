@@ -101,3 +101,12 @@ input.input-field{
     font-size: 14px !important;
     box-sizing: border-box !important;
 }
+
+input.input-fields {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+    outline: none;
+}

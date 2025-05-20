@@ -32,14 +32,6 @@
     letter-spacing: 1px;
 }
 
-input.input-fields {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 14px;
-    font-family: Montserrat, sans-serif;
-    outline: none;
-}
 
 .form-container {
     max-width: 500px;
@@ -65,25 +57,6 @@ input.input-fields {
     font-size: 18px;
     margin-bottom: 30px;
 }
-
-/*.input-field::placeholder {
-    color: #AFAFAF;
-    text-transform: uppercase;
-}
-
-input.input-field{
-    all: unset;
-    background-color: #000 !important;
-    color: white !important;
-    padding: 15px !important;
-    border-radius: 8px !important;
-    width: 100% !important;
-    margin-bottom: 15px !important;
-    font-family: 'Montserrat', sans-serif !important;
-    font-size: 14px !important;
-    box-sizing: border-box !important;
-}*/
-
 
 
 .row {

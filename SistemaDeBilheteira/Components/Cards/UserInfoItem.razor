@@ -3,42 +3,46 @@
 @rendermode InteractiveServer
 @inject IJSRuntime JS
 
-<div class="title">User Info</div>
-<p class="subtitle">Here you can modify your data</p>
-<div class="input-container">
-    <img src="images/icons/email.svg" alt="email" class="input-icon" />
-    <div class="input-content">
-        <label for="email" class="input-label">EMAIL ADDRESS</label>
-        <input type="email" id="email" class="input-fields" placeholder="Enter your email" />
+<EditForm Model="InfoUserModel" OnValidSubmit="HandleSubmit" FormName="InfoUserForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="title">User Info</div>
+    <p class="subtitle">Here you can modify your data</p>
+    <div class="input-container">
+        <img src="images/icons/email.svg" alt="email" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">EMAIL ADDRESS</label>
+            <InputText class="input-fields" @bind-Value="InfoUserModel.EmailAddress" placeholder="Enter your email" />
+        </div>
     </div>
-</div>
-<div class="input-container">
-    <img src="images/icons/lock.svg" alt="email" class="input-icon" />
-    <div class="input-content">
-        <label for="oldPass" class="input-label">OLD PASSWORD</label>
-        <input type="oldPass" id="oldPass" class="input-fields" placeholder="Enter your old password" />
+    <div class="input-container">
+        <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">OLD PASSWORD</label>
+            <InputText class="input-fields" @bind-Value="InfoUserModel.OldPassword" placeholder="Enter your old password" />
+        </div>
+        <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()"/>
     </div>
-    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
-</div>
 
-<div class="input-container">
-    <img src="images/icons/lock.svg" alt="lock" class="input-icon" />
-    <div class="input-content">
-        <label for="newPass" class="input-label">NEW PASSWORD</label>
-        <input type="newPass" id="password" class="input-fields" placeholder="Enter your password" />
-        @*<input @bind="Password" id="password" class="input-field" placeholder="Enter your password" type="@PasswordInputType" />*@
+    <div class="input-container">
+        <img src="images/icons/lock.svg" alt="lock" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">NEW PASSWORD</label>
+            <InputText class="input-fields" @bind-Value="InfoUserModel.NewPassword" placeholder="Enter your new password" />
+            @*<input @bind="Password" id="password" class="input-field" placeholder="Enter your password" type="@PasswordInputType" />*@
+        </div>
+        <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()"/>
     </div>
-    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
-</div>
 
-<div class="input-container">
-    <img src="images/icons/lock.svg" alt="email" class="input-icon" />
-    <div class="input-content">
-        <label for="conPass" class="input-label">CONFIRM NEW PASSWORD</label>
-        <input type="conPass" id="conPass" class="input-fields" placeholder="Confirm new password" />
+    <div class="input-container">
+        <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">CONFIRM NEW PASSWORD</label>
+            <InputText class="input-fields" @bind-Value="InfoUserModel.ConfirmPassword" placeholder="Confirm new password" />
+        </div>
+        <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()"/>
     </div>
-    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
-</div>
+</EditForm>
 
 <EditForm Model="Model" OnValidSubmit="HandleSubmit" FormName="CardForm">
     <DataAnnotationsValidator />
@@ -57,7 +61,8 @@
                    onkeydown="BlockLetters(event)"/>
 
         <div class="row">
-            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
+            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV"
+                       onkeydown="BlockLetters(event)"/>
             <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
 
@@ -74,6 +79,9 @@
     
     [Parameter] 
     public CardModel? Model { get; set; } 
+    
+    [Parameter]
+    public InfoUserModel? InfoUserModel { get; set; }
     
     [Parameter] 
     public EventCallback OnValidSubmit { get; set; }
