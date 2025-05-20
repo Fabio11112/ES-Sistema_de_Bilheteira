@@ -1,5 +1,6 @@
 @page "/SelectSession/{id:int}"
 @inherits AuthenticatedComponentBase
+@using System.Globalization
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
@@ -155,6 +156,7 @@
         if (date == DateTime.Today) return "Today";
         if (date == DateTime.Today.Add(TimeSpan.FromDays(1))) return "Tomorrow";
 
-        return date?.ToString("dddd - dd/MM/yyyy")!;
+        return date?.ToString("dddd - dd/MM/yyyy", new CultureInfo("en-US")) ?? string.Empty;
     }
+    
 }
