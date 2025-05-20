@@ -1,6 +1,8 @@
 @page "/SelectSession/{id:int}"
 @inherits AuthenticatedComponentBase
 @using System.Globalization
+@using System.Text.Json
+@using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder
@@ -114,7 +116,10 @@
         await base.OnInitializedAsync();
         CinemaService = ServiceManager.GetService<Cinema>();
         AuditoriumService = ServiceManager.GetService<Auditory>();
-        Cinemas = CinemaService.GetAll()!;
+        FunctionService = ServiceManager.GetService<Function>();
+        
+        Cinemas = CinemaService.GetWithQuery(
+            q => q.Include(c => c.Auditoriums))!;
         PopulateDays();
         var movieDeserializer = new Deserializer<Movie>();
         var movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
@@ -145,15 +150,23 @@
     
     private async Task SaveSelectedFunctionAsync()
     {
-        if (SelectedDay == null || SelectedSession == null)
+        if (SelectedDay == null || SelectedSession == null || SelectedCinema == null)
             return;
 
         var function = GetOrGenerateFunction();
         
         if (function == null) return;
-        await SessionStorage.SetItemAsync("function", function);
-        
-        Navigation.NavigateTo($"/QuantityOfTickets/{id}");
+
+        try
+        {
+            await SessionStorage.SetItemAsync("functionId", function.Id);
+
+            Navigation.NavigateTo($"/QuantityOfTickets/{id}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.StackTrace);
+        }
 
 
     }
@@ -170,11 +183,11 @@
         var functionDb = FunctionService.GetWithQuery(
             q => q.Where(
                 f =>f.Date == functionDate && f.AuditoryId == auditoriumId
-            ))!.FirstOrDefault();
+            ))!.ToList();
 
         Function ticketFunction;
         
-        if (functionDb == null)
+        if (functionDb is not{Count: > 0})
         {
             ticketFunction = FunctionBuilder.WithDate(functionDate)
                 .WithAuditory(auditoriumId)
@@ -184,7 +197,7 @@
         }
         else
         {
-            ticketFunction = functionDb;
+            ticketFunction = functionDb.FirstOrDefault()!;
         }
         return ticketFunction;
     }
@@ -212,17 +225,15 @@
 
     private Guid GetRandomAuditoriumId()
     {
-        var auditoriumsFromCinema = AuditoriumService.GetWithQuery(
-            q => q.Where(
-                a => SelectedCinema != null && SelectedCinema.Auditoriums.Contains(a)
-                ));
         
-        var auditoriums = auditoriumsFromCinema?.ToList();
+        var auditoriums = SelectedCinema!.Auditoriums.ToList();
         
-        if (auditoriums == null || auditoriums.Count <= 0) return Guid.Empty;
+        if (auditoriums is not { Count: > 0 }) return Guid.Empty;
         
         var random = new Random();
         return auditoriums[random.Next(auditoriums.Count)].Id;
     }
+
+
     
 }
