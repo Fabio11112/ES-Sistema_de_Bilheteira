@@ -1,92 +1,83 @@
-﻿@page "/UserInfo"
-@inherits AuthenticatedComponentBase
-@attribute [Authorize]
-@rendermode InteractiveServer
+﻿    @page "/UserInfo"
+    @inherits AuthenticatedComponentBase
+    @attribute [Authorize]
+    @rendermode InteractiveServer
 
-@using SistemaDeBilheteira.Components.Cards
-@using Microsoft.AspNetCore.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService.Models
-@using SistemaDeBilheteira.Services.Database.Builders
-@using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
-@using SistemaDeBilheteira.Services.IService
-@using SistemaDeBilheteira.Services.IService.ServiceManager
+    @using SistemaDeBilheteira.Components.Cards
+    @using Microsoft.AspNetCore.Authorization
+    @using SistemaDeBilheteira.Services.AuthenticationService.Models
+    @using SistemaDeBilheteira.Services.Database.Builders
+    @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
+    @using SistemaDeBilheteira.Services.IService
+    @using SistemaDeBilheteira.Services.IService.ServiceManager
+    @using SistemaDeBilheteira.Services.UI
 
-@inject IServiceManager ServiceManager
-@inject CardBuilder CardBuilder
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<PageTitle>User Info</PageTitle>
+    @inject IServiceManager ServiceManager
+    @inject CardBuilder CardBuilder
+    @inject NotificationService NotificationService
 
-<div class="background">
-    <div class="products">
-        <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <PageTitle>User Info</PageTitle>
+
+    <div class="background">
+        <div class="products">
+            <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
+        </div>
     </div>
-</div>
 
-@if (ShowPopup)
-{
-    <div class="popup">
-        @Message
-        <button class="popup-close" @onclick="ClosePopup">X</button>
-    </div>
-}
 
-@code {
-    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
-    private string Message { get; set; } = string.Empty;
-    private bool ShowPopup { get; set; }
-    private ICollection<Card>? Cards { get; set; } = new List<Card>();
-    private IService<Card>? CardService { get; set; }
+    @code {
+        [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
+        private string Message { get; set; } = string.Empty;
+        private bool ShowPopup { get; set; }
+        private ICollection<Card>? Cards { get; set; } = new List<Card>();
+        private IService<Card>? CardService { get; set; }
 
-    protected override void OnInitialized()
-    {
-        CardService = ServiceManager.GetService<Card>();
-        Cards = CardService.GetAll();
+        protected override void OnInitialized()
+        {
+            CardService = ServiceManager.GetService<Card>();
+            Cards = CardService.GetAll();
+        }
+
+        private void SubmitCard()
+        {
+            CardBuilder.WithAppUserId(User!.Id)
+                    .WithAppUser(null!)
+                    .WithIsDefault(false)
+                    .WithPayments(null!)
+                    .WithBalance(500);
+
+            var card = CardBuilder
+                .WithNameOnCard(Model.NameOnCard)
+                .WithCardNumber(Model.CardNumber)
+                .WithCvv(Model.CVV)
+                .WithExpirationDate(Model.ExpDate!.Value)
+                .Build();
+            var result = CardService!.Add(card);
+
+            if (!result.Success) return;
+            Message = "Card added successfully";
+            NotificationService.Notify(Message);
+
+            Cards = CardService.GetAll();
+            StateHasChanged();
+
+        }
+
+
+        private void DeleteCard(Card card)
+        {
+            var result = CardService.Delete(card);
+            Message = "Card deleted successfully";
+            NotificationService.Notify(Message);
+
+            Cards = CardService.GetAll();
+            StateHasChanged();
+        }
+
+        private void UpdateState()
+        {
+            StateHasChanged();
+        }
     }
-
-    private void SubmitCard()
-    {
-        CardBuilder.WithAppUserId(User!.Id)
-                   .WithAppUser(null!)
-                   .WithIsDefault(false)
-                   .WithPayments(null!)
-                   .WithBalance(500);
-
-        var card = CardBuilder
-            .WithNameOnCard(Model.NameOnCard)
-            .WithCardNumber(Model.CardNumber)
-            .WithCvv(Model.CVV)
-            .WithExpirationDate(Model.ExpDate!.Value)
-            .Build();
-        var result = CardService!.Add(card);
-
-        if (!result.Success) return;
-        
-        Message = "Card added successfully";
-        ShowPopup = true;
-        Cards = CardService.GetAll();
-        StateHasChanged();
-
-    }
-
-    private void ClosePopup()
-    {
-      ShowPopup = false;
-      StateHasChanged();
-    }
-
-    private void DeleteCard(Card card)
-    {
-        var result = CardService.Delete(card);
-        Message = "Card deleted successfully";
-        ShowPopup = true;
-
-        Cards = CardService.GetAll();
-        StateHasChanged();
-    }
-
-    private void UpdateState()
-    {
-        StateHasChanged();
-    }
-}

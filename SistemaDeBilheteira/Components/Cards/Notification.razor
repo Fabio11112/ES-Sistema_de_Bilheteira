@@ -1,7 +1,6 @@
-
+@namespace SistemaDeBilheteira.Components.Cards
 @using SistemaDeBilheteira.Services.UI
 @inject NotificationService NotificationService
-@namespace SistemaDeBilheteira.Components.Cards
 @rendermode InteractiveServer
 
 @if (!string.IsNullOrEmpty(Message))
@@ -19,18 +18,21 @@
         NotificationService.OnNotify += ShowMessage;
     }
 
-    private async void ShowMessage(string message)
+    private void ShowMessage(string message)
     {
-        Message = message;
-        StateHasChanged();
+        _ = InvokeAsync(async () =>
+        {
+            Message = message;
+            StateHasChanged();
 
-        // show the message for 3 seconds
-        await Task.Delay(3000);
+            // show the message for 3 seconds
+            await Task.Delay(1000);
 
-        Message = null;
-        await InvokeAsync(StateHasChanged);
-
+            Message = null;
+            StateHasChanged();
+        });
     }
+
 
     public void Dispose()
     {
