@@ -1,4 +1,5 @@
 ﻿using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 
 namespace SistemaDeBilheteira.Services.UI;
 
@@ -24,5 +25,10 @@ public class SharedTicketBuilder (CinemaTicketBuilder builder)
     public void WithSeatId(Guid seatId)
     {
         Builder.WithSeat(seatId);
+    }
+
+    public CinemaTicket? Build()
+    {
+        return Builder.Build();
     }
 }
