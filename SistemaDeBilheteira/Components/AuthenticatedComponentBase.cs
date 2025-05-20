@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SistemaDeBilheteira.Services.AuthenticationService;
@@ -15,17 +14,11 @@ public abstract class AuthenticatedComponentBase : ComponentBase
 
     protected AppUser? User { get; private set; }
     protected string? UserId { get; private set; }
-    private JsonSerializerOptions? _jsonSerializerOptions;
     
     protected override async Task OnInitializedAsync()
     {
         User = await AuthService.GetAppUserAsync();
         
-        _jsonSerializerOptions= new JsonSerializerOptions
-        {
-            ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles,
-            WriteIndented = true
-        };
     }
     
 }

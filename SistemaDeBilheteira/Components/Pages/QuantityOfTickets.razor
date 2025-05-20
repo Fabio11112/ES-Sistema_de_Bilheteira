@@ -2,17 +2,21 @@
 @inherits AuthenticatedComponentBase
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@inject IServiceManager ServiceManager
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 
 @if (Movie != null)
 {
     <div class="movie-info">
         <div class="movie-details">
             <h2 class="movie-title">@Movie.Title</h2>
-            <p class="date">@SessionDate.ToString("dddd, MMMM d")</p>
-            <p class="time">@SessionDate.ToString("HH:mm")h</p>
+            <p class="date">@Function!.Date.ToString("dddd, MMMM d")</p>
+            <p class="time">@Function!.Date.ToString("HH:mm")h</p>
 
             <div class="cinema-name">
                 <img src="images/icons/location.svg" alt="location" class="button-icon" />
@@ -30,7 +34,7 @@
 
             <div class="counter-container">
                 <div class="counter-box">
-                    <div class="number-display">@numberOfPeople</div>
+                    <div class="number-display">@NumberOfPeople</div>
                 </div>
                 <div class="counter-buttons">
                     <button class="arrow-button" @onclick="IncreasePeople">▲</button>
@@ -52,30 +56,46 @@ else
 @code {
     [Parameter] public int id { get; set; }
     private Movie? Movie { get; set; }
-    private int numberOfPeople = 2;
+    private int NumberOfPeople { get; set; } = 1;
 
-    private DateTime SessionDate { get; set; } = new DateTime(2025, 4, 6, 21, 10, 0);
+    private Function? Function { get; set; }
+    
+    private IService<Function>? FunctionService { get; set; }
+    private bool _initialized = false;
 
-    protected override async Task OnInitializedAsync()
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
+        if (!(firstRender && !_initialized))
+            return;
+        
+        FunctionService = ServiceManager.GetService<Function>();
+        var functionId = await SessionStorage.GetItemAsync<Guid>("functionId");
+        Function = FunctionService.GetById(functionId);
+
         var movieDeserializer = new Deserializer<Movie>();
-
-        string? movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
-
+        var movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
         Movie = await movieDeserializer.Fetch(movieUrl)!;
-    }
 
-    private void IncreasePeople() => numberOfPeople++;
+        _initialized = true;
+        StateHasChanged();
+    }
+    
+    private void IncreasePeople()
+    {
+        if(NumberOfPeople < 7)
+            NumberOfPeople++;
+    } 
 
     private void DecreasePeople()
     {
-        if (numberOfPeople > 1)
-            numberOfPeople--;
+        if (NumberOfPeople > 1)
+            NumberOfPeople--;
     }
 
-    private void ProceedToNextStep()
+    private async Task ProceedToNextStep()
     {
-        NavigationManager.NavigateTo($"/SeatSelect/{id}?quantity={numberOfPeople}");
+        await SessionStorage.SetItemAsync("quantity", NumberOfPeople);
+        NavigationManager.NavigateTo($"/SeatSelect/{id}?quantity={NumberOfPeople}");
     }
 }
