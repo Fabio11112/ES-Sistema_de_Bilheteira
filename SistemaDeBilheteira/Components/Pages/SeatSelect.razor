@@ -210,7 +210,7 @@
         SelectedSeats!.Remove(seat);
     }
 
-    private void ConfirmSelection()
+    private async Task ConfirmSelection()
     {
         if (SelectedSeats!.Count != TicketQuantity) return;
 
@@ -218,6 +218,8 @@
         {
             SaveTicketInCart(seat);
         }
+
+        await SessionStorage.RemoveItemsAsync(["quantity, functionId"]);
         
         // Navigate to next page with selected parameters
         NavigationManager.NavigateTo($"/AddedToCart/{id}");
