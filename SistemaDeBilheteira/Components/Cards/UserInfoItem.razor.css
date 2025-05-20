@@ -32,12 +32,12 @@
     letter-spacing: 1px;
 }
 
-.input-fields {
+input.input-fields {
     background: transparent;
     border: none;
     color: white;
     font-size: 14px;
-    font-family: Poppins, sans-serif;
+    font-family: Montserrat, sans-serif;
     outline: none;
 }
 
@@ -66,22 +66,25 @@
     margin-bottom: 30px;
 }
 
-.input-field {
-    background-color: #000;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 8px;
-    width: 100%;
-    margin-bottom: 15px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-}
-
-.input-field::placeholder {
+/*.input-field::placeholder {
     color: #AFAFAF;
     text-transform: uppercase;
 }
+
+input.input-field{
+    all: unset;
+    background-color: #000 !important;
+    color: white !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    margin-bottom: 15px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    box-sizing: border-box !important;
+}*/
+
+
 
 .row {
     display: flex;

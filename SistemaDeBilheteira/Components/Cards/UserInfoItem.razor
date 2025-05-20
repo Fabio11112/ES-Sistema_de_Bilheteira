@@ -1,5 +1,7 @@
-﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
+﻿@using System.Text.RegularExpressions
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
 @rendermode InteractiveServer
+@inject IJSRuntime JS
 
 <div class="title">User Info</div>
 <p class="subtitle">Here you can modify your data</p>
@@ -46,7 +48,13 @@
         <p class="subtitle">Here you can add another Card</p>
 
         <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
-        <InputText class="input-field" @bind-Value="Model.CardNumber" placeholder="CARD NUMBER" />
+        <InputText @bind-Value="Model.CardNumber" 
+                   id = "cardNumber"
+                   class="input-field"
+                   max-length="19"
+                   placeholder="0000 0000 0000 0000"
+                   oninput="FormatCardNumber(this)"
+                   onkeydown="BlockLetters(event)"/>
 
         <div class="row">
             <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
@@ -57,17 +65,35 @@
     </div>
 </EditForm>
 
+<script src="scripts/UserInfoItem.js"></script>
+
+
+
+
 @code {
     
-    [Parameter] public CardModel? Model { get; set; } 
-    //private CardModel Model { get; set; } = new CardModel();
-    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] 
+    public CardModel? Model { get; set; } 
+    
+    [Parameter] 
+    public EventCallback OnValidSubmit { get; set; }
 
     private void HandleSubmit()
     {
         OnValidSubmit.InvokeAsync();
     }
-
+    
+    public async Task FormatCardNumber()
+    {
+        // Store your message here
+        await InvokeAsync(() => StateHasChanged());
+    }
+    
+    public async Task BlockLetters(object e)
+    {
+        // Store your message here
+        await InvokeAsync(() => StateHasChanged());
+    }
     
     [Parameter] public string Label { get; set; } = "Password";
     [Parameter] public string Placeholder { get; set; } = "";
@@ -97,4 +123,6 @@
     {
         ShowPassword = !ShowPassword;
     }
+    
 }
+

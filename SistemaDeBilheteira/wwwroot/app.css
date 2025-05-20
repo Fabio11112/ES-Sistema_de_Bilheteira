@@ -88,3 +88,16 @@ h1:focus {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+input.input-field{
+    all: unset;
+    background-color: #000 !important;
+    color: white !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    margin-bottom: 15px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 14px !important;
+    box-sizing: border-box !important;
+}
