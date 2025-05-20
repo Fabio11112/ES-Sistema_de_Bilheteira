@@ -4,8 +4,8 @@ namespace SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
 
 public class FunctionBuilder
 {
-    public DateTime Date { get; set; }
-    public Guid AuditoryId { get; set; }
+    private DateTime Date { get; set; }
+    private Guid AuditoryId { get; set; }
 
     public FunctionBuilder WithDate(DateTime date)
     {

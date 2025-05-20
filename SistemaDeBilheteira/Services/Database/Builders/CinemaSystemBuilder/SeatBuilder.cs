@@ -4,9 +4,9 @@ namespace SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
 
 public class SeatBuilder
 {
-    public int Number { get; set; }
-    public string Letter { get; set; } = string.Empty;
-    public Guid AuditoryId { get; set; }
+    private int Number { get; set; }
+    private string Letter { get; set; } = string.Empty;
+    private Guid AuditoryId { get; set; }
 
     public SeatBuilder WithNumber(int number)
     {

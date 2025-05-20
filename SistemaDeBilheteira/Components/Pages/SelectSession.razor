@@ -3,10 +3,12 @@
 @using System.Globalization
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject IServiceManager ServiceManager
+@inject FunctionBuilder FunctionBuilder
 @rendermode InteractiveServer
 
 <div class="session-selection-container">
@@ -75,8 +77,15 @@
     [Parameter] public int id { get; set; }
     private Movie? movie;
     private IService<Cinema>? CinemaService { get; set; }
-
+    private IService<Function> FunctionService { get; set; }
+    private IService<Auditory> AuditoriumService { get; set; }
+    
     private ICollection<Cinema> Cinemas { get; set; } = new List<Cinema>();
+    
+    private Cinema? SelectedCinema { get; set; }
+    private TimeSpan? SelectedSession { get; set; }
+    private DateTime? SelectedDay { get; set; }
+    
     private Dictionary<string, DateTime?> Dates { get; set; } = new()
     {
         { "Today", null },
@@ -96,14 +105,12 @@
         TimeSpan.FromHours(20).Add(TimeSpan.FromMinutes(30))  //20:30
     ];
 
-    private Cinema? SelectedCinema { get; set; }
-    private TimeSpan? SelectedSession { get; set; }
-    private DateTime? SelectedDay { get; set; }
-
+    
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         CinemaService = ServiceManager.GetService<Cinema>();
+        AuditoriumService = ServiceManager.GetService<Auditory>();
         Cinemas = CinemaService.GetAll()!;
         PopulateDays();
         var movieDeserializer = new Deserializer<Movie>();
@@ -133,9 +140,49 @@
         return SelectedDay == day && SelectedSession == time;
     } 
     
-    private async Task SaveSelectedFunctionAsync()
+    private void SaveSelectedFunctionAsync()
     {
-        var function = 
+        if (SelectedDay == null || SelectedSession == null)
+            return;
+
+        var function = GetOrGenerateFunction();
+        
+        if (function == null) return;
+        
+        
+
+
+    }
+
+    private Function? GetOrGenerateFunction()
+    {
+        var functionDate = SelectedDay!.Value.Add(SelectedSession!.Value);
+        
+        var auditoriumId = GetRandomAuditoriumId();
+
+        if (auditoriumId == Guid.Empty)
+            return null;
+
+        var functionDb = FunctionService.GetWithQuery(
+            q => q.Where(
+                f =>f.Date == functionDate && f.AuditoryId == auditoriumId
+            ))!.FirstOrDefault();
+
+        Function ticketFunction;
+        
+        if (functionDb == null)
+        {
+            ticketFunction = FunctionBuilder.WithDate(functionDate)
+                .WithAuditory(auditoriumId)
+                .Build();
+            
+            FunctionService.Add(ticketFunction);
+        }
+        else
+        {
+            ticketFunction = functionDb;
+        }
+        return ticketFunction;
     }
 
     private void PopulateDays()
@@ -157,6 +204,21 @@
         if (date == DateTime.Today.Add(TimeSpan.FromDays(1))) return "Tomorrow";
 
         return date?.ToString("dddd - dd/MM/yyyy", new CultureInfo("en-US")) ?? string.Empty;
+    }
+
+    private Guid GetRandomAuditoriumId()
+    {
+        var auditoriumsFromCinema = AuditoriumService.GetWithQuery(
+            q => q.Where(
+                a => SelectedCinema != null && SelectedCinema.Auditoriums.Contains(a)
+                ));
+        
+        var auditoriums = auditoriumsFromCinema?.ToList();
+        
+        if (auditoriums == null || auditoriums.Count <= 0) return Guid.Empty;
+        
+        var random = new Random();
+        return auditoriums[random.Next(auditoriums.Count)].Id;
     }
     
 }

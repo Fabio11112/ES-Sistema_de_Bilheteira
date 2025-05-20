@@ -6,8 +6,8 @@ public class CinemaTicketBuilder
 {
     private Guid _functionId = Guid.Empty;
     private Guid _seatId = Guid.Empty;
-    private double _price = 0;
-    private string? _movieId = null;
+    private double _price;
+    private string? _movieId;
 
     public CinemaTicketBuilder WithPrice(double price)
     {
