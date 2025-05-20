@@ -1,4 +1,5 @@
 
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,9 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorPages();  
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
+// Session storage
+builder.Services.AddBlazoredSessionStorage(); // Same call
+
 // Serviços customizados
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -68,16 +72,14 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 //BUILDERS
-builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
-builder.Services.AddSingleton<CardBuilder, CardBuilder>();
-builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
-builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
-builder.Services.AddSingleton<PhysicalMedia, PhysicalMedia>();
-builder.Services.AddSingleton<MediaBuilder, MediaBuilder>();
+builder.Services.AddScoped<AddressBuilder, AddressBuilder>();
+builder.Services.AddScoped<CardBuilder, CardBuilder>();
+builder.Services.AddScoped<RentalBuilder, RentalBuilder>();
+builder.Services.AddScoped<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
+builder.Services.AddScoped<MediaBuilder, MediaBuilder>();
 builder.Services.AddScoped<CinemaTicketBuilder, CinemaTicketBuilder>();
-builder.Services.AddScoped<SharedTicketBuilder, SharedTicketBuilder>();
-builder.Services.AddSingleton<SeatBuilder, SeatBuilder>();
-builder.Services.AddSingleton<FunctionBuilder, FunctionBuilder>();
+builder.Services.AddScoped<SeatBuilder, SeatBuilder>();
+builder.Services.AddScoped<FunctionBuilder, FunctionBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 

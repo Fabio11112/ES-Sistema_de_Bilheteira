@@ -4,7 +4,6 @@ using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
-using Xunit;
 
 namespace SistemaDeBilheteira.Tests.Database;
 

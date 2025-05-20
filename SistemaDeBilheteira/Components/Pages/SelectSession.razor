@@ -9,6 +9,8 @@
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject IServiceManager ServiceManager
 @inject FunctionBuilder FunctionBuilder
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+
 @rendermode InteractiveServer
 
 <div class="session-selection-container">
@@ -148,7 +150,6 @@
         var function = GetOrGenerateFunction();
         
         if (function == null) return;
-        
         
 
 
