@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SistemaDeBilheteira.Services.AuthenticationService.Models;
 public class CardModel : IModel
     {

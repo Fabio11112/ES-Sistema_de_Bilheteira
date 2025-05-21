@@ -24,15 +24,31 @@
         <div class="products">
             <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
         </div>
-    </div>
+
+    </div> 
+@* =======
+<div class="background">
+    <div class="products">
+        <UserInfoItem Model="Model" InfoUserModel="InfoUserModel" OnValidSubmit="SubmitCard"></UserInfoItem>
+>>>>>>> 2ecc47314f5370d7b8e0c2dd25e67a1880ed1b63
+    </div> *@
 
 
+@* <<<<<<< HEAD
     @code {
         [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
         private string Message { get; set; } = string.Empty;
         private bool ShowPopup { get; set; }
         private ICollection<Card>? Cards { get; set; } = new List<Card>();
         private IService<Card>? CardService { get; set; }
+======= *@
+@code {
+    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
+    [SupplyParameterFromForm] private InfoUserModel InfoUserModel { get; set; } = new();
+    private string Message { get; set; } = string.Empty;
+    private bool ShowPopup { get; set; }
+    private ICollection<Card>? Cards { get; set; } = new List<Card>();
+    private IService<Card>? CardService { get; set; }
 
         protected override void OnInitialized()
         {
