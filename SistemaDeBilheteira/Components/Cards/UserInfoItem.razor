@@ -19,28 +19,27 @@
         <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
         <div class="input-content">
             <label class="input-label">OLD PASSWORD</label>
-            <InputText class="input-fields" @bind-Value="InfoUserModel.OldPassword" placeholder="Enter your old password" />
+            <InputText id="oldPassword" type="password" class="input-fields" @bind-Value="InfoUserModel.OldPassword" placeholder="Enter your old password" />
         </div>
-        <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()"/>
+        <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('oldPassword', this)" />
     </div>
 
     <div class="input-container">
         <img src="images/icons/lock.svg" alt="lock" class="input-icon"/>
         <div class="input-content">
             <label class="input-label">NEW PASSWORD</label>
-            <InputText class="input-fields" @bind-Value="InfoUserModel.NewPassword" placeholder="Enter your new password" />
-            @*<input @bind="Password" id="password" class="input-field" placeholder="Enter your password" type="@PasswordInputType" />*@
+            <InputText id="newPassword" type="password" class="input-fields" @bind-Value="InfoUserModel.NewPassword" placeholder="Enter your new password" />
         </div>
-        <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()"/>
+        <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('newPassword', this)" />
     </div>
 
     <div class="input-container">
         <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
         <div class="input-content">
             <label class="input-label">CONFIRM NEW PASSWORD</label>
-            <InputText class="input-fields" @bind-Value="InfoUserModel.ConfirmPassword" placeholder="Confirm new password" />
+            <InputText id="conPassword" type="password" class="input-fields" @bind-Value="InfoUserModel.ConfirmPassword" placeholder="Confirm new password" />
         </div>
-        <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()"/>
+        <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('conPassword', this)" />
     </div>
 </EditForm>
 
@@ -62,7 +61,8 @@
 
         <div class="row">
             <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV"
-                       onkeydown="BlockLetters(event)"/>
+                       onkeydown="BlockLetters(event)"
+                       oninput="FormatCVVNumber(this)"/>
             <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
 
@@ -90,47 +90,5 @@
     {
         OnValidSubmit.InvokeAsync();
     }
-    
-    public async Task FormatCardNumber()
-    {
-        // Store your message here
-        await InvokeAsync(() => StateHasChanged());
-    }
-    
-    public async Task BlockLetters(object e)
-    {
-        // Store your message here
-        await InvokeAsync(() => StateHasChanged());
-    }
-    
-    [Parameter] public string Label { get; set; } = "Password";
-    [Parameter] public string Placeholder { get; set; } = "";
-    [Parameter] public string Value { get; set; } = "";
-    [Parameter] public EventCallback<string> ValueChanged { get; set; }
-
-    private bool IsVisible { get; set; } = false;
-
-    private string PasswordType => IsVisible ? "text" : "password";
-
-    private async Task ToggleVisibility()
-    {
-        IsVisible = !IsVisible;
-        await ValueChanged.InvokeAsync(Value);
-    }
-    
-    
-    private string Password { get; set; } = string.Empty;
-
-    private bool ShowPassword { get; set; } = false;
-
-    private string PasswordInputType => ShowPassword ? "text" : "password";
-
-    private string EyeIcon => ShowPassword ? "images/icons/eye-closed.svg" : "images/icons/eye-icon.svg";
-
-    private void TogglePasswordVisibility()
-    {
-        ShowPassword = !ShowPassword;
-    }
-    
 }
 
