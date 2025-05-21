@@ -1,5 +1,5 @@
 @page "/SelectSession/{id:int}"
-@inherits AuthenticatedComponentBase
+@inherits AuthenticatedPage
 @using System.Globalization
 @using System.Text.Json
 @using Microsoft.EntityFrameworkCore
@@ -128,10 +128,7 @@
         var movieDeserializer = new Deserializer<Movie>();
         var movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
-        
-        
     }
-    
     
     private void SelectCinema(Cinema cinema)
     {
