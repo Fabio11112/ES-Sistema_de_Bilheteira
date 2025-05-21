@@ -16,7 +16,7 @@
     @inject IServiceManager ServiceManager
     @inject CardBuilder CardBuilder
     @inject NotificationService NotificationService
-    @inherits AuthenticatedComponentBase
+    @inherits AuthenticatedPage
 
     <h2 class="title">Card Info</h2>
 
@@ -47,6 +47,8 @@
             <button class="submit-button" type="submit">Add PayPal</button>
         </div>
     </EditForm>
+
+    <script src="scripts/UserInfoItem.js"></script>
 
     @code {
         [SupplyParameterFromForm] private CardModel Model { get; set; } = new();

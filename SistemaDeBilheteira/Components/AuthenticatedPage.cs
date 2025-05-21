@@ -7,12 +7,12 @@ public class AuthenticatedPage : AuthenticatedComponentBase
     [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
     [Inject] protected NotificationService NotificationService { get; set; } = null!;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
+        await base.OnParametersSetAsync();
         if (User == null)
         {
-            NavigationManager.NavigateTo("/login");
+            NavigationManager.NavigateTo("/login", forceLoad: true);
             NotificationService.Notify("You must be logged in to access this page");
         }
     }
