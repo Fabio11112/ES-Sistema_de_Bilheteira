@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
@@ -56,6 +57,8 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         modelBuilder.Entity<Rental>().ToTable("Rentals");
         modelBuilder.Entity<PhysicalMedia>().ToTable("PhysicalMedias");
 
+        modelBuilder.Entity<CinemaTicket>().ToTable("CinemaTickets");
+        
         modelBuilder.Entity<Product>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
@@ -121,10 +124,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithOne(p => p.Currency)
             .HasForeignKey(p => p.CurrencyId);
 
-        // modelBuilder.Entity<Function>()
-        //         .HasOne(f => f.Cinema)
-        //         .WithMany(c => c.Functions)
-        //         .HasForeignKey(f => f.CinemaId);
+
 
         modelBuilder.Entity<Function>()
             .HasOne(f => f.Auditory)

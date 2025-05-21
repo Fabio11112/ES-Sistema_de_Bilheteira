@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SistemaDeBilheteira.Services.AuthenticationService;
@@ -14,9 +14,11 @@ public abstract class AuthenticatedComponentBase : ComponentBase
 
     protected AppUser? User { get; private set; }
     protected string? UserId { get; private set; }
-
+    
     protected override async Task OnInitializedAsync()
     {
         User = await AuthService.GetAppUserAsync();
+        
     }
+    
 }

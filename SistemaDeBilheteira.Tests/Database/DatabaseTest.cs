@@ -1,9 +1,9 @@
-﻿using SistemaDeBilheteira.Services.Database.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
-using Xunit;
 
 namespace SistemaDeBilheteira.Tests.Database;
 
@@ -15,7 +15,9 @@ public class PaypalPaymentTests
 
     public PaypalPaymentTests()
     {
-        _context = new MemorySistemaDeBilheteiraContext();
+        _context = new MemorySistemaDeBilheteiraContext(new DbContextOptionsBuilder<SistemaDeBilheteiraContext>().Options);
+        _context.Database.EnsureCreated();
+        
         _context.Database.EnsureCreated();
 
         _repositoryFactory = new RepositoryFactory(_context);

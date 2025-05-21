@@ -4,7 +4,7 @@ using SistemaDeBilheteira.Services.Database.Repositories;
 
 namespace SistemaDeBilheteira.Services.Database.UnitOfWork;
 
-public class UnitOfWork : IUnitOfWork, IDisposable
+public class UnitOfWork : IUnitOfWork
 {
     private readonly SistemaDeBilheteiraContext _context;
     private readonly IRepositoryFactory _repositoryFactory;
