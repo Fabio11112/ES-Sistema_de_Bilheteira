@@ -1,4 +1,5 @@
 
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,8 @@ using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
+using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
+using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
@@ -57,6 +60,9 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorPages();  
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
+// Session storage
+builder.Services.AddBlazoredSessionStorage(); // Same call
+
 // Serviços customizados
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -67,12 +73,14 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 //BUILDERS
-builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
-builder.Services.AddSingleton<CardBuilder, CardBuilder>();
-builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
-builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
-builder.Services.AddSingleton<PhysicalMedia, PhysicalMedia>();
-builder.Services.AddSingleton<MediaBuilder, MediaBuilder>();
+builder.Services.AddScoped<AddressBuilder, AddressBuilder>();
+builder.Services.AddScoped<CardBuilder, CardBuilder>();
+builder.Services.AddScoped<RentalBuilder, RentalBuilder>();
+builder.Services.AddScoped<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
+builder.Services.AddScoped<MediaBuilder, MediaBuilder>();
+builder.Services.AddScoped<CinemaTicketBuilder, CinemaTicketBuilder>();
+builder.Services.AddScoped<SeatBuilder, SeatBuilder>();
+builder.Services.AddScoped<FunctionBuilder, FunctionBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
@@ -103,10 +111,10 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<SistemaDeBilheteiraContext>();
 
     SeedCinemas(context);
-    SeedAuditories(context);
+    
 
     var service = services.GetRequiredService<IServiceManager>();
-    
+    SeedAuditories(service);
     SeedFormats(service);
 
 }
@@ -157,22 +165,30 @@ void SeedCinemas(SistemaDeBilheteiraContext context)
     }
 }
 
-void SeedAuditories(SistemaDeBilheteiraContext context)
+void SeedAuditories(IServiceManager manager)
 {
-    if (!context.Auditories.Any())
+    var auditoriumService = manager.GetService<Auditory>();
+    var cinemaService = manager.GetService<Cinema>();
+    var cinemas = cinemaService.GetAll();
+    
+    var auditoriums = auditoriumService.GetAll();
+    
+    if (auditoriums is not { Count: 0 }) return;
+
+    foreach (var cinema in cinemas)
     {
-        var auditories = new List<Auditory>
+        for (int i = 1; i <= 3; i++)
         {
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 1" },
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 2" },
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 3" }
-        };
-
-        context.Auditories.AddRange(auditories);
-        context.SaveChanges();
-
-        Console.WriteLine("✔ Auditorios añadidos a la base de datos");
+            auditoriumService.Add(new Auditory()
+            {
+                CinemaId = cinema.Id,
+                Number = i,
+                Name = $"Auditorium {i} from Cinema {cinema.Name}"
+            });
+        }
     }
+    
+    Console.WriteLine("✔ Auditorios añadidos a la base de datos");
 }
 void SeedFormats(IServiceManager manager)
 {
