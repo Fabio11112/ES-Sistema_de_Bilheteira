@@ -1,42 +1,47 @@
-﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
+﻿@using System.Text.RegularExpressions
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
 @rendermode InteractiveServer
+@inject IJSRuntime JS
 
-<div class="title">User Info</div>
-<p class="subtitle">Here you can modify your data</p>
-<div class="input-container">
-    <img src="images/icons/email.svg" alt="email" class="input-icon" />
-    <div class="input-content">
-        <label for="email" class="input-label">EMAIL ADDRESS</label>
-        <input type="email" id="email" class="input-fields" placeholder="Enter your email" />
+<EditForm Model="InfoUserModel" OnValidSubmit="HandleSubmit" FormName="InfoUserForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="title">User Info</div>
+    <p class="subtitle">Here you can modify your data</p>
+    <div class="input-container">
+        <img src="images/icons/email.svg" alt="email" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">EMAIL ADDRESS</label>
+            <InputText class="input-fields" @bind-Value="InfoUserModel.EmailAddress" placeholder="Enter your email" />
+        </div>
     </div>
-</div>
-<div class="input-container">
-    <img src="images/icons/lock.svg" alt="email" class="input-icon" />
-    <div class="input-content">
-        <label for="oldPass" class="input-label">OLD PASSWORD</label>
-        <input type="oldPass" id="oldPass" class="input-fields" placeholder="Enter your old password" />
+    <div class="input-container">
+        <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">OLD PASSWORD</label>
+            <InputText id="oldPassword" type="password" class="input-fields" @bind-Value="InfoUserModel.OldPassword" placeholder="Enter your old password" />
+        </div>
+        <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('oldPassword', this)" />
     </div>
-    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
-</div>
 
-<div class="input-container">
-    <img src="images/icons/lock.svg" alt="lock" class="input-icon" />
-    <div class="input-content">
-        <label for="newPass" class="input-label">NEW PASSWORD</label>
-        <input type="newPass" id="password" class="input-fields" placeholder="Enter your password" />
-        @*<input @bind="Password" id="password" class="input-field" placeholder="Enter your password" type="@PasswordInputType" />*@
+    <div class="input-container">
+        <img src="images/icons/lock.svg" alt="lock" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">NEW PASSWORD</label>
+            <InputText id="newPassword" type="password" class="input-fields" @bind-Value="InfoUserModel.NewPassword" placeholder="Enter your new password" />
+        </div>
+        <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('newPassword', this)" />
     </div>
-    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
-</div>
 
-<div class="input-container">
-    <img src="images/icons/lock.svg" alt="email" class="input-icon" />
-    <div class="input-content">
-        <label for="conPass" class="input-label">CONFIRM NEW PASSWORD</label>
-        <input type="conPass" id="conPass" class="input-fields" placeholder="Confirm new password" />
+    <div class="input-container">
+        <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
+        <div class="input-content">
+            <label class="input-label">CONFIRM NEW PASSWORD</label>
+            <InputText id="conPassword" type="password" class="input-fields" @bind-Value="InfoUserModel.ConfirmPassword" placeholder="Confirm new password" />
+        </div>
+        <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('conPassword', this)" />
     </div>
-    <img src="images/icons/eye-icon.svg" alt="toggle visibility" class="toggle-password" onclick="togglePassword()" />
-</div>
+</EditForm>
 
 <EditForm Model="Model" OnValidSubmit="HandleSubmit" FormName="CardForm">
     <DataAnnotationsValidator />
@@ -46,10 +51,18 @@
         <p class="subtitle">Here you can add another Card</p>
 
         <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
-        <InputText class="input-field" @bind-Value="Model.CardNumber" placeholder="CARD NUMBER" />
+        <InputText @bind-Value="Model.CardNumber" 
+                   id = "cardNumber"
+                   class="input-field"
+                   max-length="19"
+                   placeholder="0000 0000 0000 0000"
+                   oninput="FormatCardNumber(this)"
+                   onkeydown="BlockLetters(event)"/>
 
         <div class="row">
-            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
+            <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV"
+                       onkeydown="BlockLetters(event)"
+                       oninput="FormatCVVNumber(this)"/>
             <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
 
@@ -57,44 +70,25 @@
     </div>
 </EditForm>
 
+<script src="scripts/UserInfoItem.js"></script>
+
+
+
+
 @code {
     
-    [Parameter] public CardModel? Model { get; set; } 
-    //private CardModel Model { get; set; } = new CardModel();
-    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] 
+    public CardModel? Model { get; set; } 
+    
+    [Parameter]
+    public InfoUserModel? InfoUserModel { get; set; }
+    
+    [Parameter] 
+    public EventCallback OnValidSubmit { get; set; }
 
     private void HandleSubmit()
     {
         OnValidSubmit.InvokeAsync();
     }
-
-    
-    [Parameter] public string Label { get; set; } = "Password";
-    [Parameter] public string Placeholder { get; set; } = "";
-    [Parameter] public string Value { get; set; } = "";
-    [Parameter] public EventCallback<string> ValueChanged { get; set; }
-
-    private bool IsVisible { get; set; } = false;
-
-    private string PasswordType => IsVisible ? "text" : "password";
-
-    private async Task ToggleVisibility()
-    {
-        IsVisible = !IsVisible;
-        await ValueChanged.InvokeAsync(Value);
-    }
-    
-    
-    private string Password { get; set; } = string.Empty;
-
-    private bool ShowPassword { get; set; } = false;
-
-    private string PasswordInputType => ShowPassword ? "text" : "password";
-
-    private string EyeIcon => ShowPassword ? "images/icons/eye-closed.svg" : "images/icons/eye-icon.svg";
-
-    private void TogglePasswordVisibility()
-    {
-        ShowPassword = !ShowPassword;
-    }
 }
+

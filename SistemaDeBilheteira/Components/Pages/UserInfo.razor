@@ -19,7 +19,7 @@
 
 <div class="background">
     <div class="products">
-        <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
+        <UserInfoItem Model="Model" InfoUserModel="InfoUserModel" OnValidSubmit="SubmitCard"></UserInfoItem>
     </div>
 </div>
 
@@ -33,6 +33,7 @@
 
 @code {
     [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
+    [SupplyParameterFromForm] private InfoUserModel InfoUserModel { get; set; } = new();
     private string Message { get; set; } = string.Empty;
     private bool ShowPopup { get; set; }
     private ICollection<Card>? Cards { get; set; } = new List<Card>();

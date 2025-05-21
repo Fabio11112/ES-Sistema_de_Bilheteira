@@ -32,14 +32,6 @@
     letter-spacing: 1px;
 }
 
-.input-fields {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 14px;
-    font-family: Poppins, sans-serif;
-    outline: none;
-}
 
 .form-container {
     max-width: 500px;
@@ -66,22 +58,6 @@
     margin-bottom: 30px;
 }
 
-.input-field {
-    background-color: #000;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 8px;
-    width: 100%;
-    margin-bottom: 15px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-}
-
-.input-field::placeholder {
-    color: #AFAFAF;
-    text-transform: uppercase;
-}
 
 .row {
     display: flex;
