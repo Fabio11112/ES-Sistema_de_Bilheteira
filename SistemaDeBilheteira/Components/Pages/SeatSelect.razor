@@ -6,6 +6,8 @@
 @inject SeatBuilder SeatBuilder
 @inject CinemaTicketBuilder TicketBuilder
 @inject ShoppingCartItemBuilder CartItemBuilder
+@inject NotificationService NotificationService
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Services.Database.Builders
 @using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder
@@ -14,6 +16,9 @@
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @using SistemaDeBilheteira.Components
+@using SistemaDeBilheteira.Services.UI
+@attribute [Authorize]
+
 @rendermode InteractiveServer
 
 
@@ -78,6 +83,7 @@
     [Parameter] public int id { get; set; }
     private int TicketQuantity { get; set; }
     private Function? Function { get; set; }
+
     
     private ICollection<ICollection<Seat>>? SeatsRows{ get; set; }
     private ICollection<Seat>? ReservedSeats { get; set; }
@@ -96,6 +102,12 @@
     {
         await base.OnInitializedAsync();
 
+        if (User == null )
+        {
+            NotificationService.Notify("You must be logged in to access this page");
+            NavigationManager.NavigateTo("/Identity/Account/Login", true); 
+            return;
+        }
         
         FunctionService = ServiceManager.GetService<Function>();
         SeatService = ServiceManager.GetService<Seat>();
