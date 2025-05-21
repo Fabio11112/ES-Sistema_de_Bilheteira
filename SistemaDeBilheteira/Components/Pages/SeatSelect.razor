@@ -1,8 +1,3 @@
- @* @page "/SeatSelect/{id:int}"
-@using Microsoft.AspNetCore.WebUtilities
-@using SistemaDeBilheteira.Services.IService.ServiceManager
-@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
-======= *@
 @page "/SeatSelect/{id:int}"
 @inherits AuthenticatedComponentBase
 @inject NavigationManager NavigationManager
@@ -18,12 +13,8 @@
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
-@* >>>>>>> 77045a57e1ff4b8276d5ca4b6daffa017ff5fe82 *@
+@using SistemaDeBilheteira.Components
 @rendermode InteractiveServer
-@using SistemaDeBilheteira.Services.UI
-@inject SharedTicket SharedTicket 
-@inject IServiceManager ServiceManager
-@inject NavigationManager NavigationManager
 
 
 
@@ -104,6 +95,8 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
+        
         FunctionService = ServiceManager.GetService<Function>();
         SeatService = ServiceManager.GetService<Seat>();
         TicketService = ServiceManager.GetService<CinemaTicket>();
@@ -239,6 +232,17 @@
 
     private void SaveTicketInCart(Seat seat)
     {
+
+        if (Function == null)
+        throw new InvalidOperationException("Function is null in SaveTicketInCart");
+        if (TicketService == null)
+            throw new InvalidOperationException("TicketService is null");
+        if (CartItemBuilder == null)
+            throw new InvalidOperationException("CartItemBuilder is null");
+        if (ItemService == null)
+            throw new InvalidOperationException("ItemService is null");
+        if (User == null)
+            throw new InvalidOperationException("User is null");
 
         var ticket = TicketBuilder.WithFunction(Function!.Id)
             .WithPrice(GetPrice())

@@ -1,6 +1,6 @@
 namespace SistemaDeBilheteira.Services.UI;
 
-using SistemaDeBilheteira.Services.Database.Builders;
+using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
 
 
 public class SharedTicket
