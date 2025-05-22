@@ -35,6 +35,8 @@
     [Parameter]
     public EventCallback OnPay { get; set; }
 
-    private decimal Shipping => 10;
+    [Parameter]
+    public decimal Shipping { get; set; }
+    
     private decimal Subtotal => Total - Shipping;
 }
