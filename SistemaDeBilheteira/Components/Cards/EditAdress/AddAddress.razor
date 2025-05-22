@@ -1,31 +1,53 @@
 ﻿@using SistemaDeBilheteira.Services.AuthenticationService.Models
 @rendermode InteractiveServer
-<div class="add-address"></div>
+@*<div class="add-address"></div>*@
 
 <EditForm Model="Model" OnValidSubmit="HandleSubmit" FormName="add-address">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    <label>Street Line 1</label>
-    <InputText @bind-Value="Model.StreetLine1" class="form-control" />
-
-    <label>Street Line 2</label>
-    <InputText @bind-Value="Model.StreetLine2" class="form-control" />
-
-    <label>Country</label>
-    <InputText @bind-Value="Model.Country" class="form-control" />
-
-    <label>State</label>
-    <InputText @bind-Value="Model.State"></InputText>Value="Model.State" class="form-control" />
-
-    <label>City</label>
-    <InputText @bind-Value="Model.City" class="form-control" />
-
-    <label>ZIP Code</label>
-    <InputText @bind-Value="Model.ZipCode" class="form-control" />
-    
-    <button type="submit" class="submit">ADD ADDRESS</button>
-</EditForm>
+    <div class="input-container">
+        <div class="input-content">
+            <label class="input-label">Street Line 1</label>
+            <InputText class="form-control" @bind-Value="Model.StreetLine1" />
+        </div>
+    </div>
+    <div class="input-container">    
+        <div class="input-content">
+            <label class="input-label">Street Line 2</label>
+            <InputText class="form-control" @bind-Value="Model.StreetLine2" />
+        </div>
+    </div>
+    <div class="input-container">        
+        <div class="input-content">
+            <label class="input-label">Country</label>
+            <InputText class="form-control" @bind-Value="Model.Country" />
+        </div>
+    </div>
+    <div class="input-container">            
+        <div class="input-content">        
+            <label class="input-label">State</label>
+            <InputText class="form-control" @bind-Value="Model.State"/>
+        </div>
+    </div>
+    <div class="input-container">                
+        <div class="input-content">
+            <label class="input-label">City</label>
+            <InputText class="form-control" @bind-Value="Model.City" />
+        </div>
+    </div>
+    <div class="input-container">                    
+        <div class="input-content">
+            <label class="input-label">ZIP Code</label>
+            <InputText class="form-control" @bind-Value="Model.ZipCode" />
+        </div>
+    </div>
+    <div class="input-container">                        
+        <div class="input-content">        
+            <button type="submit" class="submit">ADD ADDRESS</button>
+        </div>
+    </div>
+</EditForm>    
+<script src="scripts/UserInfoItem.js"></script>
 
 @code {
     [Parameter] public AddressModel? Model { get; set; }

@@ -7,13 +7,19 @@
 
 
 <div class="address">
-    <div class="name">@Address.StreetLine1</div>
-    <div class="name">@Address.StreetLine2!</div>
-    <div>@Address.City, @Address.State, @Address.Country @Address.ZipCode</div>
-    
-    <button @onclick="HandleDelete" class="btn btn-danger"> Delete A</button>
-    
+    <div class="form-control">
+        
+        <div class="info">@Address.StreetLine1</div>
+        <div class="info">@Address.StreetLine2</div>
+        <div class="info">@Address.City</div>
+        <div class="info">@Address.State</div>
+        <div class="info">@Address.Country</div>
+        <div class="info">@Address.ZipCode</div>
+        
+        <button class="delete-button" @onclick="HandleDelete"> Delete</button>
+    </div>
 </div>
+<script src="scripts/UserInfoItem.js"></script>
 
 
 @code {
