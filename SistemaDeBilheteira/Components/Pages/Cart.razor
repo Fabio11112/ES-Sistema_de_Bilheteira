@@ -3,6 +3,7 @@
 @rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards.Cart
+@using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
@@ -54,10 +55,29 @@
                         No cards found. Please add one in your <a class="text" href="/UserInfo">profile</a>.
                     </p>
                 }
+                
+                @if (AreTherePhysicalItems())
+                {
+                    if (Addresses?.Any() == true)
+                    {
+                        <select class="card-dropdown" @bind="SelectedAddressId">
+                            @foreach (var address in Addresses)
+                            {
+                                <option value="@address.Id">
+                                    @address.StreetLine1, @address.State, @address.City, @address.Country
+                                </option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <p class="text" style="margin-left: 15px;">
+                            No addresses found. Please add one in your <a class="text" href="/EditAddress">profile</a>.
+                        </p>
+                    }
+                }
+                
             </div>
-
-            
-
             <PaymentMethodElement Total="@Total" OnPay="Pay" />
         </div>
     </div>
@@ -66,12 +86,15 @@
 @code {
     private ICollection<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
     private ICollection<Card> Cards { get; set; } = new List<Card>();
+    private ICollection<Address> Addresses { get; set; } = new List<Address>();
     private Guid SelectedCardId { get; set; }
+    private Guid SelectedAddressId { get; set; } = Guid.Empty;
 
     private IService<ShoppingCartItem>? ItemService { get; set; }
-    private IService<Product> ProductService { get; set; }
+    private IService<Product>? ProductService { get; set; }
     private IService<PaymentMethod>? PaymentMethodService { get; set; }
     private IService<Card>? CardService { get; set; }
+    private IService<Address>? AddressService { get; set; }
 
     private decimal ShippingCost => 10;
     private decimal Total => Items.Sum(i => (decimal)i.Product.Price * i.Quantity) + ShippingCost;
@@ -84,9 +107,11 @@
         PaymentMethodService = ServiceManager.GetService<PaymentMethod>();
         CardService = ServiceManager.GetService<Card>();
         ProductService = ServiceManager.GetService<Product>();
+        AddressService = ServiceManager.GetService<Address>();
 
         Items = GetCartElements()!;
         Cards = GetUserCards()!;
+        Addresses = GetAddresses();
         SelectedCardId = Cards.FirstOrDefault()?.Id ?? Guid.Empty;
     }
 
@@ -119,20 +144,47 @@
 
     private void Pay()
     {
-        var selectedCard = Cards.FirstOrDefault(c => c.Id == SelectedCardId);
-        if (selectedCard == null)
+        if (AreTherePhysicalItems() && SelectedAddressId == Guid.Empty)
+        {
+            Console.WriteLine("No address selected");
+            return;
+        }
+
+        if (SelectedCardId == Guid.Empty)
         {
             Console.WriteLine("No card selected.");
             return;
         }
+        
+        var selectedCard = Cards.FirstOrDefault(c => c.Id == SelectedCardId);
+        var selectedAddress = Addresses.FirstOrDefault(a => a.Id == SelectedAddressId);
+
 
         Console.WriteLine("--------------------------------PAYING------------------------------------------------------------------");
         Console.WriteLine($"PAYING {Total}€ with card ending in {selectedCard.CardNumber[^4..]}");
         Console.WriteLine("--------------------------------PAYING------------------------------------------------------------------");
 
-        if (PurchaseSystem.Pay(selectedCard, User!))
+        if (PurchaseSystem.Pay(selectedCard, User!, selectedAddress))
         {
             Navigation.NavigateTo("/PaymentSucssefully");
         }
+    }
+
+    private bool AreTherePhysicalItems()
+    {
+        foreach (var item in Items)
+        {
+            if (item.Product.GetProductType() == "DVD" || item.Product.GetProductType() == "Blu-Ray")
+                return true;
+        }
+
+        return false;
+    }
+
+    private ICollection<Address> GetAddresses()
+    {
+        return AddressService!.GetWithQuery(
+            q => q.Where(
+                a => a.AppUserId == User!.Id))!;
     }
 }

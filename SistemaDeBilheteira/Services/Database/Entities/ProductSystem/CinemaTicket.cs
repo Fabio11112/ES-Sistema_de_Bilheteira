@@ -13,9 +13,5 @@ public class CinemaTicket : Product
         return "Cinema Ticket";
     }
 
-    // public override string GetProductType()
-    // {
-    //     return "Cinema Ticket";
-    // }
 }
 
