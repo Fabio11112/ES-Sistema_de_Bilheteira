@@ -50,6 +50,10 @@
     private int Quantity { get; set; } = 2;
     private double Total { get; set; }
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -61,14 +65,12 @@
         Total = Item.Product.Price * Item.Quantity;
     }
 
+    /**
+     * This method is called when the delete button is clicked.
+     * It invokes the Delete event callback with the current item.
+     */
     private async Task HandleDelete()
     {
         await Delete.InvokeAsync(Item);
     }
-    
-    
-    
-    
-    
-    
 }

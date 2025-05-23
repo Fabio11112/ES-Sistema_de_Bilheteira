@@ -119,7 +119,10 @@
     private Response<Video>? Trailers;  
     private bool showTrailerModal = false;
 
-
+    /**
+     * This method is called after the component has rendered.
+     * It fetches the movie details and initializes the FunctionService.
+     */
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -127,6 +130,11 @@
             await JS.InvokeVoidAsync("eval", "window.scrollToTop = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };");
         }
     }
+    
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         
@@ -147,6 +155,9 @@
         
     }
     
+    /**
+     * This method formats the runtime of the movie.
+     */
     private string FormatRuntime(int runtime)
     {
         var hours = runtime / 60;

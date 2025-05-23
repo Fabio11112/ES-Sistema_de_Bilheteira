@@ -39,6 +39,10 @@
     private ICollection<Purchase>? Purchases { get; set; }
     private ICollection<PurchaseItem> Items { get; set; }
     
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
@@ -49,6 +53,10 @@
         Items = GetUserItems();
     }
 
+    /**
+     * This method fetches the purchase from the database.
+     * It returns a collection of purchases made by the user.
+     */
     private ICollection<Purchase> GetUserPurchases()
     {
         return PurchaseService!.GetWithQuery(
@@ -59,6 +67,10 @@
             .ToList();
     }
 
+    /**
+     * This method fetches the purchase items from the database.
+     * It returns a collection of purchases items made by the user.
+     */
     private ICollection<PurchaseItem> GetUserItems()
     {
         var items = new List<PurchaseItem>();
@@ -70,6 +82,10 @@
         return items;
     }
 
+    /**
+     * This method fetches the purchase items from the database.
+     * It returns a collection of purchases items made by the user.
+     */
     private ICollection<PurchaseItem> GetItems(Purchase purchase)
     {
         return ItemService!.GetWithQuery(
@@ -80,7 +96,4 @@
                 .Include(i => ((CinemaTicket)i.Product).Function.Auditory.Cinema)
         )!;
     }
-
-
-    
 }

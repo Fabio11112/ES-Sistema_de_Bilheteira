@@ -56,7 +56,9 @@
     bool IsLastPage => CurrentPage >= TotalPages;
     bool IsFirstPage => CurrentPage <= 1;
 
-    
+    /** 
+     * This method is called when the component is initialized.
+     */
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -80,6 +82,9 @@
         }
     }
 
+    /** 
+     * This method is called when the page is changed.
+     */
     private async Task NextPage()
     {
         if (!IsLastPage)
@@ -89,16 +94,23 @@
             await JS.InvokeVoidAsync("scrollToTop");
         }
     }
+    
+    /** 
+     * This method is called when the page is changed.
+     */
     private async Task PreviousPage()
-{
-    if (!IsFirstPage)
     {
-        CurrentPage--;
-        UpdatePagedMovies();
-        await JS.InvokeVoidAsync("scrollToTop");
+        if (!IsFirstPage)
+        {
+            CurrentPage--;
+            UpdatePagedMovies();
+            await JS.InvokeVoidAsync("scrollToTop");
+        }
     }
-}
 
+    /** 
+     * This method updates the paged movies based on the current page.
+     */
     private void UpdatePagedMovies()
     {
         PagedMovies = FilteredMovies

@@ -43,11 +43,18 @@
     private bool IsExpired => DateTime.Now > Rental!.EndDate;
     private string IsExpiredCss => IsExpired ? "expired" : "";
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and MovieTitle properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         await LoadMovieData();
     }
-
+    
+    /**
+     * This method fetches the movie data from the API and sets the PosterPath and MovieTitle properties.
+     */
     private async Task LoadMovieData()
     {
         if (!string.IsNullOrEmpty(Rental!.MovieId))

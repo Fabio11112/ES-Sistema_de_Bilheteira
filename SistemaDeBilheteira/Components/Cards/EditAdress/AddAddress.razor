@@ -53,6 +53,10 @@
     [Parameter] public AddressModel? Model { get; set; }
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     private void HandleSubmit()
     {
         OnValidSubmit.InvokeAsync();
