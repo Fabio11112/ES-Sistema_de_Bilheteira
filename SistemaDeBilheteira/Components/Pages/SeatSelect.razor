@@ -238,8 +238,8 @@
 
         await SessionStorage.RemoveItemsAsync(["quantity, functionId"]);
         
-        // Navigate to next page with selected parameters
-        NavigationManager.NavigateTo($"/AddedToCart/{id}");
+        NotificationService.Notify("Tickets added to cart");
+        NavigationManager.NavigateTo($"/");
     }
 
     private void SaveTicketInCart(Seat seat)

@@ -1,22 +1,91 @@
 ﻿@page "/TicketHistory"
 @inherits AuthenticatedPage
-@using SistemaDeBilheteira.Components.Cards;
+@using SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager
+@using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@inject IServiceManager ServiceManager
 
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat">
+
 <PageTitle>Ticket History</PageTitle>
+
 <div class="background">
     <div class="logo">
-        <img class="ticket-image" src="images/icons/profile/ticket.svg" alt="cart"/>
+        <img class="ticket-image" src="images/icons/profile/ticket.svg" alt="cart" />
         <div class="title">TICKET HISTORY</div>
     </div>
-
+    
     <div class="products">
-        <TicketHistoryItem></TicketHistoryItem>
-        <TicketHistoryItem></TicketHistoryItem>
-        <TicketHistoryItem></TicketHistoryItem>
+        @if (UserTickets is null)
+        {
+            <p class="title">Loading...</p>
+        }
+        else if (!UserTickets.Any())
+        {
+            <p class="title">No tickets found.</p>
+        }
+        else
+        {
+            @foreach (var ticket in UserTickets)
+            {
+                <TicketHistoryItem Ticket="ticket" />
+            }
+        }
     </div>
 </div>
+
 @code {
-    
-}
+    private IService<Purchase> purchaService;
+    private IService<PurchaseItem> purchaseItemService;
+    private IService<CinemaTicket> TicketService;
+    private ICollection<CinemaTicket> UserTickets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Console.WriteLine(User?.Id);
+        TicketService = ServiceManager.GetService<CinemaTicket>();
+        purchaService = ServiceManager.GetService<Purchase>();
+        purchaseItemService = ServiceManager.GetService<PurchaseItem>();
+        UserTickets = GetUserTickets();
+        
+    }
+
+    private ICollection<CinemaTicket> GetUserTickets()
+    {
+        var purchases = purchaService.GetWithQuery(q 
+            => q.Where(t 
+                => t.AppUserId == User.Id)
+        );
+        Console.WriteLine($"[DEBUG] Purchases count: {purchases.Count}");
+        foreach (var purchase in purchases)
+        {
+            Console.WriteLine($"[DEBUG] Purchase ID: {purchase.Id}");
+        }
+
+
+        var purchaseItems = purchaseItemService.GetWithQuery(q 
+            => q.Where(t 
+                => purchases.Select(p => p.Id).Contains(t.PurchaseId))
+        );
+        Console.WriteLine($"[DEBUG] PurchaseItems count: {purchaseItems.Count}");
+        foreach (var item in purchaseItems)
+        {
+            Console.WriteLine($"[DEBUG] PurchaseItem ID: {item.Id}, ProductId: {item.ProductId}, PurchaseId: {item.PurchaseId}");
+        }
+
+
+        var tickets = TicketService.GetWithQuery(q 
+            => q.Where(t 
+                => purchaseItems.Select(p => p.ProductId).Contains(t.Id))
+        );
+        Console.WriteLine($"[DEBUG] Tickets count: {tickets.Count}");
+        foreach (var ticket in tickets)
+        {
+            Console.WriteLine($"[DEBUG] Ticket ID: {ticket.Id}");
+        }
+        return tickets;
+    }
+} 
