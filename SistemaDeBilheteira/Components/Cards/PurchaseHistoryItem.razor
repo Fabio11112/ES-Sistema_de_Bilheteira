@@ -46,14 +46,15 @@
     private string Currency { get; set; } = "€";
     private Movie? Movie { get; set; }
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and MovieTitle properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{Item!.Product.MovieId}";
         var deserializer = new Deserializer<Movie>();
         Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
-        
-        
-        
     }
  }

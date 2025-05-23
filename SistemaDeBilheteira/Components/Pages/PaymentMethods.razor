@@ -1,122 +1,134 @@
-    @page "/PaymentMethods"
-    @namespace SistemaDeBilheteira.Components.Pages.PaymentMethods
+@page "/PaymentMethods"
+@namespace SistemaDeBilheteira.Components.Pages.PaymentMethods
 
-    @using SistemaDeBilheteira.Services.AuthenticationService.Models
-    @using SistemaDeBilheteira.Components.Cards
-    @using Microsoft.AspNetCore.Authorization
-    @using SistemaDeBilheteira.Services.Database.Builders
-    @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
-    @using SistemaDeBilheteira.Services.IService
-    @using SistemaDeBilheteira.Services.IService.ServiceManager
-    @using SistemaDeBilheteira.Services.UI
-    @using System.ComponentModel.DataAnnotations
-    
-    
-    @attribute [Authorize]
-    @rendermode InteractiveServer
-    @inject IServiceManager ServiceManager
-    @inject CardBuilder CardBuilder
-    @inject NotificationService NotificationService
-    @inject IJSRuntime Js
-    @inherits AuthenticatedPage
+@using SistemaDeBilheteira.Services.AuthenticationService.Models
+@using SistemaDeBilheteira.Components.Cards
+@using Microsoft.AspNetCore.Authorization
+@using SistemaDeBilheteira.Services.Database.Builders
+@using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@using SistemaDeBilheteira.Services.UI
+@using System.ComponentModel.DataAnnotations
 
-    <h2 class="title">Card Info</h2>
 
-    <EditForm Model="Model" OnValidSubmit="SubmitCard">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-container">
-            <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
-            <InputText @bind-Value="Model.CardNumber"
-                       id = "cardNumber"
-                       class="input-field"
-                       max-length="19"
-                       placeholder="0000 0000 0000 0000"
-                       oninput="FormatCardNumber(this)"
+@attribute [Authorize]
+@rendermode InteractiveServer
+@inject IServiceManager ServiceManager
+@inject CardBuilder CardBuilder
+@inject NotificationService NotificationService
+@inject IJSRuntime Js
+@inherits AuthenticatedPage
+
+<h2 class="title">Card Info</h2>
+
+<EditForm Model="Model" OnValidSubmit="SubmitCard">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-container">
+        <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
+        <InputText @bind-Value="Model.CardNumber"
+                   id = "cardNumber"
+                   class="input-field"
+                   max-length="19"
+                   placeholder="0000 0000 0000 0000"
+                   oninput="FormatCardNumber(this)"
+                   onkeydown="BlockLetters(event)"/>
+        <div class="row">
+            <InputText class="input-field half" @bind-Value="Model.CVV"
+                       max-length="3"
+                       placeholder="000"
+                       oninput="FormatCVVNumber(this)"
                        onkeydown="BlockLetters(event)"/>
-            <div class="row">
-                <InputText class="input-field half" @bind-Value="Model.CVV"
-                           max-length="3"
-                           placeholder="000"
-                           oninput="FormatCVVNumber(this)"
-                           onkeydown="BlockLetters(event)"/>
-                <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
-            </div>
-            <button class="submit-button" type="submit">Add Card</button>
+            <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
         </div>
-    </EditForm>
+        <button class="submit-button" type="submit">Add Card</button>
+    </div>
+</EditForm>
 
-    <hr />
+<hr />
 
-    <h2 class="title">PayPal Info</h2>
+<h2 class="title">PayPal Info</h2>
 
-    <EditForm Model="Paypal" OnValidSubmit="SubmitPaypal">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-container">
-            <InputText class="input-field" @bind-Value="Paypal.PaypalEmail" placeholder="PayPal Email" />
-            <InputDate class="input-field" @bind-Value="Paypal.TransactionDate" />
-            <button class="submit-button" type="submit">Add PayPal</button>
-        </div>
-    </EditForm>
+<EditForm Model="Paypal" OnValidSubmit="SubmitPaypal">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-container">
+        <InputText class="input-field" @bind-Value="Paypal.PaypalEmail" placeholder="PayPal Email" />
+        <InputDate class="input-field" @bind-Value="Paypal.TransactionDate" />
+        <button class="submit-button" type="submit">Add PayPal</button>
+    </div>
+</EditForm>
 
-    <script src="scripts/UserInfoItem.js"></script>
+<script src="scripts/UserInfoItem.js"></script>
 
-    @code {
-        [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
-        private Paypal Paypal { get; set; } = new();
-        private string Message { get; set; } = string.Empty;
-        private ICollection<Card>? Cards { get; set; } = new List<Card>();
-        private IService<Card>? CardService { get; set; }
-        private IService<Paypal>? PaypalService { get; set; }
+@code {
+    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
+    private Paypal Paypal { get; set; } = new();
+    private string Message { get; set; } = string.Empty;
+    private ICollection<Card>? Cards { get; set; } = new List<Card>();
+    private IService<Card>? CardService { get; set; }
+    private IService<Paypal>? PaypalService { get; set; }
 
-        protected override void OnInitialized()
-        {
-            CardService = ServiceManager.GetService<Card>();
-            PaypalService = ServiceManager.GetService<Paypal>();
-            Cards = CardService.GetAll();
-        }
-
-        private void SubmitCard()
-        {
-            CardBuilder.WithAppUserId(User!.Id)
-                    .WithAppUser(null!)
-                    .WithIsDefault(false)
-                    .WithPayments(null!)
-                    .WithBalance(500);
-
-            var card = CardBuilder
-                .WithNameOnCard(Model.NameOnCard)
-                .WithCardNumber(Model.CardNumber)
-                .WithCvv(Model.CVV)
-                .WithExpirationDate(Model.ExpDate!.Value)
-                .Build();
-
-            var result = CardService!.Add(card);
-            if (!result.Success) return;
-
-            Message = "Card added successfully";
-            NotificationService.Notify(Message);
-            Cards = CardService.GetAll();
-            StateHasChanged();
-        }
-
-        private void SubmitPaypal()
-        {
-            var paypal = new Paypal
-            {
-                PaypalEmail = Paypal.PaypalEmail,
-                PaypalTransactionId = Guid.NewGuid(), 
-                TransactionDate = Paypal.TransactionDate,
-                AppUserId = User!.Id
-            };
-
-            var result = PaypalService!.Add(paypal);
-            if (!result.Success) return;
-
-            Message = "PayPal account added successfully";
-            NotificationService.Notify(Message);
-            Paypal = new Paypal(); 
-            StateHasChanged();
-        }
+    /** 
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
+    protected override void OnInitialized()
+    {
+        CardService = ServiceManager.GetService<Card>();
+        PaypalService = ServiceManager.GetService<Paypal>();
+        Cards = CardService.GetAll();
     }
+
+    /** 
+     * This method is called when the form is submitted.
+     * It creates a new card and adds it to the database.
+     */
+    private void SubmitCard()
+    {
+        CardBuilder.WithAppUserId(User!.Id)
+                .WithAppUser(null!)
+                .WithIsDefault(false)
+                .WithPayments(null!)
+                .WithBalance(500);
+
+        var card = CardBuilder
+            .WithNameOnCard(Model.NameOnCard)
+            .WithCardNumber(Model.CardNumber)
+            .WithCvv(Model.CVV)
+            .WithExpirationDate(Model.ExpDate!.Value)
+            .Build();
+
+        var result = CardService!.Add(card);
+        if (!result.Success) return;
+
+        Message = "Card added successfully";
+        NotificationService.Notify(Message);
+        Cards = CardService.GetAll();
+        StateHasChanged();
+    }
+
+    /** 
+     * This method is called when the form is submitted.
+     * It creates a new PayPal account and adds it to the database.
+     */
+    private void SubmitPaypal()
+    {
+        var paypal = new Paypal
+        {
+            PaypalEmail = Paypal.PaypalEmail,
+            PaypalTransactionId = Guid.NewGuid(), 
+            TransactionDate = Paypal.TransactionDate,
+            AppUserId = User!.Id
+        };
+
+        var result = PaypalService!.Add(paypal);
+        if (!result.Success) return;
+
+        Message = "PayPal account added successfully";
+        NotificationService.Notify(Message);
+        Paypal = new Paypal(); 
+        StateHasChanged();
+    }
+}

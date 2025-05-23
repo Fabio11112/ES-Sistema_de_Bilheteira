@@ -32,6 +32,10 @@
 @code {
     Response<Genre>? Genres { get; set; }
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the genre data from the API and sets the Genres property.
+     */
     protected override async Task OnInitializedAsync()
     {
         var genreDeserializer = new Deserializer<Response<Genre>>();
@@ -39,6 +43,10 @@
         Genres = await genreDeserializer.Fetch(genreUrl)!;
     }
 
+    /**
+     * This method is called when a genre is clicked.
+     * It navigates to the genre page using the NavigationManager.
+     */
     private void NavigateToGenre(string genreName)
     {
         var encodedGenre = Uri.EscapeDataString(genreName); // Codifica el nombre para la URL

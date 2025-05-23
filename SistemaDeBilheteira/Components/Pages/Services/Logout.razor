@@ -7,6 +7,10 @@
 
 @code {
 
+    /** 
+     * This method is called when the component is initialized. 
+     * It logs out the user and navigates to the home page.
+     */
     protected override async Task OnInitializedAsync()
     {
         await AuthService.LogoutAsync();

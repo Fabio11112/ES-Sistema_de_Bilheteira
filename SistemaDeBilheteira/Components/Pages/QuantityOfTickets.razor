@@ -65,7 +65,10 @@ else
     private IService<Function>? FunctionService { get; set; }
     private bool _initialized = false;
 
-    
+    /**
+     * This method is called after the component has rendered.
+     * It fetches the movie details and initializes the FunctionService.
+     */
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!(firstRender && !_initialized))
@@ -83,21 +86,32 @@ else
         StateHasChanged();
     }
     
+    /**
+     * This method is called when the button is clicked.
+     * It increases the number of people by 1, up to a maximum of 7.
+     */
     private void IncreasePeople()
     {
         if(NumberOfPeople < 7)
             NumberOfPeople++;
     } 
-
+    
+    /**
+     * This method is called when the button is clicked.
+     * It decreases the number of people by 1, down to a minimum of 1.
+     */
     private void DecreasePeople()
     {
         if (NumberOfPeople > 1)
             NumberOfPeople--;
     }
-
+    
+    /**
+     * This method is called when the button is clicked.
+     * It navigates to the next step in the ticket purchasing process.
+     */
     private async Task ProceedToNextStep()
     {
-
         await SessionStorage.SetItemAsync("quantity", NumberOfPeople);
         NavigationManager.NavigateTo($"/SeatSelect/{id}");
     }
