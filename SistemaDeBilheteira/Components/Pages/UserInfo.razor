@@ -1,5 +1,5 @@
 ﻿    @page "/UserInfo"
-    @inherits AuthenticatedComponentBase
+    @inherits AuthenticatedPage
     @attribute [Authorize]
     @rendermode InteractiveServer
 
@@ -22,78 +22,38 @@
 
     <div class="background">
         <div class="products">
-            <UserInfoItem Model="Model" InfoUserModel="InfoUserModel" OnValidSubmit="SubmitCard"></UserInfoItem>
+            @* <UserInfoItem InfoUserModel="InfoUserModel" OnValidSubmit="SubmitCard"></UserInfoItem> *@
+            <h3 class="Title">User Info</h3>
+            <p class="subtitle">Modify your Email</p>
+            <EditForm OnValidSubmit="UpdateEmail" Model="User" FormName="user-Email">
+                <InputText @bind-Value="User!.Email" />
+                <button type="submit">Update Email</button>
+            </EditForm>
+
+            <p class="subtitle">Modify your Password</p>
+            <EditForm Model="passwordModel" OnValidSubmit="UpdatePassword">
+                <InputText @bind-Value="passwordModel.CurrentPassword" type="password" />
+                <InputText @bind-Value="passwordModel.NewPassword" type="password" />
+                <button type="submit">Update Password</button>
+            </EditForm>
         </div>
-
     </div> 
-@* =======
-<div class="background">
-    <div class="products">
-        <UserInfoItem Model="Model" InfoUserModel="InfoUserModel" OnValidSubmit="SubmitCard"></UserInfoItem>
->>>>>>> 2ecc47314f5370d7b8e0c2dd25e67a1880ed1b63
-    </div> *@
-
-
-@* <<<<<<< HEAD
-    @code {
-        [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
-        private string Message { get; set; } = string.Empty;
-        private bool ShowPopup { get; set; }
-        private ICollection<Card>? Cards { get; set; } = new List<Card>();
-        private IService<Card>? CardService { get; set; }
-======= *@
+    
 @code {
-    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
-    [SupplyParameterFromForm] private InfoUserModel InfoUserModel { get; set; } = new();
-    private string Message { get; set; } = string.Empty;
-    private bool ShowPopup { get; set; }
-    private ICollection<Card>? Cards { get; set; } = new List<Card>();
-    private IService<Card>? CardService { get; set; }
+    [SupplyParameterFromForm] private UserRegisterModel? User { get; set; } = new();
+    private PasswordModel passwordModel = new PasswordModel();
 
-        protected override void OnInitialized()
-        {
-            CardService = ServiceManager.GetService<Card>();
-            Cards = CardService.GetAll();
-        }
-
-        private void SubmitCard()
-        {
-            CardBuilder.WithAppUserId(User!.Id)
-                    .WithAppUser(null!)
-                    .WithIsDefault(false)
-                    .WithPayments(null!)
-                    .WithBalance(500);
-
-            var card = CardBuilder
-                .WithNameOnCard(Model.NameOnCard)
-                .WithCardNumber(Model.CardNumber)
-                .WithCvv(Model.CVV)
-                .WithExpirationDate(Model.ExpDate!.Value)
-                .Build();
-            var result = CardService!.Add(card);
-
-            if (!result.Success) return;
-            Message = "Card added successfully";
-            NotificationService.Notify(Message);
-
-            Cards = CardService.GetAll();
-            StateHasChanged();
-
-        }
-
-
-        private void DeleteCard(Card card)
-        {
-            var result = CardService.Delete(card);
-            Message = "Card deleted successfully";
-            NotificationService.Notify(Message);
-
-            Cards = CardService.GetAll();
-            StateHasChanged();
-        }
-
-        private void UpdateState()
-        {
-            StateHasChanged();
-        }
+    private async Task UpdateEmail()
+    {
+        var result = await AuthService.ChangeEmailAsync(User!.Email);
+        NotificationService.Notify("Email updated successfully");
     }
+
+    private async Task UpdatePassword()
+    {
+        var result = await AuthService.ChangePasswordAsync(passwordModel.CurrentPassword, passwordModel.NewPassword);
+        NotificationService.Notify("Password updated successfully");
+    }
+}
+
+
