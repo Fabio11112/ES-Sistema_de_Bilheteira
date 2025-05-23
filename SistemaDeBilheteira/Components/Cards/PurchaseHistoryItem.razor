@@ -2,35 +2,37 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 <div class="element">
-    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
-    <div class="movie">
-        <div class="content">
-            <div class="movie-information">
-                <div class="movie-name">@Movie?.Title</div>
-                <div class="text information">Type @Item!.Product.GetProductType()</div>
-            </div>
-            <div class="price-details">
-                <div class="detail">
-                    <div class="text information">Each</div>
-                    <div class="number information">@Currency@Item!.Product.Price</div>
+    <div class="flex">
+        <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
+        <div class="movie">
+            <div class="content">
+                <div class="movie-information">
+                    <div class="movie-name">@Movie?.Title</div>
+                    <div class="text information">Type @Item!.Product.GetProductType()</div>
                 </div>
-                <div class="detail">
-                    <div class="text information">Quantity</div>
-                    <div class="number information quantity">@Item.Quantity</div>
-                </div>
-                <div class="detail">
-                    <div class="text information">Total</div>
-                    <div class="number information">@Currency@Item.Product.Price</div>
+                <div class="price-details">
+                    <div class="detail">
+                        <div class="text information">Each</div>
+                        <div class="number information">@Currency@Item!.Product.Price</div>
+                    </div>
+                    <div class="detail">
+                        <div class="text information">Quantity</div>
+                        <div class="number information quantity">@Item.Quantity</div>
+                    </div>
+                    <div class="detail">
+                        <div class="text information">Total</div>
+                        <div class="number information">@Currency@Item.Product.Price</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content">
-            <div class="text information">
-                @Item.Product.PrintDetails()
+            <div class="content">
+                <div class="text information">
+                    @Item.Product.PrintDetails()
+                </div>
             </div>
-        </div>
 
-        <div class="date">Purchase Date: @Purchase!.CreatedAt.ToString("dd/MM/yyyy")</div>
+            <div class="date">Purchase Date: @Purchase!.CreatedAt.ToString("dd/MM/yyyy")</div>
+        </div>
     </div>
 </div>
 

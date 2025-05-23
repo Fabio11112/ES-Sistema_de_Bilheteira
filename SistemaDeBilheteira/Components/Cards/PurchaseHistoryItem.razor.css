@@ -1,10 +1,11 @@
 .element {
+    background-color: #1A1A1D;
     border-radius: 20px;
-    background: #1A1A1D;
-    width: 100%;
-    padding: 20px 30px 20px 30px;
+    padding: 15px 20px 10px 50px;
+    margin-top: 30px;
+}
+.flex{
     display: flex;
-    margin-top: 2%;
 }
 
 .movie {
@@ -63,7 +64,7 @@
 }
 
 .movie-image{
-    width: 25%;
+    width: 13%;
 }
 
 .price-details {
@@ -90,6 +91,6 @@
     line-height: normal;
     display: flex;
     justify-content: flex-end;
-    padding-top: 300px;
+    padding-top: 140px;
     margin-right: 35px;
 }
