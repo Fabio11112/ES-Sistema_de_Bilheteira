@@ -53,7 +53,10 @@
     {
         return PurchaseService!.GetWithQuery(
             q=> q.Where(
-                p=> p.AppUserId == User!.Id))!;
+                p=> p.AppUserId == User!.Id)
+                .OrderBy(p => p.CreatedAt))!
+            .Reverse()
+            .ToList();
     }
 
     private ICollection<PurchaseItem> GetUserItems()

@@ -84,16 +84,16 @@
     private int TicketQuantity { get; set; }
     private Function? Function { get; set; }
 
-    
+
     private ICollection<ICollection<Seat>>? SeatsRows{ get; set; }
     private ICollection<Seat>? ReservedSeats { get; set; }
     private ICollection<Seat>? SelectedSeats { get; set; }
-    
+
     private IService<Seat>? SeatService { get; set; }
     private IService<Function>? FunctionService { get; set; }
     private IService<CinemaTicket>? TicketService { get; set; }
     private IService<ShoppingCartItem>? ItemService { get; set; }
-    
+
     private string[] rowLabels = ["A", "B", "C", "D", "E", "F"];
 
     private bool _initialized = false;
@@ -105,10 +105,10 @@
         if (User == null )
         {
             NotificationService.Notify("You must be logged in to access this page");
-            NavigationManager.NavigateTo("/Identity/Account/Login", true); 
+            NavigationManager.NavigateTo("/Identity/Account/Login", true);
             return;
         }
-        
+
         FunctionService = ServiceManager.GetService<Function>();
         SeatService = ServiceManager.GetService<Seat>();
         TicketService = ServiceManager.GetService<CinemaTicket>();
@@ -119,7 +119,7 @@
     {
         if (!(firstRender && !_initialized))
             return;
-        
+
         Function = LoadFunction(await SessionStorage.GetItemAsync<Guid>("functionId"));
         TicketQuantity = await SessionStorage.GetItemAsync<int>("quantity");
         LoadSeats();
@@ -133,16 +133,16 @@
     {
         return FunctionService!.GetWithQuery(
             q => q.Where(
-                f => f.Id == functionId)
+                    f => f.Id == functionId)
                 .Include(f => f.Auditory)
                 .ThenInclude(a => a.Cinema))!.FirstOrDefault()!;
     }
-    
+
     private void LoadSeats()
     {
         if (!AreThereSeatsInDatabase())
             CreateSeats();
-        
+
         SeatsRows = GetSeatRows();
     }
 
@@ -151,10 +151,10 @@
         ICollection<Seat> seats = new List<Seat>();
 
         var tickets = GetTicketsFromFunction();
-        
+
         foreach (var ticket in tickets!)
             seats.Add(ticket.Seat);
-        
+
         return seats;
     }
 
@@ -176,7 +176,7 @@
     private void CreateSeats()
     {
         const int seatCount = 9;
-        
+
         foreach (var rowLabel in rowLabels)
         {
             for (var i = 1; i <= seatCount; i++)
@@ -200,14 +200,14 @@
                 q => q.Where(
                         s => s.Letter == row && s.AuditoryId == Function!.AuditoryId)
                     .OrderBy(s => s.Number));
-            
+
             seatsRows.Add(seatRow!);
         }
 
         return seatsRows;
     }
-    
-    
+
+
     private void ToggleSeatSelection(Seat seat)
     {
         if (IsReserved(seat)) return;
@@ -237,16 +237,16 @@
         }
 
         await SessionStorage.RemoveItemsAsync(["quantity, functionId"]);
-        
-        // Navigate to next page with selected parameters
-        NavigationManager.NavigateTo($"/AddedToCart/{id}");
+
+        NotificationService.Notify("Tickets added to cart");
+        NavigationManager.NavigateTo($"/");
     }
 
     private void SaveTicketInCart(Seat seat)
     {
 
         if (Function == null)
-        throw new InvalidOperationException("Function is null in SaveTicketInCart");
+            throw new InvalidOperationException("Function is null in SaveTicketInCart");
         if (TicketService == null)
             throw new InvalidOperationException("TicketService is null");
         if (CartItemBuilder == null)
@@ -271,12 +271,12 @@
 
         ItemService!.Add(item!);
     }
-    
+
     private double GetPrice() =>  9.99;
 
     private bool IsSelected(Seat seat) => SelectedSeats!.Contains(seat);
-    
-    private bool IsReserved(Seat seat) => ReservedSeats!.Contains(seat);
-    }
 
-} 
+    private bool IsReserved(Seat seat) => ReservedSeats!.Contains(seat);
+}
+
+}
