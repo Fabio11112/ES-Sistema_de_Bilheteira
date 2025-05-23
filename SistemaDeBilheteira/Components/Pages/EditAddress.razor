@@ -15,24 +15,22 @@
 @inject IServiceManager ServiceManager
 @inject AddressBuilder AddressBuilder
 
-
-<div class="addresses flex">
-    @foreach (var address in Addresses)
-    {
-        <AddressElement
-            Address="address"
-            Delete="(a) => DeleteAddress(a)">
-        </AddressElement>
-        
-    }
-
-</div>
-
-<div class="address-form">
-    <AddAddress
-        Model="Model"
-        OnValidSubmit="SubmitAddress">
-    </AddAddress>
+<div class="background">
+    <div class="address-form">
+        <AddAddress
+            Model="Model"
+            OnValidSubmit="SubmitAddress">
+        </AddAddress>
+    </div>
+    <div class="addresses">
+        @foreach (var address in Addresses)
+        {
+            <AddressElement
+                Address="address"
+                Delete="(a) => DeleteAddress(a)">
+            </AddressElement>
+        }
+    </div>
 </div>
 
 <div class="alert-warning">

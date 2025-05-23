@@ -85,3 +85,13 @@ input::placeholder{
     font-weight: 400;
     line-height: normal;
 }
+
+.message{
+    color: white;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-top: 10px;
+}
