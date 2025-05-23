@@ -92,3 +92,13 @@ input::placeholder{
     color:white;
     font-family: Montserrat, serif;
 }
+
+.message{
+    color: white;
+    font-family: Montserrat, serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-top: 10px;
+}
