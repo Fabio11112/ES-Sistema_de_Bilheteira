@@ -1,4 +1,5 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
+﻿
+document.addEventListener('DOMContentLoaded', function() {
     const element = document.getElementById("cardNumber");
     if (element) {
         element.addEventListener('keydown', function(event) {

@@ -22,6 +22,7 @@
 
     <div class="background">
         <div class="products">
+
             <EditForm class="form" OnValidSubmit="UpdateEmail" Model="User" FormName="user-Email">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -70,12 +71,14 @@
     [SupplyParameterFromForm] private UserRegisterModel? User { get; set; } = new();
     private PasswordModel passwordModel = new PasswordModel();
 
+    //Method to update the email
     private async Task UpdateEmail()
     {
         var result = await AuthService.ChangeEmailAsync(User!.Email);
         NotificationService.Notify("Email updated successfully");
     }
 
+    //Method to update the password
     private async Task UpdatePassword()
     {
         var result = await AuthService.ChangePasswordAsync(passwordModel.CurrentPassword, passwordModel.NewPassword);
