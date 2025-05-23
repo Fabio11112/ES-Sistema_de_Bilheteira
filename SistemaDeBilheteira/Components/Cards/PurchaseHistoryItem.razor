@@ -1,49 +1,57 @@
 ﻿@using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 <div class="element">
     <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
     <div class="movie">
         <div class="content">
             <div class="movie-information">
                 <div class="movie-name">@Movie?.Title</div>
-                <div class="text information">Type @Type</div>
+                <div class="text information">Type @Item!.Product.GetProductType()</div>
             </div>
             <div class="price-details">
                 <div class="detail">
                     <div class="text information">Each</div>
-                    <div class="number information">@Currency@Price</div>
+                    <div class="number information">@Currency@Item!.Product.Price</div>
                 </div>
                 <div class="detail">
                     <div class="text information">Quantity</div>
-                    <div class="number information quantity">@Quantity</div>
+                    <div class="number information quantity">@Item.Quantity</div>
                 </div>
                 <div class="detail">
                     <div class="text information">Total</div>
-                    <div class="number information">@Currency@Price</div>
+                    <div class="number information">@Currency@Item.Product.Price</div>
                 </div>
             </div>
         </div>
+        <div class="content">
+            <div class="text information">
+                @Item.Product.PrintDetails()
+            </div>
+        </div>
 
-        <div class="date">Purchase Date: @PurchaseDate.ToString("dd/MM/yyyy")</div>
+        <div class="date">Purchase Date: @Purchase!.CreatedAt.ToString("dd/MM/yyyy")</div>
     </div>
 </div>
 
 @code {
-    private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
+    [Parameter]
+    public PurchaseItem? Item { get; set; }
+    [Parameter]
+    public Purchase? Purchase { get; set; }
     
-    private string Type { get; set; } = "Rental";
-    private double Price { get; set; } = 10.25;
+    private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
     private string Currency { get; set; } = "€";
     private Movie? Movie { get; set; }
-    private int Quantity { get; set; } = 2;
-    private DateTime PurchaseDate { get; set; } = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
-        var id = 324544;
-        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
+        var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{Item!.Product.MovieId}";
         var deserializer = new Deserializer<Movie>();
         Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
+        
+        
+        
     }
  }

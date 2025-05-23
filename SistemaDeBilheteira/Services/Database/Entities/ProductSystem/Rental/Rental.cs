@@ -23,4 +23,9 @@
         {
             return "Rental";
         }
+
+        public override string PrintDetails()
+        {
+            return $"Rental valid until {EndDate:dd/MM/yyyy}";
+        }
     }
