@@ -94,18 +94,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
 
 
 
-        // Relação 1:N PaymentMethod -> Payments
-        modelBuilder.Entity<PaymentMethod>()
-            .HasMany(pm => pm.Payments)
-            .WithOne(p => p.PaymentMethod)
-            .HasForeignKey(p => p.PaymentMethodId);
-
-        // Relação 1:N Currency -> Payments
-        modelBuilder.Entity<Currency>()
-            .HasMany(c => c.Payments)
-            .WithOne(p => p.Currency)
-            .HasForeignKey(p => p.CurrencyId);
-
 
         // Relação 1:N Purchase -> PurchaseItems
         modelBuilder.Entity<Function>()
