@@ -115,6 +115,11 @@
         ItemService = ServiceManager.GetService<ShoppingCartItem>();
     }
 
+    /*
+     * This method is called after the component has rendered.
+     * It retrieves the function ID and ticket quantity from session storage,
+     * loads the function and seats, and sets the reserved seats.
+     */
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!(firstRender && !_initialized))
@@ -129,6 +134,10 @@
         StateHasChanged();
     }
 
+    /*
+     * This method is called when the user clicks on a seat button.
+     * It toggles the selection of the seat and updates the selected seats.
+     */
     private Function LoadFunction(Guid functionId)
     {
         return FunctionService!.GetWithQuery(
@@ -138,6 +147,10 @@
                 .ThenInclude(a => a.Cinema))!.FirstOrDefault()!;
     }
     
+    /*
+     * This method is called when the user clicks on the confirm selection button.
+     * It checks if the selected seats match the ticket quantity and saves the tickets in the cart.
+     */
     private void LoadSeats()
     {
         if (!AreThereSeatsInDatabase())
@@ -146,6 +159,10 @@
         SeatsRows = GetSeatRows();
     }
 
+    /*
+     * This method retrieves the reserved seats from the database.
+     * It gets the tickets for the current function and adds their seats to the reserved seats collection.
+     */
     private ICollection<Seat> GetReservedSeats()
     {
         ICollection<Seat> seats = new List<Seat>();
@@ -158,6 +175,10 @@
         return seats;
     }
 
+    /*
+     * This method retrieves the tickets for the current function from the database.
+     * It includes the seat information for each ticket.
+     */
     private ICollection<CinemaTicket>? GetTicketsFromFunction()
     {
         return TicketService!.GetWithQuery(
@@ -166,6 +187,10 @@
                 .Include(t => t.Seat));
     }
 
+    /*
+     * This method checks if there are seats in the database for the current function.
+     * If not, it creates new seats.
+     */
     private bool AreThereSeatsInDatabase()
     {
         return SeatService!.GetWithQuery(
@@ -173,6 +198,10 @@
                 s => s.AuditoryId == Function!.AuditoryId))!.Any();
     }
 
+    /*
+     * This method creates new seats in the database for the current function.
+     * It generates seats with letters A to F and numbers 1 to 9.
+     */
     private void CreateSeats()
     {
         const int seatCount = 9;
@@ -191,6 +220,10 @@
         }
     }
 
+    /*
+     * This method retrieves the seat rows from the database.
+     * It gets the seats for each row label and adds them to the seat rows collection.
+     */
     private ICollection<ICollection<Seat>> GetSeatRows()
     {
         ICollection<ICollection<Seat>> seatsRows = new List<ICollection<Seat>>();
@@ -207,7 +240,10 @@
         return seatsRows;
     }
     
-    
+    /*
+     * This method toggles the selection of a seat when the user clicks on it.
+     * It checks if the seat is reserved or if the maximum ticket quantity has been reached.
+     */
     private void ToggleSeatSelection(Seat seat)
     {
         if (IsReserved(seat)) return;
@@ -222,11 +258,19 @@
         }
     }
 
+    /*
+     * This method removes a seat from the selected seats collection.
+     * It is called when the user clicks on the remove button for a selected seat.
+     */
     private void RemoveSeat(Seat seat)
     {
         SelectedSeats!.Remove(seat);
     }
 
+    /*
+     * This method confirms the selection of seats and saves the tickets in the cart.
+     * It checks if the selected seats match the ticket quantity and navigates to the next page.
+     */
     private async Task ConfirmSelection()
     {
         if (SelectedSeats!.Count != TicketQuantity) return;
@@ -242,6 +286,10 @@
         NavigationManager.NavigateTo($"/AddedToCart/{id}");
     }
 
+    /*
+     * This method saves the selected ticket in the cart.
+     * It creates a new ticket and adds it to the cart item builder.
+     */
     private void SaveTicketInCart(Seat seat)
     {
 

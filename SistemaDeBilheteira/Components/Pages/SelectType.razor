@@ -147,6 +147,7 @@
         Movie = await movieDeserializer.Fetch($"{movieUrl}/{Id}")!;
     }
 
+    // Turn the runtime in minutes into a string format "Xh Ym"
     private string FormatRuntime(int runtime)
     {
         var hours = runtime / 60;
@@ -157,6 +158,7 @@
     private void ToggleDropdown() => ShowDropdown = !ShowDropdown;
 
 
+    //Method to add a physical media to the database
     private void AddPhysicalMedia()
     {
         var medias = ProductService!.GetWithQuery(
@@ -179,6 +181,7 @@
 
     }
     
+    //Method to add a rental to the database
     private void AddRental()
     {
         var rentals = ProductService!.GetWithQuery(
@@ -202,6 +205,7 @@
 
     private double GeneratedPrice() => 9.99;
 
+    //Method to add a shopping cart item to the database
     private void AddShoppingCartItem(Product product)
     {
         var item = ShoppingCartItemService!.GetWithQuery(
@@ -222,13 +226,15 @@
         StateHasChanged();
 
     }
-
+    
+    //Method to update the quantity of a shopping cart item
     private void UpdateItem(ShoppingCartItem item)
     {
         item.Quantity++;
         ShoppingCartItemService!.Update(item);
     }
 
+    //Method to add a shopping cart item to the database
     private void AddItem(Product product)
     {
         

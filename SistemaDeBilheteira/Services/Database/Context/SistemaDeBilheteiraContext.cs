@@ -25,23 +25,19 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         options.UseSqlite("Data Source=SistemaDeBilheteira.db");
     }
 
+    
     public DbSet<Product> Products { get; set; }
     public DbSet<ShoppingCartItem> ShoppingCart { get; set; }
     public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-
-
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Paypal> Paypals { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Currency> Currencies { get; set; }
-
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
     public DbSet<PhysicalMediaFormat> PhysicalMediaFormats { get; set; }
-
     public DbSet<Function> Functions { get; set; }
-
     public DbSet<Cinema> Cinemas { get; set; }
     public DbSet<Auditory> Auditories { get; set; }
     public DbSet<Seat> Seats { get; set; }
@@ -80,24 +76,11 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithMany(p => p.ShoppingCartItems)
             .HasForeignKey(sci => sci.ProductId);
 
-
+        
         modelBuilder.Entity<PaymentMethod>().UseTpcMappingStrategy();
         modelBuilder.Entity<PaymentMethod>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
-
-        // modelBuilder.Entity<CinemaTicket>(entity =>
-        // {
-        //     entity.HasOne(ct => ct.Function)
-        //         .WithMany(f => f.Tickets)
-        //         .HasForeignKey(ct => ct.FunctionId)
-        //         .OnDelete(DeleteBehavior.Cascade);
-
-        //     entity.HasOne(ct => ct.Seat)
-        //         .WithMany()
-        //         .HasForeignKey(ct => ct.SeatId)
-        //         .OnDelete(DeleteBehavior.Restrict);
-        // });
 
         var paymentMethodTypes = new[] { typeof(Card), typeof(Paypal) };
 
@@ -125,7 +108,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .HasForeignKey(p => p.CurrencyId);
 
 
-
+        // Relação 1:N Purchase -> PurchaseItems
         modelBuilder.Entity<Function>()
             .HasOne(f => f.Auditory)
             .WithMany(a => a.Functions)
