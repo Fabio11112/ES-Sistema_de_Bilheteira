@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using SistemaDeBilheteira.Components.Cards.EditAdress;
-using SistemaDeBilheteira.Services.Database;
+﻿using SistemaDeBilheteira.Services.Database;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using SistemaDeBilheteira.Services.IService;
 

@@ -2,6 +2,6 @@
 
 public interface IPurchaseSystem
 {
-    bool Pay(PaymentMethod paymentMethod, AppUser user);
+    bool Pay(PaymentMethod paymentMethod, AppUser user, Address? address = null);
     
 }

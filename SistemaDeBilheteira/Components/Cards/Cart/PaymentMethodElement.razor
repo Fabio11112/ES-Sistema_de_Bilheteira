@@ -1,44 +1,4 @@
 ﻿<div class="payment">
-    
-    @* <div class="title text">Card Details</div>
-    <div class="type text">Card type</div>
-
-    <div class="flex">
-        <img src="images/icons/payment/paymentMethod/mastercard.svg" alt="mastercard"/>
-        <img src="images/icons/payment/paymentMethod/visa.svg" alt="visa"/>
-        <img src="images/icons/payment/paymentMethod/paypal.svg" alt="paypal"/>
-        <img src="images/icons/payment/paymentMethod/applepay.svg" alt="applepay"/>
-    </div>
-
-    <form class="card-form">
-        <div>
-            <label for="name-on-card" class="input-label text">Name on card</label>
-        </div>
-        <div>
-            <input id="name-on-card"/>
-        </div>
-        <div>
-            <label for="card-number" class="input-label text">Card number</label>
-        </div>
-        <div>
-            <input id="card-number" type="number" placeholder="1111222233334444"/>
-        </div>
-
-        
-        
-        <div class="flex">
-            <div class=" expiration">
-                <label for="card-expiration-date" class="input-label text">Expiration Date</label>
-                <input class="expiration" id="card-expiration-date" type="date" placeholder="1mm/yy"/>
-            </div>
-            <div>
-                <label for="card-cvv" class="input-label text">CVV</label>
-                <input id="card-cvv" type="number" placeholder="123"/>
-            </div>
-        </div>
-    </form> *@
-
-    
     <div class="payment-details text ">
         <div class="flex space-between card-detail">
             <div class="description">Subtotal</div>
@@ -59,7 +19,7 @@
     <button class="checkout" @onclick="OnPay">
         <div class="flex space-between">
             <div>@Total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-PT"))</div>
-            <div>
+            <div @onclick="OnPay">
                 Checkout
                 <img src="images/icons/payment/paymentMethod/arrow.png" alt="" />
             </div>
@@ -75,6 +35,8 @@
     [Parameter]
     public EventCallback OnPay { get; set; }
 
-    private decimal Shipping => 10;
+    [Parameter]
+    public decimal Shipping { get; set; }
+    
     private decimal Subtotal => Total - Shipping;
 }
