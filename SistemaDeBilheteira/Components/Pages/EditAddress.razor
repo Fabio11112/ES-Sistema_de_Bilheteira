@@ -4,7 +4,6 @@
 @inherits AuthenticatedPage
 
 @using Microsoft.AspNetCore.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Components.Cards.EditAdress
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
@@ -23,13 +22,23 @@
         </AddAddress>
     </div>
     <div class="addresses">
-        @foreach (var address in Addresses)
+        @if (Addresses is not { Count: > 0 })
         {
-            <AddressElement
-                Address="address"
-                Delete="(a) => DeleteAddress(a)">
-            </AddressElement>
+            <div>
+                No addresses have been added to this account yet
+            </div>
         }
+        else
+        {
+            foreach (var address in Addresses!)
+            {
+                <AddressElement
+                    Address="address"
+                    Delete="DeleteAddress">
+                </AddressElement>
+            }
+        }
+
     </div>
 </div>
 
@@ -50,7 +59,7 @@
     {
         await base.OnInitializedAsync();
         AddressService = ServiceManager.GetService<Address>();
-        Addresses = AddressService.GetAll();
+        Addresses = GetAddresses();
     }
 
     
@@ -84,8 +93,16 @@
 
     private void UpdateState()
     {
-        Addresses = AddressService.GetAll();
+        Addresses = GetAddresses();
         StateHasChanged();
+    }
+
+    private ICollection<Address> GetAddresses()
+    {
+        return AddressService.GetWithQuery(
+            q=> q.Where(
+                a => a.AppUserId == User!.Id)
+            )!;
     }
 
 }

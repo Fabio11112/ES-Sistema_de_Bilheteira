@@ -1,10 +1,10 @@
 @page "/PurchaseHistory"
-@inherits AuthenticatedPage
+@inherits AuthenticatedPage 
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
 @using SistemaDeBilheteira.Components.Cards
-
+@rendermode InteractiveServer
 
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -26,18 +26,17 @@
 @code {
     Response<Movie>? Response { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
+        await base.OnParametersSetAsync();
         var deserializer = new Deserializer<Response<Movie>>();
         Response = await deserializer.Fetch($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular")!;
-        //Response = await Task.Run(() => deserializer.FetchPopularMovies());
         Console.WriteLine(Response?.Results[0].BackdropPath);
-        //backdropLink += response.Results[0].BackdropPath;
-        //title = response.Results[0].Title;
     }
     // Simulate fetching purchase history
     public List<PurchaseHistoryItem> purchaseHistory = new List<PurchaseHistoryItem>
     {
+        
         new PurchaseHistoryItem
         {
             MovieTitle = "Movie 1",
