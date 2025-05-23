@@ -5,5 +5,8 @@ public class Card : PaymentMethod
     public string CardNumber { get; set; }
     public String Cvv { get; set; }
     public DateTime ExpirationDate { get; set; }
-    // public string Brand { get; set; }
+    public override string PrintInformation()
+    {
+        return $"{CardHolderName} - **** **** **** {CardNumber[^4..]}";
+    }
 }

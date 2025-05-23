@@ -1,99 +1,10 @@
-﻿@* @page "/Cart"
-@inherits AuthenticatedComponentBase
-@rendermode InteractiveServer
-@using Microsoft.EntityFrameworkCore
-@using SistemaDeBilheteira.Components.Cards.Cart
-@using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
-@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
-@using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
-@using SistemaDeBilheteira.Services.IService
-@using SistemaDeBilheteira.Services.IService.ServiceManager
-@inject IServiceManager ServiceManager
-@inject IPurchaseSystem PurchaseSystem
-@inject NavigationManager Navigation
-
-
-<link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
-
-<div class="background">
-    <div class="logo">
-        <img class="cart-image" src="images/icons/cart/cart.svg" alt="cart" />
-        <div class="title">MY CART</div>
-    </div>
-
-    <div class="flex">
-        <div class="products">
-            @foreach (var item in Items)
-            {
-                <div @key="item">
-                    <CartItemElement
-                        Item="@item"
-                        Delete="(cartItem) => DeleteCartItem(cartItem)">
-                    </CartItemElement>
-                </div>
-            }
-        </div>
-
-        <div class="payment">
-            <PromoCode></PromoCode>
-            <PaymentMethodElement Total="@Total" OnPay="Pay" />
-        </div>
-    </div>
-</div>
-
-@code {
-    private ICollection<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
-    private IService<ShoppingCartItem>? ItemService { get; set; }
-    private IService<PaymentMethod>? PaymentMethodService { get; set; }
-
-    private decimal ShippingCost => 10;
-
-    private decimal Total => Items.Sum(i => (decimal)i.Product.Price * i.Quantity) + ShippingCost;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-        ItemService = ServiceManager.GetService<ShoppingCartItem>();
-        PaymentMethodService = ServiceManager.GetService<PaymentMethod>();
-        Items = GetCartElements()!;
-    }
-
-    private void DeleteCartItem(ShoppingCartItem item)
-    {
-        Items.Remove(item);
-        ItemService?.Delete(item);
-    }
-
-    private ICollection<ShoppingCartItem>? GetCartElements()
-    {
-        return ItemService!.GetWithQuery(
-            q => q
-                .Where(i => i.AppUserId == User!.Id)
-                .Include(i => i.Product)
-                .ThenInclude(p => (p as PhysicalMedia)!.Format)
-            );
-
-    }
-
-    private void Pay()
-    {
-        Console.WriteLine("--------------------------------PAYING------------------------------------------------------------------");
-        Console.WriteLine($"PAYING: {Total}€");
-        Console.WriteLine("--------------------------------PAYING------------------------------------------------------------------");
-        var method = PaymentMethodService!.GetAll()!.FirstOrDefault();
-        if (PurchaseSystem.Pay(method!, User!))
-        {
-            Navigation.NavigateTo("/PaymentSucssefully");
-        }
-    }
-} *@
-
 @page "/Cart"
-@inherits AuthenticatedPage
+@inherits AuthenticatedComponentBase
+
 @rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards.Cart
+@using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
@@ -125,16 +36,16 @@
             <PromoCode></PromoCode>
 
             <div class="card-selection">
-                <div class="title text">CARD DETAILS</div>
-                <div class="type text">Select your card</div>
+                <div class="title text">PAYMENT METHOD DETAILS</div>
+                <div class="type text">Select your payment method</div>
 
-                @if (Cards?.Any() == true)
+                @if (PaymentMethods?.Any() == true)
                 {
-                    <select class="card-dropdown" @bind="SelectedCardId">
-                        @foreach (var card in Cards)
+                    <select class="card-dropdown" @bind="SelectedPaymentMethodId">
+                        @foreach (var method in PaymentMethods)
                         {
-                            <option value="@card.Id">
-                                @card.CardHolderName - **** **** **** @card.CardNumber[^4..]
+                            <option value="@method.Id">
+                                @method.PrintInformation()
                             </option>
                         }
                     </select>
@@ -145,25 +56,48 @@
                         No cards found. Please add one in your <a class="text" href="/UserInfo">profile</a>.
                     </p>
                 }
+                
+                @if (AreTherePhysicalItems())
+                {
+                    if (Addresses?.Any() == true)
+                    {
+                        <select class="card-dropdown" @bind="SelectedAddressId">
+                            @foreach (var address in Addresses)
+                            {
+                                <option value="@address.Id">
+                                    @address.StreetLine1, @address.State, @address.City, @address.Country
+                                </option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <p class="text" style="margin-left: 15px;">
+                            No addresses found. Please add one in your <a class="text" href="/EditAddress">profile</a>.
+                        </p>
+                    }
+                }
+                
             </div>
-
-            
-
-            <PaymentMethodElement Total="@Total" OnPay="Pay" />
+            <PaymentMethodElement Total="@Total" OnPay="Pay" Shipping="ShippingCost" />
         </div>
     </div>
 </div>
 
 @code {
     private ICollection<ShoppingCartItem> Items { get; set; } = new List<ShoppingCartItem>();
-    private ICollection<Card> Cards { get; set; } = new List<Card>();
-    private Guid SelectedCardId { get; set; }
+    private ICollection<PaymentMethod> PaymentMethods { get; set; } = new List<PaymentMethod>();
+    private ICollection<Address> Addresses { get; set; } = new List<Address>();
+    private Guid SelectedPaymentMethodId { get; set; }
+    private Guid SelectedAddressId { get; set; } = Guid.Empty;
 
     private IService<ShoppingCartItem>? ItemService { get; set; }
+    private IService<Product>? ProductService { get; set; }
     private IService<PaymentMethod>? PaymentMethodService { get; set; }
-    private IService<Card>? CardService { get; set; }
+    private IService<Address>? AddressService { get; set; }
 
-    private decimal ShippingCost => 10;
+    private decimal ShippingCost => AreTherePhysicalItems() ? 10 : 0;
+    
     private decimal Total => Items.Sum(i => (decimal)i.Product.Price * i.Quantity) + ShippingCost;
 
     protected override async Task OnInitializedAsync()
@@ -172,17 +106,28 @@
 
         ItemService = ServiceManager.GetService<ShoppingCartItem>();
         PaymentMethodService = ServiceManager.GetService<PaymentMethod>();
-        CardService = ServiceManager.GetService<Card>();
+        ProductService = ServiceManager.GetService<Product>();
+        AddressService = ServiceManager.GetService<Address>();
 
         Items = GetCartElements()!;
-        Cards = GetUserCards()!;
-        SelectedCardId = Cards.FirstOrDefault()?.Id ?? Guid.Empty;
+        PaymentMethods = GetUserPaymentMethods()!;
+        Addresses = GetAddresses();
+        SelectedPaymentMethodId = PaymentMethods.FirstOrDefault()?.Id ?? Guid.Empty;
+        SelectedAddressId = Addresses.FirstOrDefault()?.Id ?? Guid.Empty;
     }
 
     private void DeleteCartItem(ShoppingCartItem item)
     {
         Items.Remove(item);
+        if (item.Product.GetProductType() == "Cinema Ticket") //when it deletes the Ticket, it deletes the item 
+        {                                                     //related to it
+            ProductService?.Delete(item.Product);
+            return;
+        }
+        
         ItemService?.Delete(item);
+        
+        
     }
 
     private ICollection<ShoppingCartItem>? GetCartElements()
@@ -193,27 +138,54 @@
              .ThenInclude(p => (p as PhysicalMedia)!.Format));
     }
 
-    private ICollection<Card>? GetUserCards()
+    private ICollection<PaymentMethod>? GetUserPaymentMethods()
     {
-        return CardService!.GetWithQuery(q => q.Where(c => c.AppUserId == User!.Id));
+        return PaymentMethodService!.GetWithQuery(q => q.Where(c => c.AppUserId == User!.Id));
     }
 
     private void Pay()
     {
-        var selectedCard = Cards.FirstOrDefault(c => c.Id == SelectedCardId);
-        if (selectedCard == null)
+        if (AreTherePhysicalItems() && SelectedAddressId == Guid.Empty)
+        {
+            Console.WriteLine("No address selected");
+            return;
+        }
+
+        if (SelectedPaymentMethodId == Guid.Empty)
         {
             Console.WriteLine("No card selected.");
             return;
         }
+        
+        var selectedPaymentMethod = PaymentMethods.FirstOrDefault(c => c.Id == SelectedPaymentMethodId);
+        var selectedAddress = Addresses.FirstOrDefault(a => a.Id == SelectedAddressId);
+
 
         Console.WriteLine("--------------------------------PAYING------------------------------------------------------------------");
-        Console.WriteLine($"PAYING {Total}€ with card ending in {selectedCard.CardNumber[^4..]}");
+        Console.WriteLine($"PAYING {Total}€ with payment method {selectedPaymentMethod!.PrintInformation()}");
         Console.WriteLine("--------------------------------PAYING------------------------------------------------------------------");
 
-        if (PurchaseSystem.Pay(selectedCard, User!))
+        if (PurchaseSystem.Pay(selectedPaymentMethod!, User!, selectedAddress))
         {
             Navigation.NavigateTo("/PaymentSucssefully");
         }
+    }
+
+    private bool AreTherePhysicalItems()
+    {
+        foreach (var item in Items)
+        {
+            if (item.Product.GetProductType() == "DVD" || item.Product.GetProductType() == "Blu-Ray")
+                return true;
+        }
+
+        return false;
+    }
+
+    private ICollection<Address> GetAddresses()
+    {
+        return AddressService!.GetWithQuery(
+            q => q.Where(
+                a => a.AppUserId == User!.Id))!;
     }
 }

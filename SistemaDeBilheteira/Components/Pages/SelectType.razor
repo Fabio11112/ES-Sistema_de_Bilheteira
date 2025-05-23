@@ -163,8 +163,6 @@
             q => q.Where(
                 r => r.MovieId == Id.ToString()
                 ).OfType<PhysicalMedia>())!.ToList();
-
-
         
         if (medias.Any())
             return;
