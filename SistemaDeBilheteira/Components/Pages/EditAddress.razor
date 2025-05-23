@@ -1,9 +1,9 @@
 ﻿@page "/EditAddress"
 @rendermode InteractiveServer
 @attribute [Authorize]
-@inherits AuthenticatedComponentBase
+@inherits AuthenticatedPage
+
 @using Microsoft.AspNetCore.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Components.Cards.EditAdress
 @using SistemaDeBilheteira.Services.AuthenticationService.Models
@@ -14,24 +14,32 @@
 @inject IServiceManager ServiceManager
 @inject AddressBuilder AddressBuilder
 
+<div class="background">
+    <div class="address-form">
+        <AddAddress
+            Model="Model"
+            OnValidSubmit="SubmitAddress">
+        </AddAddress>
+    </div>
+    <div class="addresses">
+        @if (Addresses is not { Count: > 0 })
+        {
+            <div>
+                No addresses have been added to this account yet
+            </div>
+        }
+        else
+        {
+            foreach (var address in Addresses!)
+            {
+                <AddressElement
+                    Address="address"
+                    Delete="DeleteAddress">
+                </AddressElement>
+            }
+        }
 
-<div class="addresses flex">
-    @foreach (var address in Addresses)
-    {
-        <AddressElement
-            Address="address"
-            Delete="(a) => DeleteAddress(a)">
-        </AddressElement>
-        
-    }
-
-</div>
-
-<div class="address-form">
-    <AddAddress
-        Model="Model"
-        OnValidSubmit="SubmitAddress">
-    </AddAddress>
+    </div>
 </div>
 
 <div class="alert-warning">
@@ -51,7 +59,7 @@
     {
         await base.OnInitializedAsync();
         AddressService = ServiceManager.GetService<Address>();
-        Addresses = AddressService.GetAll();
+        Addresses = GetAddresses();
     }
 
     
@@ -85,8 +93,16 @@
 
     private void UpdateState()
     {
-        Addresses = AddressService.GetAll();
+        Addresses = GetAddresses();
         StateHasChanged();
+    }
+
+    private ICollection<Address> GetAddresses()
+    {
+        return AddressService.GetWithQuery(
+            q=> q.Where(
+                a => a.AppUserId == User!.Id)
+            )!;
     }
 
 }

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities;
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
@@ -12,11 +14,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
 {
     //Each set is a table from the Database
     public DbSet<Address> Addresses { get; set; }
-    
-    
-    public SistemaDeBilheteiraContext()
-    {
-    }
 
     public SistemaDeBilheteiraContext(DbContextOptions<SistemaDeBilheteiraContext> options)
         : base(options)
@@ -28,22 +25,20 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         options.UseSqlite("Data Source=SistemaDeBilheteira.db");
     }
 
+    
     public DbSet<Product> Products { get; set; }
     public DbSet<ShoppingCartItem> ShoppingCart { get; set; }
     public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-
-
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Paypal> Paypals { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Currency> Currencies { get; set; }
-    
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }
-
-    public DbSet<Cinema> Cinemas { get; set; }
+    public DbSet<PhysicalMediaFormat> PhysicalMediaFormats { get; set; }
     public DbSet<Function> Functions { get; set; }
+    public DbSet<Cinema> Cinemas { get; set; }
     public DbSet<Auditory> Auditories { get; set; }
     public DbSet<Seat> Seats { get; set; }
     public DbSet<CinemaTicket> CinemaTickets { get; set; }
@@ -56,7 +51,10 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
 
         modelBuilder.Entity<Product>().UseTpcMappingStrategy();
         modelBuilder.Entity<Rental>().ToTable("Rentals");
+        modelBuilder.Entity<PhysicalMedia>().ToTable("PhysicalMedias");
 
+        modelBuilder.Entity<CinemaTicket>().ToTable("CinemaTickets");
+        
         modelBuilder.Entity<Product>()
             .Property(p => p.Id)
             .ValueGeneratedNever();
@@ -78,7 +76,7 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithMany(p => p.ShoppingCartItems)
             .HasForeignKey(sci => sci.ProductId);
 
-
+        
         modelBuilder.Entity<PaymentMethod>().UseTpcMappingStrategy();
         modelBuilder.Entity<PaymentMethod>()
             .Property(p => p.Id)
@@ -109,11 +107,8 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
             .WithOne(p => p.Currency)
             .HasForeignKey(p => p.CurrencyId);
 
-        modelBuilder.Entity<Function>()
-                .HasOne(f => f.Cinema)
-                .WithMany(c => c.Functions)
-                .HasForeignKey(f => f.CinemaId);
 
+        // Relação 1:N Purchase -> PurchaseItems
         modelBuilder.Entity<Function>()
             .HasOne(f => f.Auditory)
             .WithMany(a => a.Functions)

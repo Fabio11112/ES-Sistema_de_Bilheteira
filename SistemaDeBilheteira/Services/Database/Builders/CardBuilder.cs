@@ -1,5 +1,5 @@
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
 using System;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 namespace SistemaDeBilheteira.Services.Database.Builders
 {

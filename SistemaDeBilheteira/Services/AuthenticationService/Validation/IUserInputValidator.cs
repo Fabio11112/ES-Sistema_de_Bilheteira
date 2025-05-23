@@ -7,6 +7,5 @@ public interface IUserInputValidator
     public bool IsValidEmail(string email);
     public bool IsValidPassword(string password);
     public bool IsPasswordConfirmed(string password, string confirmPassword);
-
     public bool ValidateInput(UserRegisterModel model, IResult result);
 }

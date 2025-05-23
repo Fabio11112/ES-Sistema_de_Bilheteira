@@ -3,7 +3,7 @@ using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 using SistemaDeBilheteira.Services.IService;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
-namespace SistemaDeBilheteira.Services.Database.Entities.Payment;
+namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 public class PurchaseSystem(IServiceManager serviceManager) : IPurchaseSystem
 {
@@ -12,7 +12,7 @@ public class PurchaseSystem(IServiceManager serviceManager) : IPurchaseSystem
     private IService<PurchaseItem> PurchaseItemService { get;  } = serviceManager.GetService<PurchaseItem>();
     private IService<PaymentMethod> PaymentMethodService { get; } = serviceManager.GetService<PaymentMethod>();
 
-    public bool Pay(PaymentMethod paymentMethod, AppUser user)
+    public bool Pay(PaymentMethod paymentMethod, AppUser user, Address? address = null)
     {
         try
         {
@@ -28,7 +28,7 @@ public class PurchaseSystem(IServiceManager serviceManager) : IPurchaseSystem
             paymentMethod.Balance -= totalPrice;
             PaymentMethodService.Update(paymentMethod);
 
-            var purchase = AddPurchase(totalPrice, user);
+            var purchase = AddPurchase(totalPrice, user, address);
 
             AddPurchaseItems(items, purchase);
             DeleteCartItems(items);
@@ -66,12 +66,13 @@ public class PurchaseSystem(IServiceManager serviceManager) : IPurchaseSystem
         return totalPrice;
     }
 
-    private Purchase AddPurchase(double totalPrice, AppUser user)
+    private Purchase AddPurchase(double totalPrice, AppUser user, Address? address)
     {
         Purchase purchase = new Purchase()
         {
             Amount = totalPrice,
             AppUserId = user.Id,
+            Address = address,
         };
 
         PurchaseService.Add(purchase);

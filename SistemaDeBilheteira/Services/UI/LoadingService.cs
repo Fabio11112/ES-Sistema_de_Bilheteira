@@ -1,3 +1,5 @@
+namespace SistemaDeBilheteira.Services.UI;
+
 public class LoadingService
 {
     public event Action? OnLoadingChanged;

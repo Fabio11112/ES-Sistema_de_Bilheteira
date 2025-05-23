@@ -1,91 +1,60 @@
-﻿@page "/UserInfo"
-@inherits AuthenticatedComponentBase
-@attribute [Authorize]
-@rendermode InteractiveServer
+﻿    @page "/UserInfo"
+    @inherits AuthenticatedPage
+    @attribute [Authorize]
+    @rendermode InteractiveServer
 
-@using SistemaDeBilheteira.Components.Cards
-@using Microsoft.AspNetCore.Authorization
-@using SistemaDeBilheteira.Services.AuthenticationService.Models
-@using SistemaDeBilheteira.Services.Database.Builders
-@using SistemaDeBilheteira.Services.IService
-@using SistemaDeBilheteira.Services.IService.ServiceManager
+    @using SistemaDeBilheteira.Components.Cards
+    @using Microsoft.AspNetCore.Authorization
+    @using SistemaDeBilheteira.Services.AuthenticationService.Models
+    @using SistemaDeBilheteira.Services.Database.Builders
+    @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
+    @using SistemaDeBilheteira.Services.IService
+    @using SistemaDeBilheteira.Services.IService.ServiceManager
+    @using SistemaDeBilheteira.Services.UI
 
-@inject IServiceManager ServiceManager
-@inject CardBuilder CardBuilder
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<PageTitle>User Info</PageTitle>
+    @inject IServiceManager ServiceManager
+    @inject CardBuilder CardBuilder
+    @inject NotificationService NotificationService
 
-<div class="background">
-    <div class="products">
-        <UserInfoItem Model="Model" OnValidSubmit="SubmitCard"></UserInfoItem>
-    </div>
-</div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <PageTitle>User Info</PageTitle>
 
-@if (ShowPopup)
-{
-    <div class="popup">
-        @Message
-        <button class="popup-close" @onclick="ClosePopup">X</button>
-    </div>
-}
+    <div class="background">
+        <div class="products">
+            <h3 class="Title">User Info</h3>
+            <p class="subtitle">Modify your Email</p>
+            <EditForm OnValidSubmit="UpdateEmail" Model="User" FormName="user-Email">
+                <InputText @bind-Value="User!.Email" />
+                <button type="submit">Update Email</button>
+            </EditForm>
 
+            <p class="subtitle">Modify your Password</p>
+            <EditForm Model="passwordModel" OnValidSubmit="UpdatePassword">
+                <InputText @bind-Value="passwordModel.CurrentPassword" type="password" />
+                <InputText @bind-Value="passwordModel.NewPassword" type="password" />
+                <button type="submit">Update Password</button>
+            </EditForm>
+        </div>
+    </div> 
+    
 @code {
-    [SupplyParameterFromForm] private CardModel Model { get; set; } = new();
-    private string Message { get; set; } = string.Empty;
-    private bool ShowPopup { get; set; }
-    private ICollection<Card>? Cards { get; set; } = new List<Card>();
-    private IService<Card>? CardService { get; set; }
+    [SupplyParameterFromForm] private UserRegisterModel? User { get; set; } = new();
+    private PasswordModel passwordModel = new PasswordModel();
 
-    protected override void OnInitialized()
+    //Method to update the email
+    private async Task UpdateEmail()
     {
-        CardService = ServiceManager.GetService<Card>();
-        Cards = CardService.GetAll();
+        var result = await AuthService.ChangeEmailAsync(User!.Email);
+        NotificationService.Notify("Email updated successfully");
     }
 
-    private void SubmitCard()
+    //Method to update the password
+    private async Task UpdatePassword()
     {
-        CardBuilder.WithAppUserId(User!.Id)
-                   .WithAppUser(null!)
-                   .WithIsDefault(false)
-                   .WithPayments(null!)
-                   .WithBalance(500);
-
-        var card = CardBuilder
-            .WithNameOnCard(Model.NameOnCard)
-            .WithCardNumber(Model.CardNumber)
-            .WithCvv(Model.CVV)
-            .WithExpirationDate(Model.ExpDate!.Value)
-            .Build();
-        var result = CardService!.Add(card);
-
-        if (!result.Success) return;
-        
-        Message = "Card added successfully";
-        ShowPopup = true;
-        Cards = CardService.GetAll();
-        StateHasChanged();
-
-    }
-
-    private void ClosePopup()
-    {
-      ShowPopup = false;
-      StateHasChanged();
-    }
-
-    private void DeleteCard(Card card)
-    {
-        var result = CardService.Delete(card);
-        Message = "Card deleted successfully";
-        ShowPopup = true;
-
-        Cards = CardService.GetAll();
-        StateHasChanged();
-    }
-
-    private void UpdateState()
-    {
-        StateHasChanged();
+        var result = await AuthService.ChangePasswordAsync(passwordModel.CurrentPassword, passwordModel.NewPassword);
+        NotificationService.Notify("Password updated successfully");
     }
 }
+
+

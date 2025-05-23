@@ -1,3 +1,5 @@
+using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
+
 namespace SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 
 public class Seat : DbItem
@@ -7,4 +9,6 @@ public class Seat : DbItem
 
     public Guid AuditoryId { get; set; }
     public Auditory Auditory { get; set; } = null!;
+
+    
 }

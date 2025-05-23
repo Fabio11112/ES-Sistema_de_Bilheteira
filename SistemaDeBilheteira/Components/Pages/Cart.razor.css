@@ -7,14 +7,9 @@
 }
 
 .title{
-    display: inline-block;  
-    justify-content: center; 
-    align-items: center;
-    margin-left: 15px;
-
-    color: gold;
+    color: #FEFCFC;
     font-family: Montserrat, serif;
-    font-size: 40px;
+    font-size: 22px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -35,5 +30,37 @@
 
 .payment{
     margin-left: 40px;
+}
+
+.card-selection {
+    padding: 20px;
+    border-radius: 20px;
+    background: #1A1A1D;
+    margin-top: 20px;
+}
+
+.card-dropdown {
+    width: 100%;
+    margin: 10px 0 0 15px;
+    padding: 10px;
+    background-color: #333335;
+    color: #FEFCFC;
+    border: none;
+    border-radius: 10px;
+    font-family: Poppins, serif;
+    font-size: 14px;
+    font-weight: 500;
+    appearance: none;
+    display:flex;
+    overflow: hidden;
+}
+
+.card-dropdown option {
+    background-color: #333335;
+    color: #FEFCFC;
+}
+
+.type{
+    color:white;
 }
 

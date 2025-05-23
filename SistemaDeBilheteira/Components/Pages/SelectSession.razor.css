@@ -134,6 +134,12 @@
     font-weight: 600;
 }
 
+.cinema-option.selected {
+    background: #F5C518;
+    color: #000;
+    font-weight: 600;
+}
+
 .action-buttons {
     display: flex;
     justify-content: center;

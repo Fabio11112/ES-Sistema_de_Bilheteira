@@ -1,4 +1,5 @@
 
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,18 +7,23 @@ using SistemaDeBilheteira.Services.Database.Context;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
-using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.AuthenticationService.Validation;
 using SistemaDeBilheteira.Services.Database.UnitOfWork;
-using SistemaDeBilheteira.Services.IService;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
 using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
-using SistemaDeBilheteira.Services.Database.Entities.Payment;
+using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
+using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
+using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
+using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
+
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
+
+
+using SistemaDeBilheteira.Services.UI;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +49,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     {
         options.Cookie.Name = "auth_token";
         options.LoginPath = "/LogIn";
-        // options.Cookie.MaxAge = TimeSpan.FromHours(1);
         options.AccessDeniedPath = "/AccessDenied";
     });
 
@@ -55,6 +60,9 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddRazorPages();  
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
+// Session storage
+builder.Services.AddBlazoredSessionStorage(); // Same call
+
 // Serviços customizados
 builder.Services.AddScoped<IRepositoryFactory, RepositoryFactory>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -65,10 +73,14 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 //BUILDERS
-builder.Services.AddSingleton<AddressBuilder, AddressBuilder>();
-builder.Services.AddSingleton<CardBuilder, CardBuilder>();
-builder.Services.AddSingleton<RentalBuilder, RentalBuilder>();
-builder.Services.AddSingleton<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
+builder.Services.AddScoped<AddressBuilder, AddressBuilder>();
+builder.Services.AddScoped<CardBuilder, CardBuilder>();
+builder.Services.AddScoped<RentalBuilder, RentalBuilder>();
+builder.Services.AddScoped<ShoppingCartItemBuilder, ShoppingCartItemBuilder>();
+builder.Services.AddScoped<MediaBuilder, MediaBuilder>();
+builder.Services.AddScoped<CinemaTicketBuilder, CinemaTicketBuilder>();
+builder.Services.AddScoped<SeatBuilder, SeatBuilder>();
+builder.Services.AddScoped<FunctionBuilder, FunctionBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
@@ -79,6 +91,7 @@ builder.Services.AddRazorPages();  //  Identity needs this
 builder.Services.AddAuthorization(); // for [Authorize]
 builder.Services.AddSingleton<NotificationService>();
 
+builder.Services.AddScoped<SharedTicket>(); // for SharedCart
 
 builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 
@@ -95,10 +108,18 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+
     var context = services.GetRequiredService<SistemaDeBilheteiraContext>();
 
     SeedCinemas(context);
-    SeedAuditories(context);
+    
+
+    var service = services.GetRequiredService<IServiceManager>();
+
+    SeedAuditories(service);
+    SeedFormats(service);
+    
+
 }
 
 // Pipeline HTTP
@@ -126,6 +147,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+return;
+
 
 void SeedCinemas(SistemaDeBilheteiraContext context)
 {
@@ -145,20 +168,50 @@ void SeedCinemas(SistemaDeBilheteiraContext context)
     }
 }
 
-void SeedAuditories(SistemaDeBilheteiraContext context)
+void SeedAuditories(IServiceManager manager)
 {
-    if (!context.Auditories.Any())
+    var auditoriumService = manager.GetService<Auditory>();
+    var cinemaService = manager.GetService<Cinema>();
+    var cinemas = cinemaService.GetAll();
+    
+    var auditoriums = auditoriumService.GetAll();
+    
+    if (auditoriums is not { Count: 0 }) return;
+
+    foreach (var cinema in cinemas)
     {
-        var auditories = new List<Auditory>
+
+        for (int i = 1; i <= 3; i++)
         {
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 1" },
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 2" },
-            new Auditory { Id = Guid.NewGuid(), Name = "Auditorio 3" }
-        };
-
-        context.Auditories.AddRange(auditories);
-        context.SaveChanges();
-
-        Console.WriteLine("✔ Auditorios añadidos a la base de datos");
+            auditoriumService.Add(new Auditory()
+            {
+                CinemaId = cinema.Id,
+                Number = i,
+                Name = $"Auditorium {i} from Cinema {cinema.Name}"
+            });
+        }
     }
+    
+    Console.WriteLine("✔ Auditorios añadidos a la base de datos");
 }
+
+void SeedFormats(IServiceManager manager)
+{
+    var service = manager.GetService<PhysicalMediaFormat>();
+    if (service.GetAll()!.Count != 0)
+        return;
+    
+    var formats = new List<PhysicalMediaFormat>
+    {
+        new PhysicalMediaFormat { FormatName = "DVD", Quality = "1080p", Emoji = "\ud83d\udcbf"},
+        new PhysicalMediaFormat { FormatName = "Blu-Ray", Quality = "2160p", Emoji = "\ud83d\udcc0"},
+    };
+
+    foreach (var format in formats)
+    {
+        service.Add(format);
+    }
+
+    Console.WriteLine("✔ Physical media formats added");
+}
+

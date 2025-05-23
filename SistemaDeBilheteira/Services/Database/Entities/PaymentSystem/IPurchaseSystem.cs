@@ -1,7 +1,7 @@
-﻿namespace SistemaDeBilheteira.Services.Database.Entities.Payment;
+﻿namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 public interface IPurchaseSystem
 {
-    bool Pay(PaymentMethod paymentMethod, AppUser user);
+    bool Pay(PaymentMethod paymentMethod, AppUser user, Address? address = null);
     
 }

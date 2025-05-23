@@ -1,5 +1,5 @@
 ﻿@page "/Profile"
-@inherits AuthenticatedComponentBase
+@inherits AuthenticatedPage
 @rendermode InteractiveServer
 @using SistemaDeBilheteira.Components.Cards
 @inject NavigationManager Navigation
@@ -54,6 +54,13 @@
                 Title="Addresses"
                 Description="Add or Delete an address"
                 href="/EditAddress">
+            </UserProfileOption>
+
+            <UserProfileOption
+                ImageSource="images/icons/profile/purchaseHistory.svg"
+                Title="Payment Methods"
+                Description="Add or Delete a payment method"
+                href="/PaymentMethods">
             </UserProfileOption>
         </div>
     </div>

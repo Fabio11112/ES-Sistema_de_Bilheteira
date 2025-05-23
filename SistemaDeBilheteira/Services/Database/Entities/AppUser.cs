@@ -12,9 +12,6 @@ public class AppUser : IdentityUser, IDbItem
     
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public void AddAddress()
-    {
-        
-    }
+
     
 }

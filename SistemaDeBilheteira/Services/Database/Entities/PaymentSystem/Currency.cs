@@ -1,4 +1,4 @@
-namespace SistemaDeBilheteira.Services.Database.Entities.Payment;
+namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 public class Currency
 {
     public Guid Id { get; set; }
@@ -6,5 +6,5 @@ public class Currency
     public string CurrencyName { get; set; }
     public string CurrencySymbol { get; set; }
     public int MinorUnit { get; set; }
-    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
+    public ICollection<PaymentSystem.Payment> Payments { get; set; } = new List<PaymentSystem.Payment>();
 }

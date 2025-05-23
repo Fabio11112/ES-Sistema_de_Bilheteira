@@ -1,0 +1,41 @@
+@namespace SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Services.UI
+@inject NotificationService NotificationService
+@rendermode InteractiveServer
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <div class="notification">
+        @Message
+    </div>
+}
+
+@code {
+    private string? Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        NotificationService.OnNotify += ShowMessage;
+    }
+
+    private void ShowMessage(string message)
+    {
+        _ = InvokeAsync(async () =>
+        {
+            Message = message;
+            StateHasChanged();
+
+            // show the message for 3 seconds
+            await Task.Delay(1000);
+
+            Message = null;
+            StateHasChanged();
+        });
+    }
+
+
+    public void Dispose()
+    {
+        NotificationService.OnNotify -= ShowMessage;
+    }
+}
