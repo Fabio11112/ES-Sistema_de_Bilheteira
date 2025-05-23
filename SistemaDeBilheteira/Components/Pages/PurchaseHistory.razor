@@ -1,9 +1,13 @@
 @page "/PurchaseHistory"
 @inherits AuthenticatedPage 
-@using SistemaDeBilheteira.Services.API_Deserializer
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
-@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@inject IServiceManager ServiceManager
 @rendermode InteractiveServer
 
 <link rel="stylesheet"
@@ -16,52 +20,67 @@
     </div>
     
     <div class="products">
-        <PurchaseHistoryItem></PurchaseHistoryItem>
-        <PurchaseHistoryItem></PurchaseHistoryItem>
-        <PurchaseHistoryItem></PurchaseHistoryItem>
+        @foreach (var p in Purchases!)
+        {
+            foreach (var item in Items.Where(i => i.PurchaseId == p.Id) )
+            {
+                <PurchaseHistoryItem Item="item" Purchase="p"></PurchaseHistoryItem>
+            }
+        }
     </div>
 </div>
     
 
 @code {
-    Response<Movie>? Response { get; set; }
 
+    private IService<Purchase>? PurchaseService { get; set; }
+    private IService<PurchaseItem>? ItemService { get; set; }
+
+    private ICollection<Purchase>? Purchases { get; set; }
+    private ICollection<PurchaseItem> Items { get; set; }
+    
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        var deserializer = new Deserializer<Response<Movie>>();
-        Response = await deserializer.Fetch($"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/popular")!;
-        Console.WriteLine(Response?.Results[0].BackdropPath);
+        PurchaseService = ServiceManager.GetService<Purchase>();
+        ItemService = ServiceManager.GetService<PurchaseItem>();
+
+        Purchases = GetUserPurchases();
+        Items = GetUserItems();
     }
-    // Simulate fetching purchase history
-    public List<PurchaseHistoryItem> purchaseHistory = new List<PurchaseHistoryItem>
+
+    private ICollection<Purchase> GetUserPurchases()
     {
-        
-        new PurchaseHistoryItem
+        return PurchaseService!.GetWithQuery(
+            q=> q.Where(
+                p=> p.AppUserId == User!.Id)
+                .OrderBy(p => p.CreatedAt))!
+            .Reverse()
+            .ToList();
+    }
+
+    private ICollection<PurchaseItem> GetUserItems()
+    {
+        var items = new List<PurchaseItem>();
+        foreach (var purchase in Purchases!)
         {
-            MovieTitle = "Movie 1",
-            Price = 10.00m,
-            Quantity = 2,
-            TotalPrice = 20.00m,
-            PurchaseDate = DateTime.Now.AddDays(-1)
-        },
-        new PurchaseHistoryItem
-        {
-            MovieTitle = "Movie 2",
-            Price = 15.00m,
-            Quantity = 1,
-            TotalPrice = 15.00m,
-            PurchaseDate = DateTime.Now.AddDays(-2)
+            items.AddRange(GetItems(purchase).ToList());
         }
-    };
 
-    public class PurchaseHistoryItem
-    {
-        public string MovieTitle { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public decimal TotalPrice { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        return items;
     }
 
+    private ICollection<PurchaseItem> GetItems(Purchase purchase)
+    {
+        return ItemService!.GetWithQuery(
+            q => q.Where(
+                    i => i.PurchaseId == purchase.Id)
+                .Include(i => ((PhysicalMedia)i.Product).Format)
+                .Include(i => ((CinemaTicket)i.Product).Seat)
+                .Include(i => ((CinemaTicket)i.Product).Function.Auditory.Cinema)
+        )!;
+    }
+
+
+    
 }

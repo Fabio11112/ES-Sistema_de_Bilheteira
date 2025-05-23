@@ -6,5 +6,4 @@ public class Currency
     public string CurrencyName { get; set; }
     public string CurrencySymbol { get; set; }
     public int MinorUnit { get; set; }
-    public ICollection<PaymentSystem.Payment> Payments { get; set; } = new List<PaymentSystem.Payment>();
 }

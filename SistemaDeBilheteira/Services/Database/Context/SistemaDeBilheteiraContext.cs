@@ -32,7 +32,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Paypal> Paypals { get; set; }
-    public DbSet<Payment> Payments { get; set; }
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<Purchase> Purchases { get; set; }
     public DbSet<PurchaseItem> PurchaseItems { get; set; }

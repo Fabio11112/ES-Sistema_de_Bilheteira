@@ -10,12 +10,14 @@
     @using SistemaDeBilheteira.Services.IService.ServiceManager
     @using SistemaDeBilheteira.Services.UI
     @using System.ComponentModel.DataAnnotations
-
+    
+    
     @attribute [Authorize]
     @rendermode InteractiveServer
     @inject IServiceManager ServiceManager
     @inject CardBuilder CardBuilder
     @inject NotificationService NotificationService
+    @inject IJSRuntime Js
     @inherits AuthenticatedPage
 
     <h2 class="title">Card Info</h2>
@@ -25,9 +27,19 @@
         <ValidationSummary />
         <div class="form-container">
             <InputText class="input-field" @bind-Value="Model.NameOnCard" placeholder="NAME ON CARD" />
-            <InputText class="input-field" @bind-Value="Model.CardNumber" placeholder="CARD NUMBER" />
+            <InputText @bind-Value="Model.CardNumber"
+                       id = "cardNumber"
+                       class="input-field"
+                       max-length="19"
+                       placeholder="0000 0000 0000 0000"
+                       oninput="FormatCardNumber(this)"
+                       onkeydown="BlockLetters(event)"/>
             <div class="row">
-                <InputText class="input-field half" @bind-Value="Model.CVV" placeholder="CVV" />
+                <InputText class="input-field half" @bind-Value="Model.CVV"
+                           max-length="3"
+                           placeholder="000"
+                           oninput="FormatCVVNumber(this)"
+                           onkeydown="BlockLetters(event)"/>
                 <InputDate class="input-field half" @bind-Value="Model.ExpDate" />
             </div>
             <button class="submit-button" type="submit">Add Card</button>
@@ -70,7 +82,6 @@
             CardBuilder.WithAppUserId(User!.Id)
                     .WithAppUser(null!)
                     .WithIsDefault(false)
-                    .WithPayments(null!)
                     .WithBalance(500);
 
             var card = CardBuilder

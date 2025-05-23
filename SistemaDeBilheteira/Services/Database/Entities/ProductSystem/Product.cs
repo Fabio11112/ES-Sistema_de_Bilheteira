@@ -11,4 +11,5 @@ public abstract class Product : DbItem
     public ICollection<ShoppingCartItem> ShoppingCartItems { get; set; } = new List<ShoppingCartItem>();
 
     public abstract string GetProductType();
+    public abstract string PrintDetails();
 }
