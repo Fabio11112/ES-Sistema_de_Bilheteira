@@ -33,7 +33,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
     public DbSet<PaymentMethod> PaymentMethods { get; set; }
     public DbSet<Card> Cards { get; set; }
     public DbSet<Paypal> Paypals { get; set; }
-    public DbSet<Payment> Payments { get; set; }
     public DbSet<Currency> Currencies { get; set; }
 
     public DbSet<Purchase> Purchases { get; set; }
@@ -109,22 +108,6 @@ public class SistemaDeBilheteiraContext : IdentityDbContext<AppUser, AppRole, st
         }
 
         modelBuilder.Entity<Card>().ToTable("Cards");
-
-
-
-        // Relação 1:N PaymentMethod -> Payments
-        modelBuilder.Entity<PaymentMethod>()
-            .HasMany(pm => pm.Payments)
-            .WithOne(p => p.PaymentMethod)
-            .HasForeignKey(p => p.PaymentMethodId);
-
-        // Relação 1:N Currency -> Payments
-        modelBuilder.Entity<Currency>()
-            .HasMany(c => c.Payments)
-            .WithOne(p => p.Currency)
-            .HasForeignKey(p => p.CurrencyId);
-
-
 
         modelBuilder.Entity<Function>()
             .HasOne(f => f.Auditory)
