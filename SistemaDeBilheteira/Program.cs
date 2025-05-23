@@ -12,7 +12,6 @@ using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
-using SistemaDeBilheteira.Services.AuthenticationService.IService.ServiceManager;
 using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
 using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
@@ -21,8 +20,7 @@ using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
-
-
+using SistemaDeBilheteira.Services.Database.Entities.User;
 using SistemaDeBilheteira.Services.UI;
 
 

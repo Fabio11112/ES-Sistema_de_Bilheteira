@@ -1,3 +1,5 @@
+using SistemaDeBilheteira.Services.Database.Entities.User;
+
 namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 public abstract class PaymentMethod : DbItem

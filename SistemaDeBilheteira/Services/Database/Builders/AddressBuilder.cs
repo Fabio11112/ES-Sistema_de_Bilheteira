@@ -1,4 +1,5 @@
 ﻿using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 namespace SistemaDeBilheteira.Services.Database.Builders;
 

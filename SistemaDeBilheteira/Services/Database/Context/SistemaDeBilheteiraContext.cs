@@ -7,6 +7,7 @@ using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.Rental;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 namespace SistemaDeBilheteira.Services.Database.Context;
 

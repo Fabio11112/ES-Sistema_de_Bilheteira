@@ -4,7 +4,7 @@ using SistemaDeBilheteira.Services.IService;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService.IService;
 
-/* 
+/**
  * Service is a generic class that implements the IService interface.
  * It provides the basic operations for a service, such as adding, deleting, updating, and retrieving items.
  * The generic type parameter T allows for different types of items to be used with the service.

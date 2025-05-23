@@ -4,6 +4,7 @@ using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;

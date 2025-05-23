@@ -1,5 +1,6 @@
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 public abstract class PaymentMethodBuilder
 {
