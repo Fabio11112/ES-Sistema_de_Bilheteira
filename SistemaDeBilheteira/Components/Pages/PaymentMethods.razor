@@ -90,7 +90,6 @@
         CardBuilder.WithAppUserId(User!.Id)
                 .WithAppUser(null!)
                 .WithIsDefault(false)
-                .WithPayments(null!)
                 .WithBalance(500);
 
         var card = CardBuilder
@@ -113,32 +112,10 @@
      * This method is called when the form is submitted.
      * It creates a new PayPal account and adds it to the database.
      */
-        private void SubmitCard()
+    private void SubmitPaypal()
+    {
+        var paypal = new Paypal
         {
-            CardBuilder.WithAppUserId(User!.Id)
-                    .WithAppUser(null!)
-                    .WithIsDefault(false)
-                    .WithBalance(500);
-
-            var card = CardBuilder
-                .WithNameOnCard(Model.NameOnCard)
-                .WithCardNumber(Model.CardNumber)
-                .WithCvv(Model.CVV)
-                .WithExpirationDate(Model.ExpDate!.Value)
-                .Build();
-
-            var result = CardService!.Add(card);
-            if (!result.Success) return;
-
-            Message = "Card added successfully";
-            NotificationService.Notify(Message);
-            Cards = CardService.GetAll();
-            StateHasChanged();
-        }
-
-        private void SubmitPaypal()
-        {
-            var paypal = new Paypal
             PaypalEmail = Paypal.PaypalEmail,
             PaypalTransactionId = Guid.NewGuid(), 
             TransactionDate = Paypal.TransactionDate,
