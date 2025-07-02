@@ -3,6 +3,7 @@
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Response
+@rendermode InteractiveServer
 
 @inject IJSRuntime JS
 
@@ -18,7 +19,8 @@
                     <h2 class="banner-title">@Movie.Title</h2>
                 </div> 
             </div>
-            <a class="play-button-container" href="https://www.youtube.com/watch?v=@Trailers?.Results[0].Key" target="_blank" rel="noopener noreferrer">
+
+            <a class="play-button-container" @onclick="OpenTrailer">
                 <img src="images/icons/MovieDescription/play.svg" alt="Play Trailer" class="play-icon" />
             </a>
 
@@ -107,6 +109,20 @@
         <p class="loading">Loading movie details...</p>
     }
 
+    @if (showTrailerModal && Trailers?.Results.Count > 0)
+    {
+        <div class="trailer-modal" @onclick="CloseTrailer">
+            <div class="modal-content" @onclick:stopPropagation>
+                <button class="close-button" @onclick="CloseTrailer">&times;</button>
+                <iframe width="100%" height="100%" 
+                        src="@($"https://www.youtube.com/embed/{Trailers.Results[0].Key}?autoplay=1")" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    }
 
 </main>
     
@@ -152,5 +168,17 @@
         var hours = runtime / 60;
         var minutes = runtime % 60;
         return $"{hours}h {minutes}m";
+    }
+
+    private void OpenTrailer()
+    {
+        showTrailerModal = true;
+        StateHasChanged();
+    }
+
+    private void CloseTrailer()
+    {
+        showTrailerModal = false;
+        StateHasChanged();
     }
 }
