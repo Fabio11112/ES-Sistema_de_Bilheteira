@@ -1,4 +1,4 @@
-@page "/QuantityOfTickets/{id:int}"
+@* @page "/QuantityOfTickets/{id:int}"
 @inherits AuthenticatedPage
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
@@ -98,6 +98,139 @@ else
     private async Task ProceedToNextStep()
     {
 
+        await SessionStorage.SetItemAsync("quantity", NumberOfPeople);
+        NavigationManager.NavigateTo($"/SeatSelect/{id}");
+    }
+} *@
+
+@page "/QuantityOfTickets/{id:int}"
+@inherits AuthenticatedPage
+@using SistemaDeBilheteira.Services.API_Deserializer
+@using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
+@using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.IService
+@using SistemaDeBilheteira.Services.IService.ServiceManager
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@using SistemaDeBilheteira.Services.UI
+@inject SharedTicket SharedTicket 
+@inject IServiceManager ServiceManager
+@inject Blazored.SessionStorage.ISessionStorageService SessionStorage
+
+@if (Movie != null)
+{
+    <div class="ticket-page">
+        <!-- Sección de información de la película -->
+        <div class="movie-header">
+            <h1 class="movie-title">@Movie.Title</h1>
+            
+            <div class="movie-details">
+                <div class="detail-item">
+                    <span class="detail-icon">📅</span>
+                    <span>@Function!.Date.ToString("dddd, MMMM d")</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">🕒</span>
+                    <span>@Function!.Date.ToString("HH:mm")h</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">📍</span>
+                    <span>Cinemas NOS Forum Madeira</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">🏙️</span>
+                    <span>Funchal, Madeira</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-icon">🎬</span>
+                    <span>Room 5</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de selección de tickets -->
+        <div class="ticket-selection">
+            <h2 class="selection-title">How many people will go?</h2>
+            
+            <div class="ticket-counter">
+                <button class="counter-btn" @onclick="DecreasePeople" disabled="@(NumberOfPeople <= 1)">
+                    <span class="counter-icon">−</span>
+                </button>
+                
+                <div class="counter-value">
+                    <span class="number">@NumberOfPeople</span>
+                    <span class="label">@(NumberOfPeople == 1 ? "Ticket" : "Tickets")</span>
+                </div>
+                
+                <button class="counter-btn" @onclick="IncreasePeople" disabled="@(NumberOfPeople >= 7)">
+                    <span class="counter-icon">+</span>
+                </button>
+            </div>
+            
+            <div class="max-tickets">
+                <span>Maximum of 7 tickets per transaction</span>
+            </div>
+        </div>
+
+        <!-- Botón de continuar -->
+        <div class="continue-section">
+            <button class="continue-btn" @onclick="ProceedToNextStep">
+                CONTINUE TO SEAT SELECTION
+                <span class="arrow">→</span>
+            </button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="loading">
+        <div class="spinner"></div>
+        <p>Loading movie details...</p>
+    </div>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    private Movie? Movie { get; set; }
+    private int NumberOfPeople { get; set; } = 1;
+
+    private Function? Function { get; set; }
+    
+    private IService<Function>? FunctionService { get; set; }
+    private bool _initialized = false;
+
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!(firstRender && !_initialized))
+            return;
+        
+        FunctionService = ServiceManager.GetService<Function>();
+        var functionId = await SessionStorage.GetItemAsync<Guid>("functionId");
+        Function = FunctionService.GetById(functionId);
+
+        var movieDeserializer = new Deserializer<Movie>();
+        var movieUrl = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{id}";
+        Movie = await movieDeserializer.Fetch(movieUrl)!;
+
+        _initialized = true;
+        StateHasChanged();
+    }
+    
+    private void IncreasePeople()
+    {
+        if(NumberOfPeople < 7)
+            NumberOfPeople++;
+    } 
+
+    private void DecreasePeople()
+    {
+        if (NumberOfPeople > 1)
+            NumberOfPeople--;
+    }
+
+    private async Task ProceedToNextStep()
+    {
         await SessionStorage.SetItemAsync("quantity", NumberOfPeople);
         NavigationManager.NavigateTo($"/SeatSelect/{id}");
     }
