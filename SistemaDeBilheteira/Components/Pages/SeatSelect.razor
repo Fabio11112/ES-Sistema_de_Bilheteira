@@ -1,6 +1,7 @@
 @page "/SeatSelect/{id:int}"
 @inherits AuthenticatedPage
 @inject NavigationManager NavigationManager
+@inject CartService CartService
 @inject IServiceManager ServiceManager
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject SeatBuilder SeatBuilder
@@ -16,6 +17,7 @@
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @using SistemaDeBilheteira.Components
+@using SistemaDeBilheteira.Services
 @using SistemaDeBilheteira.Services.UI
 @attribute [Authorize]
 
@@ -235,6 +237,8 @@
         {
             SaveTicketInCart(seat);
         }
+        
+        CartService.UpdateCart(CartService.ItemCount + TicketQuantity);
 
         await SessionStorage.RemoveItemsAsync(["quantity, functionId"]);
         

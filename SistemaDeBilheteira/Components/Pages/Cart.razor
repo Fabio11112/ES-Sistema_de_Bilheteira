@@ -4,6 +4,7 @@
 @rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards.Cart
+@using SistemaDeBilheteira.Services
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
@@ -13,6 +14,7 @@
 @inject IServiceManager ServiceManager
 @inject IPurchaseSystem PurchaseSystem
 @inject NavigationManager Navigation
+@inject CartService CartService
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
 
@@ -122,10 +124,12 @@
         if (item.Product.GetProductType() == "Cinema Ticket") //when it deletes the Ticket, it deletes the item 
         {                                                     //related to it
             ProductService?.Delete(item.Product);
+            CartService.UpdateCart(CartService.ItemCount - item.Quantity);
             return;
         }
         
         ItemService?.Delete(item);
+        CartService.UpdateCart(CartService.ItemCount - item.Quantity);
         
         
     }

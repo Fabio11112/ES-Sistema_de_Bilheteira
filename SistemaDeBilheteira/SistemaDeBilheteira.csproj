@@ -41,4 +41,11 @@
       <None Include="wwwroot\scripts\UserInfoItem.js" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Program.cs">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

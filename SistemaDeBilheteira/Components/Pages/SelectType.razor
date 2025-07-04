@@ -1,6 +1,7 @@
 @page "/SelectType/{id:int}"
 @rendermode InteractiveServer
 @inherits AuthenticatedPage
+@using SistemaDeBilheteira.Services
 @using SistemaDeBilheteira.Services.API_Deserializer
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Builders
@@ -17,7 +18,7 @@
 @inject ShoppingCartItemBuilder ShoppingCartItemBuilder
 @inject MediaBuilder MediaBuilder
 @inject NotificationService NotificationService
-
+@inject CartService CartService
 
 <div class="container">
     @if (Movie != null)
@@ -219,6 +220,8 @@
             AddItem(product);
             NotificationService.Notify("Product Added to Cart.");
         }
+
+        CartService.UpdateCart(CartService.ItemCount + 1);
         StateHasChanged();
 
     }
