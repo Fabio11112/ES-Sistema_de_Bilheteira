@@ -171,3 +171,17 @@ body {
     margin-left: 1rem;
     cursor: pointer;
 }
+
+.changePagebtn {
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
