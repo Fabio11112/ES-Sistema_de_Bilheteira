@@ -18,6 +18,11 @@ public class UnitOfWork : IUnitOfWork
         _repositoryFactory = repositoryFactory;
     }
 
+    /*
+     * This method is used to get a repository for a specific entity type.
+     * It checks if the repository already exists in the dictionary, and if not, it creates a new one.
+     * The repository is then stored in the dictionary for future use.
+     */
     public IRepository<TEntity> GetRepository<TEntity>() where TEntity : DbItem
 
     {
@@ -28,34 +33,39 @@ public class UnitOfWork : IUnitOfWork
 
         return (IRepository<TEntity>)_repositories[typeof(TEntity)];
     }
-
+    //initialization of the transaction
     public void Begin()
     {
         _transaction = _context.Database.BeginTransaction();
     }
 
+    //commit the transaction
     public void Commit()
     {
         _transaction?.Commit();
         _transaction = null;
     }
 
+    //rollback the transaction
     public void Rollback()
     {
         _transaction?.Rollback();
         _transaction = null;
     }
 
+    //save changes to the database
     public void SaveChanges()
     {
         _context.SaveChanges();
     }
 
+    //begin a new transaction
     public void BeginTransaction()
     {
         _transaction = _context.Database.BeginTransaction();
     }
 
+    //commit the transaction
     public void Dispose()
     {
         _transaction?.Dispose();

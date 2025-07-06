@@ -119,19 +119,17 @@
 
 
 @code {
-
-
-
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
-
-
-
     
-    public const int TOTAL_PAGES = 9;
-
-      protected override async Task OnInitializedAsync()
-  {
+    public const int TOTAL_PAGES = 9; 
+    
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
+    protected override async Task OnInitializedAsync()
+    {
       var movieDeserializer = new Deserializer<Response<Movie>>();
       var genreDeserializer = new Deserializer<Response<Genre>>();
 
@@ -148,14 +146,18 @@
           if(movies != null)
             Movies?.AddRange(movies.Results);
       }
-  }
+    }
 
-      List<Movie> GetMoviesByGenre(string genre)
-      {
-          var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
-          
-          return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
-      }
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
+    List<Movie> GetMoviesByGenre(string genre)
+    {
+      var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+      
+      return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
+    }
 
       
 

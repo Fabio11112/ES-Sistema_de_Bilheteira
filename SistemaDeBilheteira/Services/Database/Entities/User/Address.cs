@@ -1,4 +1,4 @@
-﻿namespace SistemaDeBilheteira.Services.Database.Entities;
+﻿namespace SistemaDeBilheteira.Services.Database.Entities.User;
 
 public class Address : DbItem
 {

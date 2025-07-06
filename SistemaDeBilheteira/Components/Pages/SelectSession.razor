@@ -153,12 +153,13 @@
 
     }
     
+    // Method to select a cinema
     private void SelectCinema(Cinema cinema)
     {
         SelectedCinema = cinema;
     }
 
-    
+    // Method to select a session
     private void SelectSessionHandler(DateTime? day, TimeSpan? time)
     {
         if (day == null || time == null) return;
@@ -167,11 +168,13 @@
         SelectedSession = time;
     }
 
+    // Method to check if a session is selected
     private bool IsSelectedSession(DateTime? day, TimeSpan time)
     {
         return SelectedDay == day && SelectedSession == time;
     } 
     
+    // Method to save the selected function
     private async Task SaveSelectedFunctionAsync()
     {
         if (SelectedDay == null || SelectedSession == null || SelectedCinema == null)
@@ -196,6 +199,7 @@
 
     }
 
+    // Method to get or generate a function
     private Function? GetOrGenerateFunction()
     {
         var functionDate = SelectedDay!.Value.Add(SelectedSession!.Value);
@@ -227,6 +231,7 @@
         return ticketFunction;
     }
 
+    // Method to populate the days of the week
     private void PopulateDays()
     {
         Dates["Today"] = DateTime.Today;
@@ -240,6 +245,7 @@
         }
     }
 
+    // Method to print the day
     private string PrintDay(DateTime? date)
     {
         if (date == DateTime.Today) return "Today";
@@ -248,6 +254,7 @@
         return date?.ToString("dddd - dd/MM/yyyy", new CultureInfo("en-US")) ?? string.Empty;
     }
 
+    // Method to get a random auditorium ID
     private Guid GetRandomAuditoriumId()
     {
         

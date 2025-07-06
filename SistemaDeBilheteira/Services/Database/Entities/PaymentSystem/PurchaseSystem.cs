@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 using SistemaDeBilheteira.Services.IService;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 

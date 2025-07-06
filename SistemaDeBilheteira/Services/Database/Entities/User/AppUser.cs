@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
-namespace SistemaDeBilheteira.Services.Database.Entities;
+namespace SistemaDeBilheteira.Services.Database.Entities.User;
 
 public class AppUser : IdentityUser, IDbItem
 {

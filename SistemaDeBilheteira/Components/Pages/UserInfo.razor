@@ -22,33 +22,63 @@
 
     <div class="background">
         <div class="products">
-            @* <UserInfoItem InfoUserModel="InfoUserModel" OnValidSubmit="SubmitCard"></UserInfoItem> *@
-            <h3 class="Title">User Info</h3>
-            <p class="subtitle">Modify your Email</p>
-            <EditForm OnValidSubmit="UpdateEmail" Model="User" FormName="user-Email">
-                <InputText @bind-Value="User!.Email" />
-                <button type="submit">Update Email</button>
-            </EditForm>
 
-            <p class="subtitle">Modify your Password</p>
+            <EditForm class="form" OnValidSubmit="UpdateEmail" Model="User" FormName="user-Email">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <h3 class="title">User Info</h3>
+                <p class="subtitle">Modify your Email</p>
+                <div class="input-container">
+                    <img src="images/icons/email.svg" alt="email" class="input-icon"/>
+                    <div class="input-content">
+                        <label class="input-label">EMAIL ADDRESS</label>
+                        <InputText class="input-fields" placeholder="Enter your new email" @bind-Value="User!.Email"/>
+                    </div>
+                </div>
+                <button class="submit-button" type="submit">Update Email</button>
+            </EditForm>
+            
             <EditForm Model="passwordModel" OnValidSubmit="UpdatePassword">
-                <InputText @bind-Value="passwordModel.CurrentPassword" type="password" />
-                <InputText @bind-Value="passwordModel.NewPassword" type="password" />
-                <button type="submit">Update Password</button>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <p class="subtitlep">Modify your Password</p>
+                <div class="input-container">
+                    <img src="images/icons/lock.svg" alt="email" class="input-icon"/>
+                    <div class="input-content">
+                        <label class="input-label">OLD PASSWORD</label>
+                        <InputText id="oldPassword" type="password" class="input-fields" @bind-Value="passwordModel.CurrentPassword" placeholder="Enter your old password"/>
+                    </div>
+                    <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('oldPassword', this)"/>
+                </div>
+
+                <div class="input-container">
+                    <img src="images/icons/lock.svg" alt="lock" class="input-icon"/>
+                    <div class="input-content">
+                        <label class="input-label">NEW PASSWORD</label>
+                        <InputText id="newPassword" type="password" class="input-fields" @bind-Value="passwordModel.NewPassword" placeholder="Enter your new password"/>
+                    </div>
+                    <img src="images/icons/eye-icon.svg" alt="toggle" class="toggle-password" onclick="togglePassword('newPassword', this)"/>
+                </div>
+                <button class="submit-button" type="submit">Update Password</button>
             </EditForm>
         </div>
-    </div> 
+    </div>
     
-@code {
+
+    <script src="scripts/UserInfoItem.js"></script>
+    
+    @code {
     [SupplyParameterFromForm] private UserRegisterModel? User { get; set; } = new();
     private PasswordModel passwordModel = new PasswordModel();
 
+    //Method to update the email
     private async Task UpdateEmail()
     {
         var result = await AuthService.ChangeEmailAsync(User!.Email);
         NotificationService.Notify("Email updated successfully");
     }
 
+    //Method to update the password
     private async Task UpdatePassword()
     {
         var result = await AuthService.ChangePasswordAsync(passwordModel.CurrentPassword, passwordModel.NewPassword);

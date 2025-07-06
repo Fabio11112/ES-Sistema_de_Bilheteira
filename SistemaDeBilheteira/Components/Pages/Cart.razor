@@ -9,6 +9,7 @@
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
+@using SistemaDeBilheteira.Services.Database.Entities.User
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inject IServiceManager ServiceManager
@@ -101,7 +102,11 @@
     private decimal ShippingCost => AreTherePhysicalItems() ? 10 : 0;
     
     private decimal Total => Items.Sum(i => (decimal)i.Product.Price * i.Quantity) + ShippingCost;
-
+    
+    /**
+     * This method is called when the component is initialized. 
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -118,6 +123,9 @@
         SelectedAddressId = Addresses.FirstOrDefault()?.Id ?? Guid.Empty;
     }
 
+    /**
+     * This method is called when the delete button is clicked.
+     */
     private void DeleteCartItem(ShoppingCartItem item)
     {
         Items.Remove(item);
@@ -134,6 +142,10 @@
         
     }
 
+    /**
+     * This method fetches the cart items  from the database.
+     * It returns a collection of cart items.
+     */
     private ICollection<ShoppingCartItem>? GetCartElements()
     {
         return ItemService!.GetWithQuery(q =>
@@ -141,12 +153,19 @@
              .Include(i => i.Product)
              .ThenInclude(p => (p as PhysicalMedia)!.Format));
     }
-
+    
+    /**
+     * This method fetches the payment method from the database.
+     * It returns a collection of payment methods.
+     */
     private ICollection<PaymentMethod>? GetUserPaymentMethods()
     {
         return PaymentMethodService!.GetWithQuery(q => q.Where(c => c.AppUserId == User!.Id));
     }
 
+    /**
+     * This method is called when the pay button is clicked.
+     */
     private void Pay()
     {
         if (AreTherePhysicalItems() && SelectedAddressId == Guid.Empty)
@@ -175,6 +194,9 @@
         }
     }
 
+    /**
+     * This method checks if there are any physical items in the cart.
+     */
     private bool AreTherePhysicalItems()
     {
         foreach (var item in Items)
@@ -185,7 +207,11 @@
 
         return false;
     }
-
+    
+    /**
+     * This method fetches the addresses from the database.
+     * It returns a collection of addresses.
+     */
     private ICollection<Address> GetAddresses()
     {
         return AddressService!.GetWithQuery(

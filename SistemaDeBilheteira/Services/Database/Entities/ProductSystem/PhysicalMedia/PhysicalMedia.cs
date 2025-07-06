@@ -8,5 +8,10 @@ public class PhysicalMedia : Product
     {
         return Format.FormatName;
     }
+
+    public override string PrintDetails()
+    {
+        return $"Film in {Format.FormatName}";
+    }
 }
 ;

@@ -13,5 +13,11 @@ public class CinemaTicket : Product
         return "Cinema Ticket";
     }
 
+    public override string PrintDetails()
+    {
+        return $"Cinema Ticket for Seat {Seat.Number}{Seat.Letter} in {Function.Date:dd/MM/yyyy}" +
+               $" | {Function.Auditory.Name}";
+    }
+
 }
 
