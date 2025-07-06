@@ -1,4 +1,6 @@
-﻿namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
+﻿using SistemaDeBilheteira.Services.Database.Entities.User;
+
+namespace SistemaDeBilheteira.Services.Database.Entities.PaymentSystem;
 
 public class Purchase : DbItem
 {

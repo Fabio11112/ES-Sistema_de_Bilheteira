@@ -44,6 +44,9 @@
     private UserLoginModel? Model { get; set; } = new ();
     private string Message { get; set; } = string.Empty;
 
+    /** 
+     * This method logs in the user using the AuthService.
+     */
     private async Task Login()
     {
         IResult result = await AuthService.LoginAsync(Model!);
@@ -52,7 +55,7 @@
         {
             //do something
             Message = result.Message;
-            NavigationManager.NavigateTo("/Profile");
+            NavigationManager.NavigateTo("/");
         }
         Message = result.Message;
     }

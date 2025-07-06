@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using SistemaDeBilheteira.Services.AuthenticationService;
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 namespace SistemaDeBilheteira.Components;
 

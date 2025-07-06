@@ -88,16 +88,16 @@
     private int TicketQuantity { get; set; }
     private Function? Function { get; set; }
 
-    
+
     private ICollection<ICollection<Seat>>? SeatsRows{ get; set; }
     private ICollection<Seat>? ReservedSeats { get; set; }
     private ICollection<Seat>? SelectedSeats { get; set; }
-    
+
     private IService<Seat>? SeatService { get; set; }
     private IService<Function>? FunctionService { get; set; }
     private IService<CinemaTicket>? TicketService { get; set; }
     private IService<ShoppingCartItem>? ItemService { get; set; }
-    
+
     private string[] rowLabels = ["A", "B", "C", "D", "E", "F"];
 
     private bool _initialized = false;
@@ -109,21 +109,26 @@
         if (User == null )
         {
             NotificationService.Notify("You must be logged in to access this page");
-            NavigationManager.NavigateTo("/Identity/Account/Login", true); 
+            NavigationManager.NavigateTo("/Identity/Account/Login", true);
             return;
         }
-        
+
         FunctionService = ServiceManager.GetService<Function>();
         SeatService = ServiceManager.GetService<Seat>();
         TicketService = ServiceManager.GetService<CinemaTicket>();
         ItemService = ServiceManager.GetService<ShoppingCartItem>();
     }
 
+    /*
+     * This method is called after the component has rendered.
+     * It retrieves the function ID and ticket quantity from session storage,
+     * loads the function and seats, and sets the reserved seats.
+     */
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!(firstRender && !_initialized))
             return;
-        
+
         Function = LoadFunction(await SessionStorage.GetItemAsync<Guid>("functionId"));
         TicketQuantity = await SessionStorage.GetItemAsync<int>("quantity");
         LoadSeats();
@@ -133,35 +138,51 @@
         StateHasChanged();
     }
 
+    /*
+     * This method is called when the user clicks on a seat button.
+     * It toggles the selection of the seat and updates the selected seats.
+     */
     private Function LoadFunction(Guid functionId)
     {
         return FunctionService!.GetWithQuery(
             q => q.Where(
-                f => f.Id == functionId)
+                    f => f.Id == functionId)
                 .Include(f => f.Auditory)
                 .ThenInclude(a => a.Cinema))!.FirstOrDefault()!;
     }
     
+    /*
+     * This method is called when the user clicks on the confirm selection button.
+     * It checks if the selected seats match the ticket quantity and saves the tickets in the cart.
+     */
     private void LoadSeats()
     {
         if (!AreThereSeatsInDatabase())
             CreateSeats();
-        
+
         SeatsRows = GetSeatRows();
     }
 
+    /*
+     * This method retrieves the reserved seats from the database.
+     * It gets the tickets for the current function and adds their seats to the reserved seats collection.
+     */
     private ICollection<Seat> GetReservedSeats()
     {
         ICollection<Seat> seats = new List<Seat>();
 
         var tickets = GetTicketsFromFunction();
-        
+
         foreach (var ticket in tickets!)
             seats.Add(ticket.Seat);
-        
+
         return seats;
     }
 
+    /*
+     * This method retrieves the tickets for the current function from the database.
+     * It includes the seat information for each ticket.
+     */
     private ICollection<CinemaTicket>? GetTicketsFromFunction()
     {
         return TicketService!.GetWithQuery(
@@ -170,6 +191,10 @@
                 .Include(t => t.Seat));
     }
 
+    /*
+     * This method checks if there are seats in the database for the current function.
+     * If not, it creates new seats.
+     */
     private bool AreThereSeatsInDatabase()
     {
         return SeatService!.GetWithQuery(
@@ -177,10 +202,14 @@
                 s => s.AuditoryId == Function!.AuditoryId))!.Any();
     }
 
+    /*
+     * This method creates new seats in the database for the current function.
+     * It generates seats with letters A to F and numbers 1 to 9.
+     */
     private void CreateSeats()
     {
         const int seatCount = 9;
-        
+
         foreach (var rowLabel in rowLabels)
         {
             for (var i = 1; i <= seatCount; i++)
@@ -195,6 +224,10 @@
         }
     }
 
+    /*
+     * This method retrieves the seat rows from the database.
+     * It gets the seats for each row label and adds them to the seat rows collection.
+     */
     private ICollection<ICollection<Seat>> GetSeatRows()
     {
         ICollection<ICollection<Seat>> seatsRows = new List<ICollection<Seat>>();
@@ -204,14 +237,17 @@
                 q => q.Where(
                         s => s.Letter == row && s.AuditoryId == Function!.AuditoryId)
                     .OrderBy(s => s.Number));
-            
+
             seatsRows.Add(seatRow!);
         }
 
         return seatsRows;
     }
     
-    
+    /*
+     * This method toggles the selection of a seat when the user clicks on it.
+     * It checks if the seat is reserved or if the maximum ticket quantity has been reached.
+     */
     private void ToggleSeatSelection(Seat seat)
     {
         if (IsReserved(seat)) return;
@@ -226,11 +262,19 @@
         }
     }
 
+    /*
+     * This method removes a seat from the selected seats collection.
+     * It is called when the user clicks on the remove button for a selected seat.
+     */
     private void RemoveSeat(Seat seat)
     {
         SelectedSeats!.Remove(seat);
     }
 
+    /*
+     * This method confirms the selection of seats and saves the tickets in the cart.
+     * It checks if the selected seats match the ticket quantity and navigates to the next page.
+     */
     private async Task ConfirmSelection()
     {
         if (SelectedSeats!.Count != TicketQuantity) return;
@@ -248,11 +292,15 @@
         NavigationManager.NavigateTo($"/");
     }
 
+    /*
+     * This method saves the selected ticket in the cart.
+     * It creates a new ticket and adds it to the cart item builder.
+     */
     private void SaveTicketInCart(Seat seat)
     {
 
         if (Function == null)
-        throw new InvalidOperationException("Function is null in SaveTicketInCart");
+            throw new InvalidOperationException("Function is null in SaveTicketInCart");
         if (TicketService == null)
             throw new InvalidOperationException("TicketService is null");
         if (CartItemBuilder == null)
@@ -277,12 +325,12 @@
 
         ItemService!.Add(item!);
     }
-    
+
     private double GetPrice() =>  9.99;
 
     private bool IsSelected(Seat seat) => SelectedSeats!.Contains(seat);
-    
-    private bool IsReserved(Seat seat) => ReservedSeats!.Contains(seat);
-    }
 
-} 
+    private bool IsReserved(Seat seat) => ReservedSeats!.Contains(seat);
+}
+
+}

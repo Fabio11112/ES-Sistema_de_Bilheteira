@@ -68,6 +68,9 @@
     private int CartElements { get; set; }
     private IService<ShoppingCartItem>? Service { get; set; }
 
+    /**
+     * initializes the component and retrieves the shopping cart items for the logged-in user.
+     */
     protected override async Task OnInitializedAsync()
     {
       await base.OnInitializedAsync();
@@ -78,7 +81,10 @@
       CartService.UpdateCart(CartElements);
     }
     
-    
+    /**
+     * This method is called when the user clicks the logout button.
+     * It navigates to the login page and logs out the user.
+     */
     private async Task Logout()
     {
         NavigationManager.NavigateTo("/LogIn", true);
@@ -88,7 +94,7 @@
             NavigationManager.NavigateTo("/LogIn", true);
         }
     }
-    
+
     private void GetCartElements()
     {
       if (Service != null)

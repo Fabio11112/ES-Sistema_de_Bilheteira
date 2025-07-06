@@ -21,8 +21,7 @@ using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 
 using SistemaDeBilheteira.Services.Database.Entities.ProductSystem;
-
-
+using SistemaDeBilheteira.Services.Database.Entities.User;
 using SistemaDeBilheteira.Services.UI;
 
 

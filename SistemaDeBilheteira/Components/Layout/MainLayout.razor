@@ -37,11 +37,19 @@ else
 @code {
     private bool _isLoading;
 
+    /**
+     * This method is called when the component is initialized.
+     * It subscribes to the LocationChanged event of the NavigationManager.
+     */
     protected override void OnInitialized()
     {
         NavigationManager.LocationChanged += OnLocationChanged;
     }
 
+    /**
+     * This method is called when the component is disposed.
+     * It unsubscribes from the LocationChanged event of the NavigationManager.
+     */
     private async void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         _isLoading = true;
@@ -54,6 +62,10 @@ else
         StateHasChanged();
     }
 
+    /**
+     * This method is called when the component is disposed.
+     * It unsubscribes from the LocationChanged event of the NavigationManager.
+     */
     public void Dispose()
     {
         NavigationManager.LocationChanged -= OnLocationChanged;

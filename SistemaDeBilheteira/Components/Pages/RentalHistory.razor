@@ -46,6 +46,10 @@
     private List<PurchaseItem?>? UserRentalItems { get; set; } = [];
     private IService<PurchaseItem>? PurchaseItemService { get; set; }
 
+    /** 
+     * This method is called when the component is initialized. 
+     * It fetches the rental data from the API and sets the RentalItems property.
+     */
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -53,6 +57,10 @@
         LoadUserRentals();
     }
 
+    /** 
+     * This method fetches the rentals associated with the user from the database. 
+     * It returns a collection of rental items.
+     */
     private void LoadUserRentals()
     {
         // get the rentals associated to the User
@@ -64,7 +72,11 @@
         )!.ToList()!;
         
     }
-
+    
+    /** 
+     * This method is called when the cancel button is clicked. 
+     * It cancels the rental and updates the database.
+     */
     private void CancelRental(Rental rental)
     {
         if (rental.StateName == "Cancelled") return;

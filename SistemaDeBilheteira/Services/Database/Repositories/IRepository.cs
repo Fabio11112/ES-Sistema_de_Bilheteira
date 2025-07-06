@@ -2,7 +2,6 @@
 
 public interface IRepository<TEntity> where TEntity : DbItem
 {
-        
     List<TEntity> GetAll();
     ICollection<TEntity>? GetWithQuery(Func<IQueryable<TEntity>, IQueryable<TEntity>> queryBuilder);
     TEntity? Get(Guid id);

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using SistemaDeBilheteira.Services.Database.Entities;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
 
 public interface IAuthService
 {
     public Task<IResult> RegisterAsync(UserRegisterModel model);
-
     Task<IResult> LoginAsync(UserLoginModel model);
     Task<IResult> LogoutAsync();
     Task<AppUser?> GetAppUserAsync();

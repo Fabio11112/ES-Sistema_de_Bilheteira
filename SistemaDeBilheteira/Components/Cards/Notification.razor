@@ -13,11 +13,17 @@
 @code {
     private string? Message { get; set; }
 
+    /** 
+     * This method is called when the component is initialized.
+     */
     protected override void OnInitialized()
     {
         NotificationService.OnNotify += ShowMessage;
     }
 
+    /**
+     * This method is called when the component is disposed.
+     */
     private void ShowMessage(string message)
     {
         _ = InvokeAsync(async () =>
@@ -33,7 +39,9 @@
         });
     }
 
-
+    /**
+     * This method is called when the component is disposed.
+     */
     public void Dispose()
     {
         NotificationService.OnNotify -= ShowMessage;

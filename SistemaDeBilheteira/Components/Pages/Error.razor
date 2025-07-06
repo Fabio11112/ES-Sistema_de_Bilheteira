@@ -31,6 +31,10 @@
     private string? RequestId { get; set; }
     private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override void OnInitialized() =>
         RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
 
