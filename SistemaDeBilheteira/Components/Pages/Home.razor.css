@@ -42,7 +42,8 @@ body {
 .banner-title-overlay {
     position: absolute;
     bottom: 30px;
-    left: 2%;
+    left: 20%;
+    transform: translateX(-50%);
     z-index: 2;
     color: white;
     text-align: left;
@@ -159,12 +160,10 @@ body {
     text-decoration-line: none  ;
 }
 
-* Opcional: estilo para cuando el NavLink está activo */
 .category-button.active {
     background-color: gold;
     color: black;
 }
-
 .Category-title{
     font-size: 1.5em;
     color: gold;

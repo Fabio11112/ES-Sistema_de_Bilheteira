@@ -2,65 +2,51 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 
-<div class="element">
-    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
+<div class="element flex">
+    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title" />
     <div class="movie">
         <div class="content">
             <div class="movie-information">
                 <div class="movie-name">@Movie?.Title</div>
+                <div class="text information">Type @Item!.Product.GetProductType()</div>
             </div>
             <div class="price-details">
                 <div class="detail">
                     <div class="text information">Each</div>
-                    <div class="number information">@Currency@Price</div>
-    @* <div class="flex">
-        <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
-        <div class="movie">
-            <div class="content">
-                <div class="movie-information">
-                    <div class="movie-name">@Movie?.Title</div>
-                    <div class="text information">Type @Item!.Product.GetProductType()</div> *@
+                    <div class="number information">@Currency@Item.Product.Price</div>
                 </div>
-                <div class="price-details">
-                    <div class="detail">
-                        <div class="text information">Each</div>
-                        <div class="number information">@Currency@Item!.Product.Price</div>
-                    </div>
-                    <div class="detail">
-                        <div class="text information">Quantity</div>
-                        <div class="number information quantity">@Item.Quantity</div>
-                    </div>
-                    <div class="detail">
-                        <div class="text information">Total</div>
-                        <div class="number information">@Currency@Item.Product.Price</div>
-                    </div>
+                <div class="detail">
+                    <div class="text information">Quantity</div>
+                    <div class="number information quantity">@Item.Quantity</div>
+                </div>
+                <div class="detail">
+                    <div class="text information">Total</div>
+                    <div class="number information">@Currency@(Item.Product.Price * Item.Quantity)</div>
                 </div>
             </div>
-            <div class="content">
-                <div class="text information">
-                    @Item.Product.PrintDetails()
-                </div>
-            </div>
-
-            <div class="date">Purchase Date: @Purchase!.CreatedAt.ToString("dd/MM/yyyy")</div>
         </div>
+
+        <div class="content">
+            <div class="text information">
+                @Item.Product.PrintDetails()
+            </div>
+        </div>
+
+        <div class="date">Purchase Date: @Purchase!.CreatedAt.ToString("dd/MM/yyyy")</div>
     </div>
 </div>
 
 @code {
     [Parameter]
     public PurchaseItem? Item { get; set; }
+
     [Parameter]
     public Purchase? Purchase { get; set; }
-    
+
     private string PosterPath { get; set; } = "https://image.tmdb.org/t/p/original";
     private string Currency { get; set; } = "€";
     private Movie? Movie { get; set; }
 
-    /**
-     * This method is called when the component is initialized.
-     * It fetches the movie data from the API and sets the PosterPath and MovieTitle properties.
-     */
     protected override async Task OnInitializedAsync()
     {
         var url = $"{Environment.GetEnvironmentVariable("MOVIES_LINK")}/{Item!.Product.MovieId}";
@@ -68,4 +54,4 @@
         Movie = await deserializer.Fetch(url)!;
         PosterPath += Movie?.PosterPath;
     }
- }
+}

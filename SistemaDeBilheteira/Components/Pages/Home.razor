@@ -11,7 +11,7 @@
 {
 <div class="loading-overlay">
     <div class="spinner"></div>
-    <p class="loading-text">Carregando filmes...</p>
+    <p class="loading-text">Loading ...</p>
 </div>
 }
 
@@ -40,7 +40,7 @@
 
     <!-- Movie Categories -->
     <section class="movie-section">
-        <h2 class="section-title">Fantasy</h2>
+        <h2 class="section-title" href="/Genre/Fantasy">Fantasy</h2>
         <div class="movie-carousel no-scrollbar">
             @if (Movies != null && Movies.Any())
             {
@@ -128,22 +128,9 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
     
+    public const int TOTAL_PAGES = 9;
 
-    public const int TOTAL_PAGES = 9; 
-    
-    /**
-     * This method is called when the component is initialized.
-     * It fetches the movie data from the API and sets the PosterPath and Type properties.
-     */
-    protected override async Task OnInitializedAsync()
-    {
-      var movieDeserializer = new Deserializer<Response<Movie>>();
-      var genreDeserializer = new Deserializer<Response<Genre>>();
-
-      string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
-
-      //Movies = await movieDeserializer.Fetch(movieUrl)!;
-      Genres = await genreDeserializer.Fetch(genreUrl)!;
+      bool isLoading = true; // Variable para controlar el estado de carga
 
     protected override async Task OnInitializedAsync()
     {
@@ -156,22 +143,6 @@
         {
             // Cargar géneros
             Genres = await genreDeserializer.Fetch(genreUrl)!;
-          var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
-          if(movies != null)
-            Movies?.AddRange(movies.Results);
-      }
-    }
-
-    /**
-     * This method is called when the component is initialized.
-     * It fetches the movie data from the API and sets the PosterPath and Type properties.
-     */
-    List<Movie> GetMoviesByGenre(string genre)
-    {
-      var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
-      
-      return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
-    }
 
             // Cargar películas paginadas
             for (int page = 1; page <= TOTAL_PAGES; page++)
