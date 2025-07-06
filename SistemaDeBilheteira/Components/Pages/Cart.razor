@@ -134,6 +134,7 @@
         SelectedAddressId = Addresses.FirstOrDefault()?.Id ?? Guid.Empty;
 
         isLoading = false;
+        StateHasChanged();
     }
 
     /**
