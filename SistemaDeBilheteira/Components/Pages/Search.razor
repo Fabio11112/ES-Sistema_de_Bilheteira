@@ -23,11 +23,14 @@
             <div class="movie-results">
                 @if (movies.Any())
                 {
-                    @foreach (var movie in movies)
+                    @foreach (var movie in movies.Where(m => !string.IsNullOrWhiteSpace(m.PosterPath) && !string.IsNullOrWhiteSpace(m.Title)))
                     {
-                        <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                            <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster"  />
-                        </a>
+                        @* @foreach (var movie in movies) *@
+                        @* { *@
+                            <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                                <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster"  />
+                            </a>
+                        @* } *@
                     }
                 }
                 else
