@@ -203,6 +203,7 @@
 
         if (PurchaseSystem.Pay(selectedPaymentMethod!, User!, selectedAddress))
         {
+            CartService.UpdateCart(0); // Clear the cart after successful payment
             Navigation.NavigateTo("/PaymentSucssefully");
         }
     }
