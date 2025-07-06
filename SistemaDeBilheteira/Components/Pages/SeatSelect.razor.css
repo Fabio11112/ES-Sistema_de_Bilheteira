@@ -186,6 +186,35 @@
     animation: pulse 1.5s infinite;
 }
 
+.selected-seats {
+    display: flex;
+    flex-wrap: wrap; /* para que se acomoden si no hay suficiente espacio */
+    gap: 0.5rem;      /* espacio entre los asientos */
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.selected-seat-tag {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff10; /* fondo tenue opcional */
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+.remove-seat {
+    background: white;
+    border: none;
+    color: black;
+    font-weight: bold;
+    margin-left: 0.4rem;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+
+
 /*=====================
   Legend
 ======================*/
