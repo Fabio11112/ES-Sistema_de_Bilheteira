@@ -56,18 +56,16 @@
   display: inline-block;
   padding: 16px 24px;
   border-radius: 20px;
-  background-color: #181818;
+  border: 2px solid #facc15; /* Borde amarillo permanente */
   color: #fff;
   text-align: center;
   font-weight: bold;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 2px solid transparent;
 }
 
 .category-button:hover {
   background-color: #000;
-  border-color: #facc15;
   color: #facc15;
   transform: translateY(-4px);
   box-shadow: 0 4px 12px rgba(250, 204, 21, 0.2);

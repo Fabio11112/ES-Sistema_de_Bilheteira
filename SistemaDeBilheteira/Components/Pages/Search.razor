@@ -16,7 +16,7 @@
             value="@searchTerm"
             @oninput="HandleInput" />
 
-        <button class="search-btn" @onclick="PerformSearch">Search</button>
+        @* <button class="search-btn" @onclick="PerformSearch">Search</button> *@
 
         @if (movies != null)
         {
@@ -26,15 +26,20 @@
                     @foreach (var movie in movies)
                     {
                         <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
-                            <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                            <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster"  />
                         </a>
                     }
                 }
                 else
                 {
-                    <p class="color:White">Results not Found</p>
+                    <p style="color:White">Results not Found</p>
                 }
             </div>
+        }else{
+            <div class="welcome-message animated-fade-in">
+                <h2><span class="highlight">All Your Favorite Movies</span><br />At One Click</h2>
+            </div>
+
         }
     </section>
 </main>

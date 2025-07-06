@@ -1,0 +1,19 @@
+﻿@* @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem
+@using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem
+@using Microsoft.AspNetCore.Components
+
+@namespace SistemaDeBilheteira.Components.Cards
+
+<div class="ticket-card">
+    <div class="ticket-info">
+        <p><strong>Movie Date:</strong> @Ticket.Function.Date.ToString("g")</p>
+        <p><strong>Seat:</strong> @($"{Ticket.Seat.Letter}{Ticket.Seat.Number}")</p>
+        <p><strong>Auditory:</strong> @Ticket.Function.Auditory.Name</p>
+        <p><strong>Cinema:</strong> @Ticket.Function.Auditory.Cinema.Name</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public CinemaTicket Ticket { get; set; } = default!;
+} *@

@@ -1,4 +1,4 @@
-.movie-info {
+/* .movie-info {
     display: flex;
     width: 100%;
     height: 696px;
@@ -136,4 +136,181 @@
     width: 5%;
     height: 5%;
     margin-right: 10px;
+} */
+
+/* Estilos generales */
+.ticket-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #1a1a1a;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Encabezado de la película */
+.movie-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.movie-title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #f5c518;
+    text-align: center;
+}
+
+.movie-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.detail-icon {
+    font-size: 1.3rem;
+}
+
+/* Selector de tickets */
+.ticket-selection {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+}
+
+.selection-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.ticket-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.counter-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #333;
+    color: white;
+    border: none;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.counter-btn:hover:not(:disabled) {
+    background-color: #f5c518;
+    color: black;
+}
+
+.counter-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.counter-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+}
+
+.number {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #f5c518;
+    line-height: 1;
+}
+
+.label {
+    font-size: 1rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.max-tickets {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Botón de continuar */
+.continue-section {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.continue-btn {
+    background-color: #f5c518;
+    color: black;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+}
+
+.continue-btn:hover {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(245, 197, 24, 0.3);
+}
+
+.arrow {
+    font-size: 1.3rem;
+    transition: transform 0.2s;
+}
+
+.continue-btn:hover .arrow {
+    transform: translateX(3px);
+}
+
+/* Estado de carga */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(245, 197, 24, 0.2);
+    border-top-color: #f5c518;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

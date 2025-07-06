@@ -16,14 +16,26 @@
 }
 
 .search-btn {
-    padding: 12px 24px;
+    /* padding: 12px 24px;
     margin-left: 12px;
     border-radius: 20px;
     background-color: #facc15;
     color: black;
     font-weight: bold;
     border: none;
+    cursor: pointer; */
+
+    background-color: #F5C518;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
 .movie-results {
@@ -43,3 +55,33 @@
 .poster-wrapper img.movie-poster:hover {
     transform: scale(1.05);
 }
+
+.welcome-message {
+    margin-top: 50px;
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    animation: fadeInScale 1.2s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.highlight {
+    color: #FFD700; /* Gold highlight for the top line */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+

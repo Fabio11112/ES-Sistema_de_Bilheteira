@@ -1,4 +1,3 @@
-
 using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +11,7 @@ using SistemaDeBilheteira.Services.Database.UnitOfWork;
 using Toolbelt.Extensions.DependencyInjection;
 using Scalar.AspNetCore;
 using SistemaDeBilheteira.Components;
+using SistemaDeBilheteira.Services;
 using SistemaDeBilheteira.Services.Database.Builders;
 using SistemaDeBilheteira.Services.Database.Builders.CinemaSystemBuilder;
 using SistemaDeBilheteira.Services.Database.Entities.CinemaSystem;
@@ -82,6 +82,8 @@ builder.Services.AddScoped<FunctionBuilder, FunctionBuilder>();
 
 builder.Services.AddScoped<IPurchaseSystem, PurchaseSystem>();
 
+builder.Services.AddScoped<CartService>();
+
 
 //Services configuration
 
@@ -97,7 +99,7 @@ builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    serverOptions.ListenAnyIP(7193, listenOptions => listenOptions.UseHttps());
+    //serverOptions.ListenAnyIP(7193, listenOptions => listenOptions.UseHttps());
     serverOptions.ListenAnyIP(5212);
 });
 

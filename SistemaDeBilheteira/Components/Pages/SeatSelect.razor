@@ -1,6 +1,7 @@
 @page "/SeatSelect/{id:int}"
 @inherits AuthenticatedPage
 @inject NavigationManager NavigationManager
+@inject CartService CartService
 @inject IServiceManager ServiceManager
 @inject Blazored.SessionStorage.ISessionStorageService SessionStorage
 @inject SeatBuilder SeatBuilder
@@ -16,6 +17,7 @@
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @using SistemaDeBilheteira.Components
+@using SistemaDeBilheteira.Services
 @using SistemaDeBilheteira.Services.UI
 @attribute [Authorize]
 
@@ -41,21 +43,10 @@
         </div>
 
         <div class="screen-container">
-            <div class="screen">SCREEN</div>
+            <div class="screen-icon">SCREEN</div>
         </div>
 
-        @if (SelectedSeats!.Count > 0)
-        {
-            <div class="selected-seats">
-                @foreach (var seat in SelectedSeats)
-                {
-                    <div class="selected-seat-tag">
-                        @seat.Letter@seat.Number
-                        <button class="remove-seat" @onclick="() => RemoveSeat(seat)">×</button>
-                    </div>
-                }
-            </div>
-        }
+        
 
         <div class="seat-map">
             @foreach (var row in SeatsRows!)
@@ -72,6 +63,19 @@
                 </div>
             }
         </div>
+
+        @if (SelectedSeats!.Count > 0)
+        {
+            <div class="selected-seats">
+                @foreach (var seat in SelectedSeats)
+                {
+                    <div class="selected-seat-tag">
+                        @seat.Letter@seat.Number
+                        <button class="remove-seat" @onclick="() => RemoveSeat(seat)">×</button>
+                    </div>
+                }
+            </div>
+        }
 
         <button class="primary-button" @onclick="ConfirmSelection" disabled="@(SelectedSeats.Count != TicketQuantity)">
             Confirm Selection (@SelectedSeats.Count/@TicketQuantity)
@@ -279,9 +283,11 @@
         {
             SaveTicketInCart(seat);
         }
+        
+        CartService.UpdateCart(CartService.ItemCount + TicketQuantity);
 
         await SessionStorage.RemoveItemsAsync(["quantity, functionId"]);
-
+        
         NotificationService.Notify("Tickets added to cart");
         NavigationManager.NavigateTo($"/");
     }

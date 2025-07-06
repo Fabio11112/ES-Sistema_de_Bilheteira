@@ -7,7 +7,13 @@
 
 
 <PageTitle>Home</PageTitle>
-
+@if (isLoading)
+{
+<div class="loading-overlay">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading ...</p>
+</div>
+}
 
 <main class="main-content">
     <!-- Principal Banner -->
@@ -34,7 +40,7 @@
 
     <!-- Movie Categories -->
     <section class="movie-section">
-        <h2 class="section-title">Fantasy</h2>
+        <h2 class="section-title" href="/Genre/Fantasy">Fantasy</h2>
         <div class="movie-carousel no-scrollbar">
             @if (Movies != null && Movies.Any())
             {
@@ -122,45 +128,44 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
     
-    public const int TOTAL_PAGES = 9; 
-    
-    /**
-     * This method is called when the component is initialized.
-     * It fetches the movie data from the API and sets the PosterPath and Type properties.
-     */
+    public const int TOTAL_PAGES = 9;
+
+      bool isLoading = true; // Variable para controlar el estado de carga
+
     protected override async Task OnInitializedAsync()
     {
-      var movieDeserializer = new Deserializer<Response<Movie>>();
-      var genreDeserializer = new Deserializer<Response<Genre>>();
+        var movieDeserializer = new Deserializer<Response<Movie>>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
 
-      string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+        string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
 
-      //Movies = await movieDeserializer.Fetch(movieUrl)!;
-      Genres = await genreDeserializer.Fetch(genreUrl)!;
+        try
+        {
+            // Cargar géneros
+            Genres = await genreDeserializer.Fetch(genreUrl)!;
 
-      for (int page = 1; page <= TOTAL_PAGES; page++)
-      {
-          string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
+            // Cargar películas paginadas
+            for (int page = 1; page <= TOTAL_PAGES; page++)
+            {
+                string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
 
-          var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
-          if(movies != null)
-            Movies?.AddRange(movies.Results);
-      }
+                var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
+                if (movies != null)
+                    Movies?.AddRange(movies.Results);
+            }
+        }
+        finally
+        {
+            // Independientemente de que haya éxito o error, desactiva el estado de carga
+            isLoading = false;
+        }
     }
 
-    /**
-     * This method is called when the component is initialized.
-     * It fetches the movie data from the API and sets the PosterPath and Type properties.
-     */
     List<Movie> GetMoviesByGenre(string genre)
     {
-      var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
-      
-      return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
+        var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+        return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
     }
-
-      
-
-  }
+}
 
   

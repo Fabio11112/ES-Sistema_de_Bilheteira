@@ -4,6 +4,7 @@
 @rendermode InteractiveServer
 @using Microsoft.EntityFrameworkCore
 @using SistemaDeBilheteira.Components.Cards.Cart
+@using SistemaDeBilheteira.Services
 @using SistemaDeBilheteira.Services.Database.Entities
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 @using SistemaDeBilheteira.Services.Database.Entities.ProductSystem.PhysicalMedia
@@ -14,6 +15,7 @@
 @inject IServiceManager ServiceManager
 @inject IPurchaseSystem PurchaseSystem
 @inject NavigationManager Navigation
+@inject CartService CartService
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
 
@@ -34,7 +36,7 @@
         </div>
 
         <div class="payment">
-            <PromoCode></PromoCode>
+            @* <PromoCode></PromoCode> *@
 
             <div class="card-selection">
                 <div class="title text">PAYMENT METHOD DETAILS</div>
@@ -53,8 +55,8 @@
                 }
                 else
                 {
-                    <p class="text">
-                        No cards found. Please add one in your <a class="text" href="/PaymentMethods">Payment Method</a>.
+                    <p class="text" style="color: red;">
+                        No cards found. Please add one in your <a class="text" href="/PaymentMethods">profile</a>.
                     </p>
                 }
                 
@@ -130,10 +132,12 @@
         if (item.Product.GetProductType() == "Cinema Ticket") //when it deletes the Ticket, it deletes the item 
         {                                                     //related to it
             ProductService?.Delete(item.Product);
+            CartService.UpdateCart(CartService.ItemCount - item.Quantity);
             return;
         }
         
         ItemService?.Delete(item);
+        CartService.UpdateCart(CartService.ItemCount - item.Quantity);
         
         
     }

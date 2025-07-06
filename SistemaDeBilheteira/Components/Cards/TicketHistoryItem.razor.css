@@ -1,0 +1,113 @@
+﻿.element {
+    border-radius: 20px;
+    background: #1A1A1D;
+    width: 100%;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    margin-top: 2%;
+}
+
+.movie {
+    width: 100%;
+    display: grid;
+    
+    
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+    
+    margin-left: 20px;
+}
+
+.movie-information{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/*.content{
+    margin-left: 20px;
+    display: flex;
+}*/
+
+.text{
+    color: #C4C4C4;
+}
+
+.information{
+    font-family: Montserrat, serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.number{
+    color: #FFF;
+}
+
+.quantity{
+    border-radius: 20px;
+    background: #333335;
+    text-align: center;
+}
+
+.movie-name{
+    color: #FEFCFC;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.movie-image{
+    width: 25%;
+}
+
+.price-details {
+    display: flex;
+}
+/*.price-details{
+    margin-top: 10%;
+    display: flex;
+}*/
+
+.detail{
+    margin-left: 12px;
+    margin-right: 35px;
+}
+
+
+
+.date {
+    color: #FFF;
+    font-family: Montserrat, serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 300px;
+    margin-right: 35px;
+}
+
+.ticket-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    background-color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ticket-info p {
+    margin: 0.3rem 0;
+}
+
+.text {
+    color: white;
+}

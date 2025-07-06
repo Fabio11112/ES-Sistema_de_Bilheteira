@@ -41,6 +41,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Include="Program.cs">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
       <_ContentIncludedByDefault Remove="Components\Cards\AddedCart\AddedToCartItem.razor" />
       <_ContentIncludedByDefault Remove="Components\Cards\AddedCart\ButtonsAddedCart.razor" />
     </ItemGroup>

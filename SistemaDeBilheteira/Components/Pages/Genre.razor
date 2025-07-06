@@ -33,8 +33,8 @@
         <!-- PAGINATION CONTROLS -->
         <div class="pagination-controls">
             <p>Page @CurrentPage of @TotalPages</p>
-            <button @onclick="PreviousPage" disabled="@IsFirstPage">Previous</button>
-            <button @onclick="NextPage" disabled="@IsLastPage">Next</button>
+            <button class="changePagebtn" @onclick="PreviousPage" disabled="@IsFirstPage">Previous</button>
+            <button class="changePagebtn" @onclick="NextPage" disabled="@IsLastPage">Next</button>
         </div>
 
     </section>
