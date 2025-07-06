@@ -1,12 +1,14 @@
 @rendermode InteractiveServer
 @using Microsoft.AspNetCore.Components.Authorization
+@using SistemaDeBilheteira.Services
 @using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @inherits AuthenticatedComponentBase
+@implements IDisposable
 
 @inject IServiceManager ServiceManager
-
+@inject CartService CartService
 @inject NavigationManager NavigationManager
 
 <nav class="navbar">
@@ -70,9 +72,10 @@
     {
       await base.OnInitializedAsync();
       Service = ServiceManager.GetService<ShoppingCartItem>();
-
+      
       if (User == null) return;
       GetCartElements();
+      CartService.UpdateCart(CartElements);
     }
     
     
@@ -85,6 +88,7 @@
             NavigationManager.NavigateTo("/LogIn", true);
         }
     }
+    
     private void GetCartElements()
     {
       if (Service != null)
@@ -99,5 +103,19 @@
       }
     }
     
+    protected override void OnInitialized()
+    {
+      CartService.OnChange += OnStateHasChanged;
+    }
+
+    public void Dispose()
+    {
+      CartService.OnChange -= OnStateHasChanged;
+    }
     
+    private void OnStateHasChanged()
+    {
+      CartElements = CartService.ItemCount;
+      StateHasChanged();
+    }
 }
