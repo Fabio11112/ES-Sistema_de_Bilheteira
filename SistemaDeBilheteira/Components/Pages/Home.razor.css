@@ -159,3 +159,50 @@ body {
     margin: 20px 0 10px 0;
     text-decoration-line: none  ;
 }
+
+* Opcional: estilo para cuando el NavLink está activo */
+.category-button.active {
+    background-color: gold;
+    color: black;
+}
+
+.Category-title{
+    font-size: 1.5em;
+    color: gold;
+    margin: 20px 0 10px 0;
+    text-decoration-line: none  ;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000e0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid gold;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    color: white;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
