@@ -97,7 +97,6 @@ builder.Services.AddHttpContextAccessor(); // for IHttpContextAccessor
 builder.WebHost.UseUrls("https://localhost:7193", "http://localhost:5212");
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-    serverOptions.ListenAnyIP(7193, listenOptions => listenOptions.UseHttps());
     serverOptions.ListenAnyIP(5212);
 });
 
