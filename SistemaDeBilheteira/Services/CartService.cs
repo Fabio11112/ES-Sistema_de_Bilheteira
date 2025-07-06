@@ -2,8 +2,10 @@
 using SistemaDeBilheteira.Services.AuthenticationService.IService;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 using SistemaDeBilheteira.Services.IService.ServiceManager;
 using SistemaDeBilheteira.Services.IService;
+
 
 namespace SistemaDeBilheteira.Services;
 

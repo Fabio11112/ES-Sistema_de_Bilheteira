@@ -1,4 +1,6 @@
 ﻿
+using SistemaDeBilheteira.Services.Database.Entities.User;
+
 namespace SistemaDeBilheteira.Services.Database.Entities.ShoppingCart;
 
 public class ShoppingCartItem : DbItem

@@ -12,33 +12,28 @@
         <img src="images/icons/@_profileImageFile" class="profile-picture" alt="Logo"/>
         <img @onclick="HandleLogout" src="images/icons/logout.svg" class="logout-button" alt="logout">
         <div class="welcome-message">
-            <h2 class="welcome-title greetings">Hi, @User.FirstName</h2>
+            <h2 class="welcome-title greetings">Hi, @User!.FirstName</h2>
             <h1 class="welcome-title welcome">Welcome.</h1>
         </div>
         
         <div class="options">
-            <UserProfileOption
-                ImageSource="images/icons/profile/ticket.svg"
-                Title="My Tickets"
-                Description="View your tickets"
-                href="/TicketHistory">
-            </UserProfileOption>
-
             <UserProfileOption
                 ImageSource="images/icons/profile/user.svg"
                 Title="Edit Info"
                 Description="Edit your information"
                 href="/UserInfo">
             </UserProfileOption>
-        </div>
 
-        <div class="options">
             <UserProfileOption
                 ImageSource="images/icons/profile/purchaseHistory.svg"
                 Title="Purchase History"
                 Description="Review your purchases"
                 href="/PurchaseHistory">
             </UserProfileOption>
+        </div>
+
+        <div class="options">
+
 
             <UserProfileOption
                 ImageSource="images/icons/profile/rentalHistory.svg"
@@ -46,16 +41,16 @@
                 Description="Info about rentals"
                 href="/RentalHistory">
             </UserProfileOption>
-        </div>
-        
-        <div class="options">
+
             <UserProfileOption
                 ImageSource="images/icons/profile/purchaseHistory.svg"
                 Title="Addresses"
                 Description="Add or Delete an address"
                 href="/EditAddress">
             </UserProfileOption>
-
+        </div>
+        
+        <div class="options">
             <UserProfileOption
                 ImageSource="images/icons/profile/purchaseHistory.svg"
                 Title="Payment Methods"
@@ -68,9 +63,10 @@
 
 @code {
     private readonly string _profileImageFile = "profile1.svg";
-
     
-
+    /**
+     * This method handles the logout action by navigating to the logout page.
+     */
     private void HandleLogout()
     {
         Navigation.NavigateTo("/logout");

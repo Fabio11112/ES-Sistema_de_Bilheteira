@@ -45,6 +45,10 @@
     private Movie? Movie { get; set; }
     private int Quantity { get; set; } = 2;
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         string? url = Environment.GetEnvironmentVariable("MOVIE_LINK");

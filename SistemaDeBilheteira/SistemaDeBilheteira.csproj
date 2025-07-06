@@ -30,7 +30,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Components\Cards\AddedCart\AddedToCartItem.razor" />
       <AdditionalFiles Include="Components\Cards\Cart\CartElement.razor" />
       <AdditionalFiles Include="Components\Layout\Footer.razor" />
       <AdditionalFiles Include="Components\Pages\Services\Logout.razor" />
@@ -46,6 +45,8 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </Content>
+      <_ContentIncludedByDefault Remove="Components\Cards\AddedCart\AddedToCartItem.razor" />
+      <_ContentIncludedByDefault Remove="Components\Cards\AddedCart\ButtonsAddedCart.razor" />
     </ItemGroup>
 
 </Project>

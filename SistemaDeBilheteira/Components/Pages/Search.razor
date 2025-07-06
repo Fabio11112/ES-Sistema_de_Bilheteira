@@ -76,6 +76,10 @@
         }, null, searchDelay, Timeout.Infinite);
     }
 
+    /*
+     * This method performs the search using the API and updates the movies list.
+     * It uses a deserializer to fetch the data from the API.
+     */
     private async Task PerformSearch()
     {
         var deserializer = new Deserializer<Response<Movie>>();
@@ -86,7 +90,6 @@
             Console.WriteLine("API URL is empty");
             return;
         }
-
         try
         {
             var url = $"{apiUrl}?query={Uri.EscapeDataString(searchTerm)}";

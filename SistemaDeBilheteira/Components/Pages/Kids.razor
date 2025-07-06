@@ -32,6 +32,10 @@
     List<Movie> movies = new();
     public const int kids = 16; // Kids genre ID from TMDB API
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         int totalPagesToLoad = 15; // Number of pages to load to add more movies
@@ -55,7 +59,12 @@
             }
         }
     }
-
+    
+    /**
+     * This method filters the movies by genre ID.
+     * @param genreId The genre ID to filter by.
+     * @return A list of movies that belong to the specified genre.
+     */
     List<Movie> GetMoviesByGenre(int genreId)
     {
         return movies?.Where(m => m.GenreIds.Contains(genreId)).ToList() ?? new List<Movie>();

@@ -4,6 +4,7 @@ using SistemaDeBilheteira.Services.AuthenticationService.Models;
 using SistemaDeBilheteira.Services.Database.Entities;
 using SistemaDeBilheteira.Services.Database.Repositories;
 using SistemaDeBilheteira.Services.AuthenticationService;
+using SistemaDeBilheteira.Services.Database.Entities.User;
 
 
 namespace SistemaDeBilheteira.Services.AuthenticationService;
@@ -14,6 +15,8 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
     private SignInManager<AppUser> SignInManager { get; } = signInManager;
     private IHttpContextAccessor HttpContextAccessor { get; } = httpContextAccessor;
 
+
+    //Register a new user
     public async Task<IResult> RegisterAsync(UserRegisterModel model)
     {
         IResult authResult = new Result();
@@ -34,7 +37,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
 
-
+    //Login an existing user
     public async Task<IResult> LoginAsync(UserLoginModel model)
     {
         IResult authResult = new Result();
@@ -67,7 +70,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
     }
 
 
-
+    //Logout the user
     public async Task<IResult> LogoutAsync()
     {
         var authResult = new Result();
@@ -85,6 +88,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
 
+    //Check if the user is logged in
     public async Task<AppUser?> GetAppUserAsync()
     {
         var user = HttpContextAccessor.HttpContext?.User;
@@ -96,6 +100,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return appUser;
     }
 
+    //Change the email of the user
     public async Task<IResult> ChangeEmailAsync(string newEmail)
     {
         var authResult = new Result();
@@ -128,6 +133,7 @@ public class AuthService(UserManager<AppUser> userManager, SignInManager<AppUser
         return authResult;
     }
     
+    //Change the password of the user
     public async Task<IResult> ChangePasswordAsync(string currentPassword, string newPassword)
     {
         var authResult = new Result();

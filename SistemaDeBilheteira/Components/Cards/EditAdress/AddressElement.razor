@@ -1,5 +1,6 @@
 ﻿@using SistemaDeBilheteira.Services.AuthenticationService.IService
 @using SistemaDeBilheteira.Services.Database.Entities
+@using SistemaDeBilheteira.Services.Database.Entities.User
 @using SistemaDeBilheteira.Services.IService
 @using SistemaDeBilheteira.Services.IService.ServiceManager
 @rendermode InteractiveServer
@@ -27,11 +28,18 @@
     [Parameter] public EventCallback<Address> Delete { get; set; }
     private IService<Address>? AddressService { get; set; }
 
+    /**
+     * This method is called when the component is initialized.
+     * It fetches the movie data from the API and sets the PosterPath and Type properties.
+     */
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
     }
     
+    /**
+     * This method is called when the delete button is clicked.
+     */
     private async Task HandleDelete()
     {
         await Delete.InvokeAsync(Address);
