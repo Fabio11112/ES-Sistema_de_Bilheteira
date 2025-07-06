@@ -6,6 +6,12 @@
     display: flex;
 }
 
+.center{
+    display: flex;
+    justify-content: center; /* horizontal centering */
+    align-items: center;     /* vertical centering */
+}
+
 .greetings{
     color: #FFC700;
     font-family: "Konkhmer Sleokchher", serif;
