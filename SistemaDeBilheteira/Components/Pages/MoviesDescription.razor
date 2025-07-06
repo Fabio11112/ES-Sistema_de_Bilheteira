@@ -48,14 +48,15 @@
                     </div>
                     
                     <div class="action-buttons">
-                        <div class="watch-later-button">
-                            <img src="images/icons/MovieDescription/add.svg" alt="Watch later" class="button-icon"/>
-                            <p class="button-text">Watch Later</p>
-                        </div>
-                        <div class="share-button">
-                            <img src="images/icons/MovieDescription/share.svg" alt="Share" class="button-icon"/>
-                            <p class="button-text">Share</p>
-                        </div>
+                        <div class="purchase-buttons">
+                        <a href="@($"SelectSession/{Movie.Id}")">
+                            <button class="primary-button">BUY TICKET</button>
+                        </a>
+
+                        <a href="@($"SelectType/{Movie.Id}")">
+                        <button class="secondary-button">BUY/RENT</button>
+                    </a>
+                </div> 
                     </div>
                 </div>
 
@@ -91,15 +92,7 @@
                     </div>
                 </div> 
 
-                <div class="purchase-buttons">
-                    <a href="@($"SelectSession/{Movie.Id}")">
-                        <button class="primary-button">BUY TICKET</button>
-                    </a>
-
-                    <a href="@($"SelectType/{Movie.Id}")">
-                        <button class="secondary-button">BUY/RENT</button>
-                    </a>
-                </div> 
+                
             </div>
         </section>
     }

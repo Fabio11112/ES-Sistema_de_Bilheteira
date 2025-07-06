@@ -7,7 +7,13 @@
 
 
 <PageTitle>Home</PageTitle>
-
+@if (isLoading)
+{
+<div class="loading-overlay">
+    <div class="spinner"></div>
+    <p class="loading-text">Carregando filmes...</p>
+</div>
+}
 
 <main class="main-content">
     <!-- Principal Banner -->
@@ -122,6 +128,7 @@
     List<Movie>? Movies { get; set; } = new List<Movie>();
     Response<Genre>? Genres { get; set; }
     
+
     public const int TOTAL_PAGES = 9; 
     
     /**
@@ -138,10 +145,17 @@
       //Movies = await movieDeserializer.Fetch(movieUrl)!;
       Genres = await genreDeserializer.Fetch(genreUrl)!;
 
-      for (int page = 1; page <= TOTAL_PAGES; page++)
-      {
-          string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
+    protected override async Task OnInitializedAsync()
+    {
+        var movieDeserializer = new Deserializer<Response<Movie>>();
+        var genreDeserializer = new Deserializer<Response<Genre>>();
 
+        string genreUrl = $"{Environment.GetEnvironmentVariable("GENRES_LINK")}";
+
+        try
+        {
+            // Cargar géneros
+            Genres = await genreDeserializer.Fetch(genreUrl)!;
           var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
           if(movies != null)
             Movies?.AddRange(movies.Results);
@@ -159,8 +173,28 @@
       return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
     }
 
-      
+            // Cargar películas paginadas
+            for (int page = 1; page <= TOTAL_PAGES; page++)
+            {
+                string apiLinkWithPage = $"https://api.themoviedb.org/3/movie/popular?language=en-US&page={page}";
 
-  }
+                var movies = await movieDeserializer.Fetch(apiLinkWithPage)!;
+                if (movies != null)
+                    Movies?.AddRange(movies.Results);
+            }
+        }
+        finally
+        {
+            // Independientemente de que haya éxito o error, desactiva el estado de carga
+            isLoading = false;
+        }
+    }
+
+    List<Movie> GetMoviesByGenre(string genre)
+    {
+        var result = Genres.Genres.FirstOrDefault(x => x.Name == genre);
+        return Movies?.Where(m => result != null && m.GenreIds.Contains(result.Id)).ToList() ?? new List<Movie>();
+    }
+}
 
   

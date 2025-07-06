@@ -2,13 +2,23 @@
 @using SistemaDeBilheteira.Services.API_Deserializer.Deserializable.Models
 @using SistemaDeBilheteira.Services.Database.Entities.PaymentSystem
 <div class="element">
-    <div class="flex">
+    <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
+    <div class="movie">
+        <div class="content">
+            <div class="movie-information">
+                <div class="movie-name">@Movie?.Title</div>
+            </div>
+            <div class="price-details">
+                <div class="detail">
+                    <div class="text information">Each</div>
+                    <div class="number information">@Currency@Price</div>
+   /* <div class="flex">
         <img class="movie-image" src="@PosterPath" alt="@Movie?.Title"/>
         <div class="movie">
             <div class="content">
                 <div class="movie-information">
                     <div class="movie-name">@Movie?.Title</div>
-                    <div class="text information">Type @Item!.Product.GetProductType()</div>
+                    <div class="text information">Type @Item!.Product.GetProductType()</div>*/
                 </div>
                 <div class="price-details">
                     <div class="detail">
