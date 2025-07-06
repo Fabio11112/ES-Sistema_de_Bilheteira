@@ -8,6 +8,13 @@
 @inject IJSRuntime JS
 
 <PageTitle>Movie Description</PageTitle>
+@if (isLoading)
+{
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading ...</p>
+    </div>
+}
 
 <main class="main-content">
     @if (Movie != null)
@@ -126,6 +133,7 @@
     private Response<Actor>? Actors;
     private Response<Video>? Trailers;  
     private bool showTrailerModal = false;
+    private bool isLoading = true;
 
     /**
      * This method is called after the component has rendered.
@@ -145,22 +153,22 @@
      */
     protected override async Task OnInitializedAsync()
     {
-        
+        isLoading = true;
+
         var movieDeserializer = new Deserializer<Movie>();
         var genreDeserializer = new Deserializer<Response<Genre>>();
         var actorDeserializer = new Deserializer<Response<Actor>>();
         var videoDeserializer = new Deserializer<Response<Video>>();
-        
 
         string? movieUrl = Environment.GetEnvironmentVariable("MOVIES_LINK");
         string? genresUrl = Environment.GetEnvironmentVariable("GENRES_LINK");
-        
+
         Movie = await movieDeserializer.Fetch($"{movieUrl}/{id}")!;
         Actors = await actorDeserializer.Fetch($"{movieUrl}/{id}/credits")!;
-        
         var allGenres = await genreDeserializer.Fetch(genresUrl);
-        Trailers = await videoDeserializer.Fetch($"{movieUrl}/{id}/videos")!;  
-        
+        Trailers = await videoDeserializer.Fetch($"{movieUrl}/{id}/videos")!;
+
+        isLoading = false;
     }
     
     /**

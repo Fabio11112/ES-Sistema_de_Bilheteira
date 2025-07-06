@@ -5,22 +5,21 @@
 
 @if (Movies != null && Movies.Any())
 {
-    <div class="carousel-container">Recommendations based on the genre of the movie
-        <div class="carousel-wrapper">
-            <div class="carousel-track">
-                @foreach (var movie in GetMoviesByGenre(Genre))
-                {
-                    <a href="@($"MoviesDescription/{movie.Id}")" class="carousel-item">
-                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" />
-                    </a>
-                }
-            </div>
+    <section class="movie-section">
+        <h2 class="section-title">Recommended for you</h2>
+        <div class="movie-carousel no-scrollbar">
+            @foreach (var movie in GetMoviesByGenre(Genre))
+            {
+                <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                    <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                </a>
+            }
         </div>
-    </div>
+    </section>
 }
 else
 {
-    <p>Loading images...</p>
+    <p class="loading">Loading recommendations...</p>
 }
 
 

@@ -19,6 +19,13 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Nunito">
 
+@if (isLoading)
+{
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading ...</p>
+    </div>
+}
 <div class="background">
     <div class="logo">
         <img class="cart-image" src="images/icons/cart/cart.svg" alt="cart" />
@@ -103,12 +110,16 @@
     
     private decimal Total => Items.Sum(i => (decimal)i.Product.Price * i.Quantity) + ShippingCost;
     
+    private bool isLoading = true;
+    
     /**
      * This method is called when the component is initialized. 
      * It fetches the movie data from the API and sets the PosterPath and Type properties.
      */
     protected override async Task OnInitializedAsync()
     {
+        isLoading = true;
+
         await base.OnInitializedAsync();
 
         ItemService = ServiceManager.GetService<ShoppingCartItem>();
@@ -121,6 +132,8 @@
         Addresses = GetAddresses();
         SelectedPaymentMethodId = PaymentMethods.FirstOrDefault()?.Id ?? Guid.Empty;
         SelectedAddressId = Addresses.FirstOrDefault()?.Id ?? Guid.Empty;
+
+        isLoading = false;
     }
 
     /**

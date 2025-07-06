@@ -61,3 +61,40 @@
 .carousel-button.right {
     right: 35px;
 }
+/* actualizado*/
+
+.movie-section {
+    align-items: center;
+}
+.section-title { 
+    font-size: 1.5em;
+    color: gold;
+    font-weight: bold;
+    margin: 20px 0 10px 0; 
+    text-align: center;
+}
+.movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+    width: 930px;
+    transform: translatex(20%);
+}
+.movie-carousel.no-scrollbar {
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+.movie-carousel.no-scrollbar::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+.movie-poster {
+    height: 160px;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.movie-poster:hover {
+    transform: scale(1.05);
+}
