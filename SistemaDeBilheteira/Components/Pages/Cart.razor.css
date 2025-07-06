@@ -64,7 +64,10 @@
     color:white;
 }
 
-.text{
+.margin-left {
     margin-left: 15px;
+}
+
+.text{
     color: #FEFCFC;
 }

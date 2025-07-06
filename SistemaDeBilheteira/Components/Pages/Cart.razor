@@ -39,8 +39,8 @@
             @* <PromoCode></PromoCode> *@
 
             <div class="card-selection">
-                <div class="title text">PAYMENT METHOD DETAILS</div>
-                <div class="type text">Select your payment method</div>
+                <div class="title text margin-left">PAYMENT METHOD DETAILS</div>
+                <div class="type text margin-left">Select your payment method</div>
 
                 @if (PaymentMethods?.Any() == true)
                 {
@@ -55,8 +55,8 @@
                 }
                 else
                 {
-                    <p class="text" style="color: red;">
-                        No cards found. Please add one in your <a class="text" href="/PaymentMethods">profile</a>.
+                    <p class="text margin-left" style="color: red;">
+                        No cards found. Please add one <a class="text" href="/PaymentMethods">here</a>.
                     </p>
                 }
                 
@@ -75,8 +75,8 @@
                     }
                     else
                     {
-                        <p class="text" style="margin-left: 15px;">
-                            No addresses found. Please add one in your <a class="text" href="/EditAddress">profile</a>.
+                        <p class="text margin-left" style="margin-left: 15px; color: red;">
+                            No addresses found. Please add one <a class="text" href="/EditAddress">here</a>.
                         </p>
                     }
                 }
