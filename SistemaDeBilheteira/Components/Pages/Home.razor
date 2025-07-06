@@ -120,6 +120,29 @@
         </div>
 
     </section>
+
+    <section class="movie-section">
+        <h2 class="section-title">Action</h2>
+        <div class="movie-carousel no-scrollbar">
+            @if (Movies != null && Movies.Any())
+            {
+                @foreach (var movie in GetMoviesByGenre("Action"))
+              
+                {
+                    <a href="@($"MoviesDescription/{movie.Id}")" class="poster-wrapper">
+                        <img src="@($"https://image.tmdb.org/t/p/w500{movie.PosterPath}")" alt="@movie.Title" class="movie-poster" />
+                    </a>
+                }
+
+            
+            }
+            else
+            {
+                <p class="loading">Loading Sci-fi movies...</p>
+            }
+        </div>
+
+    </section>
                 
 </main>
 
